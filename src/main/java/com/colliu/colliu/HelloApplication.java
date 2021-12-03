@@ -40,18 +40,19 @@ public class HelloApplication extends Application {
     ArrayList<String> interests = new ArrayList<>();
     String program;
 
-    email = UserInput.readLine("Enter email: ");
-    password = UserInput.readLine("Enter password: ");
-    firstName = UserInput.readLine("Enter first name: ");
-    lastName = UserInput.readLine("Enter last name: ");
-    graduationYear = UserInput.readInt("Enter graduation year: ");
+    email = "helloA@dam.gu.se";
+    password ="PassWordMyAss45!";
+    firstName = "adam";
+    lastName = "Bengtsson";
+    graduationYear = 2024;
     courses.add("DIT043");
     interests.add("Hockey");
-    program = UserInput.readLine("Enter program: ");
+    //program = UserInput.readLine("Enter program: ");
+    program = "SEM";
     try {
       System.out.println(user.createStudent(email, password, firstName, lastName, graduationYear, program));
     } catch (Exception exception) {
-      System.out.println("Something went wrong");
-}
-}
+      System.out.println(exception);
+    }
+  }
 }

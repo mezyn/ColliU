@@ -19,23 +19,22 @@ public class Student extends User {
   /** Constructor for Student class.
      *
      */
-  public Student (String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
 
-    super();
+  //public Student(){} //default constructor
+
+  public Student(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
+    super(email, password, firstName, lastName);
     this.graduationYear = graduationYear;
-    //this.courses = courses;
-    //this.interests = interests;
     this.program = program;
-    //this.isAdministrator = isAdministrator;
 
   }
 
 
-  public String getProgram() {
+  public String getProgram(String email) {
     return program;
   }
 
-  public int getGraduationYear() {
+  public int getGraduationYear(String email) {
     return this.graduationYear;
   }
 
