@@ -117,10 +117,7 @@ public abstract class User {
   }
 
   public boolean validatePassword(String password) {
-    if (password.equals(this.password)) {
-      return true;
-    }
-    return false;
+    return password.equals(this.password);
   }
 
   public void setAccountStatus(boolean bannedStatus) {
@@ -131,12 +128,20 @@ public abstract class User {
     return this.accountBanned;
   }
 
-  public void logIn() {
+  public void login() {
     logins.add(new Date());
   }
 
   // Returns all user logins as an array(normal array).
   public Date[] getLogins() {
     return logins.toArray(new Date[0]);
+  }
+
+  public void addCourse(int id) {
+    courses.add(id);
+  }
+
+  public Integer[] getCourses() {
+    return courses.toArray(new Integer[0]);
   }
 }
