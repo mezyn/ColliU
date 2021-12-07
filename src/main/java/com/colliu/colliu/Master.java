@@ -66,7 +66,7 @@ public class Master extends Application {
 
   private void showWindow(String fileName) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource((fileName.endsWith(".fxml") ? fileName : fileName + ".fxml")));
-    Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+    Scene scene = new Scene(fxmlLoader.load());
     stage.setTitle("Hello!");
     stage.setScene(scene);
     stage.show();
