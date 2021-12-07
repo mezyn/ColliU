@@ -1,18 +1,22 @@
 package user;
 
-import java.time.LocalDateTime;
+import com.colliu.colliu.Master;
+
 import java.util.ArrayList;
 
 
-/** Methods related to the users.
- *
- */
+/**
+ *********************************
+ * Methods related to the users. *
+ *********************************
+ **/
 public class UserMethods {
   ArrayList<User> activeUsers;
+  Master master;
 
-
-  public UserMethods() {
+  public UserMethods(Master masterClass) {
     activeUsers = new ArrayList<User>();
+    master = masterClass;
   }
 
   //create user and sub-types, check for existing users (email?), add / not add into arraylist
@@ -31,6 +35,12 @@ public class UserMethods {
       }
     }
     return -1;
+    /*
+    A cleaner way to do this is:
+    return activeUsers.indexOf(searchEmail);
+    this will return either the index of the arraylist or -1 if it doesn't exist
+    // William.
+     */
   }
 
   public boolean testMethod(String email, String password) {
