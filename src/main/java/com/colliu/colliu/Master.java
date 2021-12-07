@@ -17,19 +17,16 @@ public class Master extends Application {
   protected UserMethods user;
   public EventController event;
   public CourseController course;
-
+  Stage stage;
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource("hello-view.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-    stage.setTitle("Hello!");
-    stage.setScene(scene);
-    stage.show();
+    this.stage = stage;
+    showWindow("homepage.fxml");
   }
 
   public static void main(String[] args) {
     launch();
-    //new Master();
+    new Master();
   }
 
   public Master() { // HAVE TO BE PUBLIC!
@@ -65,5 +62,13 @@ public class Master extends Application {
     } catch (Exception exception) {
       System.out.println(exception);
     }
+  }
+
+  private void showWindow(String fileName) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource((fileName.endsWith(".fxml") ? fileName : fileName + ".fxml")));
+    Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+    stage.setTitle("Hello!");
+    stage.setScene(scene);
+    stage.show();
   }
 }
