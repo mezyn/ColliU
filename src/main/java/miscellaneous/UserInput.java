@@ -9,6 +9,11 @@ public class UserInput {
 
   public static Scanner input = new Scanner(System.in);
 
+
+  public static String readInput() {
+    String sentence = input.nextLine();
+    return sentence;
+  }
   /** Method for the user to input doubles.
    *
    */
