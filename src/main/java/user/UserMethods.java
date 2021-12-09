@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *********************************
  **/
 public class UserMethods {
-  ArrayList<User> activeUsers;
+  public ArrayList<User> activeUsers;
   Master master;
 
   public UserMethods(Master masterClass) {
@@ -107,6 +107,7 @@ public class UserMethods {
         return true;
       }
     }
+
     return false;
   }
 

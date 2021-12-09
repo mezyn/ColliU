@@ -17,6 +17,11 @@
          <children>
             <VBox layoutX="158.0" prefHeight="210.0" prefWidth="284.0">
                <children>
+                  <TextField fx:id="tfStudentEmail" promptText="Email">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
                   <TextField fx:id="tfFirstName" promptText="First Name">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -32,12 +37,12 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Program">
+                  <TextField fx:id="tfProgram" promptText="Program">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField promptText="Password">
+                  <PasswordField fx:id="tfPassword" promptText="Password">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
@@ -47,14 +52,20 @@
                         <Insets left="8.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField promptText="Confirm Password">
+                  <PasswordField fx:id="tfConfirmPassword" promptText="Confirm Password">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </PasswordField>
                </children>
             </VBox>
-            <Button fx:id="btnRegister" layoutX="250.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Create account" />
+            <Button fx:id="btnRegister" layoutX="250.0" layoutY="263.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="25.0" prefWidth="101.0" text="Create account" />
+            <Label fx:id="lblStudentEmail" layoutX="86.0" layoutY="14.0" />
+            <Label fx:id="lblNameError" layoutX="65.0" layoutY="31.0" />
+            <Label fx:id="lblYearError" layoutX="65.0" layoutY="48.0" />
+            <Label fx:id="lblProgramError" layoutX="65.0" layoutY="79.0" />
+            <Label fx:id="lblPasswordError" layoutX="65.0" layoutY="129.0" />
+            <Label fx:id="lblLastNameError" layoutX="37.0" layoutY="247.0" />
          </children>
       </Pane>
       <ImageView fitHeight="78.0" fitWidth="138.0" layoutX="231.0" layoutY="14.0">

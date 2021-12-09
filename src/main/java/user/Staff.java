@@ -13,8 +13,9 @@ public class Staff extends User {
   /** Constructor for the Staff class.
    *
      */
-  public Staff(String email, String password, String firstName, String lastName, String department, String title) {
-    super();
+  public Staff(String email, String password, String firstName, String lastName, String department, String title) throws Exception{
+    super(email, password, firstName, lastName);
+    //add exception
     this.department = department;
     this.title = title;
 

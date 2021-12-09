@@ -7,10 +7,7 @@ import java.util.Date;
 import course.CourseController;
 import event.EventController;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import user.UserMethods;
@@ -24,7 +21,8 @@ public class Master extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     this.stage = stage;
-    showWindow("hello-view.fxml");
+    //showWindow("hello-view.fxml");
+    showWindow("account-type-detection.fxml");
   }
 
   public static void main(String[] args) {
