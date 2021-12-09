@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+   <children>
+      <Pane layoutY="92.0" prefHeight="308.0" prefWidth="600.0">
+         <children>
+            <VBox layoutX="158.0" prefHeight="210.0" prefWidth="284.0">
+               <children>
+                  <TextField fx:id="tfFirstName" promptText="First Name">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="tfLastName" promptText="Last name">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="tfGraduationYear" promptText="Graduation Year">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Program">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField promptText="Password">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Label text="Password must contain:" textFill="#6f6f6f">
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <PasswordField promptText="Confirm Password">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </PasswordField>
+               </children>
+            </VBox>
+            <Button fx:id="btnRegister" layoutX="250.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Create account" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="78.0" fitWidth="138.0" layoutX="231.0" layoutY="14.0">
+         <image>
+            <Image url="@../../../../../../../../OneDrive/Bilder/colliu%20logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

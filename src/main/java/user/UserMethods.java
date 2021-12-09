@@ -1,6 +1,8 @@
 package user;
 
 import com.colliu.colliu.Master;
+import com.colliu.colliu.MasterController;
+
 
 import java.util.ArrayList;
 
@@ -125,8 +127,6 @@ public class UserMethods {
     }
     return null;
   }
-
-
 
 
 
