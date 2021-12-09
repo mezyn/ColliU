@@ -7,7 +7,10 @@ import java.util.Date;
 import course.CourseController;
 import event.EventController;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import user.UserMethods;
@@ -21,7 +24,7 @@ public class Master extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     this.stage = stage;
-    showWindow("homepage.fxml");
+    showWindow("hello-view.fxml");
   }
 
   public static void main(String[] args) {
@@ -67,7 +70,7 @@ public class Master extends Application {
   private void showWindow(String fileName) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource((fileName.endsWith(".fxml") ? fileName : fileName + ".fxml")));
     Scene scene = new Scene(fxmlLoader.load());
-    stage.setTitle("Hello!");
+    stage.setTitle("ColliU - " + fileName);
     stage.setScene(scene);
     stage.show();
   }
