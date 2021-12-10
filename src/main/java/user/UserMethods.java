@@ -1,6 +1,8 @@
 package user;
 
 import com.colliu.colliu.Master;
+import com.colliu.colliu.MasterController;
+
 
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  *********************************
  **/
 public class UserMethods {
-  ArrayList<User> activeUsers;
+  public ArrayList<User> activeUsers;
   Master master;
 
   public UserMethods(Master masterClass) {
@@ -105,6 +107,7 @@ public class UserMethods {
         return true;
       }
     }
+
     return false;
   }
 
@@ -125,8 +128,6 @@ public class UserMethods {
     }
     return null;
   }
-
-
 
 
 

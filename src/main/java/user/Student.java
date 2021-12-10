@@ -24,6 +24,8 @@ public class Student extends User {
 
   public Student(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     super(email, password, firstName, lastName);
+
+   //add exceptions
     this.graduationYear = graduationYear;
     this.program = program;
 
