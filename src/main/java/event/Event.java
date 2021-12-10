@@ -39,7 +39,7 @@ public class Event {
   Retrieve information
   ********************
    */
-
+//Getters and setters
   public String getTitle() {
     return this.title;
   }
@@ -67,7 +67,7 @@ public class Event {
   public Integer[] getAttending() {
     return attending.toArray(new Integer[0]); // Converts into an Integer array.
   }
-
+//Getter
   public Date getCreationDate() {
     return creationDate;
   }
@@ -78,17 +78,17 @@ public class Event {
 
   /*
   *******************
-     Modify object
+     Modify object 
   *******************
    */
-
+// Write comment here
   public void addAttendee(int id) {
     int index = attending.indexOf(id);
     if (index == -1) {
       attending.add(id);
     }
   }
-
+// Write comment here
   public void delAttendee(int id) {
     int index = attending.indexOf(id);
     if (index != -1) {
@@ -103,7 +103,7 @@ public class Event {
       seenBy.add(id);
     }
   }
-
+//Getters and setters
   public void setDate(Date newDate) {
     this.date = newDate;
   }

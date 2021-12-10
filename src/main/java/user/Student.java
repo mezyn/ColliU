@@ -31,7 +31,7 @@ public class Student extends User {
 
   }
 
-
+//Getters and setters
   public String getProgram(String email) {
     return program;
   }

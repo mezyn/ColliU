@@ -20,7 +20,7 @@ public class Staff extends User {
     this.title = title;
 
   }
-
+// Getters and setters
   public String getTitle() {
     return this.title;
   }

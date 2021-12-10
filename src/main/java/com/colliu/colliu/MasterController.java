@@ -42,7 +42,7 @@ public class MasterController {
   private Button registeraccount;
 
 
-  @FXML
+  @FXML // Write comment here
   protected void onHelloButtonClick(ActionEvent event) throws IOException {
     closeWindow(event);
     showWindow("homepage.fxml");
@@ -92,11 +92,11 @@ public class MasterController {
 
   }
 
-  @FXML
+  @FXML // Write comment here
   private void closeWindow(ActionEvent action) {
     ((Node)(action.getSource())).getScene().getWindow().hide();
   }
-
+// Write comment here
   private void showWindow(String fileName) throws IOException {
     fileName = (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource(fileName));
@@ -191,6 +191,7 @@ public class MasterController {
     }
 
      */
+     // Write comment here
     if (tfFirstName.getText().isBlank()) {
       lblNameError.setText("First name cannot be blank");
     } else if (tfFirstName.getText().matches(("(.*[0-9].*)"))) {
@@ -199,6 +200,7 @@ public class MasterController {
     } else {
       lblNameError.setText("");
     }
+    // Write comment here
     if (tfLastName.getText().isBlank()) {
       lblLastNameError.setText("Last name cannot be blank.");
     } else if (tfLastName.getText().matches(("(.*[0-9].*)"))) {
@@ -206,6 +208,7 @@ public class MasterController {
     } else {
       lblLastNameError.setText("");
     }
+    // Write comment here
     if (tfPassword.getText().isBlank()) {
       lblPasswordError.setText("Password cannot be blank.");
     } else if (tfPassword.getText().length() < 11 || tfPassword.getText().length() > 20) {
@@ -221,6 +224,7 @@ public class MasterController {
     } else {
       lblPasswordError.setText("");
     }
+    // Write comment here
     try {
       String email = tfStudentEmail.getText();
       String password = tfPassword.getText();
@@ -286,7 +290,7 @@ public class MasterController {
     } else if (tfStaffEmail.getText().contains(" ")) {
       lblStaffNameError.setText("Email cannot contain any blank spaces");
     }
-
+// Write comment here
     if (tfStaffFirstName.getText().isBlank()) {
       lblStaffNameError.setText("First name cannot be blank");
     } else if (tfStaffFirstName.getText().matches("(.*[0-9].*)")) {
@@ -301,7 +305,7 @@ public class MasterController {
     } else {
       lblStaffLastNameError.setText("");
     }
-
+// Write comment here
     if (tfStaffPassword.getText().length() < 11 || tfStaffPassword.getText().length() > 20) {
       lblStaffPasswordError.setText("Password must be between 12 and 20 characters.");
     } else if (!tfStaffPassword.getText().matches("(.*[A-Z].*)")) {
@@ -324,7 +328,7 @@ public class MasterController {
     }
 
      */
-
+// Write comment here
     try {
       String email = tfStaffEmail.getText();
       String password = tfStaffPassword.getText();
@@ -358,7 +362,7 @@ public class MasterController {
   void showAttendingEvents(ActionEvent event) {
 
   }
-
+// Write comment here
   void showEventPage(ActionEvent event) throws IOException {
     closeWindow(event);
     showWindow(eventPage);

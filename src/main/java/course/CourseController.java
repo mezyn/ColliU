@@ -21,13 +21,13 @@ public class CourseController {
     }
     return courseList.toArray(new Integer[0]);
   }
-
+// Write comment here
   public void addCourse(String name) {
     if (!courses.contains(name)) {
       courses.add(new Course(courses.size(), name));
     }
   }
-
+// Write comment here
   int findIndex(int id) {
     for(int course : getCourses()) {
       if(course == id) {
