@@ -1,11 +1,8 @@
 package com.colliu.colliu;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-
 import course.CourseController;
 import event.EventController;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,10 +23,11 @@ public class Master extends Application {
 
   public static void main(String[] args) {
     launch();
-    new Master();
+    //new Master();
   }
 
   public Master() { // HAVE TO BE PUBLIC!
+    /*
     user = new UserMethods(this);
     event = new EventController(this);
     course = new CourseController(this);
@@ -62,6 +60,7 @@ public class Master extends Application {
     } catch (Exception exception) {
       System.out.println(exception);
     }
+    */
   }
 
   private void showWindow(String fileName) throws IOException {

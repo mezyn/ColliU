@@ -14,9 +14,9 @@ import java.util.ArrayList;
  **/
 public class UserMethods {
   public ArrayList<User> activeUsers;
-  Master master;
+  MasterController master;
 
-  public UserMethods(Master masterClass) {
+  public UserMethods(MasterController masterClass) {
     activeUsers = new ArrayList<User>();
     master = masterClass;
   }
