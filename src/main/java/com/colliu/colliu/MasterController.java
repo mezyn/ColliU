@@ -48,22 +48,6 @@ public class MasterController {
     showWindow("homepage.fxml");
   }
 
-  /*
-  protected String onGUEmailClick() {
-      String guEmail = UserInput.readInput();
-      return guEmail;
-    }
-  protected void onPasswordClick() {
-    String password = UserInput.readInput();
-
-  }
-  protected void onLogInClick() {
-
-    if (UserMethods.checkExistingEmail() && UserMethods.validatePassword()) {
-
-
-    }
-  }*/
 
   @FXML
   void onLogInClick(ActionEvent event) throws IOException {

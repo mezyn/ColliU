@@ -17,11 +17,12 @@ public class EventController {
     events = new ArrayList<>();
   }
 
+
   public Boolean addEvent(String name, Date eventDate, String location, int courseId) {
     return events.add(new Event(events.size(), name, eventDate, location, courseId));
   }
 
-  /*
+  /*¢
   ***********
     GETTERS
   ***********
