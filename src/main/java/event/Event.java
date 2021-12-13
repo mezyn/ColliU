@@ -9,16 +9,20 @@ import java.util.Date;
  *  This will be handled by EventController class thus, all info is private or package-private.
  * </p>
  */
+
 public class Event {
   private final Date creationDate;
   private final int id;
+  //Related to the method of addEvent(String name, Date eventDate, String location, int courseId) in the EventController class,
+  // you might want to explain what's the system in providing id to each event;
+  // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
   private Date date;
   private String location;
   private int course;
   private boolean active;
-  private final ArrayList<Integer> attending;
-  private final ArrayList<Integer> guestTutors;
+  private final ArrayList<Integer> attending; //Does it mean participants/attendees? A comment for explanation would be nice
+  private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
   Event(int id, String title, Date date, String location, int course) {
@@ -39,7 +43,7 @@ public class Event {
   Retrieve information
   ********************
    */
-
+//Getters and setters
   public String getTitle() {
     return this.title;
   }
@@ -67,7 +71,7 @@ public class Event {
   public Integer[] getAttending() {
     return attending.toArray(new Integer[0]); // Converts into an Integer array.
   }
-
+//Getter
   public Date getCreationDate() {
     return creationDate;
   }
@@ -78,17 +82,17 @@ public class Event {
 
   /*
   *******************
-     Modify object
+     Modify object 
   *******************
    */
-
+// Write comment here
   public void addAttendee(int id) {
     int index = attending.indexOf(id);
-    if (index == -1) {
+    if (index == -1) { //If no match found
       attending.add(id);
     }
   }
-
+// Write comment here
   public void delAttendee(int id) {
     int index = attending.indexOf(id);
     if (index != -1) {
@@ -103,7 +107,7 @@ public class Event {
       seenBy.add(id);
     }
   }
-
+//Getters and setters
   public void setDate(Date newDate) {
     this.date = newDate;
   }

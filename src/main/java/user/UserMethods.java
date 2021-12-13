@@ -1,6 +1,8 @@
 package user;
 
 import com.colliu.colliu.Master;
+import com.colliu.colliu.MasterController;
+
 
 import java.util.ArrayList;
 
@@ -11,10 +13,10 @@ import java.util.ArrayList;
  *********************************
  **/
 public class UserMethods {
-  ArrayList<User> activeUsers;
-  Master master;
+  public ArrayList<User> activeUsers;
+  MasterController master;
 
-  public UserMethods(Master masterClass) {
+  public UserMethods(MasterController masterClass) {
     activeUsers = new ArrayList<User>();
     master = masterClass;
   }
@@ -25,6 +27,7 @@ public class UserMethods {
   // check when user latest logged in(dunno how)? william wrote about it
   //get a user by email?
   //Using user input + calling constructors from the different user-classes?
+  // Write comment here
   public int findUser(String searchEmail) {
     if (activeUsers.size() == 0) {
       return -1;
@@ -52,7 +55,7 @@ public class UserMethods {
     }
     return true; // change this
   }
-
+// Write comment here
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
@@ -60,7 +63,7 @@ public class UserMethods {
     activeUsers.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-
+// Write comment here
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
@@ -68,7 +71,7 @@ public class UserMethods {
     activeUsers.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-
+// Write comment here
   public String createStaff(String email, String password, String firstName, String lastName, String department, String title) throws Exception {
 
     if (checkExistingEmail(email)) {
@@ -87,7 +90,7 @@ public class UserMethods {
    */
 
 
-
+// Write comment here
   public boolean checkExistingEmail(String email) {
 
     for (User user : activeUsers) {
@@ -97,7 +100,7 @@ public class UserMethods {
     }
     return false;
   }
-
+// Write comment here
   public boolean validatePassword(String password) {
 
     for (User user : activeUsers) {
@@ -105,9 +108,10 @@ public class UserMethods {
         return true;
       }
     }
+
     return false;
   }
-
+// Write comment here
   public int getIndex(int id, ArrayList<Integer> list) {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) == id) {
@@ -116,7 +120,7 @@ public class UserMethods {
     }
     return -1;
   }
-
+// Write comment here
   public User getUserByEmail(String email) {
     for (User user: activeUsers) {
       if (user.getEmail().equals(email)) {
@@ -125,8 +129,6 @@ public class UserMethods {
     }
     return null;
   }
-
-
 
 
 
