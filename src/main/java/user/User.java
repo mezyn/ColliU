@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Parameters for the User class.
  */
-public abstract class User {
+public class User {
 
   private String email;
   private String password;

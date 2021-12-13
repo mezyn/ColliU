@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import user.Student;
+import user.User;
 import user.UserMethods;
 
 /**
@@ -41,6 +43,9 @@ public class MasterController {
   @FXML
   private Button registeraccount;
 
+  @FXML
+  private Label warningLabel;
+
 
   @FXML // Write comment here
   protected void onHelloButtonClick(ActionEvent event) throws IOException {
@@ -48,11 +53,24 @@ public class MasterController {
     showWindow("homepage.fxml");
   }
 
-
+/* Upon login button click, the system checks if the input email is already registered in the system as well as
+if the input password matches the email address. If both are correct, the user succeeds to log in and will be sent
+to the event page(homepage). Otherwise, the warning label shows which action the user shall take to successfully login. */
   @FXML
   void onLogInClick(ActionEvent event) throws IOException {
-    //anything we code here for login should work
-    showEventPage(event);
+
+    if (userMethods.checkExistingEmail(guEmail.getText())) {
+      int foundUserIndex = userMethods.findUser(guEmail.getText());
+      User user = userMethods.activeUsers.get(foundUserIndex);
+      if(userMethods.validatePassword(password.getText())) {
+        closeWindow(event);
+        showWindow("EventPage.fxml");
+      } else {
+        warningLabel.setText("Wrong password.");
+      }
+    } else {
+      warningLabel.setText("Not existing email address.");
+    }
   }
 
 
@@ -61,20 +79,19 @@ public class MasterController {
 
   }
 
+  /* Upon clicking 'register account' button, the system checks if the user account is a type of student or staff,
+  then send the user to the corresponding registration page.
+   */
   @FXML
-  void onGUEmail(ActionEvent event) {
-
+  void onRegisterAccount(ActionEvent event) throws IOException{
+    closeWindow(event);
+    if (guEmail.getText().endsWith("@student.gu.se")) {
+      showWindow("student-registration.fxml");
+    } else {
+      showWindow("staff-registration.fxml");
+    }
   }
 
-  @FXML
-  void onPassword(ActionEvent event) {
-
-  }
-
-  @FXML
-  void onRegisterAccount(ActionEvent event) {
-
-  }
 
   @FXML // Write comment here
   private void closeWindow(ActionEvent action) {
