@@ -23,67 +23,67 @@ public class MasterController {
 
   UserMethods userMethods = new UserMethods(this);
   final String eventPage = "EventPage.fxml";
-  final String registerPage = "student-registration";
+  final String registerPage = "account-type-detection.fxml";
+
+  //attributes and methods related to "LoginPage.fxml"
 
   @FXML
   private Label welcomeText;
 
   @FXML
-  private Button forgotpassword;
-
-  @FXML
   private TextField guEmail;
 
   @FXML
-  private Button login;
-
-  @FXML
-  private TextField password;
-
-  @FXML
-  private Button registeraccount;
+  private PasswordField password;
 
   @FXML
   private Label warningLabel;
 
 
+
   @FXML // Write comment here
   protected void onHelloButtonClick(ActionEvent event) throws IOException {
     closeWindow(event);
-    showWindow("homepage.fxml");
+    showWindow("LoginPage.fxml");
   }
 
 /* Upon login button click, the system checks if the input email is already registered in the system as well as
 if the input password matches the email address. If both are correct, the user succeeds to log in and will be sent
 to the event page(homepage). Otherwise, the warning label shows which action the user shall take to successfully login. */
   @FXML
-  void onLogInClick(ActionEvent event) throws IOException {
+  void onLogInClick(ActionEvent event) throws Exception {
 
-    if (userMethods.checkExistingEmail(guEmail.getText())) {
-      int foundUserIndex = userMethods.findUser(guEmail.getText());
-      User user = userMethods.activeUsers.get(foundUserIndex);
-      if(userMethods.validatePassword(password.getText())) {
-        closeWindow(event);
-        showWindow("EventPage.fxml");
-      } else {
-        warningLabel.setText("Wrong password.");
-      }
+    if (guEmail.getText().isBlank()) {
+      warningLabel.setText("Email address cannot be empty.");
+    } else if (password.getText().isBlank()) {
+      warningLabel.setText("Password cannot be empty.");
     } else {
-      warningLabel.setText("Not existing email address.");
+      if (userMethods.checkExistingEmail(guEmail.getText())) {
+        int foundUserIndex = userMethods.findUser(guEmail.getText());
+        User user = userMethods.activeUsers.get(foundUserIndex);
+        if (userMethods.validatePassword(password.getText())) {
+          closeWindow(event);
+          showWindow("EventPage.fxml");
+        } else {
+          warningLabel.setText("Wrong password.");
+        }
+      } else {
+        warningLabel.setText("Not existing email address.");
+      }
     }
   }
 
-
   @FXML
-  void onForgotPassword(ActionEvent event) {
-
+  void onForgotPasswordClick(ActionEvent event) throws IOException {
+    closeWindow(event);
+    showWindow("forgot-password.fxml");
   }
 
   /* Upon clicking 'register account' button, the system checks if the user account is a type of student or staff,
   then send the user to the corresponding registration page.
    */
   @FXML
-  void onRegisterAccount(ActionEvent event) throws IOException{
+  void onRegisterAccountClick(ActionEvent event) throws IOException {
     closeWindow(event);
     if (guEmail.getText().endsWith("@student.gu.se")) {
       showWindow("student-registration.fxml");
@@ -92,6 +92,40 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     }
   }
 
+  //attributes and methods related to "forgot-password.fxml"
+
+  @FXML
+  private TextField fp_email;
+
+  @FXML
+  private Label fp_warningLabel;
+
+
+  @FXML
+  void onContinueClick(ActionEvent event) throws IOException{
+    if (fp_email.getText().isBlank()) {
+      fp_warningLabel.setText("Email address cannot be empty.");
+    } else if (!fp_email.getText().endsWith("gu.se")) {
+      fp_warningLabel.setText("Email address must be associated with GU.");
+    } else {
+      closeWindow(event);
+      showWindow("new-password-sent.fxml");
+    }
+  }
+
+  @FXML
+  void onSignUpClick(ActionEvent event) throws IOException{
+    closeWindow(event);
+    showWindow("account-type-detection.fxml");
+  }
+
+  //attributes and methods related to "new-password-sent.fxml"
+
+  @FXML
+  void backToLoginPageClick(ActionEvent event) throws IOException{
+    closeWindow(event);
+    showWindow("LoginPage.fxml");
+  }
 
   @FXML // Write comment here
   private void closeWindow(ActionEvent action) {
