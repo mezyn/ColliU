@@ -39,7 +39,7 @@
       </Pane>
       <ImageView fitHeight="107.0" fitWidth="200.0" layoutX="200.0" layoutY="42.0">
          <image>
-            <Image url="@ColliU_logo.png" />
+            <Image url="@../images/ColliU_logo.png" />
          </image>
       </ImageView>
    </children>

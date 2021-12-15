@@ -1,6 +1,8 @@
 package com.colliu.colliu;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import user.UserMethods;
+import miscellaneous.Data;
+import user.*;
 
 /**
  * * * * * * * * * * * *
@@ -20,6 +23,7 @@ import user.UserMethods;
 public class MasterController {
 
   UserMethods userMethods = new UserMethods(this);
+  final Data json = new Data();
   final String eventPage = "EventPage.fxml";
   final String registerPage = "student-registration";
 
@@ -81,8 +85,9 @@ public class MasterController {
     ((Node)(action.getSource())).getScene().getWindow().hide();
   }
 // Write comment here
+
   private void showWindow(String fileName) throws IOException {
-    fileName = (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
+    fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource(fileName));
     Scene scene = new Scene(fxmlLoader.load());
     Stage stage = new Stage();
@@ -343,8 +348,16 @@ public class MasterController {
 
 
   @FXML
-  void showAttendingEvents(ActionEvent event) {
-
+  void showAttendingEvents(ActionEvent event) throws Exception {
+    ArrayList<User> test = new ArrayList<>();
+    //test.add(new Student("test@email.gu.se", "asdasdas1238!A", "Hey", "Ho", 1980, "SEM"));
+    test.add(new Student("Student@.gu.se", "assdadaSAD2138!", "Stud", "ent", 1980, "SEM"));
+    test.add(new Staff("Staff@.gu.se", "13asdkASD98213!", "Teach", "er", "IT", "Prof."));
+    test.add(new Administrator("Admin@.gu.se", "NotPassWord123!", "Admin", "Istrator", 1920, "SEM"));
+    json.saveUsers(test);
+    for (int i = 0; i < json.loadUser().size(); i++) {
+      System.out.println(json.loadUser().get(i).getFirstName());
+    }
   }
 // Write comment here
   void showEventPage(ActionEvent event) throws IOException {
