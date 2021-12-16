@@ -33,6 +33,7 @@ public abstract class User {
    */
 
   public User(String email, String password, String firstName, String lastName) throws Exception {
+   /*
     if (email == null || email.isBlank()) {
       throw new Exception("Email cannot be blank.");
     }
@@ -76,6 +77,8 @@ public abstract class User {
     if (lastName.matches("(.*[0-9].*)")) {
       throw new Exception("Last name cannot contain any numbers.");
     }
+
+    */
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;

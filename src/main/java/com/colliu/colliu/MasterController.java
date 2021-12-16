@@ -161,10 +161,13 @@ public class MasterController {
   void registerStudent(ActionEvent event) throws Exception {
     if (tfStudentEmail.getText().isBlank()) {
       lblStudentEmail.setText("Email cannot be blank");
+      throw new Exception("Email cannot be blank");
     } else if (!tfStudentEmail.getText().endsWith("student.gu.se")) {
       lblStudentEmail.setText("Email must end with: 'student.gu.se'");
+      throw new Exception("The email must be a GU student email-address.");
     } else if (tfStudentEmail.getText().contains(" ")) {
       lblStudentEmail.setText("Email cannot contain any blank spaces");
+      throw new Exception("Email cannot contain any blank spaces");
     } else {
       lblStudentEmail.setText("");
     }
@@ -178,37 +181,50 @@ public class MasterController {
      // Write comment here
     if (tfFirstName.getText().isBlank()) {
       lblNameError.setText("First name cannot be blank");
+      throw new Exception("First name cannot be blank");
     } else if (tfFirstName.getText().matches(("(.*[0-9].*)"))) {
-      lblNameError.setText("First name cannot contain any numbers.");
-      System.out.println("error");
+      lblNameError.setText("First name cannot contain any numbers");
+      throw new Exception("First name cannot contain any numbers");
     } else {
       lblNameError.setText("");
     }
     // Write comment here
     if (tfLastName.getText().isBlank()) {
       lblLastNameError.setText("Last name cannot be blank.");
+      throw new Exception("Last name cannot be blank");
     } else if (tfLastName.getText().matches(("(.*[0-9].*)"))) {
-      lblLastNameError.setText("Last name cannot contain any numbers.");
+      lblLastNameError.setText("Last name cannot " +  System.lineSeparator() + " contain any numbers");
+      throw new Exception("Last name cannot contain any numbers");
     } else {
       lblLastNameError.setText("");
     }
     // Write comment here
     if (tfPassword.getText().isBlank()) {
-      lblPasswordError.setText("Password cannot be blank.");
+      lblPasswordError.setText("Password cannot be blank");
+      throw new Exception("Password cannot be blank");
     } else if (tfPassword.getText().length() < 11 || tfPassword.getText().length() > 20) {
-      lblPasswordError.setText("Password must be between 12 and 20 characters.");
+      lblPasswordError.setText("Password must be between 12 and 20 characters");
+      throw new Exception("Password must be between 12 and 20 characters");
     } else if (!tfPassword.getText().matches("(.*[A-Z].*)")) {
-      lblPasswordError.setText("Password must contain at least one uppercase letter.");
+      lblPasswordError.setText("Password must contain at least one uppercase letter");
+      throw new Exception("Password must contain at least one uppercase letter");
     } else if (!tfPassword.getText().matches("(.*[a-z].*)")) {
-      lblPasswordError.setText("Password must contain at least one lowercase character.");
+      lblPasswordError.setText("Password must contain at least one lowercase character");
+      throw new Exception("Password must contain at least one lowercase character");
     } else if (!tfPassword.getText().matches("(.*[0-9].*)")) {
-      lblPasswordError.setText("Password must contain at least one number.");
+      lblPasswordError.setText("Password must contain at least one number");
+      throw new Exception("Password must contain at least one number");
     } else if (tfPassword.getText().contains(" ")) {
-      lblPasswordError.setText("Passwords cannot contain blank spaces.");
-    } else {
+      lblPasswordError.setText("Passwords cannot contain blank spaces");
+      throw new Exception("Passwords cannot contain blank spaces");
+    }
+    if (!tfPassword.getText().equals(tfConfirmPassword.getText())){
+      lblPasswordError.setText("Passwords does not match");
+      throw new Exception("Passwords does not match");
+    }
+    else {
       lblPasswordError.setText("");
     }
-    // Write comment here
     try {
       String email = tfStudentEmail.getText();
       String password = tfPassword.getText();
@@ -266,41 +282,63 @@ public class MasterController {
 
   @FXML
   // Tells user what input is wrong if it is, otherwise it creates a staff user
-  void registerStaff(ActionEvent event) {
+  void registerStaff(ActionEvent event) throws Exception {
+    // Checks if the Email that the user entered is adequate
     if (tfStaffEmail.getText().isBlank()) {
       lblStaffEmailError.setText("Email cannot be blank");
+      throw new Exception("Email cannot be blank");
     } else if (!tfStaffEmail.getText().endsWith("gu.se")) {
       lblStaffEmailError.setText("Email must end with 'gu.se'");
-    } else if (tfStaffEmail.getText().contains(" ")) {
+      throw new Exception("Email must end with 'gu.se'");
+    } else if (tfStaffEmail.getText().contains("student")){
+      lblStaffEmailError.setText("Students can't register as staff");
+      throw new Exception("Students can't register as staff");
+    }
+    else if (tfStaffEmail.getText().contains(" ")) {
       lblStaffNameError.setText("Email cannot contain any blank spaces");
+      throw new Exception("Email cannot contain any blank spaces");
     }
 // Write comment here
     if (tfStaffFirstName.getText().isBlank()) {
       lblStaffNameError.setText("First name cannot be blank");
+      throw new Exception("First name cannot be blank");
     } else if (tfStaffFirstName.getText().matches("(.*[0-9].*)")) {
       lblStaffNameError.setText("First name cannot contain any numbers");
+      throw new Exception("First name cannot contain any numbers");
     } else {
       lblStaffNameError.setText("");
     }
     if (tfStaffLastName.getText().isBlank()) {
       lblStaffLastNameError.setText("Last name cannot be blank");
+      throw new Exception("Last name cannot be blank");
     } else if (tfStaffLastName.getText().matches("(.*[0-9].*)")) {
       lblStaffLastNameError.setText("Last name cannot contain any numbers");
+      throw new Exception("Last name cannot contain any numbers");
     } else {
       lblStaffLastNameError.setText("");
     }
 // Write comment here
     if (tfStaffPassword.getText().length() < 11 || tfStaffPassword.getText().length() > 20) {
-      lblStaffPasswordError.setText("Password must be between 12 and 20 characters.");
+      lblStaffPasswordError.setText("Password must be between 12 and 20 characters");
+      throw new Exception("Password must be between 12 and 20 characters");
     } else if (!tfStaffPassword.getText().matches("(.*[A-Z].*)")) {
       lblStaffPasswordError.setText("Password must contain at least one uppercase letter");
+      throw new Exception("Password must contain at least one uppercase letter");
     } else if (!tfStaffPassword.getText().matches("(.*[a-z].*)")) {
       lblStaffPasswordError.setText("Password must contain at least one lowercase letter");
+      throw new Exception("Password must contain at least one lowercase letter");
     } else if (!tfStaffPassword.getText().matches("(.*[0-9].*)")) {
-      lblStaffPasswordError.setText("Password must contain at least one number.");
+      lblStaffPasswordError.setText("Password must contain at least one number");
+      throw new Exception("Password must contain at least one number");
     } else if (tfStaffPassword.getText().contains(" ")) {
       lblStaffPasswordError.setText("Password cannot contain any blank spaces");
-    } else {
+      throw new Exception("Password cannot contain any blank spaces");
+    }
+    if (!tfStaffPassword.getText().equals(tfStaffConfirmPassword.getText())){
+      lblStaffPasswordError.setText("Passwords does not match");
+      throw new Exception("Passwords does not match");
+    }
+    else {
       lblStaffPasswordError.setText("");
     }
 
@@ -321,9 +359,14 @@ public class MasterController {
       String department = tfStaffDepartment.getText();
       String staffTitle = tfStaffTitle.getText();
       userMethods.createStaff(email, password, name, surname, department, staffTitle);
+      showEventPage(event);
     } catch (Exception exception) {
-      // Do something here.
     }
+  }
+  @FXML
+  void showLogin(ActionEvent event) throws Exception{
+    closeWindow(event);
+    showWindow("homepage.fxml");
   }
 
   @FXML

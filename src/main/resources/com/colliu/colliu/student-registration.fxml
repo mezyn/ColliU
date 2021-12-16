@@ -11,11 +11,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
    <children>
-      <Pane layoutY="92.0" prefHeight="308.0" prefWidth="600.0">
+      <Pane layoutY="202.0" prefHeight="565.0" prefWidth="1030.0">
          <children>
-            <VBox layoutX="158.0" prefHeight="210.0" prefWidth="284.0">
+            <Button fx:id="btnRegister" layoutX="461.0" layoutY="367.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="25.0" prefWidth="101.0" text="Create account" />
+            <VBox layoutX="242.0" layoutY="45.0" prefHeight="322.0" prefWidth="538.0">
                <children>
                   <TextField fx:id="tfStudentEmail" promptText="Email">
                      <VBox.margin>
@@ -59,18 +60,84 @@
                   </PasswordField>
                </children>
             </VBox>
-            <Button fx:id="btnRegister" layoutX="250.0" layoutY="263.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="25.0" prefWidth="101.0" text="Create account" />
-            <Label fx:id="lblStudentEmail" layoutX="86.0" layoutY="14.0" />
-            <Label fx:id="lblNameError" layoutX="65.0" layoutY="31.0" />
-            <Label fx:id="lblYearError" layoutX="65.0" layoutY="48.0" />
-            <Label fx:id="lblProgramError" layoutX="65.0" layoutY="79.0" />
-            <Label fx:id="lblPasswordError" layoutX="65.0" layoutY="129.0" />
-            <Label fx:id="lblLastNameError" layoutX="37.0" layoutY="247.0" />
+            <VBox layoutX="108.0" layoutY="45.0" prefHeight="322.0" prefWidth="134.0">
+               <children>
+                  <Label alignment="TOP_CENTER" text="Enter email:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Enter first name:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Enter last name:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Enter graduation year:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Enter program: ">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Enter password:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Confirm password:">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="34.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="788.0" layoutY="45.0" prefHeight="322.0" prefWidth="232.0">
+               <children>
+                  <Label fx:id="lblStudentEmail">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblNameError">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblLastNameError">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblYearError">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblProgramError">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblPasswordError">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </Pane>
-      <ImageView fitHeight="78.0" fitWidth="138.0" layoutX="231.0" layoutY="14.0">
+      <ImageView fitHeight="141.0" fitWidth="245.0" layoutX="393.0" layoutY="54.0">
          <image>
-            <Image url="@../../../../../../../../OneDrive/Bilder/colliu%20logo.png" />
+            <Image url="@ColliU_logo.png" />
          </image>
       </ImageView>
    </children>
