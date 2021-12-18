@@ -25,7 +25,7 @@ public class Event {
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
-  Event(int id, String title, Date date, String location, int course) {
+  public Event(int id, String title, Date date, String location, int course) {
     this.id = id;
     this.title = title;
     this.date = date;
