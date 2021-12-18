@@ -101,6 +101,8 @@ public class UserMethods {
     return false;
   }
 // Write comment here
+//I'm not sure if the validatePassword method is logically correct.
+//So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
   public boolean validatePassword(String password) {
 
     for (User user : activeUsers) {
