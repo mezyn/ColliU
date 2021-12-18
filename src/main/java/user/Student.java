@@ -14,8 +14,6 @@ public class Student extends User {
   //private ArrayList<String> interests;
   private String program;
   //private boolean isAdministrator;
-
-
   /** Constructor for Student class.
      *
      */
@@ -23,12 +21,17 @@ public class Student extends User {
   //public Student(){} //default constructor
 
   public Student(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    super(email, password, firstName, lastName);
-
+    super(email, password, firstName, lastName, 1);
    //add exceptions
     this.graduationYear = graduationYear;
     this.program = program;
+  }
 
+  public Student(String email, String password, String firstName, String lastName, int graduationYear, String program, int type) throws Exception {
+    super(email, password, firstName, lastName, type);
+    //add exceptions
+    this.graduationYear = graduationYear;
+    this.program = program;
   }
 
 //Getters and setters

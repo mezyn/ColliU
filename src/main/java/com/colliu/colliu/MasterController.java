@@ -1,6 +1,8 @@
 package com.colliu.colliu;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import user.UserMethods;
+import miscellaneous.Data;
+import user.*;
 
 /**
  * * * * * * * * * * * *
@@ -20,6 +23,7 @@ import user.UserMethods;
 public class MasterController {
 
   UserMethods userMethods = new UserMethods(this);
+  final Data json = new Data();
   final String eventPage = "EventPage.fxml";
   final String registerPage = "student-registration";
 
@@ -81,8 +85,9 @@ public class MasterController {
     ((Node)(action.getSource())).getScene().getWindow().hide();
   }
 // Write comment here
+
   private void showWindow(String fileName) throws IOException {
-    fileName = (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
+    fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource(fileName));
     Scene scene = new Scene(fxmlLoader.load());
     Stage stage = new Stage();
@@ -386,9 +391,8 @@ public class MasterController {
 
 
   @FXML
-  void showAttendingEvents(ActionEvent event) {
-
-  }
+  void showAttendingEvents(ActionEvent event) throws Exception {
+    }
 // Write comment here
   void showEventPage(ActionEvent event) throws IOException {
     closeWindow(event);

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,13 +14,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
    <children>
-      <Pane fx:id="filterPane" layoutX="38.0" layoutY="228.0" prefHeight="392.0" prefWidth="156.0" style="-fx-background-color: #AAA;">
+      <Pane fx:id="filterPane" layoutX="38.0" layoutY="160.0" prefHeight="392.0" prefWidth="156.0" style="-fx-background-color: #AAA;">
          <children>
             <Label layoutY="6.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
             <ListView fx:id="filterList" layoutY="32.0" prefHeight="361.0" prefWidth="156.0" />
          </children>
       </Pane>
-      <Pane layoutX="818.0" layoutY="228.0" prefHeight="392.0" prefWidth="156.0" style="-fx-background-color: #AAA;">
+      <Pane layoutX="818.0" layoutY="160.0" prefHeight="493.0" prefWidth="156.0" style="-fx-background-color: #AAA;">
          <children>
             <Label layoutX="23.0" layoutY="6.0" text="Announcements" />
          </children>
@@ -36,7 +37,7 @@
                            <children>
                               <ImageView fitHeight="80.0" fitWidth="536.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@banner.gif" />
+                                    <Image url="@../images/banner.gif" />
                                  </image>
                               </ImageView>
                               <Label layoutX="203.0" layoutY="80.0" text="Event Title">
@@ -87,9 +88,10 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ImageView fitHeight="118.0" fitWidth="192.0" layoutX="397.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="118.0" fitWidth="192.0" layoutX="397.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@ColliU_logo.png" />
+            <Image url="@../images/ColliU_logo.png" />
          </image></ImageView>
+      <Separator layoutY="152.0" prefWidth="1024.0" />
    </children>
 </AnchorPane>

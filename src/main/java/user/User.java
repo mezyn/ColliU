@@ -7,8 +7,9 @@ import java.util.Date;
 /**
  * Parameters for the User class.
  */
-public abstract class User {
+public class User {
 
+  private int type;
   private String email;
   private String password;
   private String firstName;
@@ -32,8 +33,7 @@ public abstract class User {
    * special chars
    */
 
-  public User(String email, String password, String firstName, String lastName) throws Exception {
-   /*
+  public User(String email, String password, String firstName, String lastName, int type) throws Exception {
     if (email == null || email.isBlank()) {
       throw new Exception("Email cannot be blank.");
     }
@@ -77,14 +77,13 @@ public abstract class User {
     if (lastName.matches("(.*[0-9].*)")) {
       throw new Exception("Last name cannot contain any numbers.");
     }
-
-    */
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;
     this.email = email;
     this.logins = new ArrayList<>();     //Not sure how this works
     this.accountBanned = false;
+    this.type = type;
   }
 
   public String getFirstName() {
