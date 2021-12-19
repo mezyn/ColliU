@@ -9,11 +9,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
    <children>
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane fx:id="filterPane" layoutY="228.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="230.0" style="-fx-background-color: #EEE;">
          <children>
             <Label fx:id="filterCategory" layoutY="6.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
@@ -28,19 +29,10 @@
       <Button fx:id="btnAttending" layoutX="125.0" layoutY="165.0" mnemonicParsing="false" onAction="#showAttendingEvents" text="Attending" />
       <AnchorPane layoutX="211.0" prefHeight="758.0" prefWidth="574.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
-            <ScrollPane layoutY="199.0" prefHeight="559.0" prefWidth="574.0" vbarPolicy="NEVER">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="569.0">
-                     <children>
-                        <Pane fx:id="eventList" layoutX="6.0" prefHeight="545.0" prefWidth="558.0" style="-fx-background-color: rgb(245,245,251);">
-                           <children>
-                              <StackPane layoutX="10.0" layoutY="14.0" prefHeight="293.0" prefWidth="538.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: border-radius; -fx-background-color: rgb(165,200,228);" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
+            <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="199.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="eventItems" minHeight="559.0" prefWidth="100.0" />
+               </content></ScrollPane>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="417.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -87,11 +79,6 @@
                </font>
             </Label>
             <Button alignment="CENTER" layoutX="173.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #FFF;" text="▼" />
-         </children>
-      </Pane>
-      <Pane fx:id="titleBar" layoutY="-1.0" onMouseDragged="#setOnMouseDragged" onMousePressed="#setOnMousePressed" prefHeight="34.0" prefWidth="1024.0">
-         <children>
-            <Button fx:id="closWindow" layoutX="988.0" layoutY="5.0" mnemonicParsing="false" onAction="#closeProgram" style="-fx-background-color: transparent;" text="x" />
          </children>
       </Pane>
    </children>

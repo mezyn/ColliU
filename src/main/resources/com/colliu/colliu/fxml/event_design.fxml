@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="282.0" prefWidth="538.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: border-radius; -fx-background-color: rgb(165,200,228);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<StackPane prefHeight="293.0" prefWidth="538.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: border-radius; -fx-background-color: rgb(165,200,228);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventItem">
    <children>
       <Pane fx:id="eventBackground" prefHeight="268.0" prefWidth="528.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../images/banner.gif" />
                </image>
             </ImageView>
-            <Label fx:id="lblTitle" alignment="CENTER" layoutX="218.0" layoutY="81.0" text="Event Title" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="lblTitle" alignment="CENTER" layoutX="14.0" layoutY="81.0" text="Event Title" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
@@ -52,17 +52,17 @@
                   <TextArea fx:id="txtDescription" layoutX="14.0" layoutY="3.0" prefHeight="80.0" prefWidth="505.0" style="-fx-background-color: #FFF;" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" wrapText="true" />
                   <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="423.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/heart_eyes.png" />
+                        <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="388.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/happy.png" />
+                        <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="353.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/glasses_teeth.png" />
+                        <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="325.0" layoutY="96.0" text="16" textFill="WHITE">

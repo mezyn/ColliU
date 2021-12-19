@@ -1,6 +1,5 @@
 package user;
 
-import com.colliu.colliu.Master;
 import com.colliu.colliu.MasterController;
 
 
@@ -16,9 +15,9 @@ public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
 
-  public UserMethods(MasterController masterClass) {
+  public UserMethods() {
     activeUsers = new ArrayList<User>();
-    master = masterClass;
+
   }
 
   //create user and sub-types, check for existing users (email?), add / not add into arraylist

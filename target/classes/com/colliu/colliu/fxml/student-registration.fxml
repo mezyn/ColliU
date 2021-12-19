@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StudentController">
    <children>
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Pane layoutY="202.0" prefHeight="565.0" prefWidth="1030.0">
          <children>
             <Button fx:id="btnRegister" layoutX="461.0" layoutY="367.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="25.0" prefWidth="101.0" text="Create account" />
@@ -137,7 +138,7 @@
       </Pane>
       <ImageView fitHeight="141.0" fitWidth="245.0" layoutX="393.0" layoutY="54.0">
          <image>
-            <Image url="@ColliU_logo.png" />
+            <Image url="@../images/ColliU_logo.png" />
          </image>
       </ImageView>
    </children>

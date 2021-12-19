@@ -12,8 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StaffController">
    <children>
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Pane layoutY="274.0" prefHeight="494.0" prefWidth="1311.0">
          <children>
             <VBox layoutX="447.0" layoutY="39.0" prefHeight="326.0" prefWidth="417.0">
@@ -119,7 +120,7 @@
       </Pane>
       <ImageView fitHeight="166.0" fitWidth="294.0" layoutX="509.0" layoutY="57.0">
          <image>
-            <Image url="@ColliU_logo.png" />
+            <Image url="@../images/ColliU_logo.png" />
          </image>
       </ImageView>
    </children>

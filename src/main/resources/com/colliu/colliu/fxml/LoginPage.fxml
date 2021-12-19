@@ -12,20 +12,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.MasterController">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.LoginController" >
    <children>
-      <Pane layoutX="129.0" layoutY="136.0" prefHeight="250.0" prefWidth="343.0">
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Pane layoutX="14.0" layoutY="115.0" prefHeight="211.0" prefWidth="343.0">
          <children>
             <Button fx:id="login" layoutX="238.0" layoutY="39.0" mnemonicParsing="false" onAction="#onLogInClick" prefHeight="61.0" prefWidth="63.0" text="Log In">
                <font>
                   <Font size="11.0" />
                </font></Button>
-            <Button fx:id="forgotpassword" layoutX="38.0" layoutY="136.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" prefHeight="21.0" prefWidth="113.0" text="Forgot Password?">
+            <Button fx:id="forgotpassword" layoutX="118.0" layoutY="138.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" prefHeight="24.0" prefWidth="104.0" text="Forgot Password?">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button fx:id="registeraccount" layoutX="182.0" layoutY="136.0" mnemonicParsing="false" onAction="#onRegisterAccountClick" prefHeight="21.0" prefWidth="113.0" text="Register Account">
+            <Button fx:id="btnNewStudent" layoutX="67.0" layoutY="173.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="24.0" prefWidth="80.0" text="New Student">
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets>
@@ -52,9 +53,17 @@
                   <Font size="11.0" />
                </font>
             </PasswordField>
+            <Button fx:id="btnNewTeacher" layoutX="178.0" layoutY="173.0" mnemonicParsing="false" onAction="#registerStaff" prefHeight="24.0" prefWidth="80.0" text="New Teacher">
+               <opaqueInsets>
+                  <Insets top="5.0" />
+               </opaqueInsets>
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="107.0" fitWidth="200.0" layoutX="200.0" layoutY="42.0">
+      <ImageView fitHeight="107.0" fitWidth="200.0" layoutX="85.0" layoutY="21.0">
          <image>
             <Image url="@../images/ColliU_logo.png" />
          </image>
