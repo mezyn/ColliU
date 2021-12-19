@@ -29,21 +29,6 @@ public class TitleBar {
   }
 
   @FXML
-  void mousClicked(MouseEvent event) {
-
-  }
-
-  @FXML
-  void mouseEntered(MouseEvent event) {
-
-  }
-
-  @FXML
-  void mouseExited(MouseEvent event) {
-
-  }
-
-  @FXML
   void mouseDragged(MouseEvent event) {
     titleBar.getScene().getWindow().setY(event.getScreenY() - yOffset);
     titleBar.getScene().getWindow().setX(event.getScreenX() - xOffset);
@@ -53,10 +38,5 @@ public class TitleBar {
   void mousePressed(MouseEvent event) {
     xOffset = event.getSceneX();
     yOffset = event.getSceneY();
-  }
-
-  @FXML
-  void mouseReleased(MouseEvent event) {
-
   }
 }
