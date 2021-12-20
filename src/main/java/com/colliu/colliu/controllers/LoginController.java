@@ -71,16 +71,16 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   @FXML
   void registerStaff(ActionEvent event) throws Exception {
-    master.showRegisterStudent();
+    master.showRegisterStaff();
   }
 
   @FXML
   void registerStudent(ActionEvent event) throws Exception {
-    master.showRegisterStaff();
+    master.showRegisterStudent();
   }
 
   public void setMaster(MasterController master) {
-      this.master = master;
+    this.master = master;
   }
 
 }

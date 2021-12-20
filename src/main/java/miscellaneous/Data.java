@@ -6,16 +6,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonStreamParser;
 import com.google.gson.reflect.TypeToken;
 import event.Event;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -29,8 +21,14 @@ public class Data {
   final String EVENT_FILE = DOCUMENT_PATH + "Event.JSON";
   //final URL JSON_DIR;
 
-  public Data() {
+  public Data() throws IOException {
     new File(DOCUMENT_PATH).mkdirs(); // Create ColliU folder in Documents path if does not exist.
+    File user = new File(USER_FILE);
+    user.createNewFile();
+    new FileOutputStream(user, false);
+    File event = new File(EVENT_FILE);
+    event.createNewFile();
+    new FileOutputStream(event, false);
   }
 
   public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {

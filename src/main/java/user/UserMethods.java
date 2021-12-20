@@ -3,6 +3,8 @@ package user;
 import com.colliu.colliu.MasterController;
 
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -15,9 +17,9 @@ public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
 
-  public UserMethods() {
-    activeUsers = new ArrayList<User>();
-
+  public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
+    this.master = master;
+    activeUsers = master.json.loadUser();
   }
 
   //create user and sub-types, check for existing users (email?), add / not add into arraylist

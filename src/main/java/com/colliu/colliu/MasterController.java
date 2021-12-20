@@ -2,11 +2,11 @@ package com.colliu.colliu;
 
 import com.colliu.colliu.controllers.EventController;
 import com.colliu.colliu.controllers.LoginController;
-import java.io.IOException;
-
 import com.colliu.colliu.controllers.StaffController;
 import com.colliu.colliu.controllers.StudentController;
-import javafx.fxml.FXML;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -23,10 +23,15 @@ import user.UserMethods;
 
 public class MasterController {
 
-  public final UserMethods userMethods = new UserMethods();
-  final Data json = new Data();
+  public final UserMethods userMethods;
+  public final Data json;
   private Stage latestStage;
   private Stage previousStage;
+
+  public MasterController() throws IOException {
+    json = new Data();
+    userMethods = new UserMethods(this);
+  }
 
   private FXMLLoader showWindow(String fileName) throws IOException {
     fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
@@ -38,8 +43,8 @@ public class MasterController {
     stage.setScene(scene);
     stage.setTitle(fileName.substring(0, fileName.length()-4));
     stage.initStyle(StageStyle.UNDECORATED);
-    stage.show();
     this.latestStage = stage;
+    stage.show();
     return fxmlLoader;
   }
 
