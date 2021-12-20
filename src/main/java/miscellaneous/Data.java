@@ -23,12 +23,6 @@ public class Data {
 
   public Data() throws IOException {
     new File(DOCUMENT_PATH).mkdirs(); // Create ColliU folder in Documents path if does not exist.
-    File user = new File(USER_FILE);
-    user.createNewFile();
-    new FileOutputStream(user, false);
-    File event = new File(EVENT_FILE);
-    event.createNewFile();
-    new FileOutputStream(event, false);
   }
 
   public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {
