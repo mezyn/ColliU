@@ -35,8 +35,12 @@ public class Student extends User {
   }
 
 //Getters and setters
-  public String getProgram(String email) {
+  public String getProgram (String email) {
     return program;
+  }
+
+  public void setprogram (String program) {
+    this.program = program;
   }
 
   public int getGraduationYear(String email) {
