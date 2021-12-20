@@ -1,11 +1,9 @@
 package com.colliu.colliu;
 
-import com.colliu.colliu.controllers.EventController;
-import com.colliu.colliu.controllers.LoginController;
+import com.colliu.colliu.controllers.*;
+
 import java.io.IOException;
 
-import com.colliu.colliu.controllers.StaffController;
-import com.colliu.colliu.controllers.StudentController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -84,7 +82,15 @@ public class MasterController {
     showWindow(forgottenPasswordPage);
   }
 
-  private void closeWindow() {
+  public void showProfileSettingsPage() throws Exception {
+    String profileSettingsPage = "ProfileSettingsPage.fxml";
+    closeWindow();
+    FXMLLoader profileLoader = showWindow(profileSettingsPage);
+    ProfileController profileController = profileLoader.getController();
+    profileController.setMaster(this);
+
+
+  private void closeWindow () {
     if(latestStage != null)
       latestStage.close();
   }
