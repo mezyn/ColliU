@@ -1,5 +1,6 @@
 package com.colliu.colliu.controllers;
 
+import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +36,8 @@ public class ForgotPassword {
   }
 
   @FXML
-  void onSignUpClick(ActionEvent event) {
+  void onSignUpClick(ActionEvent event) throws Exception{
+    master.showForgottenPassword();
 
   }
 

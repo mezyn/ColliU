@@ -6,12 +6,9 @@ import event.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -22,8 +19,11 @@ import miscellaneous.Data;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class EventController {
 
@@ -36,7 +36,7 @@ public class EventController {
   private Button btnLogout;
 
   @FXML
-  private Button closWindow;
+  private Button closeWindow;
 
   @FXML
   private VBox eventItems;

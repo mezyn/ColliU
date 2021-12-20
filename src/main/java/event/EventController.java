@@ -1,6 +1,8 @@
 package event;
 
 import com.colliu.colliu.Master;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,8 +20,8 @@ public class EventController {
   }
 
 
-  public Boolean addEvent(String name, Date eventDate, String location, int courseId) {
-    return events.add(new Event(events.size(), name, eventDate, location, courseId));
+  public Boolean addEvent(String name, Date eventDate, String location, String category, String courseId) {
+    return events.add(new Event(events.size(), name, eventDate, location, category, courseId));
   }
 
   /*¢
@@ -40,7 +42,7 @@ public class EventController {
       // Loop through all the events:
       for (Event event : this.events) {
         // If event is for this course and the event is not in the past:
-        if (event.getCourse() == usersCourse && event.getDate().after(new Date())) {
+        if (event.getCourse().equals(usersCourse) && event.getDate().after(new Date())) {
           recommendedEvents.add(event.getId());
         }
       }

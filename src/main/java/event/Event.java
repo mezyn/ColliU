@@ -19,7 +19,8 @@ public class Event {
   private String title;
   private Date date;
   private String location;
-  private int course;
+  private String category;
+  private String course;
   private boolean active;
   private final ArrayList<Integer> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
@@ -30,6 +31,7 @@ public class Event {
     this.title = title;
     this.date = date;
     this.location = location;
+    this.category = category;
     this.course = course;
     creationDate = new Date();
     attending = new ArrayList<>();
@@ -56,7 +58,9 @@ public class Event {
     return this.location;
   }
 
-  public int getCourse() {
+  public String getCategory() {return this.category;}
+
+  public String getCourse() {
     return this.course;
   }
 
@@ -120,7 +124,7 @@ public class Event {
     this.title = newName;
   }
 
-  public void setCourse(int newCourse) {
+  public void setCourse(String newCourse) {
     this.course = newCourse;
   }
 
