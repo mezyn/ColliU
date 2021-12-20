@@ -47,6 +47,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   @FXML
   void onLogInClick(ActionEvent event) throws Exception {
+    master.setCurrentUserEmail(guEmail.getText());
     master.showEventPage();
     /*
     if (guEmail.getText().isBlank()) {
@@ -67,6 +68,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
       }
     }
      */
+
   }
 
   @FXML

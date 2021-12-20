@@ -2,7 +2,9 @@ package com.colliu.colliu;
 
 import com.colliu.colliu.controllers.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +23,16 @@ import user.UserMethods;
 
 public class MasterController {
 
-  public final UserMethods userMethods = new UserMethods();
-  final Data json = new Data();
+  public UserMethods userMethods;
+  public Data json;
   private Stage latestStage;
   private Stage previousStage;
+  private String currentUserEmail;
+
+  public MasterController() throws FileNotFoundException, UnsupportedEncodingException {
+    json = new Data();
+    userMethods = new UserMethods(this);
+  }
 
   private FXMLLoader showWindow(String fileName) throws IOException {
     fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
@@ -88,22 +96,30 @@ public class MasterController {
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
     ProfileController profileController = profileLoader.getController();
     profileController.setMaster(this);
-
-
-  private void closeWindow () {
-    if(latestStage != null)
-      latestStage.close();
   }
 
-  public void showLastWindow() {
-    Stage temp = latestStage;
-    latestStage = previousStage;
-    previousStage = temp;
-    previousStage.close();
-    latestStage.show();
+    private void closeWindow () {
+      if (latestStage != null)
+        latestStage.close();
+    }
+
+    public void showLastWindow () {
+      Stage temp = latestStage;
+      latestStage = previousStage;
+      previousStage = temp;
+      previousStage.close();
+      latestStage.show();
+    }
+
+  public void setCurrentUserEmail(String email) {
+    currentUserEmail = email;
   }
 
-  public void setStage(Stage stage) {
-    this.latestStage = stage;
-  }
+    public String getCurrentUserEmail() {
+    return currentUserEmail;
+    }
+    public void setStage (Stage stage){
+      this.latestStage = stage;
+    }
+
 }

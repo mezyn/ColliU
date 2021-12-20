@@ -90,7 +90,7 @@ public class User {
     return this.firstName;
   }
 
-  public void setFirstName(String email) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 

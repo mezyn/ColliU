@@ -3,6 +3,8 @@ package user;
 import com.colliu.colliu.MasterController;
 
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -15,8 +17,10 @@ public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
 
-  public UserMethods() {
-    activeUsers = new ArrayList<User>();
+  public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
+    this.master = master;
+    activeUsers = master.json.loadUser();
+
 
   }
 
@@ -131,7 +135,24 @@ public class UserMethods {
     return null;
   }
 
-
+  public boolean checkPasswordComplexity(String password) {
+    if (password == null || password.isBlank()) {
+      return false;
+    }
+    if (password.length() < 11 || password.length() > 20) {
+      return false;    }
+    if (!password.matches("(.*[A-Z].*)")) {
+      return false;    }
+    if (!password.matches("(.*[a-z].*)")) {
+      return false;    }
+    if (!password.matches("(.*[0-9].*)")) {
+      return false;    }
+    if (password.contains(" ")) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
 
 }

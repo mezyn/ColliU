@@ -59,6 +59,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="btnOpenSettingsPage" layoutX="7.0" layoutY="94.0" mnemonicParsing="false" onAction="#onButtonPressOpenSettingsPage" prefHeight="25.0" prefWidth="564.0" text="OPEN SETTINGS PAGE" textAlignment="CENTER" textFill="#f80606" />
          </children>
       </AnchorPane>
       <Label layoutX="75.0" layoutY="52.0" text="ColliU" textFill="#5e81f4">

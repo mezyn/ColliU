@@ -127,4 +127,8 @@ public class EventController {
   public void setMaster(MasterController master) {
     this.master = master;
   }
+
+  public void onButtonPressOpenSettingsPage() throws Exception {
+    master.showProfileSettingsPage();
+  }
 }
