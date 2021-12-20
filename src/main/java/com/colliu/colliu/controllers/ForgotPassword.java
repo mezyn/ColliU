@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class ForgotPassword {
 
+  MasterController master = new MasterController();
+
   @FXML
   private Button continueButton;
 
@@ -41,4 +43,5 @@ public class ForgotPassword {
 
   }
 
-}
+  }
+

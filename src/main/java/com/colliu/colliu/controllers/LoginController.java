@@ -3,10 +3,7 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import user.User;
 
 import java.io.IOException;
@@ -80,6 +77,9 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   public void setMaster(MasterController master) {
       this.master = master;
-  }
+      }
+
+
+
 
 }

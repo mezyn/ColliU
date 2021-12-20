@@ -33,6 +33,14 @@ public class EventController {
   private Button btnAttending;
 
   @FXML
+  private Button btnCreateEvent;
+
+  @FXML
+  void onCreateEventClicked(ActionEvent event) {
+    master.closeWindow(event); //I want to use this method but it's private in MasterController. What do I do
+    showWindow
+  }
+  @FXML
   private Button btnLogout;
 
   @FXML

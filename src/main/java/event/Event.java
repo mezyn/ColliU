@@ -1,5 +1,6 @@
 package event;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +18,8 @@ public class Event {
   // you might want to explain what's the system in providing id to each event;
   // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
-  private Date date;
+  private LocalDate date;
+  private String time;
   private String location;
   private String category;
   private String course;
@@ -26,10 +28,11 @@ public class Event {
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
-  public Event(int id, String title, Date date, String location, int course) {
+  public Event(int id, String title, LocalDate date, String time, String location, String category, String course) {
     this.id = id;
     this.title = title;
     this.date = date;
+    this.time = time;
     this.location = location;
     this.category = category;
     this.course = course;
@@ -50,9 +53,11 @@ public class Event {
     return this.title;
   }
 
-  public Date getDate() {
+  public LocalDate getDate() {
     return this.date;
   }
+
+  public String getTime() {return this.time;}
 
   public String getLocation() {
     return this.location;
@@ -112,7 +117,7 @@ public class Event {
     }
   }
 //Getters and setters
-  public void setDate(Date newDate) {
+  public void setDate(LocalDate newDate) {
     this.date = newDate;
   }
 

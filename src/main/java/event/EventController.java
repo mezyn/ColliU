@@ -20,8 +20,8 @@ public class EventController {
   }
 
 
-  public Boolean addEvent(String name, Date eventDate, String location, String category, String courseId) {
-    return events.add(new Event(events.size(), name, eventDate, location, category, courseId));
+  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String category, String courseId) {
+    return events.add(new Event(events.size(), name, eventDate, time, location, category, courseId));
   }
 
   /*¢
@@ -42,7 +42,8 @@ public class EventController {
       // Loop through all the events:
       for (Event event : this.events) {
         // If event is for this course and the event is not in the past:
-        if (event.getCourse().equals(usersCourse) && event.getDate().after(new Date())) {
+        //Mijin: I changed Date to LocalDate, hope the following line of code still works properly,
+        if (event.getCourse().equals(usersCourse) && event.getDate().isAfter(LocalDate.now())){
           recommendedEvents.add(event.getId());
         }
       }
@@ -64,3 +65,4 @@ public class EventController {
     return notSeenEvents.toArray(new Integer[0]);
   }
 }
+//function for filtering the events

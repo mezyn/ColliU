@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -30,20 +33,18 @@ public class CreateEventController implements Initializable {
     private Button createEvent;
 
     @FXML
-    private TextField date;
-
-    String eventDate = date.getText();
-    int eventYear = Integer.parseInt(eventDate.substring(0,3));
-    int eventMonth = Integer.parseInt(eventDate.substring(5,6));
-    int eventDay = Integer.parseInt(eventDate.substring(8,9));
+    private DatePicker myDatePicker;
+    LocalDate eventDate = myDatePicker.getValue();
 
     @FXML
-    private TextField time;
-    String eventTime = date.getText();
-    int eventHour = Integer.parseInt(eventTime.substring(0,1));
-    int eventMinute = Integer.parseInt(eventTime.substring(3,4));
+    private ChoiceBox<String> hourChoiceBox;
+    private String[] hours = {"00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"};
 
-    private Date dateAndTime = new Date(eventYear, eventMonth, eventDay, eventHour, eventMinute);
+    @FXML
+    private ChoiceBox<String> minuteChoiceBox;
+    private String[] minutes = {"00","05","10","15","20","25","30","35","40","45","50","55"};
+
+    String time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
 
     @FXML
     private TextField eventTitle;
@@ -53,11 +54,14 @@ public class CreateEventController implements Initializable {
 
     @FXML
     void onCreateEventClicked(ActionEvent event) {
-        eventController.addEvent(eventTitle.getText(), dateAndTime, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
+        eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoryChoiceBox.getItems().addAll(categories);
+        hourChoiceBox.getItems().addAll(hours);
+        minuteChoiceBox.getItems().addAll(minutes);
+
     }
 }

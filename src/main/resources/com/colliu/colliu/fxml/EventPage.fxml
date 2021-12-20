@@ -18,15 +18,15 @@
       <Pane fx:id="filterPane" layoutX="18.0" layoutY="251.0" onMouseClicked="#filterEvent" prefHeight="369.0" prefWidth="179.0" style="-fx-background-color: #EEE;">
          <children>
             <Label fx:id="filterCategory" layoutY="6.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
-            <CheckBox layoutX="8.0" layoutY="42.0" mnemonicParsing="false" text="Gaming" />
-            <CheckBox layoutX="8.0" layoutY="151.0" mnemonicParsing="false" text="Lunch Lectures" />
-            <CheckBox layoutX="8.0" layoutY="294.0" mnemonicParsing="false" text="Workshop" />
-            <CheckBox layoutX="8.0" layoutY="258.0" mnemonicParsing="false" text="Student Union" />
-            <CheckBox layoutX="8.0" layoutY="223.0" mnemonicParsing="false" text="Sports" />
-            <CheckBox layoutX="8.0" layoutY="329.0" mnemonicParsing="false" text="Others" />
-            <CheckBox layoutX="8.0" layoutY="187.0" mnemonicParsing="false" text="Mingles" />
-            <CheckBox layoutX="8.0" layoutY="113.0" mnemonicParsing="false" text="Hackathon" />
-            <CheckBox layoutX="8.0" layoutY="77.0" mnemonicParsing="false" text="Guest Lectures" />
+            <CheckBox fx:id="gaming" layoutX="8.0" layoutY="42.0" mnemonicParsing="false" onMousePressed="#gamingTicked" text="Gaming" />
+            <CheckBox fx:id="lunchLecture" layoutX="8.0" layoutY="151.0" mnemonicParsing="false" text="Lunch Lecture" />
+            <CheckBox fx:id="workshop" layoutX="8.0" layoutY="294.0" mnemonicParsing="false" text="Workshop" />
+            <CheckBox fx:id="studentUnion" layoutX="8.0" layoutY="258.0" mnemonicParsing="false" text="Student Union" />
+            <CheckBox fx:id="sports" layoutX="8.0" layoutY="223.0" mnemonicParsing="false" text="Sports" />
+            <CheckBox fx:id="others" layoutX="8.0" layoutY="329.0" mnemonicParsing="false" text="Others" />
+            <CheckBox fx:id="mingle" layoutX="8.0" layoutY="187.0" mnemonicParsing="false" text="Mingle" />
+            <CheckBox fx:id="hackathon" layoutX="8.0" layoutY="113.0" mnemonicParsing="false" text="Hackathon" />
+            <CheckBox fx:id="guestLecture" layoutX="8.0" layoutY="77.0" mnemonicParsing="false" onAction="#onGuestLectureTicked" text="Guest Lecture" />
          </children>
       </Pane>
       <Pane fx:id="listAnnouncements" layoutX="790.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="228.0" style="-fx-background-color: #FAFAFA;">
@@ -67,6 +67,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="btnCreateEvent" layoutX="441.0" layoutY="91.0" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="26.0" prefWidth="127.0" text="Create Event" />
          </children>
       </AnchorPane>
       <Label layoutX="75.0" layoutY="52.0" text="ColliU" textFill="#5e81f4">
