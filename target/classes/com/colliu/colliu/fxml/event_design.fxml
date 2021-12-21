@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -10,11 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="293.0" prefWidth="538.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: border-radius; -fx-background-color: rgb(165,200,228);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventItem">
+<StackPane fx:id="spAllEvent" alignment="TOP_CENTER" prefHeight="293.0" prefWidth="572.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: border-radius; -fx-background-color: rgb(165,200,228);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventItem">
    <children>
       <Pane fx:id="eventBackground" prefHeight="268.0" prefWidth="528.0">
          <children>
-            <ImageView fx:id="imgBanner" fitHeight="80.0" fitWidth="528.0" pickOnBounds="true" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;">
+            <ImageView fx:id="imgBanner" fitHeight="80.0" fitWidth="562.0" pickOnBounds="true" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;">
                <image>
                   <Image url="@../images/banner.gif" />
                </image>
@@ -44,28 +45,28 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Pane layoutY="151.0" prefHeight="124.0" prefWidth="533.0" style="-fx-background-color: inherit;">
+            <Pane fx:id="pnEventDetails" layoutX="14.0" layoutY="151.0" prefHeight="124.0" prefWidth="544.0" style="-fx-background-color: inherit;">
                <children>
-                  <ToggleButton layoutX="468.0" layoutY="93.0" mnemonicParsing="false" onAction="#attendEvent" style="-fx-background-color: rgb(192,236,204);" text="Attend" />
+                  <ToggleButton layoutX="491.0" layoutY="93.0" mnemonicParsing="false" onAction="#attendEvent" style="-fx-background-color: rgb(192,236,204);" text="Attend" />
                   <Label layoutX="14.0" layoutY="97.0" text="Attending:" textFill="WHITE" />
                   <Label fx:id="lblAttendees" layoutX="79.0" layoutY="97.0" text="0" />
-                  <TextArea fx:id="txtDescription" layoutX="14.0" layoutY="3.0" prefHeight="80.0" prefWidth="505.0" style="-fx-background-color: #FFF;" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" wrapText="true" />
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="423.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                  <TextArea fx:id="txtDescription" layoutY="3.0" prefHeight="80.0" prefWidth="544.0" style="-fx-background-color: #FFF;" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" wrapText="true" />
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="450.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="388.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="425.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="353.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="400.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="325.0" layoutY="96.0" text="16" textFill="WHITE">
+                  <Label layoutX="377.0" layoutY="96.0" text="16" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -82,7 +83,10 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="487.0" layoutY="86.0" mnemonicParsing="false" style="-fx-background-color: #FFF;" text="▲" />
+            <Button fx:id="btnShowDetails" alignment="CENTER" layoutX="461.0" layoutY="105.0" minWidth="87.0" mnemonicParsing="false" onAction="#showDetails" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #FFF;" text="Show Details">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </Pane>
    </children>
