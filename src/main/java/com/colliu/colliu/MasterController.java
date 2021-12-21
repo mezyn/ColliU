@@ -24,6 +24,7 @@ import user.UserMethods;
 public class MasterController {
 
   public final UserMethods userMethods;
+  public final event.EventController eventMethods;
   public final Data json;
   private Stage latestStage;
   private Stage previousStage;
@@ -31,6 +32,7 @@ public class MasterController {
   public MasterController() throws IOException {
     json = new Data();
     userMethods = new UserMethods(this);
+    eventMethods = new event.EventController(this);
   }
 
   private FXMLLoader showWindow(String fileName) throws IOException {
@@ -81,7 +83,7 @@ public class MasterController {
     FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.loadEvents();
+    eventController.loadEvents("SEM", "all");
   }
 
   public void showForgottenPassword() throws Exception {

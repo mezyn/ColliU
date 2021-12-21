@@ -47,8 +47,6 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   @FXML
   void onLogInClick(ActionEvent event) throws Exception {
-    master.showEventPage();
-    /*
     if (guEmail.getText().isBlank()) {
       warningLabel.setText("Email address cannot be empty.");
     } else if (password.getText().isBlank()) {
@@ -58,7 +56,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         int foundUserIndex = master.userMethods.findUser(guEmail.getText());
         User user = master.userMethods.activeUsers.get(foundUserIndex);
         if (master.userMethods.validatePassword(password.getText())) {
-          master.showEventPage(event);
+          master.showEventPage();
         } else {
           warningLabel.setText("Wrong password.");
         }
@@ -66,7 +64,6 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         warningLabel.setText("Not existing email address.");
       }
     }
-     */
   }
 
   @FXML
