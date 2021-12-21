@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="553.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.LoginController">
    <children>
-      <Button fx:id="login" layoutX="174.0" layoutY="370.0" mnemonicParsing="false" onAction="#onLogInClick" prefHeight="33.0" prefWidth="149.0" text="Log In" />
-      <Button fx:id="forgotpassword" layoutX="332.0" layoutY="370.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" prefHeight="33.0" prefWidth="150.0" text="Forgot Password?" />
-      <Button fx:id="btnNewStudent" layoutX="337.0" layoutY="447.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="17.0" prefWidth="141.0" text="Student Registration" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="login" layoutX="199.0" layoutY="338.0" mnemonicParsing="false" onAction="#onLogInClick" prefHeight="31.0" prefWidth="131.0" text="Log In" />
+      <Button fx:id="forgotpassword" layoutX="340.0" layoutY="339.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" prefHeight="31.0" prefWidth="131.0" text="Forgot Password?" />
+      <Button fx:id="btnNewStudent" layoutX="199.0" layoutY="447.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="21.0" prefWidth="131.0" text="Student Registration" textAlignment="CENTER" wrapText="true">
          <opaqueInsets>
             <Insets top="5.0" />
          </opaqueInsets>
@@ -24,20 +23,20 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <TextField fx:id="guEmail" layoutX="173.0" layoutY="241.0" prefHeight="39.0" prefWidth="311.0" promptText="GU Email">
+      <TextField fx:id="guEmail" layoutX="200.0" layoutY="247.0" prefHeight="33.0" prefWidth="272.0" promptText="GU Email">
          <opaqueInsets>
             <Insets right="8.0" top="8.0" />
          </opaqueInsets>
       </TextField>
-      <Label layoutX="175.0" layoutY="460.0" prefHeight="17.0" prefWidth="179.0" text="Don't have an account yet?" textAlignment="CENTER" textFill="#2811ab">
+      <Label layoutX="260.0" layoutY="422.0" prefHeight="17.0" prefWidth="179.0" text="Don't have an account yet?" textAlignment="CENTER" textFill="#2811ab">
          <font>
             <Font name="System Bold Italic" size="11.0" />
          </font>
       </Label>
       <Group />
-      <Label id="warningLabel" fx:id="warningLabel" layoutX="172.0" layoutY="337.0" prefHeight="31.0" prefWidth="297.0" textFill="#ee0202" />
-      <PasswordField fx:id="password" layoutX="173.0" layoutY="288.0" prefHeight="39.0" prefWidth="311.0" promptText="Password" />
-      <Button fx:id="btnNewTeacher" layoutX="337.0" layoutY="474.0" mnemonicParsing="false" onAction="#registerStaff" prefHeight="21.0" prefWidth="141.0" text="Staff Registration" textAlignment="CENTER" wrapText="true">
+      <Label id="warningLabel" fx:id="warningLabel" layoutX="212.0" layoutY="214.0" prefHeight="26.0" prefWidth="272.0" textFill="#ee0202" />
+      <PasswordField fx:id="password" layoutX="199.0" layoutY="294.0" prefHeight="33.0" prefWidth="272.0" promptText="Password" />
+      <Button fx:id="btnNewTeacher" layoutX="340.0" layoutY="447.0" mnemonicParsing="false" onAction="#registerStaff" prefHeight="21.0" prefWidth="131.0" text="Staff Registration" textAlignment="CENTER" wrapText="true">
          <opaqueInsets>
             <Insets top="5.0" />
          </opaqueInsets>
@@ -45,7 +44,7 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <ImageView fitHeight="190.0" fitWidth="310.0" layoutX="175.0" layoutY="39.0" preserveRatio="true">
+      <ImageView fitHeight="112.0" fitWidth="252.0" layoutX="238.0" layoutY="92.0" preserveRatio="true">
          <image>
             <Image url="@../images/ColliU_logo.png" />
          </image>

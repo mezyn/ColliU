@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -27,6 +28,7 @@
             <CheckBox fx:id="mingle" layoutX="8.0" layoutY="187.0" mnemonicParsing="false" text="Mingle" />
             <CheckBox fx:id="hackathon" layoutX="8.0" layoutY="113.0" mnemonicParsing="false" text="Hackathon" />
             <CheckBox fx:id="guestLecture" layoutX="8.0" layoutY="77.0" mnemonicParsing="false" onAction="#onGuestLectureTicked" text="Guest Lecture" />
+            <ListView fx:id="filterList" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </Pane>
       <Pane fx:id="listAnnouncements" layoutX="790.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="228.0" style="-fx-background-color: #FAFAFA;">

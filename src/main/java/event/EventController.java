@@ -20,8 +20,8 @@ public class EventController {
   }
 
 
-  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String category, String courseId) {
-    return events.add(new Event(events.size(), name, eventDate, time, location, category, courseId));
+  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String courseId) {
+    return events.add(new Event(events.size(), name, eventDate, time, location, description, category, courseId));
   }
 
   /*¢

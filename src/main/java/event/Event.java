@@ -21,6 +21,7 @@ public class Event {
   private LocalDate date;
   private String time;
   private String location;
+  private String description;
   private String category;
   private String course;
   private boolean active;
@@ -28,12 +29,13 @@ public class Event {
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
-  public Event(int id, String title, LocalDate date, String time, String location, String category, String course) {
+  public Event(int id, String title, LocalDate date, String time, String location, String description, String category, String course) {
     this.id = id;
     this.title = title;
     this.date = date;
     this.time = time;
     this.location = location;
+    this.description = description;
     this.category = category;
     this.course = course;
     creationDate = new Date();
@@ -62,6 +64,8 @@ public class Event {
   public String getLocation() {
     return this.location;
   }
+
+  public String getDescription() {return this.description;}
 
   public String getCategory() {return this.category;}
 

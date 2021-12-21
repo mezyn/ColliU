@@ -36,9 +36,8 @@ public class EventController {
   private Button btnCreateEvent;
 
   @FXML
-  void onCreateEventClicked(ActionEvent event) {
-    master.closeWindow(event); //I want to use this method but it's private in MasterController. What do I do
-    showWindow
+  void onCreateEventClicked(ActionEvent event) throws Exception{
+    master.showEventPage(); //I want to use this method but it's private in MasterController. What do I do
   }
   @FXML
   private Button btnLogout;
@@ -54,9 +53,12 @@ public class EventController {
 
   @FXML
   private Label filterCategory;
-
+/*
+Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a panel
   @FXML
-  private ListView<?> filterList;
+  private ListView<String> filterList;
+  String[] categories = {"Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture","Mingle","Sports","Student Union", "Workshop","Others"};
+    */
 
   @FXML
   private Pane filterPane;

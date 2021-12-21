@@ -52,10 +52,10 @@ public class CreateEventController implements Initializable {
     @FXML
     private TextField eventLocation;
 
-    @FXML
+ /*   @FXML
     void onCreateEventClicked(ActionEvent event) {
         eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
-    }
+    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

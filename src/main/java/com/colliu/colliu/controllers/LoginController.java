@@ -45,6 +45,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   @FXML
   void onLogInClick(ActionEvent event) throws Exception {
     master.showEventPage();
+
 /*
     if (guEmail.getText().isBlank()) {
       warningLabel.setText("Email address cannot be empty.");
