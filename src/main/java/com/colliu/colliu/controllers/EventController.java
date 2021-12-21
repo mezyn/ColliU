@@ -7,12 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -24,8 +21,11 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class EventController {
 
@@ -38,7 +38,17 @@ public class EventController {
   private Button btnAttending;
 
   @FXML
-  private Button closWindow;
+  private Button btnCreateEvent;
+
+  @FXML
+  void onCreateEventClicked(ActionEvent event) throws Exception{
+    master.showEventPage(); //I want to use this method but it's private in MasterController. What do I do
+  }
+  @FXML
+  private Button btnLogout;
+
+  @FXML
+  private Button closeWindow;
 
   @FXML
   private VBox eventItems;
@@ -48,9 +58,12 @@ public class EventController {
 
   @FXML
   private Label filterCategory;
-
+/*
+Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a panel
   @FXML
-  private ListView<?> filterList;
+  private ListView<String> filterList;
+  String[] categories = {"Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture","Mingle","Sports","Student Union", "Workshop","Others"};
+    */
 
   @FXML
   private Pane filterPane;

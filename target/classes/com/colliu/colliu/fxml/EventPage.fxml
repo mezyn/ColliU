@@ -15,16 +15,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF; -fx-border-color: rgb(245,245,251); -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
+<AnchorPane accessibleRole="CHECK_BOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF; -fx-border-color: rgb(245,245,251); -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane fx:id="filterPane" layoutY="228.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #EEE;">
+      <Pane fx:id="filterPane" layoutX="18.0" layoutY="251.0" onMouseClicked="#filterEvent" prefHeight="369.0" prefWidth="179.0" style="-fx-background-color: #EEE;">
          <children>
             <Label fx:id="filterCategory" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="3.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" textFill="#333333">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
             <ListView fx:id="filterList" layoutX="2.5" layoutY="23.0" prefHeight="371.0" prefWidth="220.0" style="-fx-background-color: #FAFAFA;" />
+            <Label fx:id="filterCategory" layoutY="6.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
+            <CheckBox layoutX="8.0" layoutY="42.0" mnemonicParsing="false" text="Gaming" />
+            <CheckBox layoutX="8.0" layoutY="151.0" mnemonicParsing="false" text="Lunch Lectures" />
+            <CheckBox layoutX="8.0" layoutY="294.0" mnemonicParsing="false" text="Workshop" />
+            <CheckBox layoutX="8.0" layoutY="258.0" mnemonicParsing="false" text="Student Union" />
+            <CheckBox layoutX="8.0" layoutY="223.0" mnemonicParsing="false" text="Sports" />
+            <CheckBox layoutX="8.0" layoutY="329.0" mnemonicParsing="false" text="Others" />
+            <CheckBox layoutX="8.0" layoutY="187.0" mnemonicParsing="false" text="Mingles" />
+            <CheckBox layoutX="8.0" layoutY="113.0" mnemonicParsing="false" text="Hackathon" />
+            <CheckBox layoutX="8.0" layoutY="77.0" mnemonicParsing="false" text="Guest Lectures" />
          </children>
       </Pane>
       <Pane fx:id="listAnnouncements" layoutX="799.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #FAFAFA;">
@@ -62,6 +73,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
+            <Button fx:id="btnLogout" layoutX="499.0" layoutY="49.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />

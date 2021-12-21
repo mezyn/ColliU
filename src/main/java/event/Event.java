@@ -1,5 +1,6 @@
 package event;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,13 +20,15 @@ public class Event {
   private String title;
   private Date date;
   private String location;
+  private String description;
+  private String category;
   private String program;
   private boolean active;
   private final ArrayList<Integer> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
-  public Event(int id, String title, Date date, String location, String program) {
+  public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category) {
     this.id = id;
     this.title = title;
     this.date = date;
@@ -48,7 +51,7 @@ public class Event {
     return this.title;
   }
 
-  public Date getDate() {
+  public LocalDate getDate() {
     return this.date;
   }
 
@@ -58,7 +61,14 @@ public class Event {
 
   public String getProgram() {
     return this.program;
-  }
+
+  public String getDescription() {
+    return this.description;
+    }
+
+  public String getCategory() {
+    return this.category;
+    }
 
   public int getId() {
     return this.id;
@@ -108,7 +118,7 @@ public class Event {
     }
   }
 //Getters and setters
-  public void setDate(Date newDate) {
+  public void setDate(LocalDate newDate) {
     this.date = newDate;
   }
 
@@ -120,7 +130,7 @@ public class Event {
     this.title = newName;
   }
 
-  public void setCourse(String newProgram) {
+  public void setProgram (String newProgram) {
     this.program = newProgram;
   }
 

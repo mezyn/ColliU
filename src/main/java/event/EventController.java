@@ -5,6 +5,10 @@ import com.colliu.colliu.MasterController;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import com.colliu.colliu.MasterController;
+
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,8 +26,8 @@ public class EventController {
   }
 
 
-  public Boolean addEvent(String name, Date eventDate, String location, String program) {
-    return events.add(new Event(events.size(), name, eventDate, location, program));
+  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String Program) {
+    return events.add(new Event(events.size(), name, eventDate, time, location, description, category, program));
   }
 
   /*¢
@@ -62,4 +66,20 @@ public class EventController {
     }
     return notSeenEvents.toArray(new Event[0]);
   }
+
+  //a method for filtering events
+
+  public ArrayList<Event> filterEvents(String tagName){
+    ArrayList<Event> filteredEvents = new ArrayList<Event>();
+    for(Event event : events){
+      if(event.getCategory().equals(tagName)){ //but what happens if more than 1 filter has been chosen?
+        filteredEvents.add(event);           //CHECK HOW CHECKBOXES WORK AND HOW I CAN IMPLEMENT THAT, AS WELL AS HOW THE EVENTS ARE GONNA BE DISPLAYED
+      }
+    }
+    return filteredEvents; //how do we display them? and how we remove after that all the event objects from the ArrayList once we're finished with the filtering?
+  }
+
+
+
+
 }
