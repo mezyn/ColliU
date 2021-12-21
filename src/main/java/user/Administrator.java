@@ -6,10 +6,5 @@ public class Administrator extends Student {
       super(email, password, firstName, lastName, graduationYear, program, 2);
   }
 
-  public void  banUser(boolean isBanned) {
-    setAccountStatus(isBanned);
-  }
-
-  //Don't we need 'unbanUser' method as well?
 
 }

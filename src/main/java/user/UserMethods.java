@@ -6,6 +6,7 @@ import com.colliu.colliu.MasterController;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
+  private User loggedInUser;
 
   public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
     this.master = master;
@@ -80,6 +82,7 @@ public class UserMethods {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
     }
+    activeUsers.add(new Staff(email, password, firstName, lastName, department, title));
     return "User registered successfully.";
   }
   /*
@@ -154,5 +157,37 @@ public class UserMethods {
     }
   }
 
+  public void setLoggedInUser(String email) {
+    loggedInUser = getUserByEmail(email);
+  }
+
+  public User getLoggedInUser() {
+    return loggedInUser;
+  }
+
+
+  public void promoteStudentToAdmin(String promoteEmail) throws Exception {
+   Student promoteUser = (Student) getUserByEmail(promoteEmail);
+   String email = promoteUser.getEmail();
+   String password = promoteUser.getPassword();
+   String firstName = promoteUser.getFirstName();
+   String lastName = promoteUser.getLastName();
+   String program = promoteUser.getProgram();
+   int graduationYear = promoteUser.getGraduationYear();
+   activeUsers.remove(findUser(email));
+   createAdministrator(email, password, firstName, lastName, graduationYear, program);
+   master.json.saveUsers(activeUsers);
+  }
+
+  public void banUser(String userToBan) throws Exception {
+    getUserByEmail(userToBan).setAccountStatus(true);
+    master.json.saveUsers(activeUsers);
+  }
+
+
+  public void unbanUser(String userToUnban) throws Exception {
+    getUserByEmail(userToUnban).setAccountStatus(false);
+    master.json.saveUsers(activeUsers);
+  }
 
 }

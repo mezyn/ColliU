@@ -8,12 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import user.User;
+import user.UserMethods;
 
 import java.io.IOException;
 
 public class LoginController {
 
   MasterController master;
+
 
   @FXML
   private Button forgotpassword;
@@ -47,8 +49,9 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   @FXML
   void onLogInClick(ActionEvent event) throws Exception {
-    master.setCurrentUserEmail(guEmail.getText());
+    master.userMethods.setLoggedInUser(guEmail.getText());
     master.showEventPage();
+
     /*
     if (guEmail.getText().isBlank()) {
       warningLabel.setText("Email address cannot be empty.");

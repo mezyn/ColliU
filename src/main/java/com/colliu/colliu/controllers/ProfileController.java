@@ -12,17 +12,51 @@ import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
 import user.Student;
 import user.User;
-import user.UserMethods;
 
-import java.io.IOException;
-
+/**
+ *
+ */
 public class ProfileController {
+  MasterController master;
 
-   MasterController master;
+  public void setMaster(MasterController master) {
+    this.master = master;
+  }
 
-    public void setMaster(MasterController master) {
-        this.master = master;
+  /** Updates profile tab.
+   * Updates the profile tab when we need to.
+   */
+
+  public void updateProfileTab() {
+    User loggedInUser = master.userMethods.getLoggedInUser();
+    lblYourName.setText(loggedInUser.getLastName() + " " + loggedInUser.getFirstName());
+    lblYourEmail.setText(loggedInUser.getEmail());
+
+    if (String.valueOf(loggedInUser.getClass()).equals("class user.Student")) {
+      Student loggedInStudent = (Student) master.userMethods.getLoggedInUser();
+      lblYourUserClass.setText("Student");
+      paneAdminControls.setVisible(false);
+      lblYourProgram.setText(loggedInStudent.getProgram());
+      lblYourExamYear.setText("Class of " + loggedInStudent.getGraduationYear());
+    } else if (String.valueOf(loggedInUser.getClass()).equals("class user.Staff")) {
+      lblYourUserClass.setText("Staff");
+      paneAdminControls.setVisible(false);
+      lblYourProgram.setVisible(false);
+      lblYourExamYear.setVisible(false);
+    } else if (String.valueOf(loggedInUser.getClass()).equals("class user.Administrator")) {
+      Administrator loggedInAdmin = (Administrator) master.userMethods.getLoggedInUser();
+      lblYourUserClass.setText(String.valueOf(loggedInUser.getClass()));
+      lblYourProgram.setText(loggedInAdmin.getProgram());
+      lblYourExamYear.setText("Class of " + loggedInAdmin.getGraduationYear());
+      paneAdminControls.setVisible(true);
+    } else if(String.valueOf(loggedInUser.getClass()).equals("class user.User")) {
+      lblYourUserClass.setText("Shit be fucked up");
+      lblYourProgram.setText("Shit be fucked up");
+      lblYourExamYear.setText("Shit be fucked up");
+      paneAdminControls.setVisible(true);
     }
+  }
+
 
 
     @FXML
@@ -32,12 +66,30 @@ public class ProfileController {
 
  @FXML
  void onReturnButtonClick(ActionEvent event) throws Exception {
- master.showEventPage();
- }
+    master.showEventPage();
+  }
+  //Profile tab
+  //Profile tab
+  //Profile tab
 
+  @FXML
+    private Label lblYourName;
+  @FXML
+    private Label lblYourEmail;
+  @FXML
+    private Label lblYourProgram;
+  @FXML
+    private Label lblYourExamYear;
+  @FXML
+    private Label lblYourUserClass;
 
- //Profile tab admin controlls
-    @FXML
+  //Profile tab admin controlls
+  //Profile tab admin controlls
+  //Profile tab admin controlls
+
+  @FXML
+    private Pane paneAdminControls;
+  @FXML
     private Button btnBanUser;
     @FXML
     private Button btnUnbanUser;
@@ -48,8 +100,32 @@ public class ProfileController {
     @FXML
     private TextField tfAdministratorConstrols;
 
-    //Change name tab
-    @FXML
+  @FXML
+  void onButtonPressPromoteUserToAdmin() throws Exception {
+    master.userMethods.promoteStudentToAdmin(tfAdministratorConstrols.getText());
+    lblAdminConfirmationLabel.setVisible(true);
+    lblAdminConfirmationLabel.setText("User was successfully promoted.");
+  }
+
+  @FXML
+  void onButtonPressUnbanUser() throws Exception {
+    master.userMethods.unbanUser(tfAdministratorConstrols.getText());
+    lblAdminConfirmationLabel.setVisible(true);
+    lblAdminConfirmationLabel.setText("User was successfully unbanned.");
+  }
+
+  @FXML
+  void onButtonPressBanUser() throws Exception {
+    master.userMethods.banUser(tfAdministratorConstrols.getText());
+    lblAdminConfirmationLabel.setVisible(true);
+    lblAdminConfirmationLabel.setText("User was successfully banned.");
+  }
+
+  //Change name tab
+  //Change name tab
+  //Change name tab
+
+  @FXML
     private Button btnChangeLastName;
     @FXML
     private Label lblFirstNameChangedSuccessfully;
@@ -71,14 +147,14 @@ public class ProfileController {
     private TextField tfRepeatFirstName;
     @FXML
     void onButtonChangeFirstName(ActionEvent event) throws IOException {
-      if (tfEnterNewFirstName.getText().equals(tfRepeatFirstName.getText())) {
-      User currentUser = master.userMethods.getUserByEmail(master.getCurrentUserEmail());
+    if (tfEnterNewFirstName.getText().equals(tfRepeatFirstName.getText())) {
+      User currentUser = master.userMethods.getLoggedInUser();
       currentUser.setFirstName(tfEnterNewFirstName.getText());
-
       lblFirstNameChangedSuccessfully.setVisible(true);
       lblFirstNameMatch.setVisible(false);
-
-     } else {
+      updateProfileTab();
+      master.json.saveUsers(master.userMethods.activeUsers);
+    } else {
       lblFirstNameMatch.setVisible(true);
       lblFirstNameChangedSuccessfully.setVisible(false);
 
@@ -88,23 +164,24 @@ public class ProfileController {
     }
  @FXML
  void onButtonChangeLastName(ActionEvent event) throws IOException {
-
-      if (tfNewLastName.getText().equals(tfRepeatNewLastName.getText())) {
-      User currentUser = master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-      currentUser.setLastName(tfNewLastName.getText());
+    if (tfNewLastName.getText().equals(tfRepeatNewLastName.getText())) {
+      User loggedInUser = master.userMethods.getLoggedInUser();
+      loggedInUser.setLastName(tfNewLastName.getText());
       lblLastNameChangedSuccessfully.setVisible(true);
       lblLastNameMatch.setVisible(false);
+      updateProfileTab();
+      master.json.saveUsers(master.userMethods.activeUsers);
     } else {
       lblLastNameMatch.setVisible(true);
       lblLastNameChangedSuccessfully.setVisible(false);
     }
+  }
 
+  //Change password tab
+  //Change password tab
+  //Change password tab
 
- }
-
-
- //Change password tab
-    @FXML
+  @FXML
     private Button btnChangePasword;
     @FXML
     private Label lblChangePasswordError;
@@ -123,26 +200,27 @@ public class ProfileController {
 
  @FXML
  void onButtonChangePassword(ActionEvent event) throws Exception {
-  if (!master.userMethods.checkPasswordComplexity(tfNewPassword.getText())) {
-   lblPasswordComplexityError.setVisible(true);
-  } else {
-   if (master.userMethods.validatePassword(tfCurrentPassword.getText()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText()) ) {
-    User temporaryUser = master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-    temporaryUser.setPassword(tfNewPassword.getText());
-    lblChangePasswordError.setVisible(false);
-    lblPasswordChangedSuccessfully.setVisible(true);
-    lblPasswordComplexityError.setVisible(false);
-   } else {
-    lblChangePasswordError.setVisible(true);
-   }
+    if (!master.userMethods.checkPasswordComplexity(tfNewPassword.getText())) {
+      lblPasswordComplexityError.setVisible(true);
+    } else {
+      if (master.userMethods.validatePassword(tfCurrentPassword.getText()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText()) ) {
+        User temporaryUser = master.userMethods.getLoggedInUser();
+        temporaryUser.setPassword(tfNewPassword.getText());
+        lblChangePasswordError.setVisible(false);
+        lblPasswordChangedSuccessfully.setVisible(true);
+        lblPasswordComplexityError.setVisible(false);
+        master.json.saveUsers(master.userMethods.activeUsers);
+      } else {
+        lblChangePasswordError.setVisible(true);
+      }
+    }
   }
 
+  //Change program tab
+  //Change program tab
+  //Change program tab
 
- }
-
-
- //Change program tab
-    @FXML
+  @FXML
     private Button btnDataVetenskap;
     @FXML
     private Button btnSoftwareEngineering;
@@ -157,79 +235,73 @@ public class ProfileController {
     @FXML
     private Label lblGraduationYearError;
 
+  @FXML
     void onButtonPressSEM() throws Exception {
-        Student temporaryUser = (Student) master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-        temporaryUser.setProgram("SEM");
-    }
+    Student temporaryUser = (Student) master.userMethods.getLoggedInUser();
+    temporaryUser.setProgram("SEM");
+    updateProfileTab();
+    master.json.saveUsers(master.userMethods.activeUsers);
+  }
+
+  @FXML
     void onButtonPressSystemvetenskap() throws Exception {
-        Student temporaryUser = (Student) master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-        temporaryUser.setProgram("Systemvetenskap");
-    }
+    Student temporaryUser = (Student) master.userMethods.getLoggedInUser();
+    temporaryUser.setProgram("Systemvetenskap");
+    updateProfileTab();
+    master.json.saveUsers(master.userMethods.activeUsers);
+  }
+
+  @FXML
     void onButtonPressDatavetenskap() throws Exception {
-        Student temporaryUser = (Student) master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-        temporaryUser.setProgram("Datavetenskap");
-    }
+    Student temporaryUser = (Student) master.userMethods.getLoggedInUser();
+    temporaryUser.setProgram("Datavetenskap");
+    updateProfileTab();
+    master.json.saveUsers(master.userMethods.activeUsers);
+  }
+
+  @FXML
     void onButtonPressKognitionsvetenskap() throws Exception {
-        Student temporaryUser = (Student) master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-        temporaryUser.setProgram("Kognitionsvetenskap");
-    }
+    Student temporaryUser = (Student) master.userMethods.getLoggedInUser();
+    temporaryUser.setProgram("Kognitionsvetenskap");
+    updateProfileTab();
+    master.json.saveUsers(master.userMethods.activeUsers);
+  }
 
+  @FXML
     void onButtomPressChangeGraduationYear() throws Exception {
-        Student temporaryUser = (Student) master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-        if (!tfNewGraduationYear.getText().matches("(.*[0-9].*)")) {
-            lblGraduationYearError.setVisible(true);
-        } else {
-            temporaryUser.setGraduationYear(Integer.parseInt(tfNewGraduationYear.getText()));
-            lblGraduationYearError.setVisible(false);
-        }
+    Student temporaryUser = (Student) master.userMethods.getLoggedInUser();
+    if (!tfNewGraduationYear.getText().matches("(.*[0-9].*)")) {
+      lblGraduationYearError.setVisible(true);
+    } else {
+      temporaryUser.setGraduationYear(Integer.parseInt(tfNewGraduationYear.getText()));
+      lblGraduationYearError.setVisible(false);
+      updateProfileTab();
+      master.json.saveUsers(master.userMethods.activeUsers);
     }
+  }
 
-    //Testing stuff
-    @FXML
-    private Button btnCreateErikHarring;
-    @FXML
-    private Button btnCreateKrisAdmin;
-    @FXML
+  //Testing stuff
+  @FXML
     private Button btbTestingUserInfo;
     @FXML
     private Label lblTest;
 
-    @FXML
- void onButtonClickTestUserInfo(ActionEvent event) throws IOException {              //What should load when you go to this javaFX scene
-  /* lblYourName.setText(userMethods.getUserByEmail(currentUserEmail).getFirstName() + " " + userMethods.getUserByEmail(currentUserEmail).getLastName());
-  lblYourEmail.setText(currentUserEmail);
-  // lblYourProgam.setText(userMethods.getUserByEmail(currentUserEmail).getProgram()); //does not exist yet
-  // lblYourExamYear.setText(userMethods.getUserByEmail(currentUserEmail).getExamYear()); //does not exist yet
-  lblYourUserClass.setText(String.valueOf(userMethods.getUserByEmail(currentUserEmail).getClass()));
-  if (currentUserEmail.equals("guskris@student.gu.se")) {  //will be userMethods.getUserByEmail(currentUserEmail).getType().equals("2")) when implemented
-   paneAdminControls.setVisible(true);
-  } else {
-   paneAdminControls.setVisible(false);
+  @FXML
+void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What should load when you go to this javaFX scene
+    User currentUser2 = master.userMethods.getLoggedInUser();
+    lblTest.setText(String.valueOf(currentUser2.getClass()));
+/*
+    master.userMethods.createAdministrator("admin32@student.gu.se", "ErikHarring1337", "Admin", "One", 2024, "SEM");
+    master.userMethods.createAdministrator("admin12@student.gu.se", "ErikHarring1337", "Admin", "TWO", 2026, "Ingenting");
+    master.userMethods.createStudent("student13@student.gu.se", "ErikHarring1337", "Student", "One", 2021, "SEM");
+    master.userMethods.createStudent("student12@student.gu.se", "ErikHarring1337", "Student", "TWO", 2026, "Something");
+    master.userMethods.createStaff("staff23@staff.gu.se","ErikHarring1337", "Stotsky", "One", "IT", "Master of the universe");
+    master.userMethods.createStaff("staff123@staff.gu.se","ErikHarring1337", "Stotsky", "Two", "IT", "Master of the universe");
+    master.json.saveUsers(master.userMethods.activeUsers);
+
  */
-    User currentUser2 = master.userMethods.getUserByEmail(master.getCurrentUserEmail());
-     lblTest.setText(currentUser2.toString());
- }
-  @FXML
-  void onButtonCreateErikHarring(ActionEvent event) throws Exception {
-   /*userMethods.createStudent("gusharrier@student.gu.se", "ErikHarring1337", "Erik", "Harring", 2024, "SEM");
-   currentUserEmail = "gusharrier@student.gu.se";
-   lblTest.setText("Erik has been created");
-
-    */
   }
 
-  //FOR TESTING
-  @FXML
-  void onButtonCreateKrisAdmin(ActionEvent event) throws Exception {
-  /* userMethods.createAdministrator("guskris@student.gu.se", "ErikHarring1337", "Kris", "Admin", 2024, "SEM");
-   currentUserEmail = "guskris@student.gu.se";
-   lblTest.setText("Kris has been created");
 
-   */
-  }
 
  }
-
-
-
-

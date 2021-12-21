@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import miscellaneous.Data;
+import user.User;
 import user.UserMethods;
 
 /**
@@ -27,7 +28,6 @@ public class MasterController {
   public Data json;
   private Stage latestStage;
   private Stage previousStage;
-  private String currentUserEmail;
 
   public MasterController() throws FileNotFoundException, UnsupportedEncodingException {
     json = new Data();
@@ -96,6 +96,7 @@ public class MasterController {
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
     ProfileController profileController = profileLoader.getController();
     profileController.setMaster(this);
+    profileController.updateProfileTab();
   }
 
     private void closeWindow () {
@@ -111,15 +112,9 @@ public class MasterController {
       latestStage.show();
     }
 
-  public void setCurrentUserEmail(String email) {
-    currentUserEmail = email;
-  }
-
-    public String getCurrentUserEmail() {
-    return currentUserEmail;
-    }
     public void setStage (Stage stage){
       this.latestStage = stage;
     }
+
 
 }
