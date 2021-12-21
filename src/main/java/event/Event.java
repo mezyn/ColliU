@@ -1,6 +1,5 @@
 package event;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,8 +17,7 @@ public class Event {
   // you might want to explain what's the system in providing id to each event;
   // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
-  private LocalDate date;
-  private String time;
+  private Date date;
   private String location;
   private String description;
   private String category;

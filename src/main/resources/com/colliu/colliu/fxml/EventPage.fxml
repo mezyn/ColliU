@@ -13,22 +13,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane accessibleRole="CHECK_BOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane fx:id="filterPane" layoutX="18.0" layoutY="251.0" onMouseClicked="#filterEvent" prefHeight="369.0" prefWidth="179.0" style="-fx-background-color: #EEE;">
+      <Pane fx:id="filterPane" layoutX="-4.0" layoutY="236.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="213.0" style="-fx-background-color: #EEE;">
          <children>
-            <Label fx:id="filterCategory" layoutY="6.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
-            <CheckBox fx:id="gaming" layoutX="8.0" layoutY="42.0" mnemonicParsing="false" onMousePressed="#gamingTicked" text="Gaming" />
-            <CheckBox fx:id="lunchLecture" layoutX="8.0" layoutY="151.0" mnemonicParsing="false" text="Lunch Lecture" />
-            <CheckBox fx:id="workshop" layoutX="8.0" layoutY="294.0" mnemonicParsing="false" text="Workshop" />
-            <CheckBox fx:id="studentUnion" layoutX="8.0" layoutY="258.0" mnemonicParsing="false" text="Student Union" />
-            <CheckBox fx:id="sports" layoutX="8.0" layoutY="223.0" mnemonicParsing="false" text="Sports" />
-            <CheckBox fx:id="others" layoutX="8.0" layoutY="329.0" mnemonicParsing="false" text="Others" />
-            <CheckBox fx:id="mingle" layoutX="8.0" layoutY="187.0" mnemonicParsing="false" text="Mingle" />
-            <CheckBox fx:id="hackathon" layoutX="8.0" layoutY="113.0" mnemonicParsing="false" text="Hackathon" />
-            <CheckBox fx:id="guestLecture" layoutX="8.0" layoutY="77.0" mnemonicParsing="false" onAction="#onGuestLectureTicked" text="Guest Lecture" />
-            <ListView fx:id="filterList" prefHeight="200.0" prefWidth="200.0" />
+            <Label fx:id="filterCategory" layoutX="71.0" layoutY="5.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
+            <ListView fx:id="filterList" layoutX="2.0" layoutY="27.0" prefHeight="368.0" prefWidth="220.0" style="-fx-background-color: #FAFAFA;" />
+            <CheckBox fx:id="cb1" layoutX="13.0" layoutY="53.0" mnemonicParsing="false" text="Gaming" />
+            <CheckBox fx:id="cb2" layoutX="13.0" layoutY="83.0" mnemonicParsing="false" text="Guest Lecture" />
+            <CheckBox fx:id="cb3" layoutX="13.0" layoutY="112.0" mnemonicParsing="false" text="Hackathon" />
+            <CheckBox fx:id="cb4" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" text="Lunch Lecture" />
+            <CheckBox fx:id="cb5" layoutX="12.0" layoutY="177.0" mnemonicParsing="false" text="Mingle" />
+            <CheckBox fx:id="cb6" layoutX="11.0" layoutY="207.0" mnemonicParsing="false" text="Sports" />
+            <CheckBox fx:id="cb7" layoutX="10.0" layoutY="240.0" mnemonicParsing="false" text="Student Union" />
+            <CheckBox fx:id="cb8" layoutX="10.0" layoutY="273.0" mnemonicParsing="false" text="Workshop" />
+            <CheckBox fx:id="cb9" layoutX="12.0" layoutY="307.0" mnemonicParsing="false" text="Others" />
+            <Button fx:id="filterButton" layoutX="87.0" layoutY="359.0" mnemonicParsing="false" onAction="#onFilterClick" text="Filter" />
          </children>
       </Pane>
       <Pane fx:id="listAnnouncements" layoutX="790.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="228.0" style="-fx-background-color: #FAFAFA;">
@@ -64,11 +65,16 @@
                </font>
             </TextField>
             <Button fx:id="btnLogout" layoutX="499.0" layoutY="49.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="237.0" layoutY="136.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <TextField fx:id="txtSearch" layoutX="15.0" layoutY="49.0" prefHeight="34.0" prefWidth="294.0" promptText="Search" style="-fx-background-color: #FFF; -fx-border-radius: 10; -fx-background-radius: 10;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
             <Button fx:id="btnCreateEvent" layoutX="441.0" layoutY="91.0" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="26.0" prefWidth="127.0" text="Create Event" />
          </children>
       </AnchorPane>
