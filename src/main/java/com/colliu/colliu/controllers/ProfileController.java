@@ -1,6 +1,7 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
+import user.Administrator;
+import user.Staff;
 import user.Student;
 import user.User;
 
@@ -59,12 +62,12 @@ public class ProfileController {
 
 
 
-    @FXML
+  @FXML
     private Button btnReturn;
-    @FXML
+  @FXML
     private Label Announcements;
 
- @FXML
+  @FXML
  void onReturnButtonClick(ActionEvent event) throws Exception {
     master.showEventPage();
   }
@@ -91,13 +94,15 @@ public class ProfileController {
     private Pane paneAdminControls;
   @FXML
     private Button btnBanUser;
-    @FXML
+  @FXML
     private Button btnUnbanUser;
-    @FXML
+  @FXML
     private Button btnPromoteUserToAdmin;
-    @FXML
+  @FXML
     private Label lblAdministratorControls;
-    @FXML
+  @FXML
+  private Label lblAdminConfirmationLabel;
+  @FXML
     private TextField tfAdministratorConstrols;
 
   @FXML
@@ -127,25 +132,26 @@ public class ProfileController {
 
   @FXML
     private Button btnChangeLastName;
-    @FXML
+  @FXML
     private Label lblFirstNameChangedSuccessfully;
-    @FXML
+  @FXML
     private Label lblFirstNameMatch;
-    @FXML
+  @FXML
     private Label lblLastNameMatch;
-    @FXML
+  @FXML
     private Label lblLastNameChangedSuccessfully;
-    @FXML
+  @FXML
     private Text txtChangeName;
-    @FXML
+  @FXML
     private TextField tfEnterNewFirstName;
-    @FXML
+  @FXML
     private TextField tfNewLastName;
-    @FXML
+  @FXML
     private TextField tfRepeatNewLastName;
-    @FXML
+  @FXML
     private TextField tfRepeatFirstName;
-    @FXML
+
+  @FXML
     void onButtonChangeFirstName(ActionEvent event) throws IOException {
     if (tfEnterNewFirstName.getText().equals(tfRepeatFirstName.getText())) {
       User currentUser = master.userMethods.getLoggedInUser();
@@ -157,12 +163,10 @@ public class ProfileController {
     } else {
       lblFirstNameMatch.setVisible(true);
       lblFirstNameChangedSuccessfully.setVisible(false);
-
-     }
-
-
     }
- @FXML
+  }
+
+  @FXML
  void onButtonChangeLastName(ActionEvent event) throws IOException {
     if (tfNewLastName.getText().equals(tfRepeatNewLastName.getText())) {
       User loggedInUser = master.userMethods.getLoggedInUser();
@@ -183,22 +187,22 @@ public class ProfileController {
 
   @FXML
     private Button btnChangePasword;
-    @FXML
+  @FXML
     private Label lblChangePasswordError;
-    @FXML
+  @FXML
     private Label lblPasswordChangedSuccessfully;
-    @FXML
+  @FXML
     private Label lblPasswordComplexityError;
-    @FXML
+  @FXML
     private PasswordField tfCurrentPassword;
-    @FXML
+  @FXML
     private PasswordField tfNewPassword;
-    @FXML
+  @FXML
     private PasswordField tfRepeatNewPassword;
-    @FXML
+  @FXML
     private Text txtChangePassword;
 
- @FXML
+  @FXML
  void onButtonChangePassword(ActionEvent event) throws Exception {
     if (!master.userMethods.checkPasswordComplexity(tfNewPassword.getText())) {
       lblPasswordComplexityError.setVisible(true);
@@ -222,17 +226,17 @@ public class ProfileController {
 
   @FXML
     private Button btnDataVetenskap;
-    @FXML
+  @FXML
     private Button btnSoftwareEngineering;
-    @FXML
+  @FXML
     private Button btnSystemvetenskap;
-    @FXML
+  @FXML
     private Label lblSuccessfullyChangedProgam;
-    @FXML
+  @FXML
     private TextField tfNewGraduationYear;
-    @FXML
+  @FXML
     private Button btnChangeGraduationYear;
-    @FXML
+  @FXML
     private Label lblGraduationYearError;
 
   @FXML
@@ -283,7 +287,7 @@ public class ProfileController {
   //Testing stuff
   @FXML
     private Button btbTestingUserInfo;
-    @FXML
+  @FXML
     private Label lblTest;
 
   @FXML

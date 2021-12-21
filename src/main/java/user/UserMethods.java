@@ -1,8 +1,6 @@
 package user;
 
 import com.colliu.colliu.MasterController;
-
-
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -60,7 +58,8 @@ public class UserMethods {
     }
     return true; // change this
   }
-// Write comment here
+  // Write comment here
+
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
