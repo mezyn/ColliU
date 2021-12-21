@@ -35,24 +35,25 @@ public class ProfileController {
     lblYourName.setText(loggedInUser.getLastName() + " " + loggedInUser.getFirstName());
     lblYourEmail.setText(loggedInUser.getEmail());
 
-    if (String.valueOf(loggedInUser.getClass()).equals("class user.Student")) {
+    if (loggedInUser.getType() == 1) {
       Student loggedInStudent = (Student) master.userMethods.getLoggedInUser();
       lblYourUserClass.setText("Student");
       paneAdminControls.setVisible(false);
       lblYourProgram.setText(loggedInStudent.getProgram());
       lblYourExamYear.setText("Class of " + loggedInStudent.getGraduationYear());
-    } else if (String.valueOf(loggedInUser.getClass()).equals("class user.Staff")) {
+    } else if (loggedInUser.getType() == 3) {
+      Staff loggedInStaff = (Staff) master.userMethods.getLoggedInUser();
       lblYourUserClass.setText("Staff");
       paneAdminControls.setVisible(false);
-      lblYourProgram.setVisible(false);
+      lblYourProgram.setText(loggedInStaff.getDepartment());
       lblYourExamYear.setVisible(false);
-    } else if (String.valueOf(loggedInUser.getClass()).equals("class user.Administrator")) {
+    } else if (loggedInUser.getType() == 2) {
       Administrator loggedInAdmin = (Administrator) master.userMethods.getLoggedInUser();
       lblYourUserClass.setText(String.valueOf(loggedInUser.getClass()));
       lblYourProgram.setText(loggedInAdmin.getProgram());
       lblYourExamYear.setText("Class of " + loggedInAdmin.getGraduationYear());
       paneAdminControls.setVisible(true);
-    } else if(String.valueOf(loggedInUser.getClass()).equals("class user.User")) {
+    } else {
       lblYourUserClass.setText("Shit be fucked up");
       lblYourProgram.setText("Shit be fucked up");
       lblYourExamYear.setText("Shit be fucked up");
@@ -292,8 +293,9 @@ public class ProfileController {
 
   @FXML
 void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What should load when you go to this javaFX scene
-    User currentUser2 = master.userMethods.getLoggedInUser();
-    lblTest.setText(String.valueOf(currentUser2.getClass()));
+    // User currentUser2 = master.userMethods.getLoggedInUser();
+    lblTest.setText(String.valueOf(master.userMethods.activeUsers.get(5).getClass()));
+
 /*
     master.userMethods.createAdministrator("admin32@student.gu.se", "ErikHarring1337", "Admin", "One", 2024, "SEM");
     master.userMethods.createAdministrator("admin12@student.gu.se", "ErikHarring1337", "Admin", "TWO", 2026, "Ingenting");

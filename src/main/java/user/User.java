@@ -114,7 +114,9 @@ public class User {
     this.password = password;
   }
 
-
+  public int getType() {
+    return this.type;
+  }
 
   public String toString() {
     return firstName + " " + lastName;
