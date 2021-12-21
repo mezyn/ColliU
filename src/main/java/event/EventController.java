@@ -1,6 +1,7 @@
 package event;
 
 import com.colliu.colliu.Master;
+import com.colliu.colliu.MasterController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Date;
 public class EventController {
 
   ArrayList<Event> events;
+  //added this one to store the filtered events later on
+
   Master master;
 
   public EventController(Master masterClass) {
@@ -63,4 +66,20 @@ public class EventController {
     }
     return notSeenEvents.toArray(new Integer[0]);
   }
+
+  //a method for filtering events
+
+  public ArrayList<Event> filterEvents(String tagName){
+    ArrayList<Event> filteredEvents = new ArrayList<Event>();
+    for(Event event : events){
+      if(event.getCategory().equals(tagName)){ //but what happens if more than 1 filter has been chosen?
+        filteredEvents.add(event);           //CHECK HOW CHECKBOXES WORK AND HOW I CAN IMPLEMENT THAT, AS WELL AS HOW THE EVENTS ARE GONNA BE DISPLAYED
+      }
+    }
+    return filteredEvents; //how do we display them? and how we remove after that all the event objects from the ArrayList once we're finished with the filtering?
+  }
+
+
+
+
 }
