@@ -20,14 +20,11 @@
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane fx:id="filterPane" layoutY="228.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #EEE;">
-      <Pane fx:id="filterPane" layoutX="-4.0" layoutY="236.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="213.0" style="-fx-background-color: #EEE;">
          <children>
             <Label fx:id="filterCategory" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="3.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" textFill="#333333">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ListView fx:id="filterList" layoutX="2.5" layoutY="23.0" prefHeight="371.0" prefWidth="220.0" style="-fx-background-color: #FAFAFA;" />
-            <Label fx:id="filterCategory" layoutX="71.0" layoutY="5.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" />
             <ListView fx:id="filterList" layoutX="2.0" layoutY="27.0" prefHeight="368.0" prefWidth="220.0" style="-fx-background-color: #FAFAFA;" />
             <CheckBox fx:id="cb1" layoutX="13.0" layoutY="53.0" mnemonicParsing="false" text="Gaming" />
             <CheckBox fx:id="cb2" layoutX="13.0" layoutY="83.0" mnemonicParsing="false" text="Guest Lecture" />
@@ -81,11 +78,6 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <TextField fx:id="txtSearch" layoutX="15.0" layoutY="49.0" prefHeight="34.0" prefWidth="294.0" promptText="Search" style="-fx-background-color: #FFF; -fx-border-radius: 10; -fx-background-radius: 10;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
             <Button fx:id="btnCreateEvent" layoutX="441.0" layoutY="91.0" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="26.0" prefWidth="127.0" text="Create Event" />
          </children>
       </AnchorPane>

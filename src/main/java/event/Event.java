@@ -1,6 +1,8 @@
 package event;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 public class Event {
   private final Date creationDate;
   private final int id;
+  private String time;
   //Related to the method of addEvent(String name, Date eventDate, String location, int courseId) in the EventController class,
   // you might want to explain what's the system in providing id to each event;
   // i.e. the first created event gets an id of 1, and the next one 2, ...
@@ -31,10 +34,12 @@ public class Event {
   public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category) {
     this.id = id;
     this.title = title;
-    this.date = date;
+    this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    System.out.println(date);
     this.location = location;
     this.program = program;
-    creationDate = new Date();
+    creationDate = Date.from(LocalDate.now(ZoneId.of("Europe/Berlin")).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    this.time = time;
     attending = new ArrayList<>();
     guestTutors = new ArrayList<>();
     seenBy = new ArrayList<>();
@@ -52,7 +57,12 @@ public class Event {
   }
 
   public LocalDate getDate() {
-    return this.date;
+    System.out.println(date.toInstant()
+      .atZone(ZoneId.systemDefault())
+      .toLocalDate());
+    return date.toInstant()
+      .atZone(ZoneId.systemDefault())
+      .toLocalDate();
   }
 
   public String getLocation() {
@@ -61,14 +71,15 @@ public class Event {
 
   public String getProgram() {
     return this.program;
+  }
 
   public String getDescription() {
     return this.description;
-    }
+  }
 
   public String getCategory() {
     return this.category;
-    }
+  }
 
   public int getId() {
     return this.id;
@@ -81,9 +92,11 @@ public class Event {
   public Integer[] getAttending() {
     return attending.toArray(new Integer[0]); // Converts into an Integer array.
   }
-//Getter
-  public Date getCreationDate() {
-    return creationDate;
+
+  public LocalDate getCreationDate() {
+    return creationDate.toInstant()
+      .atZone(ZoneId.systemDefault())
+      .toLocalDate();
   }
 
   public boolean isActive() {
@@ -95,14 +108,14 @@ public class Event {
      Modify object 
   *******************
    */
-// Write comment here
+
   public void addAttendee(int id) {
     int index = attending.indexOf(id);
     if (index == -1) { //If no match found
       attending.add(id);
     }
   }
-// Write comment here
+
   public void delAttendee(int id) {
     int index = attending.indexOf(id);
     if (index != -1) {
@@ -110,16 +123,16 @@ public class Event {
     }
   }
 
-  //Add the ID of user who's seen the event.
+
   public void addSeenBy(int id) {
     int index = seenBy.indexOf(id);
     if (index == -1) {
       seenBy.add(id);
     }
   }
-//Getters and setters
+
   public void setDate(LocalDate newDate) {
-    this.date = newDate;
+    this.date = Date.from(newDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
   }
 
   public void setLocation(String newLocation) {
@@ -136,5 +149,9 @@ public class Event {
 
   public void setStatus(boolean status) {
     active = status;
+  }
+
+  public String getTime() {
+    return time;
   }
 }

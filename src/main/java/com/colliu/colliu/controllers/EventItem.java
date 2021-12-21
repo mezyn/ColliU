@@ -64,7 +64,7 @@ public class EventItem {
     this.lblTitle.setText(eventInfo.getTitle());
     this.lblDate.setText(String.valueOf(eventInfo.getDate()).substring(0, 10));
     this.lblLocation.setText(eventInfo.getLocation());
-    this.lblTime.setText(eventInfo.getDate().toString().substring(11, 16));
+    this.lblTime.setText(eventInfo.getTime());
     normalHeight = spAllEvent.getPrefHeight();
     System.out.println(normalHeight);
     detailsHeight = pnEventDetails.getPrefHeight();

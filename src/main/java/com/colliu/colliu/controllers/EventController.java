@@ -41,7 +41,7 @@ public class EventController {
   private Button btnCreateEvent;
 
   @FXML
-  void onCreateEventClicked(ActionEvent event) throws Exception{
+  void onCreateEventClicked(ActionEvent event) throws Exception {
     master.showEventPage(); //I want to use this method but it's private in MasterController. What do I do
   }
   @FXML
@@ -79,9 +79,6 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
   @FXML
   private TextField txtSearch;
-
-  @FXML
-  private Button btnLogout;
 
   @FXML
   private Button btnProfileSettings;
@@ -227,6 +224,11 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   @FXML
   void nameHoverOff(MouseEvent event) {
     pnUserName.setStyle(effectOff);
+  }
+
+  @FXML
+  void onFilterClick(ActionEvent event) {
+
   }
 
   public void setMaster(MasterController master) {

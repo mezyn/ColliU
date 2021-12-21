@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ForgotPassword {
 
-  MasterController master = new MasterController();
+  MasterController master;
 
   @FXML
   private Button continueButton;
@@ -38,10 +38,12 @@ public class ForgotPassword {
   }
 
   @FXML
-  void onSignUpClick(ActionEvent event) throws Exception{
+  void onSignUpClick(ActionEvent event) throws Exception {
     master.showForgottenPassword();
-
   }
 
+  public void setMaster(MasterController master) {
+    this.master = master;
   }
+}
 

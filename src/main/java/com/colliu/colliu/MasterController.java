@@ -1,9 +1,7 @@
 package com.colliu.colliu;
 
-import com.colliu.colliu.controllers.EventController;
-import com.colliu.colliu.controllers.LoginController;
-import com.colliu.colliu.controllers.StaffController;
-import com.colliu.colliu.controllers.StudentController;
+import com.colliu.colliu.controllers.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -90,7 +88,8 @@ public class MasterController {
 
   public void showForgottenPassword() throws Exception {
     String forgottenPasswordPage = "forgot-password.fxml";
-    showWindow(forgottenPasswordPage);
+    ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
+    controller.setMaster(this);
   }
 
   private void closeWindow() {
