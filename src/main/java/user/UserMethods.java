@@ -15,7 +15,7 @@ import java.util.Date;
 public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
-  private String loggedInUserEmail;
+ // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
     this.master = master;
@@ -146,18 +146,22 @@ public class UserMethods {
   }
 
   public void setLoggedInUser(String email) {
-    loggedInUserEmail = email;
+   // loggedInUserEmail = email;
   }
+
+
 
   public boolean getAccountStatus(String email) {
     return activeUsers.get(findUser(email)).getAccountStatus();
   }
 
   public String getLoggedInUser() {
-    return loggedInUserEmail;
+    return master.user.getEmail();
   }
+
+
   public int getCurrentUserType() {
-    return activeUsers.get(findUser(loggedInUserEmail)).getType();
+    return master.user.getType();
   }
 
   public void promoteStudentToAdmin(String promoteEmail) throws Exception {

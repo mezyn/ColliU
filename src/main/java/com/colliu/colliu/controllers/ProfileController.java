@@ -4,10 +4,7 @@ import com.colliu.colliu.MasterController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
 import user.Administrator;
@@ -29,11 +26,11 @@ public class ProfileController {
    */
 
   public void updateProfileTab() {
-    int userType = master.userMethods.getCurrentUserType();
-    int index = master.userMethods.findUser(master.userMethods.getLoggedInUser());
+    int userType = master.user.getType();
+
   switch(userType)  {
   case 1:
-      Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Student loggedInStudent = (Student) master.user;
       lblYourUserClass.setText("Student");
       paneAdminControls.setVisible(false);
       lblYourProgram.setText(loggedInStudent.getProgram());
@@ -42,8 +39,8 @@ public class ProfileController {
       lblYourEmail.setText(loggedInStudent.getEmail());
       break;
   case 2:
-      Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
-      lblYourUserClass.setText(String.valueOf(loggedInAdmin.getClass()));
+      Administrator loggedInAdmin = (Administrator) master.user;
+      lblYourUserClass.setText("Student Administrator");
       lblYourProgram.setText(loggedInAdmin.getProgram());
       lblYourExamYear.setText("Class of " + loggedInAdmin.getGraduationYear());
       paneAdminControls.setVisible(true);
@@ -51,14 +48,15 @@ public class ProfileController {
       lblYourEmail.setText(loggedInAdmin.getEmail());
       break;
   case 3:
-      Staff loggedInStaff = (Staff) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
-      lblYourUserClass.setText("Staff");
-      paneAdminControls.setVisible(false);
-      lblYourProgram.setText(loggedInStaff.getDepartment());
-      lblYourExamYear.setVisible(false);
-      lblYourName.setText(loggedInStaff.getLastName() + " " + loggedInStaff.getFirstName());
-      lblYourEmail.setText(loggedInStaff.getEmail());
-      break;
+    Staff loggedInStaff = (Staff) master.user;
+    lblYourUserClass.setText("Staff");
+    paneAdminControls.setVisible(false);
+    lblYourProgram.setText(loggedInStaff.getDepartment());
+    lblYourExamYear.setVisible(false);
+    tabChangeProgram.setDisable(true);
+    lblYourName.setText(loggedInStaff.getLastName() + " " + loggedInStaff.getFirstName());
+    lblYourEmail.setText(loggedInStaff.getEmail());
+    break;
   default:
       lblYourUserClass.setText("Shit be fucked up");
       lblYourProgram.setText("Shit be fucked up");
@@ -67,6 +65,9 @@ public class ProfileController {
     }
 
   }
+
+  @FXML
+  private Tab tabChangeProgram;
 
   @FXML
     private Button btnReturn;
@@ -163,13 +164,13 @@ public class ProfileController {
       int userType = master.userMethods.getCurrentUserType();
 
       if (userType == 1) {
-        Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Student loggedInStudent = (Student) master.user;
         loggedInStudent.setFirstName(tfEnterNewFirstName.getText());
       } else if (userType == 3) {
-        Staff loggedInStaff = (Staff) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Staff loggedInStaff = (Staff) master.user;
         loggedInStaff.setFirstName(tfEnterNewFirstName.getText());
       } else if (userType == 2) {
-        Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Administrator loggedInAdmin = (Administrator) master.user;
         loggedInAdmin.setFirstName(tfEnterNewFirstName.getText());
       }
       lblFirstNameChangedSuccessfully.setVisible(true);
@@ -187,16 +188,16 @@ public class ProfileController {
   @FXML
  void onButtonChangeLastName(ActionEvent event) throws IOException {
     if (tfNewLastName.getText().equals(tfRepeatNewLastName.getText())) {
-      int userType = master.userMethods.getCurrentUserType();
+      int userType = master.user.getType();
 
       if (userType == 1) {
-        Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Student loggedInStudent = (Student) master.user;
         loggedInStudent.setLastName(tfNewLastName.getText());
       } else if (userType == 3) {
-        Staff loggedInStaff = (Staff) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Staff loggedInStaff = (Staff) master.user;
         loggedInStaff.setLastName(tfNewLastName.getText());
       } else if (userType == 2) {
-        Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Administrator loggedInAdmin = (Administrator) master.user;
         loggedInAdmin.setLastName(tfNewLastName.getText());
       }
       lblLastNameChangedSuccessfully.setVisible(true);
@@ -239,13 +240,13 @@ public class ProfileController {
         int userType = master.userMethods.getCurrentUserType();
 
         if (userType == 1) {
-          Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+          Student loggedInStudent = (Student) master.user;
           loggedInStudent.setPassword(tfNewPassword.getText());
         } else if (userType == 3) {
-          Staff loggedInStaff = (Staff) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+          Staff loggedInStaff = (Staff) master.user;
           loggedInStaff.setPassword(tfNewPassword.getText());
         } else if (userType == 2) {
-          Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+          Administrator loggedInAdmin = (Administrator) master.user;
           loggedInAdmin.setPassword(tfNewPassword.getText());
         }
 
@@ -280,13 +281,12 @@ public class ProfileController {
 
   @FXML
     void onButtonPressSEM() throws Exception {
-
     int userType = master.userMethods.getCurrentUserType();
     if (userType == 1) {
-      Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Student loggedInStudent = (Student) master.user;
       loggedInStudent.setProgram("Software engineering and management");
     } else if (userType == 2) {
-      Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Administrator loggedInAdmin = (Administrator) master.user;
       loggedInAdmin.setProgram("Software engineering and management");
     }
     updateProfileTab();
@@ -297,10 +297,10 @@ public class ProfileController {
     void onButtonPressSystemvetenskap() throws Exception {
     int userType = master.userMethods.getCurrentUserType();
     if (userType == 1) {
-      Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Student loggedInStudent = (Student) master.user;
       loggedInStudent.setProgram("Systemvetenskap");
     } else if (userType == 2) {
-      Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Administrator loggedInAdmin = (Administrator) master.user;
       loggedInAdmin.setProgram("Systemvetenskap");
     }
     updateProfileTab();
@@ -311,10 +311,10 @@ public class ProfileController {
     void onButtonPressDatavetenskap() throws Exception {
     int userType = master.userMethods.getCurrentUserType();
     if (userType == 1) {
-      Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Student loggedInStudent = (Student) master.user;
       loggedInStudent.setProgram("Datavetenskap");
     } else if (userType == 2) {
-      Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Administrator loggedInAdmin = (Administrator) master.user;
       loggedInAdmin.setProgram("Datavetenskap");
     }
     updateProfileTab();
@@ -325,10 +325,10 @@ public class ProfileController {
     void onButtonPressKognitionsvetenskap() throws Exception {
     int userType = master.userMethods.getCurrentUserType();
     if (userType == 1) {
-      Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Student loggedInStudent = (Student) master.user;
       loggedInStudent.setProgram("Kognitionsvetenskap");
     } else if (userType == 2) {
-      Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+      Administrator loggedInAdmin = (Administrator) master.user;
       loggedInAdmin.setProgram("Kognitionsvetenskap");
     }
     updateProfileTab();
@@ -343,10 +343,10 @@ public class ProfileController {
       lblGraduationYearError.setVisible(true);
     } else {
       if (userType == 1) {
-        Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Student loggedInStudent = (Student) master.user;
         loggedInStudent.setGraduationYear(Integer.parseInt(tfNewGraduationYear.getText()));
       } else if (userType == 2) {
-        Administrator loggedInAdmin = (Administrator) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
+        Administrator loggedInAdmin = (Administrator) master.user;
         loggedInAdmin.setGraduationYear(Integer.parseInt(tfNewGraduationYear.getText()));
       }
       lblGraduationYearError.setVisible(false);
