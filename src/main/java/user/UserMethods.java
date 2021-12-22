@@ -82,15 +82,6 @@ public class UserMethods {
     activeUsers.add(new Staff(email, password, firstName, lastName, department, title));
     return "User registered successfully.";
   }
-  /*
-    public boolean userLogin(String email, String password) {
-
-      if (checkExistingEmail(email) && validatePassword(password)) {
-        return true;
-      }
-      return false;
-    }
-   */
 
 
 // Write comment here
@@ -156,23 +147,6 @@ public class UserMethods {
 
   public void setLoggedInUser(String email) {
     loggedInUserEmail = email;
-    /* loggedInUser = getUserByEmail(email);
-    int loggedInUserType = getUserType(email);
-    int index = findUser(email);
-    switch (loggedInUserType) {
-      case 1:
-      loggedInUser = (Student) activeUsers.get(index);
-      break;
-      case 2:
-      loggedInUser = (Administrator) activeUsers.get(index);
-      break;
-      case 3:
-      loggedInUser = (Staff) activeUsers.get(index);
-      break;
-    }
-
-     */
-
   }
 
   public boolean getAccountStatus(String email) {
@@ -209,5 +183,7 @@ public class UserMethods {
     getUserByEmail(userToUnban).setAccountStatus(false);
     master.json.saveUsers(activeUsers);
   }
+
+
 
 }
