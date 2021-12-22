@@ -168,9 +168,9 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   public void loadEvents(String program, String[] filters) throws IOException {
 
     Event[] eventList = master.eventMethods.getEvents("SEM");
-
+    eventItems.getChildren().clear(); // resets VBox contents(event list)
     Node[] adds;
-    if (filters == null) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
+    if (filters == null | filters.length == 0) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
        adds = new StackPane[eventList.length];
       for (int i = 0; i < eventList.length; i++) {
         FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
@@ -189,7 +189,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
         eventItems.getChildren().add(adds[i]);
         eventItems.getChildren().get(0).setLayoutX(0);
         EventItem eventController = eventLoader.getController();
-        eventController.setEventInfo(eventList[i]);
+        eventController.setEventInfo(filteredEvents[i]);
       }
     }
     eventItems.setSpacing(5);

@@ -77,7 +77,7 @@ public class EventMethods {
       // THen loops through all of the tags/filters:
       for (int j = 0; j < tags.length; j++) {
         // Checks if the category in the event is the same as one of our tags- Also checks if it's already added in our list. to avoid duplicates
-        if (programEvents[i].getCategory().equals(tags[j]) && !filteredEvents.contains(programEvents[i])) {
+        if (programEvents[i].getCategory().equals(tags[j])) {
           // Adds the event to our new arraylist of events we want to show
           filteredEvents.add(programEvents[i]);
         }
