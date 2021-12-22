@@ -75,6 +75,7 @@ public class MasterController {
     loginController.setMaster(this);
   }
 
+
   public void showEventPage() throws Exception {
     String eventPage = "EventPage.fxml";
     closeWindow();

@@ -37,6 +37,8 @@ public class Event {
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
     System.out.println(date);
     this.location = location;
+    this.description = description;
+    this.category = category;
     this.program = program;
     creationDate = Date.from(LocalDate.now(ZoneId.of("Europe/Berlin")).atStartOfDay(ZoneId.systemDefault()).toInstant());
     this.time = time;
