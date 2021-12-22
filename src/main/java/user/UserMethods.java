@@ -106,10 +106,10 @@ public class UserMethods {
 // Write comment here
 //I'm not sure if the validatePassword method is logically correct.
 //So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
-  public boolean validatePassword(String password) {
+  public boolean validatePassword(String password, String email) {
 
     for (User user : activeUsers) {
-      if (user.getPassword().equals(password)) {
+      if (user.getPassword().equals(password) && user.getEmail().equals(email)) {
         return true;
       }
     }
@@ -173,6 +173,10 @@ public class UserMethods {
 
      */
 
+  }
+
+  public boolean getAccountStatus(String email) {
+    return activeUsers.get(findUser(email)).getAccountStatus();
   }
 
   public String getLoggedInUser() {

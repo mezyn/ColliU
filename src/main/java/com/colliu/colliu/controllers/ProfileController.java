@@ -238,7 +238,7 @@ switch(userType) {
     if (!master.userMethods.checkPasswordComplexity(tfNewPassword.getText())) {
       lblPasswordComplexityError.setVisible(true);
     } else {
-      if (master.userMethods.validatePassword(tfCurrentPassword.getText()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText()) ) {
+      if (master.userMethods.validatePassword(tfCurrentPassword.getText(), master.userMethods.getLoggedInUser()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText()) ) {
         int userType = master.userMethods.getCurrentUserType();
 
         if (userType == 1) {

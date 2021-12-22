@@ -120,7 +120,9 @@ public class User {
     return this.type;
   }
 
-
+  public boolean getAccountStatus() {
+    return this.accountBanned;
+  }
 
   public String toString() {
     return firstName + " " + lastName;
@@ -134,9 +136,7 @@ public class User {
     this.accountBanned = bannedStatus;
   }
 
-  public boolean getAccountStatus() {
-    return this.accountBanned;
-  }
+
 
   public void login() {
     logins.add(new Date());
