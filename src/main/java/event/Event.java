@@ -46,6 +46,7 @@ public class Event {
     guestTutors = new ArrayList<>();
     seenBy = new ArrayList<>();
     active = true;
+
   }
 
   /*

@@ -82,7 +82,7 @@ public class MasterController {
     FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.loadEvents("SEM", "all");
+    eventController.loadEvents("SEM", new String[0]);
   }
 
   public void showForgottenPassword() throws Exception {
