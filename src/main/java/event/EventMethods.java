@@ -6,6 +6,7 @@ import com.colliu.colliu.MasterController;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import com.colliu.colliu.MasterController;
+import user.User;
 
 import java.time.LocalDate;
 import java.time.LocalDate;
@@ -22,12 +23,12 @@ public class EventMethods {
 
   public EventMethods(MasterController masterClass) throws FileNotFoundException, UnsupportedEncodingException {
     master = masterClass;
-    events = master.json.loadEvent();
+    events = master.loadEvents();
   }
 
 
-  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program) {
-    return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category));
+  public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
+    return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
   }
 
   /*¢
@@ -90,5 +91,15 @@ public class EventMethods {
 
   public ArrayList<Event> getAllEvents() {
     return events;
+  }
+
+  public Event[] getHostingEvents(User currentUser) {
+    ArrayList<Event> hostingEvents = new ArrayList<>();
+    for (int i = 0; i < events.size(); i++) {
+      if (events.get(i).getHost().equals(currentUser.getEmail())) {
+        hostingEvents.add(events.get(i));
+      }
+    }
+    return hostingEvents.toArray(new Event[0]);
   }
 }

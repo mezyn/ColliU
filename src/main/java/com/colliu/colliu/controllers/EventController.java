@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import miscellaneous.Data;
 import user.Administrator;
 import user.Staff;
@@ -122,6 +123,9 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   private CheckBox cb9;
 
   @FXML
+  private Label lblName;
+
+  @FXML
   void closeProgram(ActionEvent event) {
 
   }
@@ -132,7 +136,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void logoutUser(ActionEvent event) throws IOException {
+  void logOutUser(ActionEvent event) {
     master.showLogin();
   }
 
@@ -167,10 +171,10 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     To make it work for tags you can add paremeters as needed:
    */
 
-  public void loadEvents(String program, String[] filters) throws IOException {
-
-    Event[] eventList = master.eventMethods.getEvents("SEM");
+  public void loadEvents(String[] filters) throws IOException {
+    Event[] eventList = master.getCurrentEvents();
     eventItems.getChildren().clear(); // resets VBox contents(event list)
+    setName();
     Node[] adds;
     if (filters == null | filters.length == 0) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
        adds = new StackPane[eventList.length];
@@ -183,10 +187,9 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
         eventController.setMaster(master);
         eventController.setEvent(eventList[i]);
         eventController.setAttending((eventList[i].getAttending().contains("william@student.gu.se"/*master.userMethods.currentUser*/) ? true : false));
-        /*eventController.setEventInfo();*/
       }
     } else {
-      Event[] filteredEvents = master.eventMethods.filterEvents(program, filters);
+      Event[] filteredEvents = master.filterEvents(filters);
       adds = new StackPane[filteredEvents.length];
       for (int i = 0; i < filteredEvents.length; i++) {
         FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
@@ -278,7 +281,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     }
 
     String[] tagsToFilter = tags.toArray(new String[0]);
-    loadEvents("SEM", tagsToFilter);
+    loadEvents(tagsToFilter);
   }
 
   @FXML
@@ -296,6 +299,11 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
   @FXML
   void changeName(MouseEvent event) {
-    ((Label)event.getSource()).setText(master.user.getFirstName() + ((Staff) master.user).getDepartment());
+    //((Label)event.getSource()).setText(master.user.getFirstName() + ((Staff) master.user).getDepartment());
+  }
+
+  private void setName() {
+    String name = master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName();
+    lblName.setText(name);
   }
 }

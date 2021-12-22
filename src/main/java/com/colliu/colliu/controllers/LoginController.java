@@ -61,28 +61,29 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   @FXML
   void onLogInClick() throws Exception {
-    if (guEmail.getText().isBlank()) {                              //checks if email is empty
-      warningLabel.setText("Email address cannot be empty.");
-    } else if (password.getText().isBlank()) {                      //check if password is empty
-      warningLabel.setText("Password cannot be empty.");
+    String uEmail = guEmail.getText();
+    String uPassword = password.getText();
 
+    if (uEmail.isBlank()) {                              //checks if email is empty
+      warningLabel.setText("Email address cannot be empty.");
+    } else if (uPassword.isBlank()) {                      //check if password is empty
+      warningLabel.setText("Password cannot be empty.");
     } else {
-      if (master.userMethods.checkExistingEmail(guEmail.getText())) { //checks if email exists
-        if (master.userMethods.validatePassword(password.getText(), guEmail.getText())) { //checks if email matches password
-          if (master.userMethods.getAccountStatus(guEmail.getText())) {
-            accountBannedPane.setVisible(true);
-          } else {
-            master.userMethods.setLoggedInUser(guEmail.getText());
-            master.showEventPage();
-          }
+      boolean validLogin = master.validateLogin(uEmail, uPassword);
+      if (validLogin) {
+        User user = master.findUser(uEmail);
+        master.setLoggedInUser(user);
+        boolean accountStatus = user.getAccountStatus();
+        if (accountStatus) {
+          accountBannedPane.setVisible(accountStatus);
         } else {
-          warningLabel.setText("Wrong password.");
+          master.showEventPage();
         }
       } else {
-        warningLabel.setText("Not existing email address.");
+        warningLabel.setText("Email or Password is incorrect.");
       }
     }
-     */
+
   }
 
   @FXML

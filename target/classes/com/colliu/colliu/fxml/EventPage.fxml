@@ -91,7 +91,7 @@
                   <Image url="@../images/profile_placeholder.png" />
                </image>
             </ImageView>
-            <Label layoutX="35.0" layoutY="15.0" text="William Hilmersson">
+            <Label fx:id="lblName" layoutX="35.0" layoutY="15.0" text="William Hilmersson">
                <font>
                   <Font size="16.0" />
                </font>

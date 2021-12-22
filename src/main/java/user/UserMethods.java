@@ -4,7 +4,6 @@ import com.colliu.colliu.MasterController;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 /**
@@ -13,13 +12,14 @@ import java.util.Date;
  *********************************
  **/
 public class UserMethods {
-  public ArrayList<User> activeUsers;
+  private ArrayList<User> users;
   MasterController master;
- // private String loggedInUserEmail;
+  private User currentUser;
+  // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
     this.master = master;
-    activeUsers = master.json.loadUser();
+    users = master.loadUsers();
   }
 
   //create user and sub-types, check for existing users (email?), add / not add into arraylist
@@ -30,11 +30,11 @@ public class UserMethods {
   //Using user input + calling constructors from the different user-classes?
   // Write comment here
   public int findUser(String searchEmail) {
-    if (activeUsers.size() == 0) {
+    if (users.size() == 0) {
       return -1;
     }
-    for (int i = 0; i < activeUsers.size(); i++) {
-      if (activeUsers.get(i).getEmail().equals(searchEmail)) {
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getEmail().equals(searchEmail)) {
         return i;
       }
     }
@@ -61,7 +61,7 @@ public class UserMethods {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
     }
-    activeUsers.add(new Student(email, password, firstName, lastName, graduationYear, program));
+    users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
 // Write comment here
@@ -69,7 +69,7 @@ public class UserMethods {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
     }
-    activeUsers.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
+    users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
 // Write comment here
@@ -78,7 +78,7 @@ public class UserMethods {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
     }
-    activeUsers.add(new Staff(email, password, firstName, lastName, department, title));
+    users.add(new Staff(email, password, firstName, lastName, department, title));
     return "User registered successfully.";
   }
   /*
@@ -95,7 +95,7 @@ public class UserMethods {
 // Write comment here
   public boolean checkExistingEmail(String email) {
 
-    for (User user : activeUsers) {
+    for (User user : users) {
       if (user.getEmail().equals(email)) {
         return true;
       }
@@ -107,7 +107,7 @@ public class UserMethods {
 //So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
   public boolean validatePassword(String password, String email) {
 
-    for (User user : activeUsers) {
+    for (User user : users) {
       if (user.getPassword().equals(password) && user.getEmail().equals(email)) {
         return true;
       }
@@ -126,7 +126,7 @@ public class UserMethods {
   }
 // Write comment here
   public User getUserByEmail(String email) {
-    for (User user: activeUsers) {
+    for (User user: users) {
       if (user.getEmail().equals(email)) {
         return user;
       }
@@ -153,23 +153,20 @@ public class UserMethods {
     }
   }
 
-  public void setLoggedInUser(String email) {
-   // loggedInUserEmail = email;
+  public void setLoggedInUser(User user) {
+    currentUser = user;
   }
-
-
 
   public boolean getAccountStatus(String email) {
-    return activeUsers.get(findUser(email)).getAccountStatus();
+    return currentUser.getAccountStatus();
   }
 
-  public String getLoggedInUser() {
-    return master.user.getEmail();
+  public User getLoggedInUser() {
+    return currentUser;
   }
-
 
   public int getCurrentUserType() {
-    return master.user.getType();
+    return currentUser.getType();
   }
 
   public void promoteStudentToAdmin(String promoteEmail) throws Exception {
@@ -180,22 +177,24 @@ public class UserMethods {
    String lastName = promoteUser.getLastName();
    String program = promoteUser.getProgram();
    int graduationYear = promoteUser.getGraduationYear();
-   activeUsers.remove(findUser(email));
+   users.remove(findUser(email));
    createAdministrator(email, password, firstName, lastName, graduationYear, program);
-   master.json.saveUsers(activeUsers);
+   master.saveUsers();
   }
 
-  public void banUser(String userToBan) throws Exception {
+  public void banUser(String userToBan)  {
     getUserByEmail(userToBan).setAccountStatus(true);
-    master.json.saveUsers(activeUsers);
+    master.saveUsers();
   }
 
 
-  public void unbanUser(String userToUnban) throws Exception {
+  public void unbanUser(String userToUnban)  {
     getUserByEmail(userToUnban).setAccountStatus(false);
-    master.json.saveUsers(activeUsers);
+    master.saveUsers();
   }
 
-
+  public ArrayList<User> getAllUsers() {
+    return users;
+  }
 
 }

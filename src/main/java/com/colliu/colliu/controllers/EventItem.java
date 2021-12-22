@@ -145,7 +145,7 @@ public class EventItem {
       btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
       btnAttend.setText("Attend");
     }
-    master.json.saveEvents(master.eventMethods.getAllEvents());
+    master.saveEvents();
     setEventInfo();
   }
 }

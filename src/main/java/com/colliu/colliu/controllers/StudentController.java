@@ -127,7 +127,7 @@ public class StudentController {
       String surname = tfLastName.getText();
       int graduationYear = Integer.parseInt(tfGraduationYear.getText());
       String program = tfProgram.getText();
-      master.userMethods.createStudent(email, password, name, surname, graduationYear, program);
+      master.createStudent(email, password, name, surname, graduationYear, program);
       master.showLogin();
     } catch (Exception exception)  {
        // Do something here.

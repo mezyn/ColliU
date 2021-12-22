@@ -27,11 +27,12 @@ public class Event {
   private String category;
   private String program;
   private boolean active;
+  private String host;
   private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
-  public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category) {
+  public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
     this.id = id;
     this.title = title;
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -46,6 +47,7 @@ public class Event {
     guestTutors = new ArrayList<>();
     seenBy = new ArrayList<>();
     active = true;
+    this.host = host;
 
   }
 
@@ -156,5 +158,9 @@ public class Event {
 
   public String getTime() {
     return time;
+  }
+
+  public String getHost() {
+    return host;
   }
 }

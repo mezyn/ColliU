@@ -65,7 +65,7 @@ public class Data {
     return (ArrayList<Event>) loadJsonFile(PROGRAM_FILE, gsonToken);
   }*/
 
-  public void saveUsers(ArrayList<?> userData) throws IOException {
+  public boolean saveUsers(ArrayList<?> userData) {
     ArrayList<Student> students = new ArrayList<>();
     ArrayList<Staff> staff = new ArrayList<>();
     for (int i = 0; i < userData.size(); i++) {
@@ -75,20 +75,24 @@ public class Data {
         staff.add((Staff) userData.get(i));
       }
     }
-    save(students, STUDENT_FILE);
-    save(staff, STAFF_FILE);
+    return save(students, STUDENT_FILE) && save(staff, STAFF_FILE);
   }
 
-  public void saveEvents(ArrayList<Event> eventData) throws IOException {
-    save(eventData, EVENT_FILE);
+  public boolean saveEvents(ArrayList<Event> eventData) {
+    return save(eventData, EVENT_FILE);
   }
 
-  private void save(ArrayList<?> data, String fileName) throws IOException {
-    FileWriter jsFile = new FileWriter(fileName);
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    gson.toJson(data, jsFile);
-    jsFile.close();
+  private boolean save(ArrayList<?> data, String fileName) {
+    try {
+      FileWriter jsFile = new FileWriter(fileName);
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      gson.toJson(data, jsFile);
 
+      jsFile.close();
+    } catch(IOException fail) {
+      return false;
+    }
+    return true;
   }
 
   private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws FileNotFoundException, UnsupportedEncodingException {

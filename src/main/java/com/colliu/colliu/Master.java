@@ -45,7 +45,7 @@ public class Master extends Application {
     user.add(new Student("erik@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
     user.add(new Staff("william@student.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
     user.add(new Administrator("kris@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
-    masterInitiate.user = user.get(1);
-    masterInitiate.json.saveUsers(user);
+    //masterInitiate.user = user.get(1);
+    masterInitiate.saveUsers();
   }
 }

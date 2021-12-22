@@ -131,7 +131,7 @@ public class StaffController {
       String surname = tfStaffLastName.getText();
       String department = tfStaffDepartment.getText();
       String staffTitle = "Professor"; //tfStaffTitle.getText();
-      master.userMethods.createStaff(email, password, name, surname, department, staffTitle);
+      master.createStaff(email, password, name, surname, department, staffTitle);
       master.showEventPage();
     } catch (Exception exception) {
       // Do something here.
