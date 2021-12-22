@@ -138,6 +138,11 @@ public class StaffController {
     }
   }
 
+  @FXML
+  void cancelRegistration(ActionEvent event) {
+
+  }
+
   public void setMaster(MasterController master) {
     this.master = master;
   }

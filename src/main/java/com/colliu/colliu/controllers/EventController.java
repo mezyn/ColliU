@@ -92,6 +92,32 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   @FXML
   private Button btnArrowPoint;
 
+  @FXML
+  private CheckBox cb1;
+
+  @FXML
+  private CheckBox cb2;
+
+  @FXML
+  private CheckBox cb3;
+
+  @FXML
+  private CheckBox cb4;
+
+  @FXML
+  private CheckBox cb5;
+
+  @FXML
+  private CheckBox cb6;
+
+  @FXML
+  private CheckBox cb7;
+
+  @FXML
+  private CheckBox cb8;
+
+  @FXML
+  private CheckBox cb9;
 
   @FXML
   void closeProgram(ActionEvent event) {
@@ -139,12 +165,13 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     To make it work for tags you can add paremeters as needed:
    */
 
-  public void loadEvents(String program, String tag) throws IOException {
+  public void loadEvents(String program, String[] filters) throws IOException {
 
     Event[] eventList = master.eventMethods.getEvents("SEM");
-
-    Node[] adds = new StackPane[eventList.length];
-    if (!tag.equals("all")) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
+    eventItems.getChildren().clear(); // resets VBox contents(event list)
+    Node[] adds;
+    if (filters == null | filters.length == 0) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
+       adds = new StackPane[eventList.length];
       for (int i = 0; i < eventList.length; i++) {
         FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
         adds[i] = eventLoader.load();
@@ -154,13 +181,15 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
         eventController.setEventInfo(eventList[i]);
       }
     } else {
-      for (int i = 0; i < eventList.length; i++) {
+      Event[] filteredEvents = master.eventMethods.filterEvents(program, filters);
+      adds = new StackPane[filteredEvents.length];
+      for (int i = 0; i < filteredEvents.length; i++) {
         FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
         adds[i] = eventLoader.load();
         eventItems.getChildren().add(adds[i]);
         eventItems.getChildren().get(0).setLayoutX(0);
         EventItem eventController = eventLoader.getController();
-        eventController.setEventInfo(eventList[i]);
+        eventController.setEventInfo(filteredEvents[i]);
       }
     }
     eventItems.setSpacing(5);
@@ -184,36 +213,18 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void logOutUser(ActionEvent event) {
+  void logOutUser(MouseEvent event) {
 
-  }
-
-  void hoverEffectOn(Button button) {
-    button.setStyle(effectOn);
-  }
-
-  void hoverEffectOff(Button button) {
-    button.setStyle(effectOff);
   }
 
   @FXML
-  void onProfileMouseEnter(MouseEvent event) {
-    hoverEffectOn(btnProfileSettings);
+  void hoverEffectOn(MouseEvent event) {
+    ((Button) event.getSource()).setStyle(effectOn);
   }
 
   @FXML
-  void onProfileMouseExit(MouseEvent event) {
-    hoverEffectOff(btnProfileSettings);
-  }
-
-  @FXML
-  void onLogoutMouseEnter(MouseEvent event) {
-    hoverEffectOn(btnLogout);
-  }
-
-  @FXML
-  void onLogoutMouseExit(MouseEvent event) {
-    hoverEffectOff(btnLogout);
+  void hoverEffectOff(MouseEvent event) {
+    ((Button) event.getSource()).setStyle(effectOff);
   }
 
   @FXML
@@ -227,7 +238,43 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void onFilterClick(ActionEvent event) {
+  void onFilterClick(ActionEvent event) throws Exception{
+    ArrayList<String> tags = new ArrayList<>();
+
+    if(cb1.isSelected()) {
+      tags.add("Gaming");
+    }
+    if(cb2.isSelected()) {
+      tags.add("Guest Lecture");
+    }
+    if(cb3.isSelected()) {
+      tags.add("Hackathon");
+    }
+    if(cb4.isSelected()) {
+      tags.add("Lunch lecture");
+    }
+    if(cb5.isSelected()) {
+      tags.add("Mingle");
+    }
+    if(cb6.isSelected()) {
+      tags.add("Sports");
+    }
+    if(cb7.isSelected()) {
+      tags.add("Student Union");
+    }
+    if(cb8.isSelected()) {
+      tags.add("Workshop");
+    }
+    if(cb9.isSelected()) {
+      tags.add("Others");
+    }
+
+    String[] tagsToFilter = tags.toArray(new String[0]);
+    loadEvents("SEM", tagsToFilter);
+  }
+
+  @FXML
+  void createNewEvent(ActionEvent event) {
 
   }
 

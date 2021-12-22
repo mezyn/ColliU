@@ -7,9 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import user.User;
-
-import java.io.IOException;
 
 public class LoginController {
 
@@ -74,6 +73,28 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   @FXML
   void registerStudent(ActionEvent event) throws Exception {
     master.showRegisterStudent();
+  }
+
+  @FXML
+  void hoverOn(MouseEvent event) {
+    ((Button) event.getSource()).setOpacity(0.8);
+  }
+
+  @FXML
+  void hoverOff(MouseEvent event) {
+    ((Button) event.getSource()).setOpacity(1);
+  }
+
+  @FXML
+  void underlineOn(MouseEvent event) {
+    String buttonStyle = ((Button) event.getSource()).getStyle();
+    ((Button) event.getSource()).setStyle(buttonStyle + "-fx-underline: true;");
+  }
+
+  @FXML
+  void underlineOff(MouseEvent event) {
+    String buttonStyle = ((Button) event.getSource()).getStyle();
+    ((Button) event.getSource()).setStyle(buttonStyle.substring(0, buttonStyle.length() - 20));
   }
 
   public void setMaster(MasterController master) {
