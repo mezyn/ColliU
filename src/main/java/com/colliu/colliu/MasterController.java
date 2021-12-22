@@ -116,7 +116,7 @@ public class MasterController {
 
   private void closeWindow() {
     if (latestStage != null) {
-        latestStage.close();
+      latestStage.close();
     }
   }
 
