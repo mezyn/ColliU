@@ -74,7 +74,7 @@
                   <Image url="@../images/profile_placeholder.png" />
                </image>
             </ImageView>
-            <Label layoutX="32.0" layoutY="21.0" text="William Hilmersson">
+            <Label layoutX="32.0" layoutY="21.0" onMousePressed="#changeName" text="William Hilmersson">
                <font>
                   <Font size="16.0" />
                </font>

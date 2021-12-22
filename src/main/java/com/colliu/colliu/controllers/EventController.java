@@ -131,4 +131,9 @@ public class EventController {
   public void onButtonPressOpenSettingsPage() throws Exception {
     master.showProfileSettingsPage();
   }
+
+  @FXML
+  void changeName(MouseEvent event) {
+    ((Label)event.getSource()).setText(master.user.getFirstName() + master.user.getLastName());
+  }
 }

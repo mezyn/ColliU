@@ -28,6 +28,7 @@ public class MasterController {
   public Data json;
   private Stage latestStage;
   private Stage previousStage;
+  public User user;
 
   public MasterController() throws FileNotFoundException, UnsupportedEncodingException {
     json = new Data();

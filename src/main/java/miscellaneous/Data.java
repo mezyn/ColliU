@@ -20,12 +20,19 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+
+import user.Administrator;
+import user.Staff;
+import user.Student;
 import user.User;
 
 public class Data {
 
   final String DOCUMENT_PATH = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "/ColliU/";
   final String USER_FILE = DOCUMENT_PATH + "User.JSON";
+  final String STUDENT_FILE = DOCUMENT_PATH + "Student.JSON";
+  final String ADMIN_FILE = DOCUMENT_PATH + "Admin.JSON";
+  final String STAFF_FILE = DOCUMENT_PATH + "Staff.JSON";
   final String EVENT_FILE = DOCUMENT_PATH + "Event.JSON";
   //final URL JSON_DIR;
 
@@ -34,8 +41,17 @@ public class Data {
   }
 
   public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {
-    Type gsonToken = TypeToken.getParameterized(ArrayList.class, User.class).getType();
-    return (ArrayList<User>) loadJsonFile(USER_FILE, gsonToken);
+    ArrayList<User> users = new ArrayList<>();
+    Type studentToken = TypeToken.getParameterized(ArrayList.class, Student.class).getType();
+    ArrayList<Student> students = (ArrayList<Student>)loadJsonFile(STUDENT_FILE, studentToken);
+    Type adminToken = TypeToken.getParameterized(ArrayList.class, Administrator.class).getType();
+    ArrayList<Administrator> admins = (ArrayList<Administrator>)loadJsonFile(ADMIN_FILE, studentToken);
+    Type staffToken = TypeToken.getParameterized(ArrayList.class, Staff.class).getType();
+    ArrayList<Staff> staff = (ArrayList<Staff>)loadJsonFile(STAFF_FILE, staffToken);
+    users.addAll(students);
+    users.addAll(admins);
+    users.addAll(students);
+    return users;
   }
 
   public ArrayList<Event> loadEvent() throws FileNotFoundException, UnsupportedEncodingException {
