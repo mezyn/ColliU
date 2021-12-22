@@ -24,11 +24,10 @@ import user.UserMethods;
 
 public class MasterController {
 
-  public UserMethods userMethods;
-  public Data json;
+  private UserMethods userMethods;
+  private Data json;
   private Stage latestStage;
   private Stage previousStage;
-  public User user;
 
   public MasterController() throws FileNotFoundException, UnsupportedEncodingException {
     json = new Data();
@@ -100,22 +99,22 @@ public class MasterController {
     profileController.updateProfileTab();
   }
 
-    private void closeWindow () {
-      if (latestStage != null)
+  private void closeWindow() {
+    if (latestStage != null) {
         latestStage.close();
     }
+  }
 
-    public void showLastWindow () {
-      Stage temp = latestStage;
-      latestStage = previousStage;
-      previousStage = temp;
-      previousStage.close();
-      latestStage.show();
-    }
+  public void showLastWindow () {
+    Stage temp = latestStage;
+    latestStage = previousStage;
+    previousStage = temp;
+    previousStage.close();
+    latestStage.show();
+  }
 
-    public void setStage (Stage stage){
-      this.latestStage = stage;
-    }
-
+  public void setStage (Stage stage) {
+    this.latestStage = stage;
+  }
 
 }

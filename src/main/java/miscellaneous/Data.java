@@ -42,15 +42,16 @@ public class Data {
 
   public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {
     ArrayList<User> users = new ArrayList<>();
+
     Type studentToken = TypeToken.getParameterized(ArrayList.class, Student.class).getType();
     ArrayList<Student> students = (ArrayList<Student>)loadJsonFile(STUDENT_FILE, studentToken);
-    Type adminToken = TypeToken.getParameterized(ArrayList.class, Administrator.class).getType();
-    ArrayList<Administrator> admins = (ArrayList<Administrator>)loadJsonFile(ADMIN_FILE, studentToken);
+
     Type staffToken = TypeToken.getParameterized(ArrayList.class, Staff.class).getType();
     ArrayList<Staff> staff = (ArrayList<Staff>)loadJsonFile(STAFF_FILE, staffToken);
+
+    users.addAll(staff);
     users.addAll(students);
-    users.addAll(admins);
-    users.addAll(students);
+
     return users;
   }
 
@@ -65,7 +66,17 @@ public class Data {
   }*/
 
   public void saveUsers(ArrayList<?> userData) throws IOException {
-    save(userData, USER_FILE);
+    ArrayList<Student> students = new ArrayList<>();
+    ArrayList<Staff> staff = new ArrayList<>();
+    for (int i = 0; i < userData.size(); i++) {
+      if (userData.get(i) instanceof Student) {
+        students.add((Student) userData.get(i));
+      } else if(userData.get(i) instanceof Staff) {
+        staff.add((Staff) userData.get(i));
+      }
+    }
+    save(students, STUDENT_FILE);
+    save(staff, STAFF_FILE);
   }
 
   public void saveEvents(ArrayList<Event> eventData) throws IOException {

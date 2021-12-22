@@ -92,7 +92,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="CHANGE PROGRAM">
+                <Tab fx:id="tabChangeProgram" text="CHANGE PROGRAM">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="682.0">
                             <children>
