@@ -283,8 +283,8 @@ public class MasterController {
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
     standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "Francisco.Gomez@staff.gu.se"));
-    standardEvents.add(new Event(0, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
-    standardEvents.add(new Event(0, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
+    standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
+    standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
     json.saveEvents(standardEvents);
     return loadEvents();
   }
