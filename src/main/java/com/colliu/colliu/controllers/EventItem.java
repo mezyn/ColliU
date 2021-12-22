@@ -1,5 +1,6 @@
 package com.colliu.colliu.controllers;
 
+import com.colliu.colliu.MasterController;
 import event.Event;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
@@ -16,9 +17,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.io.IOException;
+
 public class EventItem {
   double normalHeight;
   double detailsHeight;
+  int eventId;
+  boolean attending;
+  Event event;
 
   @FXML
   private Pane eventBackground;
@@ -54,8 +60,13 @@ public class EventItem {
   private StackPane spAllEvent;
 
   @FXML
-  void attendEvent(ActionEvent event) {
+  private ToggleButton btnAttend;
 
+  private MasterController master;
+
+  @FXML
+  void attendEvent(ActionEvent event) throws IOException {
+    setAttending(!attending);
   }
 
   @FXML
@@ -86,16 +97,17 @@ public class EventItem {
     pnEventDetails.setVisible(showDetails);
   }
 
-  public void setEventInfo(Event eventInfo) {
-    this.lblTitle.setText(eventInfo.getTitle());
-    this.lblDate.setText(String.valueOf(eventInfo.getDate()).substring(0, 10));
-    this.lblLocation.setText(eventInfo.getLocation());
-    this.lblTime.setText(eventInfo.getTime());
+  public void setEventInfo() {
+    this.lblTitle.setText(event.getTitle());
+    this.lblDate.setText(String.valueOf(event.getDate()).substring(0, 10));
+    this.lblLocation.setText(event.getLocation());
+    this.lblTime.setText(event.getTime());
     normalHeight = spAllEvent.getPrefHeight();
     System.out.println(normalHeight);
     detailsHeight = pnEventDetails.getPrefHeight();
     spAllEvent.setMaxHeight(normalHeight - detailsHeight);
     pnEventDetails.setVisible(false);
+    lblAttendees.setText(String.valueOf(event.getAttending().size()));
   }
 
   @FXML
@@ -113,5 +125,27 @@ public class EventItem {
     else
       ((ToggleButton) event.getSource()).setOpacity(1);
   }
+  
+  public void setMaster(MasterController master) {
+    this.master = master;
+  }
 
+  public void setEvent(Event event) {
+    this.event = event;
+  }
+
+  public void setAttending(boolean status) throws IOException {
+    this.attending = status;
+    if (attending) {
+      event.addAttendee(/*master.userMethods.currentUser;*/ "william@student.gu.se");
+      btnAttend.setStyle("-fx-background-color: rgb(246, 168, 166);");
+      btnAttend.setText("Cancel");
+    } else {
+      event.delAttendee(/*master.userMethods.currentUser*/"william@student.gu.se");
+      btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
+      btnAttend.setText("Attend");
+    }
+    master.json.saveEvents(master.eventMethods.getAllEvents());
+    setEventInfo();
+  }
 }

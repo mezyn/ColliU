@@ -5,6 +5,7 @@ import com.colliu.colliu.controllers.*;
 import java.io.IOException;
 
 import event.EventMethods;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -83,6 +84,14 @@ public class MasterController {
     EventController eventController = temp.getController();
     eventController.setMaster(this);
     eventController.loadEvents("SEM", new String[0]);
+  }
+
+  public void showEventCreationPage() throws IOException {
+    String eventCreationPage = "EventCreationPage.fxml";
+    closeWindow();
+    FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
+    CreateEventController eventCreateController = eventCreateLoader.getController();
+    //eventCreateController.setMaster(this);
   }
 
   public void showForgottenPassword() throws Exception {

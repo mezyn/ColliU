@@ -87,4 +87,8 @@ public class EventMethods {
     // Returns only the filtered events:
     return filteredEvents.toArray(new Event[0]);
   }
+
+  public ArrayList<Event> getAllEvents() {
+    return events;
+  }
 }

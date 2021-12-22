@@ -27,7 +27,7 @@ public class Data {
 
   public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {
     //Type gsonToken = TypeToken.getParameterized(ArrayList.class, User.class).getType();
-    Type gsonToken = new TypeToken<ArrayList<User>>() {}.getType();
+    Gson gson = new GsonBuilder().registerTypeAdapter(User.class, new NodeDeserializer()).create();
     return (ArrayList<User>) loadJsonFile(USER_FILE, gsonToken);
   }
 

@@ -27,7 +27,7 @@ public class Event {
   private String category;
   private String program;
   private boolean active;
-  private final ArrayList<Integer> attending; //Does it mean participants/attendees? A comment for explanation would be nice
+  private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<Integer> seenBy;
 
@@ -92,8 +92,8 @@ public class Event {
     return seenBy.toArray(new Integer[0]); // converts into a regular array.
   }
 
-  public Integer[] getAttending() {
-    return attending.toArray(new Integer[0]); // Converts into an Integer array.
+  public ArrayList<String> getAttending() {
+    return attending; // Converts into an Integer array.
   }
 
   public LocalDate getCreationDate() {
@@ -112,15 +112,15 @@ public class Event {
   *******************
    */
 
-  public void addAttendee(int id) {
-    int index = attending.indexOf(id);
+  public void addAttendee(String email) {
+    int index = attending.indexOf(email);
     if (index == -1) { //If no match found
-      attending.add(id);
+      attending.add(email);
     }
   }
 
-  public void delAttendee(int id) {
-    int index = attending.indexOf(id);
+  public void delAttendee(String email) {
+    int index = attending.indexOf(email);
     if (index != -1) {
       attending.remove(index);
     }

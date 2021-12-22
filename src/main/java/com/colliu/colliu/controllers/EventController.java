@@ -178,7 +178,10 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
         eventItems.getChildren().add(adds[i]);
         eventItems.getChildren().get(0).setLayoutX(0);
         EventItem eventController = eventLoader.getController();
-        eventController.setEventInfo(eventList[i]);
+        eventController.setMaster(master);
+        eventController.setEvent(eventList[i]);
+        eventController.setAttending((eventList[i].getAttending().contains("william@student.gu.se"/*master.userMethods.currentUser*/) ? true : false));
+        /*eventController.setEventInfo();*/
       }
     } else {
       Event[] filteredEvents = master.eventMethods.filterEvents(program, filters);
@@ -189,7 +192,10 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
         eventItems.getChildren().add(adds[i]);
         eventItems.getChildren().get(0).setLayoutX(0);
         EventItem eventController = eventLoader.getController();
-        eventController.setEventInfo(filteredEvents[i]);
+        eventController.setMaster(master);
+        eventController.setEvent(filteredEvents[i]);
+        eventController.setAttending((filteredEvents[i].getAttending().contains("william@student.gu.se"/*master.userMethods.currentUser*/) ? true : false));
+        /*eventController.setEventInfo();*/
       }
     }
     eventItems.setSpacing(5);
@@ -238,7 +244,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void onFilterClick(ActionEvent event) throws Exception{
+  void onFilterClick(ActionEvent event) throws Exception {
     ArrayList<String> tags = new ArrayList<>();
 
     if(cb1.isSelected()) {
@@ -274,8 +280,8 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void createNewEvent(ActionEvent event) {
-
+  void createNewEvent(ActionEvent event) throws IOException {
+      master.showEventCreationPage();
   }
 
   public void setMaster(MasterController master) {
