@@ -3,6 +3,7 @@ package com.colliu.colliu;
 import com.colliu.colliu.controllers.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import event.Event;
 import event.EventMethods;
@@ -11,9 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import miscellaneous.Data;
-import user.Student;
-import user.User;
-import user.UserMethods;
+import user.*;
 
 /**
  * * * * * * * * * * * *
@@ -37,10 +36,10 @@ public class MasterController {
   private final String CANT_PROMOTE_STUDENT = "An error was caught when promoting student: ";
   private final String CANT_CREATE_STAFF = "An error was caught when creating new staff: ";
   private final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
-  private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory.";
+  private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
   private final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
 
-  public MasterController() throws IOException {
+  public MasterController() {
     json = new Data();
     userMethods = new UserMethods(this);
     eventMethods = new EventMethods(this);
@@ -225,10 +224,14 @@ public class MasterController {
       showError(USER_FILE_CORRUPT);
     }
     try {
-      ArrayList<User> tempUser = new ArrayList<>();
-      tempUser.add(new Student("JohnDoe@student.gu.se", "Password123!!", "John", "Doe", 2024, "SEM"));
-      return tempUser;
+      ArrayList<User> standardUsers = new ArrayList<>();
+      standardUsers.add(new Administrator("erik@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
+      standardUsers.add(new Staff("william@student.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
+      standardUsers.add(new Student("kris@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
+      json.saveUsers(standardUsers);
+      return loadUsers();
     } catch (Exception e) {
+      e.printStackTrace();
       System.exit(1);
       return null;
     }
@@ -245,7 +248,7 @@ public class MasterController {
       EVENT HANDLING
    */
 
-  public ArrayList<Event> getEvents() {
+  public ArrayList<Event> getAllEvents() {
     return eventMethods.getAllEvents();
   }
 
@@ -258,8 +261,7 @@ public class MasterController {
     if(getCurrentUser().getType() < 3 ) {
       String program = ((Student) getCurrentUser()).getProgram();
       return eventMethods.getEvents(program);
-    }
-    else {
+    } else {
       return eventMethods.getHostingEvents(getCurrentUser());
     }
   }
@@ -274,13 +276,16 @@ public class MasterController {
   public ArrayList<Event> loadEvents() {
     try {
       return json.loadEvent();
-
     } catch (FileNotFoundException e) {
       showError(NO_EVENT_FILE);
     } catch (UnsupportedEncodingException e) {
       showError(EVENT_FILE_CORRUPT);
     }
-    saveEvents();
+    ArrayList<Event> standardEvents = new ArrayList<>();
+    standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "Francisco.Gomez@staff.gu.se"));
+    standardEvents.add(new Event(0, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
+    standardEvents.add(new Event(0, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
+    json.saveEvents(standardEvents);
     return loadEvents();
   }
 }

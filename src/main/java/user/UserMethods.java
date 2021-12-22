@@ -17,7 +17,7 @@ public class UserMethods {
   private User currentUser;
   // private String loggedInUserEmail;
 
-  public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
+  public UserMethods(MasterController master) {
     this.master = master;
     users = master.loadUsers();
   }

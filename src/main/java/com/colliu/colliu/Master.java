@@ -22,7 +22,6 @@ public class Master extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     this.stage = stage;
-    //showWindow("homepage.fxml");
     showWindow("LoginPage.fxml");
   }
 
@@ -37,15 +36,9 @@ public class Master extends Application {
     stage.setScene(scene);
     stage.initStyle(StageStyle.UNDECORATED);
     stage.show();
-    LoginController temp = fxmlLoader.getController();
+    LoginController loginController = fxmlLoader.getController();
     MasterController masterInitiate = new MasterController();
-    temp.setMaster(masterInitiate);
+    loginController.setMaster(masterInitiate);
     masterInitiate.setStage(stage);
-    ArrayList<User> user = new ArrayList<>();
-    user.add(new Student("erik@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
-    user.add(new Staff("william@student.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
-    user.add(new Administrator("kris@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
-    //masterInitiate.user = user.get(1);
-    masterInitiate.saveUsers();
   }
 }

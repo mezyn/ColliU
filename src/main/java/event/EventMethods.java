@@ -21,7 +21,7 @@ public class EventMethods {
   ArrayList<Event> events;
   MasterController master;
 
-  public EventMethods(MasterController masterClass) throws FileNotFoundException, UnsupportedEncodingException {
+  public EventMethods(MasterController masterClass) {
     master = masterClass;
     events = master.loadEvents();
   }

@@ -42,7 +42,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="guEmail" layoutX="38.0" layoutY="33.0" prefHeight="26.0" prefWidth="203.0" promptText="GU Email" text="william@student.gu.se">
+            <TextField fx:id="guEmail" layoutX="38.0" layoutY="33.0" prefHeight="26.0" prefWidth="203.0" promptText="GU Email" text="kris@student.gu.se">
                <opaqueInsets>
                   <Insets right="8.0" top="8.0" />
                </opaqueInsets>
@@ -56,7 +56,7 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <PasswordField fx:id="password" layoutX="38.0" layoutY="65.0" prefHeight="26.0" prefWidth="203.0" promptText="Password" text="Hej1234567!">
+            <PasswordField fx:id="password" layoutX="38.0" layoutY="65.0" prefHeight="26.0" prefWidth="203.0" promptText="Password" text="Hej123123!!">
                <font>
                   <Font size="11.0" />
                </font>
