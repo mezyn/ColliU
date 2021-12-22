@@ -21,6 +21,8 @@ public class User {
   public User() {
 
   }
+
+
   /**
    * This is a constructor for the User class.
    * It prevents the following:
@@ -117,6 +119,8 @@ public class User {
   public int getType() {
     return this.type;
   }
+
+
 
   public String toString() {
     return firstName + " " + lastName;

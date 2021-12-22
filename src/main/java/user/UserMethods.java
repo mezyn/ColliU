@@ -15,13 +15,11 @@ import java.util.Date;
 public class UserMethods {
   public ArrayList<User> activeUsers;
   MasterController master;
-  private User loggedInUser;
+  private String loggedInUserEmail;
 
   public UserMethods(MasterController master) throws FileNotFoundException, UnsupportedEncodingException {
     this.master = master;
     activeUsers = master.json.loadUser();
-
-
   }
 
   //create user and sub-types, check for existing users (email?), add / not add into arraylist
@@ -157,13 +155,32 @@ public class UserMethods {
   }
 
   public void setLoggedInUser(String email) {
-    loggedInUser = getUserByEmail(email);
+    loggedInUserEmail = email;
+    /* loggedInUser = getUserByEmail(email);
+    int loggedInUserType = getUserType(email);
+    int index = findUser(email);
+    switch (loggedInUserType) {
+      case 1:
+      loggedInUser = (Student) activeUsers.get(index);
+      break;
+      case 2:
+      loggedInUser = (Administrator) activeUsers.get(index);
+      break;
+      case 3:
+      loggedInUser = (Staff) activeUsers.get(index);
+      break;
+    }
+
+     */
+
   }
 
-  public User getLoggedInUser() {
-    return loggedInUser;
+  public String getLoggedInUser() {
+    return loggedInUserEmail;
   }
-
+  public int getCurrentUserType() {
+    return activeUsers.get(findUser(loggedInUserEmail)).getType();
+  }
 
   public void promoteStudentToAdmin(String promoteEmail) throws Exception {
    Student promoteUser = (Student) getUserByEmail(promoteEmail);
