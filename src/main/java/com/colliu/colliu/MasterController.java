@@ -3,9 +3,12 @@ package com.colliu.colliu;
 import com.colliu.colliu.controllers.*;
 
 import java.io.FileNotFoundException;
+import com.colliu.colliu.controllers.*;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import event.EventMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,12 +29,15 @@ public class MasterController {
 
   private UserMethods userMethods;
   private Data json;
+  public final EventMethods eventMethods;
+  public final Data json;
   private Stage latestStage;
   private Stage previousStage;
 
-  public MasterController() throws FileNotFoundException, UnsupportedEncodingException {
+  public MasterController() throws IOException {
     json = new Data();
     userMethods = new UserMethods(this);
+    eventMethods = new EventMethods(this);
   }
 
   private FXMLLoader showWindow(String fileName) throws IOException {
@@ -44,8 +50,8 @@ public class MasterController {
     stage.setScene(scene);
     stage.setTitle(fileName.substring(0, fileName.length()-4));
     stage.initStyle(StageStyle.UNDECORATED);
-    stage.show();
     this.latestStage = stage;
+    stage.show();
     return fxmlLoader;
   }
 
@@ -82,12 +88,21 @@ public class MasterController {
     FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.loadEvents();
+    eventController.loadEvents("SEM", new String[0]);
+  }
+
+  public void showEventCreationPage() throws IOException {
+    String eventCreationPage = "EventCreationPage.fxml";
+    closeWindow();
+    FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
+    CreateEventController eventCreateController = eventCreateLoader.getController();
+    //eventCreateController.setMaster(this);
   }
 
   public void showForgottenPassword() throws Exception {
     String forgottenPasswordPage = "forgot-password.fxml";
-    showWindow(forgottenPasswordPage);
+    ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
+    controller.setMaster(this);
   }
 
   public void showProfileSettingsPage() throws Exception {
@@ -116,5 +131,4 @@ public class MasterController {
   public void setStage (Stage stage) {
     this.latestStage = stage;
   }
-
 }

@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.LoginController">
+<AnchorPane style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.LoginController">
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane layoutX="14.0" layoutY="115.0" prefHeight="211.0" prefWidth="343.0">
+      <Pane layoutY="115.0" prefHeight="211.0" prefWidth="357.0">
          <children>
-            <Button fx:id="login" layoutX="238.0" layoutY="39.0" mnemonicParsing="false" onAction="#onLogInClick" prefHeight="61.0" prefWidth="63.0" text="Log In">
-               <font>
-                  <Font size="11.0" />
-               </font></Button>
-            <Button fx:id="forgotpassword" layoutX="118.0" layoutY="138.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" prefHeight="24.0" prefWidth="104.0" text="Forgot Password?">
+            <Button fx:id="login" layoutX="256.0" layoutY="33.0" mnemonicParsing="false" onAction="#onLogInClick" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="57.0" prefWidth="65.0" style="-fx-background-color: rgb(192,236,204);" text="Log In">
                <font>
                   <Font size="11.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="forgotpassword" layoutX="29.0" layoutY="90.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#onForgotPasswordClick" onMouseEntered="#underlineOn" onMouseExited="#underlineOff" prefHeight="24.0" prefWidth="104.0" style="-fx-background-color: none;" text="Forgot Password?">
+               <font>
+                  <Font size="11.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="btnNewStudent" layoutX="67.0" layoutY="173.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="24.0" prefWidth="80.0" text="New Student">
+            <Button fx:id="btnNewStudent" layoutX="84.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStudent" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Student">
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets>
                <font>
                   <Font size="11.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <TextField fx:id="guEmail" layoutX="38.0" layoutY="39.0" prefHeight="26.0" prefWidth="187.0" promptText="GU Email" text="admin32@student.gu.se">
+            <TextField fx:id="guEmail" layoutX="38.0" layoutY="33.0" prefHeight="26.0" prefWidth="203.0" promptText="GU Email" text="william@student.gu.se">
                <opaqueInsets>
                   <Insets right="8.0" top="8.0" />
                </opaqueInsets>
@@ -49,35 +56,28 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <PasswordField fx:id="password" layoutX="38.0" layoutY="74.0" prefHeight="26.0" prefWidth="187.0" promptText="Password" text="ErikHarring1337">
+            <PasswordField fx:id="password" layoutX="38.0" layoutY="65.0" prefHeight="26.0" prefWidth="203.0" promptText="Password" text="Hej1234567!">
                <font>
                   <Font size="11.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btnNewTeacher" layoutX="178.0" layoutY="173.0" mnemonicParsing="false" onAction="#registerStaff" prefHeight="24.0" prefWidth="80.0" text="New Teacher">
+            <Button fx:id="btnNewTeacher" layoutX="191.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStaff" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Teacher">
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets>
                <font>
                   <Font size="11.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="107.0" fitWidth="200.0" layoutX="85.0" layoutY="21.0">
-         <image>
-            <Image url="@../images/ColliU_logo.png" />
-         </image>
-      </ImageView>
-      <Pane fx:id="accountBannedPane" layoutX="12.0" layoutY="13.0" prefHeight="303.0" prefWidth="331.0" style="-fx-background-color: lightgrey;" visible="false">
-         <children>
-            <Text fill="RED" layoutX="66.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your account has been banned, please contact an administrator." textAlignment="CENTER" wrappingWidth="200.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnAccountBannedOK" layoutX="149.0" layoutY="158.0" mnemonicParsing="false" onAction="#onButtonPressAccountBannedOK" text="OK" />
-         </children>
-      </Pane>
+      <Label layoutX="118.0" layoutY="62.0" text="ColliU" textFill="#5e81f4">
+         <font>
+            <Font name="System Bold" size="43.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

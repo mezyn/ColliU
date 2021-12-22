@@ -51,8 +51,8 @@ public class StaffController {
 
 
   @FXML
-  void showLogin(ActionEvent event) {
-
+  void returnHomePage(ActionEvent event) {
+    master.showLastWindow();
   }
 
   // Tells user what input is wrong if it is, otherwise it creates a staff user
@@ -136,6 +136,11 @@ public class StaffController {
     } catch (Exception exception) {
       // Do something here.
     }
+  }
+
+  @FXML
+  void cancelRegistration(ActionEvent event) {
+
   }
 
   public void setMaster(MasterController master) {

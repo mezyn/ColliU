@@ -56,8 +56,7 @@ public class UserMethods {
     }
     return true; // change this
   }
-  // Write comment here
-
+// Write comment here
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
@@ -82,6 +81,15 @@ public class UserMethods {
     activeUsers.add(new Staff(email, password, firstName, lastName, department, title));
     return "User registered successfully.";
   }
+  /*
+    public boolean userLogin(String email, String password) {
+
+      if (checkExistingEmail(email) && validatePassword(password)) {
+        return true;
+      }
+      return false;
+    }
+   */
 
 
 // Write comment here

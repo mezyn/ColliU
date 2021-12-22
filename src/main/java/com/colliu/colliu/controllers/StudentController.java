@@ -133,6 +133,11 @@ public class StudentController {
        // Do something here.
     }
   }
+
+  @FXML
+  void cancelRegistration(ActionEvent event) {
+
+  }
   
   public void setMaster(MasterController master) {
     this.master = master;
