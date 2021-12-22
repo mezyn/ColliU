@@ -1,7 +1,6 @@
 package com.colliu.colliu.controllers;
 
-import event.EventController;
-import javafx.event.ActionEvent;
+import event.EventMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,15 +10,11 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CreateEventController implements Initializable {
 
-    EventController eventController;
+    EventMethods eventController;
 
     @FXML
     private ChoiceBox<String> categoryChoiceBox;

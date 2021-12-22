@@ -15,12 +15,12 @@ import java.util.Date;
 /** This class handles the Event Object.
  * All methods for adding, getting and manipulating the info will be called from this class.
  */
-public class EventController {
+public class EventMethods {
 
   ArrayList<Event> events;
   MasterController master;
 
-  public EventController(MasterController masterClass) throws FileNotFoundException, UnsupportedEncodingException {
+  public EventMethods(MasterController masterClass) throws FileNotFoundException, UnsupportedEncodingException {
     master = masterClass;
     events = master.json.loadEvent();
   }
@@ -69,17 +69,22 @@ public class EventController {
 
   //a method for filtering events
 
-  public ArrayList<Event> filterEvents(String tagName) {
-    ArrayList<Event> filteredEvents = new ArrayList<Event>();
-    for (Event event : events){
-      if (event.getCategory().equals(tagName)) { //but what happens if more than 1 filter has been chosen?
-        filteredEvents.add(event);           //CHECK HOW CHECKBOXES WORK AND HOW I CAN IMPLEMENT THAT, AS WELL AS HOW THE EVENTS ARE GONNA BE DISPLAYED
+  public Event[] filterEvents(String program, String[] tags) {
+    Event[] programEvents = getEvents(program);
+    ArrayList<Event> filteredEvents = new ArrayList<>();
+    // Loops through all the events at first:
+    for (int i = 0; i < programEvents.length; i++) {
+      // THen loops through all of the tags/filters:
+      for (int j = 0; j < tags.length; j++) {
+        // Checks if the category in the event is the same as one of our tags- Also checks if it's already added in our list. to avoid duplicates
+        if (programEvents[i].getCategory().equals(tags[j]) && !filteredEvents.contains(programEvents[i])) {
+          // Adds the event to our new arraylist of events we want to show
+          filteredEvents.add(programEvents[i]);
+        }
       }
+
     }
-    return filteredEvents; //how do we display them? and how we remove after that all the event objects from the ArrayList once we're finished with the filtering?
+    // Returns only the filtered events:
+    return filteredEvents.toArray(new Event[0]);
   }
-
-
-
-
 }

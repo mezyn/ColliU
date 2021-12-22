@@ -2,13 +2,11 @@ package com.colliu.colliu;
 
 import com.colliu.colliu.controllers.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
+import event.EventMethods;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,7 +22,7 @@ import user.UserMethods;
 public class MasterController {
 
   public final UserMethods userMethods;
-  public final event.EventController eventMethods;
+  public final EventMethods eventMethods;
   public final Data json;
   private Stage latestStage;
   private Stage previousStage;
@@ -32,7 +30,7 @@ public class MasterController {
   public MasterController() throws IOException {
     json = new Data();
     userMethods = new UserMethods(this);
-    eventMethods = new event.EventController(this);
+    eventMethods = new EventMethods(this);
   }
 
   private FXMLLoader showWindow(String fileName) throws IOException {
