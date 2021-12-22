@@ -46,14 +46,13 @@
                </font></Label>
          </children>
       </Pane>
-      <Button fx:id="btnAttending" layoutX="125.0" layoutY="165.0" mnemonicParsing="false" onAction="#showAttendingEvents" text="Attending" />
       <AnchorPane layoutX="225.0" layoutY="5.0" prefHeight="758.0" prefWidth="574.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
             <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="199.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF;" vbarPolicy="NEVER">
                <content>
                   <VBox fx:id="eventItems" alignment="CENTER" />
                </content></ScrollPane>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="417.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="418.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -73,12 +72,11 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="137.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnCreateEvent" layoutX="441.0" layoutY="91.0" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="26.0" prefWidth="127.0" text="Create Event" />
          </children>
       </AnchorPane>
       <Label layoutX="75.0" layoutY="52.0" text="ColliU" textFill="#5e81f4">
