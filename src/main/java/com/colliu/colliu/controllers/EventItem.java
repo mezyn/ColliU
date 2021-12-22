@@ -1,14 +1,20 @@
 package com.colliu.colliu.controllers;
 
 import event.Event;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class EventItem {
   double normalHeight;
@@ -53,6 +59,26 @@ public class EventItem {
   }
 
   @FXML
+  void spinReaction(MouseEvent event) throws InterruptedException {
+    ImageView reaction = ((ImageView) event.getSource());
+    RotateTransition rt = new RotateTransition(Duration.millis(100), reaction);
+    rt.setByAngle(360);
+    rt.setCycleCount(Animation.INDEFINITE);
+    rt.setInterpolator(Interpolator.LINEAR);
+    rt.play();
+  }
+
+  @FXML
+  void unSpin(MouseEvent event) {
+    ImageView reaction = ((ImageView) event.getSource());
+    RotateTransition rt = new RotateTransition(Duration.millis(100), reaction);
+    rt.setByAngle(0);
+    rt.setCycleCount(1);
+    rt.setInterpolator(Interpolator.LINEAR);
+    rt.stop();
+  }
+
+  @FXML
   void showDetails(ActionEvent event) {
     boolean showDetails = !(pnEventDetails.isVisible());
     spAllEvent.setMaxHeight((showDetails ? normalHeight : normalHeight - detailsHeight));
@@ -70,6 +96,22 @@ public class EventItem {
     detailsHeight = pnEventDetails.getPrefHeight();
     spAllEvent.setMaxHeight(normalHeight - detailsHeight);
     pnEventDetails.setVisible(false);
+  }
+
+  @FXML
+  void hoverOn(MouseEvent event) {
+    if(event.getSource() instanceof Button)
+      ((Button) event.getSource()).setOpacity(0.8);
+    else
+      ((ToggleButton) event.getSource()).setOpacity(0.8);
+  }
+
+  @FXML
+  void hoverOff(MouseEvent event) {
+    if(event.getSource() instanceof Button)
+      ((Button) event.getSource()).setOpacity(1);
+    else
+      ((ToggleButton) event.getSource()).setOpacity(1);
   }
 
 }

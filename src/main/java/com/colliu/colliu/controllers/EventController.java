@@ -213,36 +213,18 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void logOutUser(ActionEvent event) {
+  void logOutUser(MouseEvent event) {
 
-  }
-
-  void hoverEffectOn(Button button) {
-    button.setStyle(effectOn);
-  }
-
-  void hoverEffectOff(Button button) {
-    button.setStyle(effectOff);
   }
 
   @FXML
-  void onProfileMouseEnter(MouseEvent event) {
-    hoverEffectOn(btnProfileSettings);
+  void hoverEffectOn(MouseEvent event) {
+    ((Button) event.getSource()).setStyle(effectOn);
   }
 
   @FXML
-  void onProfileMouseExit(MouseEvent event) {
-    hoverEffectOff(btnProfileSettings);
-  }
-
-  @FXML
-  void onLogoutMouseEnter(MouseEvent event) {
-    hoverEffectOn(btnLogout);
-  }
-
-  @FXML
-  void onLogoutMouseExit(MouseEvent event) {
-    hoverEffectOff(btnLogout);
+  void hoverEffectOff(MouseEvent event) {
+    ((Button) event.getSource()).setStyle(effectOff);
   }
 
   @FXML
@@ -289,6 +271,11 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
     String[] tagsToFilter = tags.toArray(new String[0]);
     loadEvents("SEM", tagsToFilter);
+  }
+
+  @FXML
+  void createNewEvent(ActionEvent event) {
+
   }
 
   public void setMaster(MasterController master) {

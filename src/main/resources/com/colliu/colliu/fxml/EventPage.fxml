@@ -78,7 +78,6 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnCreateEvent" layoutX="441.0" layoutY="91.0" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="26.0" prefWidth="127.0" text="Create Event" />
          </children>
       </AnchorPane>
       <Label layoutX="75.0" layoutY="52.0" text="ColliU" textFill="#5e81f4">
@@ -109,13 +108,19 @@
       </Pane>
       <VBox fx:id="vbNameDropDown" alignment="TOP_CENTER" layoutX="810.0" layoutY="102.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-width: 0 1 1 1; -fx-border-color: #FAFAFA; -fx-background-color: none;" visible="false">
          <children>
-            <Button fx:id="btnProfileSettings" mnemonicParsing="false" onAction="#openProfileSettings" onMouseEntered="#onProfileMouseEnter" onMouseExited="#onProfileMouseExit" prefWidth="200.0" style="-fx-background-color: none;" text="Profile Settings" textFill="#333333">
+            <Button fx:id="btnProfileSettings" mnemonicParsing="false" onAction="#openProfileSettings" onMouseEntered="#hoverEffectOn" onMouseExited="#hoverEffectOff" prefWidth="200.0" style="-fx-background-color: none;" text="Profile Settings" textFill="#333333">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Separator opacity="0.09" prefHeight="0.0" prefWidth="200.0" style="-fx-border-color: #FAFAFA; -fx-border-style: solid; -fx-border-width: 1 0 0 0; -fx-pref-height: 0;" />
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logOutUser" onMouseEntered="#onLogoutMouseEnter" onMouseExited="#onLogoutMouseExit" prefWidth="200.0" style="-fx-background-color: none;" text="Log Out" textFill="#333333">
+            <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#createNewEvent" onMouseEntered="#hoverEffectOn" onMouseExited="#hoverEffectOff" prefWidth="200.0" style="-fx-background-color: none;" text="Create New Event" textFill="#333333">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Separator opacity="0.09" prefHeight="0.0" prefWidth="200.0" style="-fx-border-color: #FAFAFA; -fx-border-style: solid; -fx-border-width: 1 0 0 0; -fx-pref-height: 0;" />
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logOutUser" onMouseEntered="#hoverEffectOn" onMouseExited="#hoverEffectOff" prefWidth="200.0" style="-fx-background-color: none;" text="Log Out" textFill="#333333">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
