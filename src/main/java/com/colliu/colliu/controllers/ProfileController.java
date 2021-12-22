@@ -367,7 +367,7 @@ public class ProfileController {
   @FXML
 void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What should load when you go to this javaFX scene
     // User currentUser2 = master.userMethods.getLoggedInUser();
-    lblTest.setText(String.valueOf(master.userMethods.activeUsers.get(5).getClass()));
+    lblTest.setText(String.valueOf(master.user.getClass()));
 
 /*
     master.userMethods.createAdministrator("admin32@student.gu.se", "ErikHarring1337", "Admin", "One", 2024, "SEM");

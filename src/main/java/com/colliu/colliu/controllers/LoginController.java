@@ -73,7 +73,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
             accountBannedPane.setVisible(true);
           } else {
             master.userMethods.setLoggedInUser(guEmail.getText());
-            master.user = master.userMethods.activeUsers.get(4);
+            //master.user = master.userMethods.activeUsers.get(5);
             master.showEventPage();
           }
         } else {

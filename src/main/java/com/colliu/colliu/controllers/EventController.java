@@ -18,6 +18,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import miscellaneous.Data;
+import user.Administrator;
+import user.Staff;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -134,6 +136,6 @@ public class EventController {
 
   @FXML
   void changeName(MouseEvent event) {
-    ((Label)event.getSource()).setText(master.user.getFirstName() + master.user.getLastName());
+    ((Label)event.getSource()).setText(master.user.getFirstName() + ((Staff) master.user).getDepartment());
   }
 }
