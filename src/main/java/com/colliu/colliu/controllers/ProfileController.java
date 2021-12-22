@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,7 +13,6 @@ import org.w3c.dom.Text;
 import user.Administrator;
 import user.Staff;
 import user.Student;
-import user.User;
 
 /**
  *
@@ -32,7 +30,8 @@ public class ProfileController {
 
   public void updateProfileTab() {
     int userType = master.userMethods.getCurrentUserType();
-switch(userType) {
+    int index = master.userMethods.findUser(master.userMethods.getLoggedInUser());
+  switch(userType)  {
   case 1:
       Student loggedInStudent = (Student) master.userMethods.activeUsers.get(master.userMethods.findUser(master.userMethods.getLoggedInUser()));
       lblYourUserClass.setText("Student");
@@ -68,8 +67,6 @@ switch(userType) {
     }
 
   }
-
-
 
   @FXML
     private Button btnReturn;
@@ -359,6 +356,9 @@ switch(userType) {
   }
 
   //Testing stuff
+  //Testing stuff
+  //Testing stuff
+
   @FXML
     private Button btbTestingUserInfo;
   @FXML
