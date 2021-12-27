@@ -1,10 +1,10 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
+import event.Event;
 import event.EventMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
@@ -18,16 +18,8 @@ public class CreateEventController {
 
     @FXML
     private ChoiceBox<String> categoryChoiceBox;
-
-    private String[] categories = {"Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others"};
-
+    
     private String time;
-
-    @FXML
-    private TextField courseCode;
-
-    @FXML
-    private Button createEvent;
 
     @FXML
     private DatePicker myDatePicker;
@@ -37,12 +29,11 @@ public class CreateEventController {
     @FXML
     private ChoiceBox<String> hourChoiceBox;
 
-    private String[] hours = {"00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"};
-
     @FXML
     private ChoiceBox<String> minuteChoiceBox;
 
-    private String[] minutes = {"00","05","10","15","20","25","30","35","40","45","50","55"};
+    @FXML
+    private ChoiceBox<String> programChoiceBox;
 
     @FXML
     private TextField eventTitle;
@@ -51,8 +42,14 @@ public class CreateEventController {
     private TextField eventLocation;
 
     @FXML
+    private TextField descriptionField;
+
+    @FXML
     private Label warningLabel;
-                       /*
+
+    public CreateEventController() {
+    }
+/*
     @FXML
     void onCreateEventClicked(ActionEvent event) {
         if (eventTitle.getText().isBlank()) {
@@ -61,11 +58,21 @@ public class CreateEventController {
             warningLabel.setText("Location cannot be empty");
         } else if (eventDate.isBefore(LocalDate.now())) {
             warningLabel.setText("Event cannot be created for a past date.");
-        } else if (hourChoiceBox.)
-
-        eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
+        } else if (hourChoiceBox.getValue().isBlank() || minuteChoiceBox.getValue().isBlank()) {
+            warningLabel.setText("Event time cannot be empty.");
+        } else if (categoryChoiceBox.getValue().isBlank()) {
+            warningLabel.setText("Choose a category for the event.");
+        } else if (programChoiceBox.getValue().isBlank()) {
+            warningLabel.setText("Choose a study program that is relevant to the event.");
+        } else if (descriptionField.getText().isBlank()) {
+            warningLabel.setText("Write a description about the event.");
+        } else {
+            EventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText() , categoryChoiceBox.getValue(), programChoiceBox.getValue(), );
+        }
     }
-                  */
+
+ */
+
     /*@Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoryChoiceBox.getItems().addAll(categories);
@@ -89,9 +96,10 @@ public class CreateEventController {
     }
 
     public void load() {
-        time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-        categoryChoiceBox.getItems().addAll(categories);
-        hourChoiceBox.getItems().addAll(hours);
-        minuteChoiceBox.getItems().addAll(minutes);
+        //time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
+        categoryChoiceBox.getItems().addAll("Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others");
+        hourChoiceBox.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
+        minuteChoiceBox.getItems().addAll("00","05","10","15","20","25","30","35","40","45","50","55");
+        programChoiceBox.getItems().addAll("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
     }
 }
