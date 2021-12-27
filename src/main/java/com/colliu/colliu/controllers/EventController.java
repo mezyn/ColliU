@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -121,6 +122,12 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   private VBox vbNotifications;
 
   @FXML
+  private AnchorPane apMiddle;
+
+  @FXML
+  private Label lblEventPageHeader;
+
+  @FXML
   void closeProgram(ActionEvent event) {
 
   }
@@ -191,8 +198,11 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     eventItems.setSpacing(5);
     eventScroll.setContent(eventItems);
     eventItems.setAlignment(Pos.CENTER);
+
     if (master.getCurrentUser().getType() != STAFF) {
       vbNameDropDown.getChildren().remove(btnCreateEvent);
+    } else {
+      loadStaff();
     }
   }
 
@@ -291,11 +301,19 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     this.master = master;
   }
 
+  @FXML
   public void onButtonPressOpenSettingsPage() throws Exception {
     master.showProfileSettingsPage();
   }
 
-  void setName() {
+  private void setName() {
     lblName.setText(master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName());
+  }
+
+  private void loadStaff() {
+    apMiddle.getChildren().remove(btnAttending);
+    btnUpcoming.setLayoutX(415);
+    btnPast.setLayoutX(500);
+    lblEventPageHeader.setText("Your Events");
   }
 }

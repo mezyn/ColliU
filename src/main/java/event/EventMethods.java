@@ -27,9 +27,12 @@ public class EventMethods {
     events = master.loadEvents();
   }
 
-
   public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
     return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
+  }
+
+  public void addReaction(String guEmail, int reaction, int eventIndex) {
+    events.get(eventIndex).addReaction(guEmail, reaction);
   }
 
   /*¢

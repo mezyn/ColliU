@@ -31,6 +31,7 @@ public class Event {
   private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
   private final ArrayList<String> seenBy;
+  private final ArrayList<String[]> reactions;
 
   public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
     this.id = id;
@@ -48,7 +49,7 @@ public class Event {
     seenBy = new ArrayList<>();
     active = true;
     this.host = host;
-
+    reactions = new ArrayList<>();
   }
 
   /*
@@ -159,4 +160,31 @@ public class Event {
   public String getHost() {
     return host;
   }
+
+  public void addReaction(String email, int reaction) {
+    String[] info = new String[2];
+    info[0] = email;
+    info[1] = "" + reaction;
+    boolean removeReaction = false;
+    int index = -1;
+    for (int i = 0; i < reactions.size(); i++) {
+      if (reactions.get(i)[0].equals(info[0])) {
+        index = i;
+        removeReaction = (reactions.get(i)[1].equals(info[1]));
+        break;
+      }
+    }
+    if (index >= 0 && !removeReaction) {
+      reactions.set(index, info);
+    } else if (index >= 0 && removeReaction) {
+      reactions.remove(index);
+    } else {
+      reactions.add(info);
+    }
+  }
+
+  public ArrayList<String[]> getReactions() {
+    return reactions;
+  }
+
 }

@@ -5,6 +5,7 @@ import event.Event;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class EventItem {
   Event event;
 
   int eventView = 1;
-
+  SequentialTransition sQ;
   @FXML
   private Pane eventBackground;
 
@@ -65,6 +67,21 @@ public class EventItem {
   @FXML
   private ToggleButton btnAttend;
 
+  @FXML
+  private ImageView imgReactionOne;
+
+  @FXML
+  private ImageView imgReactionTwo;
+
+  @FXML
+  private ImageView imgReactionThree;
+
+  @FXML
+  private ImageView imgReactionFour;
+
+  @FXML
+  private Label lblReactions;
+
   private MasterController master;
 
   @FXML
@@ -73,23 +90,40 @@ public class EventItem {
   }
 
   @FXML
-  void spinReaction(MouseEvent event) throws InterruptedException {
-    ImageView reaction = ((ImageView) event.getSource());
-    RotateTransition rt = new RotateTransition(Duration.millis(100), reaction);
-    rt.setByAngle(360);
-    rt.setCycleCount(Animation.INDEFINITE);
-    rt.setInterpolator(Interpolator.LINEAR);
-    rt.play();
+  void spinReaction(MouseEvent event) {
+    ImageView reaction = ((ImageView) event.getSource()); // Gets the image that is hovered
+    RotateTransition rotateLeft = new RotateTransition(Duration.millis(100), reaction); // Our animation for rotating picture left
+    RotateTransition rotateRight = new RotateTransition(Duration.millis(100), reaction); // Our animation for rotating picture right
+    RotateTransition rotatePaus = new RotateTransition(Duration.millis(100), reaction); // Slight paus in animation for smoothness
+
+    rotateLeft.setByAngle(15); // Rotate 15 degrees to left
+    rotateLeft.setCycleCount(1); // Rotate once
+    rotateLeft.setInterpolator(Interpolator.LINEAR);
+
+    rotateRight.setByAngle(-30); // Rotates 30 degrees to the right(15 degrees from 0)
+    rotateRight.setCycleCount(1); // Rotate once
+    rotateRight.setInterpolator(Interpolator.LINEAR);
+
+    rotatePaus.setByAngle(0); // Does not rotate at all
+    rotateRight.setCycleCount(1); // Pauses only once
+
+    sQ = new SequentialTransition(rotateLeft, rotateRight, rotatePaus); // First rotate left, then right, then paus
+    sQ.setCycleCount(Animation.INDEFINITE); // Rotate indefinitely
+    sQ.play(); // Start sequence.
   }
 
   @FXML
   void unSpin(MouseEvent event) {
-    ImageView reaction = ((ImageView) event.getSource());
-    RotateTransition rt = new RotateTransition(Duration.millis(100), reaction);
-    rt.setByAngle(0);
-    rt.setCycleCount(1);
-    rt.setInterpolator(Interpolator.LINEAR);
-    rt.stop();
+    sQ.stop(); // Stop the sequence of rotations
+    ImageView reaction = ((ImageView) event.getSource()); // Get image that was hovered
+    double yx = reaction.getLocalToSceneTransform().getMyx(); // Get image's current rotation
+    double yy = reaction.getLocalToSceneTransform().getMyy(); // Get image's current rotation
+    double angle = -(Math.atan2(yx, yy) * 100) / 2; // Then calculate the angle that needs to be reverse for rotation 0
+    RotateTransition evenOut = new RotateTransition(Duration.millis(100), reaction); // Create a new rotation animation
+    evenOut.setByAngle(angle); // Set the calculated angle
+    evenOut.setCycleCount(1); // Rotate only once
+    evenOut.setInterpolator(Interpolator.LINEAR);
+    evenOut.play(); // Start reverse rotation
   }
 
   @FXML
@@ -121,6 +155,7 @@ public class EventItem {
       btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
       btnAttend.setText("Attend");
     }
+    addReactions();
     pnEventDetails.setVisible(false);
   }
 
@@ -148,7 +183,7 @@ public class EventItem {
     this.event = event;
   }
 
-  public void setAttending(boolean status) throws IOException {
+  public void setAttending(boolean status) {
     this.attending = status;
     String uEmail = master.getCurrentUser().getEmail();
     if (attending) {
@@ -162,5 +197,30 @@ public class EventItem {
     }
     master.saveEvents();
     setEventInfo();
+  }
+
+  @FXML
+  void reactEvent(MouseEvent event) {
+    ImageView reactionImage = ((ImageView) event.getSource());
+    int reaction;
+    String guEmail = master.getCurrentUser().getEmail();
+    if (reactionImage.equals(imgReactionOne)) {
+      reaction = 1;
+    } else if (reactionImage.equals(imgReactionTwo)) {
+      reaction = 2;
+    } else if (reactionImage.equals(imgReactionThree)) {
+      reaction = 3;
+    } else {
+      reaction = 4;
+    }
+    this.event.addReaction(guEmail, reaction);
+    addReactions();
+    master.saveEvents();
+  }
+
+  void addReactions() {
+    int reactions = event.getReactions().size();
+    lblReactions.setText("" + reactions);
+    System.out.println(event.getReactions());
   }
 }
