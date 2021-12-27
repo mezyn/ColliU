@@ -206,6 +206,7 @@ public class EventItem {
     String guEmail = master.getCurrentUser().getEmail();
     if (reactionImage.equals(imgReactionOne)) {
       reaction = 1;
+      imgReactionOne.setStyle("-fx-border-width: 0 0 1 0; -fx-border-color:red; -fx-border-style:solid;");
     } else if (reactionImage.equals(imgReactionTwo)) {
       reaction = 2;
     } else if (reactionImage.equals(imgReactionThree)) {
