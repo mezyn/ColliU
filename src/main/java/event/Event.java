@@ -30,7 +30,7 @@ public class Event {
   private String host;
   private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
   private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
-  private final ArrayList<Integer> seenBy;
+  private final ArrayList<String> seenBy;
 
   public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
     this.id = id;
@@ -62,9 +62,6 @@ public class Event {
   }
 
   public LocalDate getDate() {
-    System.out.println(date.toInstant()
-      .atZone(ZoneId.systemDefault())
-      .toLocalDate());
     return date.toInstant()
       .atZone(ZoneId.systemDefault())
       .toLocalDate();
@@ -90,8 +87,8 @@ public class Event {
     return this.id;
   }
 
-  public Integer[] getSeenBy() {
-    return seenBy.toArray(new Integer[0]); // converts into a regular array.
+  public ArrayList<String> getSeenBy() {
+    return seenBy; // converts into a regular array.
   }
 
   public ArrayList<String> getAttending() {
@@ -129,10 +126,9 @@ public class Event {
   }
 
 
-  public void addSeenBy(int id) {
-    int index = seenBy.indexOf(id);
-    if (index == -1) {
-      seenBy.add(id);
+  public void addSeenBy(String email) {
+    if (!seenBy.contains(email)) {
+      seenBy.add(email);
     }
   }
 

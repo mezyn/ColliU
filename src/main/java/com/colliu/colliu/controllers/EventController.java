@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -15,43 +14,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import miscellaneous.Data;
-import user.Administrator;
-import user.Staff;
-
-import javax.swing.*;
-import java.io.FileNotFoundException;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class EventController {
 
-  final String effectOn = "-fx-background-color: #FAFAFA;";
-  final String effectOff = "-fx-background-color: none;";
+  final String BUTTON_HOVER_ON = "-fx-background-color: #FAFAFA;";
+  final String BUTTON_HOVER_OFF = "-fx-background-color: none;";
+  final int STAFF = 3;
 
   MasterController master;
 
-  @FXML
-  private Button btnAttending;
 
   @FXML
   private Button btnCreateEvent;
 
   @FXML
-  void onCreateEventClicked(ActionEvent event) throws Exception {
-    master.showEventPage(); //I want to use this method but it's private in MasterController. What do I do
-  }
-  @FXML
   private Button btnLogout;
 
-  @FXML
-  private Button closeWindow;
 
   @FXML
   private VBox eventItems;
@@ -126,6 +109,18 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   private Label lblName;
 
   @FXML
+  private Button btnUpcoming;
+
+  @FXML
+  private Button btnPast;
+
+  @FXML
+  private Button btnAttending;
+
+  @FXML
+  private VBox vbNotifications;
+
+  @FXML
   void closeProgram(ActionEvent event) {
 
   }
@@ -136,27 +131,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void logOutUser(ActionEvent event) {
-    master.showLogin();
-  }
-
-  @FXML
   void openSettings(MouseEvent event) {
-
-  }
-
-  @FXML
-  void setOnMouseDragged(MouseEvent event) {
-
-  }
-
-  @FXML
-  void setOnMousePressed(MouseEvent event) {
-
-  }
-
-  @FXML
-  void showAttendingEvents(ActionEvent event) {
 
   }
 
@@ -165,56 +140,79 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
   }
 
+  @FXML
+  void eventView(ActionEvent event) {
+    Button clicked = ((Button) event.getSource());
+    Event[] events;
+    if (clicked == btnUpcoming) {
+      btnUpcoming.setUnderline(true);
+      btnPast.setUnderline(false);
+      btnAttending.setUnderline(false);
+      events = master.getUpcomingEvents();
+    } else if(clicked == btnPast) {
+      btnUpcoming.setUnderline(false);
+      btnPast.setUnderline(true);
+      btnAttending.setUnderline(false);
+      events = master.getPastEvents();
+    } else {
+      btnUpcoming.setUnderline(false);
+      btnPast.setUnderline(false);
+      btnAttending.setUnderline(true);
+      events = master.getAttendingEvents();
+    }
+    try {
+      loadEvents(events);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   /*
     This method loads all the events;
     To make it work for tags you can add paremeters as needed:
    */
 
-  public void loadEvents(String[] filters) throws IOException {
-    Event[] eventList = master.getCurrentEvents();
+  public void loadEvents(Event[] events) throws IOException {
     eventItems.getChildren().clear(); // resets VBox contents(event list)
+    int size = events.length;
+    String uEmail = master.getCurrentUser().getEmail();
     setName();
-    Node[] adds;
-    if (filters == null | filters.length == 0) { // Does this make sense? <-- If tag is "All" show all events- Else show only events equal to "tag" parameter
-       adds = new StackPane[eventList.length];
-      for (int i = 0; i < eventList.length; i++) {
-        FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
-        adds[i] = eventLoader.load();
-        eventItems.getChildren().add(adds[i]);
-        eventItems.getChildren().get(0).setLayoutX(0);
-        EventItem eventController = eventLoader.getController();
-        eventController.setMaster(master);
-        eventController.setEvent(eventList[i]);
-        eventController.setAttending((eventList[i].getAttending().contains("william@student.gu.se"/*master.userMethods.currentUser*/) ? true : false));
-      }
-    } else {
-      Event[] filteredEvents = master.filterEvents(filters);
-      adds = new StackPane[filteredEvents.length];
-      for (int i = 0; i < filteredEvents.length; i++) {
-        FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
-        adds[i] = eventLoader.load();
-        eventItems.getChildren().add(adds[i]);
-        eventItems.getChildren().get(0).setLayoutX(0);
-        EventItem eventController = eventLoader.getController();
-        eventController.setMaster(master);
-        eventController.setEvent(filteredEvents[i]);
-        eventController.setAttending((filteredEvents[i].getAttending().contains("william@student.gu.se"/*master.userMethods.currentUser*/) ? true : false));
-        /*eventController.setEventInfo();*/
-      }
+    Node[] eventList = new StackPane[size];
+    for (int i = 0; i < size; i++) {
+      FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
+      eventList[i] = eventLoader.load();
+      eventItems.getChildren().add(eventList[i]);
+      eventItems.getChildren().get(0).setLayoutX(0);
+      EventItem eventController = eventLoader.getController();
+      eventController.setMaster(master);
+      eventController.setEvent(events[i]);
+      eventController.setEventInfo();
     }
     eventItems.setSpacing(5);
     eventScroll.setContent(eventItems);
     eventItems.setAlignment(Pos.CENTER);
+    if (master.getCurrentUser().getType() != STAFF) {
+      vbNameDropDown.getChildren().remove(btnCreateEvent);
+    }
+  }
+
+  public void loadNotifications() {
+    Event[] events = master.getNotifications();
+    int size = events.length;
+    Node[] notifications = new Pane[size];
+
+    for (int i = 0; i < size; i++) {
+      notifications[i] = new Pane();
+      //notifications[i]
+    }
   }
 
   @FXML
   void toggleDropDown(MouseEvent event) {
     boolean isClicked = !vbNameDropDown.isVisible();
     vbNameDropDown.setVisible(isClicked);
-    String userNameEffectOn = effectOn + "-fx-border-width: 0 1 1 1; -fx-border-style: solid; -fx-border-color: #FAFAFA;";
-    String userNameEffectOff = effectOn;
-    pnUserName.setStyle((isClicked ? userNameEffectOn : userNameEffectOff));
+    String userNameEffectOn = BUTTON_HOVER_ON + "-fx-border-width: 0 1 1 1; -fx-border-style: solid; -fx-border-color: #FAFAFA;";
+    pnUserName.setStyle((isClicked ? userNameEffectOn : BUTTON_HOVER_OFF));
     btnArrowPoint.setText((isClicked ? "▲" : "▼"));
   }
 
@@ -224,28 +222,28 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
-  void logOutUser(MouseEvent event) {
-
+  void logOutUser(ActionEvent event) {
+    master.showLogin();
   }
 
   @FXML
   void hoverEffectOn(MouseEvent event) {
-    ((Button) event.getSource()).setStyle(effectOn);
+    ((Button) event.getSource()).setStyle(BUTTON_HOVER_ON);
   }
 
   @FXML
   void hoverEffectOff(MouseEvent event) {
-    ((Button) event.getSource()).setStyle(effectOff);
+    ((Button) event.getSource()).setStyle(BUTTON_HOVER_OFF);
   }
 
   @FXML
   void nameHoverOn(MouseEvent event) {
-    pnUserName.setStyle(effectOn);
+    pnUserName.setStyle(BUTTON_HOVER_ON);
   }
 
   @FXML
   void nameHoverOff(MouseEvent event) {
-    pnUserName.setStyle(effectOff);
+    pnUserName.setStyle(BUTTON_HOVER_OFF);
   }
 
   @FXML
@@ -281,12 +279,12 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     }
 
     String[] tagsToFilter = tags.toArray(new String[0]);
-    loadEvents(tagsToFilter);
+    loadEvents(master.filterEvents(tagsToFilter));
   }
 
   @FXML
   void createNewEvent(ActionEvent event) throws IOException {
-      master.showEventCreationPage();
+    master.showEventCreationPage();
   }
 
   public void setMaster(MasterController master) {
@@ -297,13 +295,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     master.showProfileSettingsPage();
   }
 
-  @FXML
-  void changeName(MouseEvent event) {
-    //((Label)event.getSource()).setText(master.user.getFirstName() + ((Staff) master.user).getDepartment());
-  }
-
-  private void setName() {
-    String name = master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName();
-    lblName.setText(name);
+  void setName() {
+    lblName.setText(master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName());
   }
 }

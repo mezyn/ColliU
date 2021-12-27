@@ -20,6 +20,7 @@ public class EventMethods {
 
   ArrayList<Event> events;
   MasterController master;
+  private final int UPCOMING_EVENTS = 1;
 
   public EventMethods(MasterController masterClass) {
     master = masterClass;
@@ -42,26 +43,39 @@ public class EventMethods {
   It then loops through this array and compares it with events that haven't expired
   Then it returns an array of the Id of all those events.
    */
-  public Event[] getEvents(String program) {
+  public Event[] getEvents(String program, int type) {
     ArrayList<Event> recommendedEvents = new ArrayList<>();
     // Loop through all the courses that was sent with method
     for (Event event : this.events) {
       // If event is for this course and the event is not in the past:
-      if (event.getProgram().equals(program) && event.getDate().isAfter(LocalDate.now())) {
-        recommendedEvents.add(event);
+      switch (type) {
+        case 2:
+          if (event.getProgram().equals(program) && event.getDate().isBefore(LocalDate.now())) {
+            recommendedEvents.add(event);
+          }
+          break;
+        case 3:
+          if (event.getAttending().contains(master.getCurrentUser().getEmail())) {
+            recommendedEvents.add(event);
+          }
+          break;
+        default:
+          if (event.getProgram().equals(program) && event.getDate().isAfter(LocalDate.now())) {
+            recommendedEvents.add(event);
+          }
       }
     }
     //Convert arraylist into normal array and return:
     return recommendedEvents.toArray(new Event[0]);
   }
 
-  public Event[] getNotifications(String program, LocalDate lastLogin) { // Will return an array of all event-IDs that have not been seen
-    Event[] recommendedEvents = getEvents(program);
+  public Event[] getNotifications(String email, String program) { // Will return an array of all event-IDs that have not been seen
+    Event[] recommendedEvents = getEvents(program, UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
       LocalDate eventCreated = event.getCreationDate();
       boolean isActive = event.isActive();
-      if (eventCreated.isAfter(lastLogin) && isActive) {
+      if (!event.getSeenBy().contains(email) && event.getDate().isAfter(LocalDate.now())) {
         notSeenEvents.add(event);
       }
     }
@@ -71,7 +85,7 @@ public class EventMethods {
   //a method for filtering events
 
   public Event[] filterEvents(String program, String[] tags) {
-    Event[] programEvents = getEvents(program);
+    Event[] programEvents = getEvents(program, UPCOMING_EVENTS);
     ArrayList<Event> filteredEvents = new ArrayList<>();
     // Loops through all the events at first:
     for (int i = 0; i < programEvents.length; i++) {
@@ -93,11 +107,19 @@ public class EventMethods {
     return events;
   }
 
-  public Event[] getHostingEvents(User currentUser) {
+  public Event[] getHostingEvents(User currentUser, int type) {
     ArrayList<Event> hostingEvents = new ArrayList<>();
-    for (int i = 0; i < events.size(); i++) {
-      if (events.get(i).getHost().equals(currentUser.getEmail())) {
-        hostingEvents.add(events.get(i));
+    for (Event event : events) {
+      switch (type) {
+        case 2:
+          if (event.getHost().equals(currentUser.getEmail()) && event.getDate().isBefore(LocalDate.now())) {
+            hostingEvents.add(event);
+          }
+          break;
+        default:
+          if (event.getHost().equals(currentUser.getEmail()) && event.getDate().isAfter(LocalDate.now())) {
+            hostingEvents.add(event);
+          }
       }
     }
     return hostingEvents.toArray(new Event[0]);

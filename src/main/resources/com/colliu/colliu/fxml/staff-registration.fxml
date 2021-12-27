@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -9,66 +10,114 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="768.0" maxWidth="1024.0" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StaffController">
+<AnchorPane maxHeight="768.0" maxWidth="1024.0" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-style: solid; -fx-border-width: 1; -fx-border-color: rgb(245,245,251);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StaffController">
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane layoutY="168.0" prefHeight="482.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
-         <children>
-            <VBox layoutX="447.0" layoutY="39.0" prefHeight="23.0" prefWidth="142.0" />
-            <Button fx:id="btnCreateStaff" layoutX="528.0" layoutY="427.0" mnemonicParsing="false" onAction="#registerStaff" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account" />
-            <VBox layoutX="361.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="303.0">
-               <children>
-                  <Pane>
-                     <children>
-                        <Label layoutY="14.0" text="GU Email:" />
-                        <TextField fx:id="tfStaffEmail" layoutY="33.60000038146973" prefWidth="303.0" promptText="GU Email" />
-                     </children>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <Label layoutY="14.0" text="First name:" />
-                        <TextField fx:id="tfStaffFirstName" layoutY="33.599998474121094" prefWidth="303.0" promptText="First Name" />
-                     </children>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <Label layoutY="14.0" text="Last name:" />
-                        <TextField fx:id="tfStaffLastName" layoutY="33.59999084472656" prefWidth="303.0" promptText="Last Name" />
-                     </children>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <Label layoutY="14.0" text="Department:" />
-                        <TextField fx:id="tfStaffDepartment" layoutY="33.600006103515625" prefWidth="303.0" promptText="Department" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="75.0" prefWidth="371.0">
-                     <children>
-                        <Label layoutY="14.0" text="Password:" />
-                        <Label layoutY="61.0" text="Password must contain:" />
-                        <PasswordField fx:id="tfStaffPassword" layoutY="33.59999084472656" prefWidth="303.0" promptText="Password" />
-                     </children>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <Label layoutY="14.0" text="Confirm password:" />
-                        <PasswordField fx:id="tfStaffConfirmPassword" layoutY="33.600006103515625" prefWidth="303.0" promptText="Confirm Password" />
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
-            <Label layoutX="423.0" layoutY="1.0" text="Register Staff Account">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button layoutX="376.0" layoutY="427.0" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #DDD;" text="Cancel" />
-         </children>
-      </Pane>
-      <Label layoutX="451.0" layoutY="114.0" text="ColliU" textFill="#5e81f4">
+      <Label layoutX="452.0" layoutY="70.0" text="ColliU" textFill="#5e81f4">
          <font>
             <Font name="System Bold" size="43.0" />
          </font>
       </Label>
+      <Pane layoutX="1.0" layoutY="134.0" prefHeight="500.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+         <children>
+            <VBox layoutX="361.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="303.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="303.0" text="Register Staff Account">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="GU Email:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffEmail" layoutY="23.0" prefWidth="303.0" promptText="GU Email">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="First name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffFirstName" layoutY="23.0" prefWidth="303.0" promptText="First Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Last name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffLastName" layoutY="23.0" prefWidth="303.0" promptText="Last Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Department:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffDepartment" layoutY="23.0" prefWidth="303.0" promptText="Department">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="371.0">
+                     <children>
+                        <Label text="Password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <PasswordField fx:id="tfStaffPassword" layoutY="14.0" prefWidth="303.0" promptText="Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font></PasswordField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Confirm password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="tfStaffConfirmPassword" layoutY="23.0" prefWidth="303.0" promptText="Confirm Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <Label fx:id="lblWarning" layoutX="362.0" layoutY="404.0" textFill="#f6a8a6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button layoutX="376.0" layoutY="428.0" mnemonicParsing="false" onAction="#cancelRegistration" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #DDD;" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnCreateStaff" layoutX="528.0" layoutY="428.0" mnemonicParsing="false" onAction="#registerStaff" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

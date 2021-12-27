@@ -38,6 +38,9 @@ public class MasterController {
   private final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
   private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
   private final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
+  private final int UPCOMING_EVENTS = 1;
+  private final int PAST_EVENTS = 2;
+  private final int ATTENDING_EVENTS = 3;
 
   public MasterController() {
     json = new Data();
@@ -91,7 +94,9 @@ public class MasterController {
 
     FXMLLoader temp = showWindow(loginPage);
     LoginController loginController = temp.getController();
-    loginController.setMaster(this);
+    MasterController newMaster = new MasterController();
+    newMaster.setStage(latestStage);
+    loginController.setMaster(newMaster);
   }
 
   public void showEventPage() throws Exception {
@@ -100,7 +105,7 @@ public class MasterController {
     FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.loadEvents(new String[0]);
+    eventController.loadEvents(getUpcomingEvents());
   }
 
   public void showEventCreationPage() throws IOException {
@@ -222,6 +227,8 @@ public class MasterController {
       showError(NO_USER_FILE);
     } catch (UnsupportedEncodingException e) {
       showError(USER_FILE_CORRUPT);
+    } catch (IOException e) {
+      showError(NO_USER_FILE + e);
     }
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
@@ -254,15 +261,27 @@ public class MasterController {
 
   public Event[] filterEvents(String[] tags) {
     String program = ((Student) getCurrentUser()).getProgram();
-    return eventMethods.filterEvents(program, tags);
+    return (tags.length > 0 ? eventMethods.filterEvents(program, tags) : eventMethods.getEvents(program, UPCOMING_EVENTS));
   }
 
-  public Event[] getCurrentEvents() {
-    if(getCurrentUser().getType() < 3 ) {
+  public Event[] getUpcomingEvents() {
+    return getEvents(UPCOMING_EVENTS);
+  }
+
+  public Event[] getPastEvents() {
+    return getEvents(PAST_EVENTS);
+  }
+
+  public Event[] getAttendingEvents() {
+    return getEvents(ATTENDING_EVENTS);
+  }
+
+  private Event[] getEvents(int type) {
+    if (getCurrentUser().getType() < 3 ) {
       String program = ((Student) getCurrentUser()).getProgram();
-      return eventMethods.getEvents(program);
+      return eventMethods.getEvents(program, type);
     } else {
-      return eventMethods.getHostingEvents(getCurrentUser());
+      return eventMethods.getHostingEvents(getCurrentUser(), type);
     }
   }
 
@@ -280,12 +299,25 @@ public class MasterController {
       showError(NO_EVENT_FILE);
     } catch (UnsupportedEncodingException e) {
       showError(EVENT_FILE_CORRUPT);
+    } catch (IOException e) {
+      showError(NO_EVENT_FILE + e);
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
     standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "Francisco.Gomez@staff.gu.se"));
     standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
     standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
+    standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "Karl.Nilsson@oopsex.gu.se"));
     json.saveEvents(standardEvents);
     return loadEvents();
+  }
+
+  public void createEvent(String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
+    eventMethods.addEvent(title, date, time, location, program, description, category, host);
+  }
+
+  public Event[] getNotifications() {
+    String uEmail = getCurrentUser().getEmail();
+    String uProgram = ((Student)getCurrentUser()).getProgram();
+    return eventMethods.getNotifications(uEmail, uProgram);
   }
 }

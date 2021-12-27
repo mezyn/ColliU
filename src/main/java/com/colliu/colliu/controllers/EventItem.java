@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class EventItem {
   double normalHeight;
@@ -25,6 +26,8 @@ public class EventItem {
   int eventId;
   boolean attending;
   Event event;
+
+  int eventView = 1;
 
   @FXML
   private Pane eventBackground;
@@ -103,11 +106,22 @@ public class EventItem {
     this.lblLocation.setText(event.getLocation());
     this.lblTime.setText(event.getTime());
     normalHeight = spAllEvent.getPrefHeight();
-    System.out.println(normalHeight);
     detailsHeight = pnEventDetails.getPrefHeight();
     spAllEvent.setMaxHeight(normalHeight - detailsHeight);
-    pnEventDetails.setVisible(false);
     lblAttendees.setText(String.valueOf(event.getAttending().size()));
+    btnAttend.setDisable(event.getDate().isBefore(LocalDate.now()));
+    String uEmail = master.getCurrentUser().getEmail();
+    attending = event.getAttending().contains(uEmail);
+    if (attending) {
+      event.addAttendee(uEmail);
+      btnAttend.setStyle("-fx-background-color: rgb(246, 168, 166);");
+      btnAttend.setText("Cancel");
+    } else {
+      event.delAttendee(uEmail);
+      btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
+      btnAttend.setText("Attend");
+    }
+    pnEventDetails.setVisible(false);
   }
 
   @FXML
@@ -136,12 +150,13 @@ public class EventItem {
 
   public void setAttending(boolean status) throws IOException {
     this.attending = status;
+    String uEmail = master.getCurrentUser().getEmail();
     if (attending) {
-      event.addAttendee(/*master.userMethods.currentUser;*/ "william@student.gu.se");
+      event.addAttendee(uEmail);
       btnAttend.setStyle("-fx-background-color: rgb(246, 168, 166);");
       btnAttend.setText("Cancel");
     } else {
-      event.delAttendee(/*master.userMethods.currentUser*/"william@student.gu.se");
+      event.delAttendee(uEmail);
       btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
       btnAttend.setText("Attend");
     }

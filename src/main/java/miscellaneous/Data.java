@@ -40,7 +40,7 @@ public class Data {
     new File(DOCUMENT_PATH).mkdirs(); // Create ColliU folder in Documents path if does not exist.
   }
 
-  public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException {
+  public ArrayList<User> loadUser() throws FileNotFoundException, UnsupportedEncodingException, IOException {
     ArrayList<User> users = new ArrayList<>();
 
     Type studentToken = TypeToken.getParameterized(ArrayList.class, Student.class).getType();
@@ -55,15 +55,10 @@ public class Data {
     return users;
   }
 
-  public ArrayList<Event> loadEvent() throws FileNotFoundException, UnsupportedEncodingException {
+  public ArrayList<Event> loadEvent() throws IOException {
     Type gsonToken = TypeToken.getParameterized(ArrayList.class, Event.class).getType();
     return (ArrayList<Event>) loadJsonFile(EVENT_FILE, gsonToken);
   }
-
-  /*public ArrayList<Program> loadProgram() throws FileNotFoundException, UnsupportedEncodingException {
-    Type gsonToken = TypeToken.getParameterized(ArrayList.class, Program.class).getType();
-    return (ArrayList<Event>) loadJsonFile(PROGRAM_FILE, gsonToken);
-  }*/
 
   public boolean saveUsers(ArrayList<?> userData) {
     ArrayList<Student> students = new ArrayList<>();
@@ -87,25 +82,26 @@ public class Data {
       FileWriter jsFile = new FileWriter(fileName);
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       gson.toJson(data, jsFile);
-
       jsFile.close();
     } catch(IOException fail) {
+      fail.printStackTrace();
       return false;
     }
     return true;
   }
 
-  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws FileNotFoundException, UnsupportedEncodingException {
+  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws IOException {
     InputStream is = new FileInputStream(fileName);
-    Reader r = new InputStreamReader(is, "UTF-8");
+    Reader isr = new InputStreamReader(is, "UTF-8");
     Gson gson = new GsonBuilder().create();
-    JsonStreamParser jsp = new JsonStreamParser(r);
+    JsonStreamParser jsp = new JsonStreamParser(isr);
     ArrayList<Object> dataList = new ArrayList<>();
-
     while (jsp.hasNext()) {
       JsonElement jsonData = jsp.next();
       dataList = gson.fromJson(jsonData, gsonToken);
     }
+    is.close();
+    isr.close();
     return dataList;
   }
 
