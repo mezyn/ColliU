@@ -127,14 +127,6 @@ public class StaffController {
       tfStaffPassword.setStyle(OUTLINE_GOOD);
     }
 
-    //is department and title allowed to be empty? otherwise what are they allowed to be
-    /*
-    if (userMethods.validatePassword(tfConfirmPassword.getText()) == false){
-      lblStaffPasswordError.setText("Passwords does not match");
-      throw new Exception();
-    }
-
-     */
 // Write comment here
     try {
       String email = tfStaffEmail.getText();
@@ -144,9 +136,9 @@ public class StaffController {
       String department = tfStaffDepartment.getText();
       String staffTitle = "Professor"; //tfStaffTitle.getText();
       master.createStaff(email, password, name, surname, department, staffTitle);
-      master.showEventPage();
+      master.saveUsers();
+      master.showLogin();
     } catch (Exception exception) {
-      // Do something here.
     }
   }
 

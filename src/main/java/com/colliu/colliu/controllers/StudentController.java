@@ -3,12 +3,13 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
-public class StudentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StudentController implements Initializable {
 
   final private String OUTLINE_BAD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color: #f6a8a6; -fx-border-style: solid;";
   final private String OUTLINE_GOOD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color:  rgb(192,236,204); -fx-border-style: solid;";
@@ -26,9 +27,6 @@ public class StudentController {
   private TextField tfFirstName;
 
   @FXML
-  private TextField tfGraduationYear;
-
-  @FXML
   private TextField tfLastName;
 
   @FXML
@@ -36,6 +34,25 @@ public class StudentController {
 
   @FXML
   private TextField tfProgram;
+
+  @FXML
+  private ChoiceBox<String> graduationYearChoice;
+
+  @FXML
+  private ChoiceBox<String> programChoice;
+
+  private String[] graduationYear = {"2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
+
+  private String[] program = {"Software engineering and management", "Systemvetenskap", "Kognitionsvetenskap", "Datavetenskap"};
+
+  public int getGraduationYear(ActionEvent event){
+    int graduationYear = Integer.parseInt(graduationYearChoice.getValue());
+    return graduationYear;
+  }
+
+  public String getProgram(ActionEvent event){
+    return programChoice.getValue();
+  }
 
   @FXML
   private TextField tfStudentEmail;
@@ -60,13 +77,7 @@ public class StudentController {
       lblWarning.setText("");
       tfStudentEmail.setStyle(OUTLINE_GOOD);
     }
-    /*
-    if (userMethods.validatePassword(tfConfirmPassword.getText()) == false){
-        lblPasswordError.setText("Passwords does not match");
-        throw new Exception();
-    }
 
-     */
     // Write comment here
     if (tfFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
@@ -133,12 +144,12 @@ public class StudentController {
       String password = tfPassword.getText();
       String name = tfFirstName.getText();
       String surname = tfLastName.getText();
-      int graduationYear = Integer.parseInt(tfGraduationYear.getText());
-      String program = tfProgram.getText();
+      int graduationYear = getGraduationYear(event);
+      String program = getProgram(event);
       master.createStudent(email, password, name, surname, graduationYear, program);
+      master.saveUsers();
       master.showLogin();
     } catch (Exception exception)  {
-       // Do something here.
     }
   }
 
@@ -146,8 +157,16 @@ public class StudentController {
   void cancelRegistration(ActionEvent event) {
     master.showLogin();
   }
-  
+
   public void setMaster(MasterController master) {
     this.master = master;
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {              //Gives options to the choiceboxes
+    graduationYearChoice.getItems().addAll(graduationYear);
+    graduationYearChoice.setOnAction(this::getGraduationYear);
+    programChoice.getItems().addAll(program);
+    programChoice.setOnAction(this::getProgram);
   }
 }
