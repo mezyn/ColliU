@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Parameters for the User class.
  */
-public class User {
+public abstract class User {
 
   private int type;
   private String email;
@@ -21,6 +21,8 @@ public class User {
   public User() {
 
   }
+
+
   /**
    * This is a constructor for the User class.
    * It prevents the following:
@@ -90,7 +92,7 @@ public class User {
     return this.firstName;
   }
 
-  public void setFirstName(String email) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
@@ -114,6 +116,14 @@ public class User {
     this.password = password;
   }
 
+  public int getType() {
+    return this.type;
+  }
+
+  public boolean getAccountStatus() {
+    return this.accountBanned;
+  }
+
   public String toString() {
     return firstName + " " + lastName;
   }
@@ -126,9 +136,7 @@ public class User {
     this.accountBanned = bannedStatus;
   }
 
-  public boolean getAccountStatus() {
-    return this.accountBanned;
-  }
+
 
   public void login() {
     logins.add(new Date());
