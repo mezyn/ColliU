@@ -6,6 +6,7 @@ import event.EventMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import user.User;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -13,8 +14,10 @@ import java.util.ResourceBundle;
 
 public class CreateEventController {
 
-    EventMethods eventController;
+    EventMethods eventMethods;
     MasterController master;
+
+//    String currentUser = master.getCurrentUser().getEmail();
 
     @FXML
     private ChoiceBox<String> categoryChoiceBox;
@@ -46,19 +49,21 @@ public class CreateEventController {
 
     @FXML
     private Label warningLabel;
-
-    public CreateEventController() {
-    }
 /*
+    public CreateEventController() {
+    }*/
+
     @FXML
     void onCreateEventClicked(ActionEvent event) {
         if (eventTitle.getText().isBlank()) {
             warningLabel.setText("Title cannot be empty.");
         } else if (eventLocation.getText().isBlank()) {
             warningLabel.setText("Location cannot be empty");
+        } else if (eventDate == null) {
+            warningLabel.setText("Please select a date for the event.");
         } else if (eventDate.isBefore(LocalDate.now())) {
             warningLabel.setText("Event cannot be created for a past date.");
-        } else if (hourChoiceBox.getValue().isBlank() || minuteChoiceBox.getValue().isBlank()) {
+        }  else if (hourChoiceBox.getValue().isBlank() || minuteChoiceBox.getValue().isBlank()) {
             warningLabel.setText("Event time cannot be empty.");
         } else if (categoryChoiceBox.getValue().isBlank()) {
             warningLabel.setText("Choose a category for the event.");
@@ -67,11 +72,12 @@ public class CreateEventController {
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
         } else {
-            EventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText() , categoryChoiceBox.getValue(), programChoiceBox.getValue(), );
+            time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
+            eventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText() , categoryChoiceBox.getValue(), programChoiceBox.getValue(), master.getCurrentUser().getEmail());
         }
     }
 
- */
+
 
     /*@Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,10 +91,6 @@ public class CreateEventController {
         this.master = master;
     }
 
-    @FXML
-    void onCreateEventClicked(ActionEvent event) {
-
-    }
 
     @FXML
     void setDate(ActionEvent event) {
