@@ -55,7 +55,7 @@ public class EventMethods {
           }
           break;
         case 3:
-          if (event.getAttending().contains(master.getCurrentUser().getEmail())) {
+          if (event.getAttending().contains(master.getCurrentUser().getEmail()) && event.getDate().isAfter(LocalDate.now())) {
             recommendedEvents.add(event);
           }
           break;
