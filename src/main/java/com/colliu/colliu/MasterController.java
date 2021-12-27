@@ -66,6 +66,7 @@ public class MasterController {
 
     } catch (IOException e) {
       showError("Could not load: " + System.lineSeparator() + fileName);
+      e.printStackTrace();
     }
     return fxmlLoader;
   }
@@ -113,7 +114,8 @@ public class MasterController {
     closeWindow();
     FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
     CreateEventController eventCreateController = eventCreateLoader.getController();
-    //eventCreateController.setMaster(this);
+    eventCreateController.setMaster(this);
+    eventCreateController.load();
   }
 
   public void showForgottenPassword() throws Exception {
