@@ -1,12 +1,10 @@
 package com.colliu.colliu.controllers;
 
 import event.EventMethods;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -47,11 +45,22 @@ public class CreateEventController implements Initializable {
     @FXML
     private TextField eventLocation;
 
- /*   @FXML
+    @FXML
+    private Label warningLabel;
+                       /*
+    @FXML
     void onCreateEventClicked(ActionEvent event) {
-        eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
-    }*/
+        if (eventTitle.getText().isBlank()) {
+            warningLabel.setText("Title cannot be empty.");
+        } else if (eventLocation.getText().isBlank()) {
+            warningLabel.setText("Location cannot be empty");
+        } else if (eventDate.isBefore(LocalDate.now())) {
+            warningLabel.setText("Event cannot be created for a past date.");
+        } else if (hourChoiceBox.)
 
+        eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
+    }
+                  */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoryChoiceBox.getItems().addAll(categories);

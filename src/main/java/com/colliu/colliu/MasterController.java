@@ -109,7 +109,7 @@ public class MasterController {
   }
 
   public void showEventCreationPage() throws IOException {
-    String eventCreationPage = "EventCreationPage.fxml";
+    String eventCreationPage = "create-event.fxml";
     closeWindow();
     FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
     CreateEventController eventCreateController = eventCreateLoader.getController();
@@ -303,7 +303,7 @@ public class MasterController {
       showError(NO_EVENT_FILE + e);
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
-    standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(0, "Gaming night with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
     standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
     standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
     standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "staff@teacher.gu.se"));
