@@ -7,26 +7,49 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import user.User;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CreateEventController {
 
     EventMethods eventMethods;
     MasterController master;
+/*    private Stage thisStage;
+
+    public void closePage() throws Exception { //button that opens staff registration screen
+        String PageName = "page-name.fxml";
+        closeWindow();
+
+        FXMLLoader PageLoader = showWindow(PageName);
+        CreateEventController controllerName = PageLoader.getController();
+        controllerName.setMaster(this);
+    }
+
+   private FXMLLoader showWindow(String pageName) {
+
+    }
+
+    private void closeWindow() {
+        if (thisStage!= null) {
+            thisStage.close();
+        }
+    }*/
 
 //    String currentUser = master.getCurrentUser().getEmail();
 
     @FXML
     private ChoiceBox<String> categoryChoiceBox;
-    
+
     private String time;
 
     @FXML
-    private DatePicker myDatePicker;
+    private DatePicker date;
+
 
     LocalDate eventDate;
 
@@ -50,9 +73,7 @@ public class CreateEventController {
 
     @FXML
     private Label warningLabel;
-/*
-    public CreateEventController() {
-    }*/
+
 
     @FXML
     void onCreateEventClicked(ActionEvent event) {
@@ -95,7 +116,8 @@ public class CreateEventController {
 
     @FXML
     void setDate(ActionEvent event) {
-        eventDate = myDatePicker.getValue();
+        //date.setValue(LocalDate.now());
+        eventDate = date.getValue();
     }
 
     public void load() {
