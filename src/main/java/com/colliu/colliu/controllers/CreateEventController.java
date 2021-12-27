@@ -3,6 +3,8 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import event.Event;
 import event.EventMethods;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,6 @@ import java.util.ResourceBundle;
 
 public class CreateEventController {
 
-    EventMethods eventMethods;
     MasterController master;
 /*    private Stage thisStage;
 
@@ -85,17 +86,18 @@ public class CreateEventController {
             warningLabel.setText("Please select a date for the event.");
         } else if (eventDate.isBefore(LocalDate.now())) {
             warningLabel.setText("Event cannot be created for a past date.");
-        }  else if (hourChoiceBox.getValue().isBlank() || minuteChoiceBox.getValue().isBlank()) {
+        } else if (hourChoiceBox.getValue().equals("HH") || minuteChoiceBox.getValue().equals("MM")) {
             warningLabel.setText("Event time cannot be empty.");
-        } else if (categoryChoiceBox.getValue().isBlank()) {
+        } else if (categoryChoiceBox.getValue().equals("Choose category")) {
             warningLabel.setText("Choose a category for the event.");
-        } else if (programChoiceBox.getValue().isBlank()) {
+        } else if (programChoiceBox.getValue().equals("Choose program")) {
             warningLabel.setText("Choose a study program that is relevant to the event.");
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
         } else {
             time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-            eventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText() , categoryChoiceBox.getValue(), programChoiceBox.getValue(), master.getCurrentUser().getEmail());
+            master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText(), categoryChoiceBox.getValue(), programChoiceBox.getValue(), master.getCurrentUser().getEmail());
+            //closeWindow();
         }
     }
 

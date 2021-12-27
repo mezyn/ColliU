@@ -25,7 +25,8 @@
             <Label layoutX="115.0" layoutY="41.0" text="Event Title" />
             <Label layoutX="116.0" layoutY="147.0" text="Date and Time" />
             <Label layoutX="116.0" layoutY="197.0" text="Category" />
-            <ChoiceBox fx:id="categoryChoiceBox" layoutX="239.0" layoutY="191.0" prefHeight="32.0" prefWidth="338.0" />
+            <ChoiceBox fx:id="categoryChoiceBox" layoutX="239.0" layoutY="191.0" prefHeight="32.0" prefWidth="338.0" value="Test">
+            </ChoiceBox>
             <Label layoutX="116.0" layoutY="247.0" text="Related program" />
             <Label layoutX="116.0" layoutY="96.0" text="Location" />
             <TextField fx:id="eventLocation" layoutX="239.0" layoutY="86.0" prefHeight="36.0" prefWidth="339.0" promptText="Type the event venue" />
