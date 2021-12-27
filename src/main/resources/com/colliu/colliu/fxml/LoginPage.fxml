@@ -42,7 +42,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="guEmail" layoutX="38.0" layoutY="33.0" prefHeight="26.0" prefWidth="203.0" promptText="GU Email" text="kris@student.gu.se">
+            <TextField fx:id="guEmail" layoutX="38.0" layoutY="33.0" prefHeight="26.0" prefWidth="203.0" promptText="GU Email" text="student@student.gu.se">
                <opaqueInsets>
                   <Insets right="8.0" top="8.0" />
                </opaqueInsets>
@@ -72,6 +72,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button layoutX="84.0" layoutY="172.0" mnemonicParsing="false" onAction="#ChangeLogin" text="Student" />
+            <Button layoutX="153.0" layoutY="172.0" mnemonicParsing="false" onAction="#ChangeLogin" text="Admin" />
+            <Button layoutX="215.0" layoutY="172.0" mnemonicParsing="false" onAction="#ChangeLogin" text="Staff" />
          </children>
       </Pane>
       <Label layoutX="118.0" layoutY="62.0" text="ColliU" textFill="#5e81f4">

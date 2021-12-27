@@ -232,9 +232,9 @@ public class MasterController {
     }
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
-      standardUsers.add(new Administrator("erik@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
-      standardUsers.add(new Staff("william@student.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
-      standardUsers.add(new Student("kris@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
+      standardUsers.add(new Administrator("admin@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
+      standardUsers.add(new Staff("staff@teacher.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
+      standardUsers.add(new Student("student@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
       json.saveUsers(standardUsers);
       return loadUsers();
     } catch (Exception e) {
@@ -303,10 +303,10 @@ public class MasterController {
       showError(NO_EVENT_FILE + e);
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
-    standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "Francisco.Gomez@staff.gu.se"));
+    standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
     standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
     standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
-    standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "Karl.Nilsson@oopsex.gu.se"));
+    standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "staff@teacher.gu.se"));
     json.saveEvents(standardEvents);
     return loadEvents();
   }

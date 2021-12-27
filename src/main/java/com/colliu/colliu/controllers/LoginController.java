@@ -122,4 +122,17 @@ to the event page(homepage). Otherwise, the warning label shows which action the
       this.master = master;
   }
 
+  @FXML
+  void ChangeLogin(ActionEvent event) {
+    String button = ((Button) event.getSource()).getText();
+    if(button.equals("Student")) {
+      guEmail.setText("student@student.gu.se");
+    } else if(button.equals("Admin")) {
+      guEmail.setText("admin@student.gu.se");
+    } else {
+      guEmail.setText("staff@teacher.gu.se");
+    }
+    password.setText("Hej123123!!");
+  }
+
 }
