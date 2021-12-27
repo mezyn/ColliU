@@ -5,6 +5,7 @@ import event.Event;
 import event.EventMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import user.User;
 
@@ -99,9 +100,23 @@ public class CreateEventController {
 
     public void load() {
         //time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-        categoryChoiceBox.getItems().addAll("Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others");
-        hourChoiceBox.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
-        minuteChoiceBox.getItems().addAll("00","05","10","15","20","25","30","35","40","45","50","55");
-        programChoiceBox.getItems().addAll("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+        //categoryChoiceBox.getItems().addAll("Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others");
+        //hourChoiceBox.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
+        //minuteChoiceBox.getItems().addAll("00","05","10","15","20","25","30","35","40","45","50","55");
+        //programChoiceBox.getItems().addAll("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+        categoryChoiceBox.setValue("Choose category");
+        hourChoiceBox.setValue("HH");
+        minuteChoiceBox.setValue("MM");
+        programChoiceBox.setValue("Choose program");
+        ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
+        categoryChoiceBox.setItems(categories);
+        ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+        hourChoiceBox.setItems(hours);
+        ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55");
+        minuteChoiceBox.setItems(minutes);
+        ObservableList<String> programs = FXCollections.observableArrayList("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+        programChoiceBox.setItems(programs);
+
     }
+
 }
