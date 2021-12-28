@@ -234,9 +234,16 @@ public class MasterController {
     }
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
-      standardUsers.add(new Administrator("admin@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
-      standardUsers.add(new Staff("staff@teacher.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
-      standardUsers.add(new Student("student@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
+      standardUsers.add(new Administrator("gusandan@student.gu.se", "a11Black$", "Anna", "Andersson", 2024, "Software engineering and management"));
+      standardUsers.add(new Staff("benjamin.bengtsson@gu.se", "!Lov3MyPiano", "Benjamin", "Bengtsson"));
+      standardUsers.add(new Staff("christian.carlsson@cse.gu.se", "jellY22fi$h", "Christian", "Carlsson"));
+      standardUsers.add(new Staff("info@gota.gu.se", "P^45k9jw", "Göta", "Student Union"));
+      standardUsers.add(new Student("gusdavda@student.gu.se", "!ush3R", "Daniel", "Davidsson", 2022, "Datavetenskap"));
+      standardUsers.add(new Student("guseriem@student.gu.se", "&ebAy.44", "Emil", "Eriksson", 2023, "Systemvetenskap"));
+      standardUsers.add(new Student("gusfrefe@student.gu.se", "H!Mnpintd2r!", "Felix", "Fredriksson", 2024, "Kognitionsvetenskap"));
+      standardUsers.add(new Student("gushenha@student.gu.se", "5wtyIbm!h", "Hans", "Henriksson", 2026, "Software engineering and management"));
+
+
       json.saveUsers(standardUsers);
       return loadUsers();
     } catch (Exception e) {
