@@ -210,7 +210,7 @@ public class MasterController {
     }
   }
 
-  public void createStaff(String email, String password, String name, String surname, String department, String staffTitle) {
+  public void createStaff(String email, String password, String name, String surname, String department) {
     try {
       userMethods.createStaff(email, password, name, surname, department, staffTitle);
     } catch (Exception e) {
@@ -233,7 +233,7 @@ public class MasterController {
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
       standardUsers.add(new Administrator("admin@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
-      standardUsers.add(new Staff("staff@teacher.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
+      standardUsers.add(new Staff("staff@teacher.gu.se", "Hej123123!!", "William", "Hilmersson", "IT"));
       standardUsers.add(new Student("student@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
       json.saveUsers(standardUsers);
       return loadUsers();
@@ -319,5 +319,19 @@ public class MasterController {
     String uEmail = getCurrentUser().getEmail();
     String uProgram = ((Student)getCurrentUser()).getProgram();
     return eventMethods.getNotifications(uEmail, uProgram);
+  }
+
+  public ArrayList<User> getAllUsers() {
+    return userMethods.getAllUsers();
+  }
+
+  public boolean checkExistingEmail(String email) {
+
+    for (User user : getAllUsers()) {
+      if (user.getEmail().equals(email)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

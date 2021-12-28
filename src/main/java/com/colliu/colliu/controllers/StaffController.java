@@ -3,14 +3,14 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-public class StaffController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StaffController implements Initializable {
 
   final private String OUTLINE_BAD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color: #f6a8a6; -fx-border-style: solid;";
   final private String OUTLINE_GOOD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color:  rgb(192,236,204); -fx-border-style: solid;";
@@ -27,9 +27,6 @@ public class StaffController {
   private PasswordField tfStaffConfirmPassword;
 
   @FXML
-  private TextField tfStaffDepartment;
-
-  @FXML
   private TextField tfStaffEmail;
 
   @FXML
@@ -41,11 +38,17 @@ public class StaffController {
   @FXML
   private PasswordField tfStaffPassword;
 
-
   @FXML
-  void returnHomePage(ActionEvent event) {
-    master.showLastWindow();
+  private ChoiceBox<String> departmentChoice;
+
+  //Array of strings that contains the viable options for department, this is used for a choicebox
+  public String[] department = {"Computer science and engineering", "Economics", "Law", "Political science"};
+
+  //Returns the value of which option in the choicebox that is picked
+  public String getDepartmentChoice(ActionEvent event){
+    return departmentChoice.getValue();
   }
+
 
   // Tells user what input is wrong if it is, otherwise it creates a staff user
   @FXML
@@ -72,7 +75,13 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffEmail.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    if (master.checkExistingEmail(tfStaffEmail.getText())){
+      lblWarning.setText("Email is already registered");
+      throw new Exception("Email is already registered");
+    } else {
+      lblWarning.setText("");
+    }
+    // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
       tfStaffFirstName.setStyle(OUTLINE_BAD);
@@ -85,6 +94,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffFirstName.setStyle(OUTLINE_GOOD);
     }
+    // Checks if the last name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffLastName.getText().isBlank()) {
       lblWarning.setText("Last name cannot be blank");
       tfStaffLastName.setStyle(OUTLINE_BAD);
@@ -97,7 +107,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffLastName.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    // Checks that password is between 12-20 characters, that it has at least one uppercase and one lowercase character, that it contains at least one number, that it doesn't contain any blank spaces and that the password and confirm password text field matches.
     if (tfStaffPassword.getText().length() < 11 || tfStaffPassword.getText().length() > 20) {
       lblWarning.setText("Password must be between 12 and 20 characters");
       tfStaffPassword.setStyle(OUTLINE_BAD);
@@ -127,26 +137,28 @@ public class StaffController {
       tfStaffPassword.setStyle(OUTLINE_GOOD);
     }
 
-// Write comment here
+    // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStaffEmail.getText();
       String password = tfStaffPassword.getText();
       String name = tfStaffFirstName.getText();
       String surname = tfStaffLastName.getText();
-      String department = tfStaffDepartment.getText();
-      String staffTitle = "Professor"; //tfStaffTitle.getText();
-      master.createStaff(email, password, name, surname, department, staffTitle);
+      String department = getDepartmentChoice(event);
+      master.createStaff(email, password, name, surname, department);
       master.saveUsers();
       master.showLogin();
     } catch (Exception exception) {
+      exception.printStackTrace();
     }
   }
 
+  //Button that cancels registration and brings you back to the login page
   @FXML
   void cancelRegistration(ActionEvent event) {
     master.showLogin();
   }
 
+  //Changes the look of the cursor when hovering over specific objects
   @FXML
   void hoverOn(MouseEvent mouse) {
     ((Button) mouse.getSource()).setOpacity(0.8);
@@ -161,4 +173,10 @@ public class StaffController {
     this.master = master;
   }
 
+  //Initializes and gives options to the choice boxes
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    departmentChoice.getItems().addAll(department);
+    departmentChoice.setOnAction(this::getDepartmentChoice);
+  }
 }

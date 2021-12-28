@@ -58,27 +58,17 @@ public class UserMethods {
   }
 // Write comment here
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
 // Write comment here
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
 // Write comment here
-  public String createStaff(String email, String password, String firstName, String lastName, String department, String title) throws Exception {
-
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
-    users.add(new Staff(email, password, firstName, lastName, department, title));
+  public String createStaff(String email, String password, String firstName, String lastName, String department) throws Exception {
+    users.add(new Staff(email, password, firstName, lastName, department));
     return "User registered successfully.";
   }
   /*
