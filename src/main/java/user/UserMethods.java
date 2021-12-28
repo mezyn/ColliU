@@ -67,8 +67,8 @@ public class UserMethods {
     return "User registered successfully.";
   }
 // Write comment here
-  public String createStaff(String email, String password, String firstName, String lastName, String department) throws Exception {
-    users.add(new Staff(email, password, firstName, lastName, department));
+  public String createStaff(String email, String password, String firstName, String lastName) throws Exception {
+    users.add(new Staff(email, password, firstName, lastName));
     return "User registered successfully.";
   }
   /*

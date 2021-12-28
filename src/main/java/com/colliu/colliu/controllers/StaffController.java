@@ -3,14 +3,10 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class StaffController implements Initializable {
+public class StaffController {
 
   final private String OUTLINE_BAD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color: #f6a8a6; -fx-border-style: solid;";
   final private String OUTLINE_GOOD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color:  rgb(192,236,204); -fx-border-style: solid;";
@@ -37,18 +33,6 @@ public class StaffController implements Initializable {
 
   @FXML
   private PasswordField tfStaffPassword;
-
-  @FXML
-  private ChoiceBox<String> departmentChoice;
-
-  //Array of strings that contains the viable options for department, this is used for a choicebox
-  public String[] department = {"Computer science and engineering", "Economics", "Law", "Political science"};
-
-  //Returns the value of which option in the choicebox that is picked
-  public String getDepartmentChoice(ActionEvent event){
-    return departmentChoice.getValue();
-  }
-
 
   // Tells user what input is wrong if it is, otherwise it creates a staff user
   @FXML
@@ -143,8 +127,7 @@ public class StaffController implements Initializable {
       String password = tfStaffPassword.getText();
       String name = tfStaffFirstName.getText();
       String surname = tfStaffLastName.getText();
-      String department = getDepartmentChoice(event);
-      master.createStaff(email, password, name, surname, department);
+      master.createStaff(email, password, name, surname);
       master.saveUsers();
       master.showLogin();
     } catch (Exception exception) {
@@ -173,10 +156,4 @@ public class StaffController implements Initializable {
     this.master = master;
   }
 
-  //Initializes and gives options to the choice boxes
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
-    departmentChoice.getItems().addAll(department);
-    departmentChoice.setOnAction(this::getDepartmentChoice);
-  }
 }
