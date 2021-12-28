@@ -88,6 +88,7 @@ public class CreateEventController {
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
         } else {
+
             time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
             master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), programChoiceBox.getValue(), descriptionField.getText(), categoryChoiceBox.getValue(), master.getCurrentUser().getEmail());
             master.saveEvents();

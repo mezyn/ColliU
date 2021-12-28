@@ -152,6 +152,8 @@ public class Event {
     active = status;
   }
 
+  public void setDescription(String newDescription){this.description = newDescription;}
+
   public String getTime() {
     return time;
   }
