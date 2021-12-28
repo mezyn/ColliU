@@ -161,10 +161,11 @@ public class Event {
     return host;
   }
 
-  public void addReaction(String email, int reaction) {
-    String[] info = new String[2];
+  public void addReaction(String email, int reaction, String name) {
+    String[] info = new String[3];
     info[0] = email;
     info[1] = "" + reaction;
+    info[2] = name;
     boolean removeReaction = false;
     int index = -1;
     for (int i = 0; i < reactions.size(); i++) {

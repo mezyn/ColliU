@@ -99,16 +99,16 @@ public class MasterController {
     loginController.setMaster(newMaster);
   }
 
-  public void showEventPage() throws Exception {
+  public void showEventPage() {
     String eventPage = "EventPage.fxml";
     closeWindow();
     FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.loadEvents(getUpcomingEvents());
+    eventController.load();
   }
 
-  public void showEventCreationPage() throws IOException {
+  public void showEventCreationPage() {
     String eventCreationPage = "EventCreationPage.fxml";
     closeWindow();
     FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
@@ -116,13 +116,13 @@ public class MasterController {
     //eventCreateController.setMaster(this);
   }
 
-  public void showForgottenPassword() throws Exception {
+  public void showForgottenPassword() {
     String forgottenPasswordPage = "forgot-password.fxml";
     ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
     controller.setMaster(this);
   }
 
-  public void showProfileSettingsPage() throws Exception {
+  public void showProfileSettingsPage() {
     String profileSettingsPage = "ProfileSettingsPage.fxml";
     closeWindow();
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
@@ -134,6 +134,8 @@ public class MasterController {
   private void closeWindow() {
     if (latestStage != null) {
       latestStage.close();
+    } else {
+      System.out.println("Last stage is null ");
     }
   }
 
@@ -251,6 +253,10 @@ public class MasterController {
     }
   }
 
+  public ArrayList<User> getAllusers() {
+    return userMethods.getAllUsers();
+  }
+
   /*
       EVENT HANDLING
    */
@@ -304,9 +310,12 @@ public class MasterController {
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
     standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
-    standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
-    standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
+    standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 1, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
+    standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 3, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
     standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(4, "Little gingerbreadhouse creation day", LocalDate.of(2022, 1, 5), "16.30", "Gingerbread house", "SEM", "Today we will bake.", "Student Union", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(5, "Party without alcohol", LocalDate.of(2022, 1, 5), "18.00", "Bunkern", "SEM", "We call it a halfday in sweden because you are free the next day!", "Student Union", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(6, "Just another event", LocalDate.of(2022, 1, 20), "18.00", "Chalmers Property", "SEM", "Dont mind me I am just a filler :)", "Student Union", "staff@teacher.gu.se"));
     json.saveEvents(standardEvents);
     return loadEvents();
   }

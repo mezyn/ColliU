@@ -92,7 +92,7 @@ public class Data {
 
   private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws IOException {
     InputStream is = new FileInputStream(fileName);
-    Reader isr = new InputStreamReader(is, "UTF-8");
+    Reader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
     Gson gson = new GsonBuilder().create();
     JsonStreamParser jsp = new JsonStreamParser(isr);
     ArrayList<Object> dataList = new ArrayList<>();

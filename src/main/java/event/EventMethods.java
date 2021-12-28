@@ -31,8 +31,8 @@ public class EventMethods {
     return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
   }
 
-  public void addReaction(String guEmail, int reaction, int eventIndex) {
-    events.get(eventIndex).addReaction(guEmail, reaction);
+  public void addReaction(String guEmail, int reaction,  String name, int eventIndex) {
+    events.get(eventIndex).addReaction(guEmail, reaction, name);
   }
 
   /*¢

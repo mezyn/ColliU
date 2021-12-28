@@ -4,20 +4,20 @@ import com.colliu.colliu.Master;
 import com.colliu.colliu.MasterController;
 import event.Event;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,7 +26,6 @@ public class EventController {
   final String BUTTON_HOVER_ON = "-fx-background-color: #FAFAFA;";
   final String BUTTON_HOVER_OFF = "-fx-background-color: none;";
   final int STAFF = 3;
-
   MasterController master;
 
 
@@ -36,7 +35,6 @@ public class EventController {
   @FXML
   private Button btnLogout;
 
-
   @FXML
   private VBox eventItems;
 
@@ -45,12 +43,6 @@ public class EventController {
 
   @FXML
   private Label filterCategory;
-/*
-Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a panel
-  @FXML
-  private ListView<String> filterList;
-  String[] categories = {"Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture","Mingle","Sports","Student Union", "Workshop","Others"};
-    */
 
   @FXML
   private Pane filterPane;
@@ -128,11 +120,6 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   private Label lblEventPageHeader;
 
   @FXML
-  void closeProgram(ActionEvent event) {
-
-  }
-
-  @FXML
   void filterEvent(MouseEvent event) {
 
   }
@@ -156,7 +143,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
       btnPast.setUnderline(false);
       btnAttending.setUnderline(false);
       events = master.getUpcomingEvents();
-    } else if(clicked == btnPast) {
+    } else if (clicked == btnPast) {
       btnUpcoming.setUnderline(false);
       btnPast.setUnderline(true);
       btnAttending.setUnderline(false);
@@ -167,54 +154,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
       btnAttending.setUnderline(true);
       events = master.getAttendingEvents();
     }
-    try {
-      loadEvents(events);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /*
-    This method loads all the events;
-    To make it work for tags you can add paremeters as needed:
-   */
-
-  public void loadEvents(Event[] events) throws IOException {
-    eventItems.getChildren().clear(); // resets VBox contents(event list)
-    int size = events.length;
-    String uEmail = master.getCurrentUser().getEmail();
-    setName();
-    Node[] eventList = new StackPane[size];
-    for (int i = 0; i < size; i++) {
-      FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
-      eventList[i] = eventLoader.load();
-      eventItems.getChildren().add(eventList[i]);
-      eventItems.getChildren().get(0).setLayoutX(0);
-      EventItem eventController = eventLoader.getController();
-      eventController.setMaster(master);
-      eventController.setEvent(events[i]);
-      eventController.setEventInfo();
-    }
-    eventItems.setSpacing(5);
-    eventScroll.setContent(eventItems);
-    eventItems.setAlignment(Pos.CENTER);
-
-    if (master.getCurrentUser().getType() != STAFF) {
-      vbNameDropDown.getChildren().remove(btnCreateEvent);
-    } else {
-      loadStaff();
-    }
-  }
-
-  public void loadNotifications() {
-    Event[] events = master.getNotifications();
-    int size = events.length;
-    Node[] notifications = new Pane[size];
-
-    for (int i = 0; i < size; i++) {
-      notifications[i] = new Pane();
-      //notifications[i]
-    }
+    loadEvents(events);
   }
 
   @FXML
@@ -228,7 +168,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
   @FXML
   void openProfileSettings(ActionEvent event) {
-
+    master.showProfileSettingsPage();
   }
 
   @FXML
@@ -297,16 +237,84 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     master.showEventCreationPage();
   }
 
-  public void setMaster(MasterController master) {
-    this.master = master;
-  }
-
   @FXML
   public void onButtonPressOpenSettingsPage() throws Exception {
     master.showProfileSettingsPage();
   }
 
-  private void setName() {
+  @FXML
+  void scrollSpeed(ScrollEvent event) {
+    final double SPEED = 0.001;
+    double deltaY = event.getDeltaY() * SPEED;
+    eventScroll.setVvalue(eventScroll.getVvalue() - deltaY);
+  }
+
+  public void load() {
+    Event[] allEvents = master.getUpcomingEvents();
+    setLoggedInName();
+    loadEvents(allEvents);
+    if (master.getCurrentUser().getType() != STAFF) {
+      vbNameDropDown.getChildren().remove(btnCreateEvent);
+      loadNotifications();
+    } else {
+      loadStaff();
+    }
+  }
+
+  /*
+    This method loads all the events;
+    To make it work for tags you can add paremeters as needed:
+   */
+
+  private void loadEvents(Event[] events) {
+    int size = events.length;
+    eventItems.getChildren().clear(); // resets VBox contents(event list)
+    Node[] eventList = new StackPane[size];
+    for (int i = 0; i < size; i++) {
+      try {
+        FXMLLoader eventLoader = new FXMLLoader(Master.class.getResource("fxml/event_design.fxml"));
+        eventList[i] = eventLoader.load();
+        eventItems.getChildren().add(eventList[i]);
+        eventItems.getChildren().get(0).setLayoutX(0);
+        EventItem eventController = eventLoader.getController();
+        eventController.setMaster(master);
+        eventController.load(events[i]);
+      } catch (IOException failedLoad) {
+        failedLoad.printStackTrace(); // This should only happen if the FXML is missing.
+        // Might want to code in a manual event design as a backup.
+      }
+    }
+    eventItems.setSpacing(5);
+    eventScroll.setContent(eventItems);
+    eventItems.setAlignment(Pos.CENTER);
+  }
+
+  private void loadNotifications() {
+    Event[] newEvents = master.getNotifications();
+    int size = newEvents.length;
+    Node[] notifications = new Node[size == 0 ? 1 : size];
+    Pane pnNotification;
+
+    for (int i = 0; i < size; i++) {
+      String text = newEvents[i].getTitle();
+      int index = newEvents[i].getId();
+      notifications[i] = notificationPane(text, index, false);
+    }
+
+    if (size == 0) {
+      String empty = "No new events.";
+      notifications[0] = notificationPane(empty, -1, true);
+    }
+
+    vbNotifications.setSpacing(5);
+    vbNotifications.getChildren().setAll(notifications);
+  }
+
+  public void setMaster(MasterController master) {
+    this.master = master;
+  }
+
+  private void setLoggedInName() {
     lblName.setText(master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName());
   }
 
@@ -316,4 +324,42 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     btnPast.setLayoutX(500);
     lblEventPageHeader.setText("Your Events");
   }
+
+  private Pane notificationPane(String text, int index, boolean empty) {
+    Pane pnNotification = new Pane();
+    pnNotification.setPrefHeight(50);
+    pnNotification.setStyle("-fx-background-color:#FFF; -fx-border-width:1 0 1 0; -fx-border-color:#AAA;");
+    if (empty) {
+      Label noEvents = new Label("No new events since last visit.");
+      noEvents.setAlignment(Pos.CENTER);
+      noEvents.setPrefHeight(50);
+      noEvents.setPrefWidth(225);
+      pnNotification.getChildren().add(noEvents);
+    } else {
+      Label title = new Label(text);
+      title.setLayoutY(15);
+      title.setLayoutX(5);
+      Button markRead = new Button("×");
+      markRead.setCursor(Cursor.HAND);
+      markRead.setLayoutX(195);
+      markRead.setLayoutY(12.5);
+      markRead.setStyle("-fx-background-color:transparent;");
+      markRead.setTooltip(new Tooltip("Mark as read."));
+      pnNotification.getChildren().add(title);
+      pnNotification.getChildren().add(markRead);
+
+      markRead.setOnMouseEntered(e -> pnNotification.setOpacity(0.4));
+      markRead.setOnMouseExited(e -> pnNotification.setOpacity(1));
+      markRead.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          master.getAllEvents().get(index).addSeenBy(master.getCurrentUser().getEmail());
+          master.saveEvents();
+          loadNotifications();
+        }
+      });
+    }
+    return pnNotification;
+  }
+
 }

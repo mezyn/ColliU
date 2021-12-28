@@ -16,10 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF; -fx-border-color: rgb(245,245,251); -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFF; -fx-border-color: #5e81f4; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventController">
    <children>
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane fx:id="filterPane" layoutY="228.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #EEE;">
+      <Pane fx:id="filterPane" layoutX="1.0" layoutY="228.0" onMouseClicked="#filterEvent" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #EEE;">
          <children>
             <Label fx:id="filterCategory" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="3.0" prefHeight="17.0" prefWidth="156.0" text="Filter events" textFill="#333333">
                <font>
@@ -38,24 +38,24 @@
             <Button fx:id="filterButton" layoutX="87.0" layoutY="359.0" mnemonicParsing="false" onAction="#onFilterClick" text="Filter" />
          </children>
       </Pane>
-      <Pane fx:id="listAnnouncements" layoutX="799.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #FAFAFA;">
+      <Pane fx:id="listAnnouncements" layoutX="798.0" layoutY="228.0" onMouseClicked="#viewAnnouncements" prefHeight="392.0" prefWidth="225.0" style="-fx-background-color: #EEE; -fx-padding: 1; -fx-box-sizing: border-box;">
          <children>
             <Label layoutX="83.0" layoutY="3.0" text="New Events" textFill="#333333">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ScrollPane hbarPolicy="NEVER" layoutY="20.0" prefHeight="372.0" prefWidth="225.0">
+            <ScrollPane hbarPolicy="NEVER" layoutY="20.0" maxWidth="225.0" prefHeight="372.0" style="-fx-focus-color: transparent; -fx-box-border: transparent;" vbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="vbNotifications" prefHeight="372.0" prefWidth="225.0" />
+                  <VBox fx:id="vbNotifications" prefHeight="372.0" prefWidth="225.0" style="-fx-border-width: 0; -fx-focus-color: transparent; -fx-background-color: #FAFAFA;" />
                </content>
             </ScrollPane>
          </children>
       </Pane>
       <AnchorPane fx:id="apMiddle" layoutX="225.0" layoutY="5.0" prefHeight="758.0" prefWidth="574.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
-            <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="199.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="199.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF; -fx-padding: 5; -fx-box-sizing: border-box;" vbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="eventItems" alignment="CENTER" />
+                  <VBox fx:id="eventItems" alignment="CENTER" onScroll="#scrollSpeed" />
                </content></ScrollPane>
             <Button fx:id="btnPast" alignment="CENTER" contentDisplay="CENTER" layoutX="418.0" layoutY="137.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
                <font>
