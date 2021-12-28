@@ -118,13 +118,13 @@ public class MasterController {
     eventCreateController.load();
   }
 
-  public void showForgottenPassword() throws Exception {
+  public void showForgottenPassword() {
     String forgottenPasswordPage = "forgot-password.fxml";
     ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
     controller.setMaster(this);
   }
 
-  public void showProfileSettingsPage() throws Exception {
+  public void showProfileSettingsPage() {
     String profileSettingsPage = "ProfileSettingsPage.fxml";
     closeWindow();
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
@@ -214,9 +214,9 @@ public class MasterController {
     }
   }
 
-  public void createStaff(String email, String password, String name, String surname, String department, String staffTitle) {
+  public void createStaff(String email, String password, String name, String surname) {
     try {
-      userMethods.createStaff(email, password, name, surname, department, staffTitle);
+      userMethods.createStaff(email, password, name, surname);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));

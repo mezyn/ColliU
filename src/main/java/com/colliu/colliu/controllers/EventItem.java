@@ -25,10 +25,10 @@ import java.util.ArrayList;
 public class EventItem {
   double normalHeight;
   double detailsHeight;
-  int eventId;
   boolean attending;
   Event event;
   SequentialTransition emojiAnimation;
+  SequentialTransition activeReaction;
 
   @FXML
   private Pane eventBackground;
@@ -125,11 +125,6 @@ public class EventItem {
     spAllEvent.setMaxHeight((showDetails ? normalHeight : normalHeight - detailsHeight));
     btnShowDetails.setText((showDetails ? "Hide Details" : "Show Details"));
     pnEventDetails.setVisible(showDetails);
-
-    if (imgUserReaction != null) {
-      stopEmoji(imgUserReaction);
-      spinEmoji(imgUserReaction);
-    }
   }
 
   @FXML
@@ -165,6 +160,7 @@ public class EventItem {
     } else {
       reaction = 4;
     }
+
     this.event.addReaction(userEmail, reaction, name);
     addReactions();
     master.saveEvents();
@@ -281,6 +277,10 @@ public class EventItem {
     // Retrieve all reactions in a sorted ArrayList.
     ArrayList<String[]> reactions = sortReactions(event.getReactions());
     int size = reactions.size();
+
+    if (imgUserReaction != null) {
+      spinEmoji(imgUserReaction);
+    }
 
     // Create a new array of nodes with either 2 slots or the size of arraylist.
     Node[] reactionList = new Node[(size == 0 ? 1 : size)];
@@ -420,7 +420,6 @@ public class EventItem {
   }
 
   private void spinEmoji(ImageView emoji) {
-
     // Our animation for rotating picture left
     RotateTransition rotateLeft = new RotateTransition(Duration.millis(100), emoji);
     rotateLeft.setByAngle(15); // Rotate 15 degrees to left
@@ -455,11 +454,12 @@ public class EventItem {
     emojiSequence.setCycleCount(3); // rotate 3 times then pause
     emojiAnimation = new SequentialTransition(emojiSequence, rotatePaus);
     emojiAnimation.setCycleCount(Timeline.INDEFINITE);
+    activeReaction = emojiAnimation;
     emojiAnimation.play(); // Start sequence.
   }
 
   private void stopEmoji(ImageView image) {
-    if (image != null) {
+    if (emojiAnimation != null) {
       // Stop the sequence of rotations
       emojiAnimation.stop();
     }

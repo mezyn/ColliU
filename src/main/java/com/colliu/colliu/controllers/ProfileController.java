@@ -50,7 +50,7 @@ public class ProfileController {
     Staff loggedInStaff = (Staff) master.user;
     lblYourUserClass.setText("Staff");
     paneAdminControls.setVisible(false);
-    lblYourProgram.setText(loggedInStaff.getDepartment());
+    lblYourProgram.setText("Change this later as department was removed hehe");
     lblYourExamYear.setVisible(false);
     tabChangeProgram.setDisable(true);
     lblYourName.setText(loggedInStaff.getLastName() + " " + loggedInStaff.getFirstName());

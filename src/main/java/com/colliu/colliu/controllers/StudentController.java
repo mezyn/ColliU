@@ -79,7 +79,7 @@ public class StudentController implements Initializable {
       lblWarning.setText("");
       tfStudentEmail.setStyle(OUTLINE_GOOD);
     }
-    if (master.checkExistingEmail(tfStudentEmail.getText())){
+    if (master.findUser(tfStudentEmail.getText()) != null){
       lblWarning.setText("Email is already registered");
       throw new Exception("Email is already registered");
     } else {

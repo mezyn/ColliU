@@ -59,7 +59,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffEmail.setStyle(OUTLINE_GOOD);
     }
-    if (master.checkExistingEmail(tfStaffEmail.getText())){
+    if (master.findUser(tfStaffEmail.getText()) != null){
       lblWarning.setText("Email is already registered");
       throw new Exception("Email is already registered");
     } else {

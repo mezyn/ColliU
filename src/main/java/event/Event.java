@@ -163,7 +163,7 @@ public class Event {
     return host;
   }
 
-  public void addReaction(String email, int reaction, String name) {
+  public boolean addReaction(String email, int reaction, String name) {
     String[] info = new String[3];
     info[0] = email;
     info[1] = "" + reaction;
@@ -179,10 +179,13 @@ public class Event {
     }
     if (index >= 0 && !removeReaction) {
       reactions.set(index, info);
+      return false;
     } else if (index >= 0 && removeReaction) {
       reactions.remove(index);
+      return true;
     } else {
       reactions.add(info);
+      return false;
     }
   }
 
