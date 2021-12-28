@@ -3,11 +3,7 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class StaffController {
@@ -27,9 +23,6 @@ public class StaffController {
   private PasswordField tfStaffConfirmPassword;
 
   @FXML
-  private TextField tfStaffDepartment;
-
-  @FXML
   private TextField tfStaffEmail;
 
   @FXML
@@ -40,12 +33,6 @@ public class StaffController {
 
   @FXML
   private PasswordField tfStaffPassword;
-
-
-  @FXML
-  void returnHomePage(ActionEvent event) {
-    master.showLastWindow();
-  }
 
   // Tells user what input is wrong if it is, otherwise it creates a staff user
   @FXML
@@ -72,7 +59,13 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffEmail.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    if (master.checkExistingEmail(tfStaffEmail.getText())){
+      lblWarning.setText("Email is already registered");
+      throw new Exception("Email is already registered");
+    } else {
+      lblWarning.setText("");
+    }
+    // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
       tfStaffFirstName.setStyle(OUTLINE_BAD);
@@ -85,6 +78,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffFirstName.setStyle(OUTLINE_GOOD);
     }
+    // Checks if the last name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffLastName.getText().isBlank()) {
       lblWarning.setText("Last name cannot be blank");
       tfStaffLastName.setStyle(OUTLINE_BAD);
@@ -97,7 +91,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffLastName.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    // Checks that password is between 12-20 characters, that it has at least one uppercase and one lowercase character, that it contains at least one number, that it doesn't contain any blank spaces and that the password and confirm password text field matches.
     if (tfStaffPassword.getText().length() < 11 || tfStaffPassword.getText().length() > 20) {
       lblWarning.setText("Password must be between 12 and 20 characters");
       tfStaffPassword.setStyle(OUTLINE_BAD);
@@ -127,34 +121,27 @@ public class StaffController {
       tfStaffPassword.setStyle(OUTLINE_GOOD);
     }
 
-    //is department and title allowed to be empty? otherwise what are they allowed to be
-    /*
-    if (userMethods.validatePassword(tfConfirmPassword.getText()) == false){
-      lblStaffPasswordError.setText("Passwords does not match");
-      throw new Exception();
-    }
-
-     */
-// Write comment here
+    // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStaffEmail.getText();
       String password = tfStaffPassword.getText();
       String name = tfStaffFirstName.getText();
       String surname = tfStaffLastName.getText();
-      String department = tfStaffDepartment.getText();
-      String staffTitle = "Professor"; //tfStaffTitle.getText();
-      master.createStaff(email, password, name, surname, department, staffTitle);
-      master.showEventPage();
+      master.createStaff(email, password, name, surname);
+      master.saveUsers();
+      master.showLogin();
     } catch (Exception exception) {
-      // Do something here.
+      exception.printStackTrace();
     }
   }
 
+  //Button that cancels registration and brings you back to the login page
   @FXML
   void cancelRegistration(ActionEvent event) {
     master.showLogin();
   }
 
+  //Changes the look of the cursor when hovering over specific objects
   @FXML
   void hoverOn(MouseEvent mouse) {
     ((Button) mouse.getSource()).setOpacity(0.8);

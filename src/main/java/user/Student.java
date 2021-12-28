@@ -10,8 +10,7 @@ import java.util.Date;
 public class Student extends User {
 
   private int graduationYear;
-  //private ArrayList<String> courses;
-  //private ArrayList<String> interests;
+
   private String program;
   //private boolean isAdministrator;
   /** Constructor for Student class.

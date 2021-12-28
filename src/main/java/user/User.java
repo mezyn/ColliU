@@ -36,49 +36,7 @@ public abstract class User {
    */
 
   public User(String email, String password, String firstName, String lastName, int type) throws Exception {
-    if (email == null || email.isBlank()) {
-      throw new Exception("Email cannot be blank.");
-    }
-    if (!email.endsWith(".gu.se")) {
-      throw new Exception("The email must be a GU email-address.");
-    }
-    //If-statement needs to contain all different shortenings of departments teachers can belong to
-    //Can't we just write ".gu.se" & "gu.se" instead? i did some research and many of them have ""gu.se" and there are
-    // tons of variation -Mijin
-    if (email.contains(" ")) {
-      throw new Exception("There cannot be any blank spaces in the email.");
-    }
-    if (password == null || password.isBlank()) {
-      throw new Exception("Password cannot be blank.");
-    }
-    if (password.length() < 11 || password.length() > 20) {
-      throw new Exception("Password must be between 12 and 20 characters.");
-    }
-    if (!password.matches("(.*[A-Z].*)")) {
-      throw new Exception("Password must contain at least one uppercase letter.");
-    }
-    if (!password.matches("(.*[a-z].*)")) {
-      throw new Exception("Password must contain at least one lowercase character.");
-    }
-    if (!password.matches("(.*[0-9].*)")) {
-      throw new Exception("Password must contain at least one number.");
-    }
-    if (password.contains(" ")) {
-      throw new Exception("Passwords cannot contain blank spaces.");
-    }
-    if (firstName == null || firstName.isBlank()) {
-      throw new Exception("First name cannot be blank.");
-    }
-    if (firstName.matches("(.*[0-9].*)")) {
-      throw new Exception("First name cannot contain any numbers.");
-    }
 
-    if (lastName == null || lastName.isBlank()) {
-      throw new Exception("Last name cannot be blank.");
-    }
-    if (lastName.matches("(.*[0-9].*)")) {
-      throw new Exception("Last name cannot contain any numbers.");
-    }
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;

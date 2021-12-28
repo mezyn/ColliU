@@ -3,12 +3,13 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
-public class StudentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StudentController implements Initializable {
 
   final private String OUTLINE_BAD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color: #f6a8a6; -fx-border-style: solid;";
   final private String OUTLINE_GOOD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color:  rgb(192,236,204); -fx-border-style: solid;";
@@ -26,16 +27,33 @@ public class StudentController {
   private TextField tfFirstName;
 
   @FXML
-  private TextField tfGraduationYear;
-
-  @FXML
   private TextField tfLastName;
 
   @FXML
   private PasswordField tfPassword;
 
   @FXML
-  private TextField tfProgram;
+  private ChoiceBox<String> graduationYearChoice;
+
+  @FXML
+  private ChoiceBox<String> programChoice;
+
+  //Creates an array of strings with the viable options for graduation year, they are used in a choice box
+  private String[] graduationYear = {"2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
+
+  //Creates an array of strings with the viable options for program, they are used in a choice box
+  private String[] program = {"Software engineering and management", "Systemvetenskap", "Kognitionsvetenskap", "Datavetenskap"};
+
+  //Returns value of an option alternative in a choice box
+  public int getGraduationYear(ActionEvent event){
+    int graduationYear = Integer.parseInt(graduationYearChoice.getValue());
+    return graduationYear;
+  }
+
+  //Returns value of an option alternative in a choice box
+  public String getProgram(ActionEvent event){
+    return programChoice.getValue();
+  }
 
   @FXML
   private TextField tfStudentEmail;
@@ -44,6 +62,7 @@ public class StudentController {
   // Tells user what input is wrong if it is, otherwise it creates a student
   @FXML
   void registerStudent(ActionEvent event) throws Exception {
+    // Checks if the Email that the user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the user if any of these are fulfilled.
     if (tfStudentEmail.getText().isBlank()) {
       lblWarning.setText("Email cannot be blank");
       tfStudentEmail.setStyle(OUTLINE_BAD);
@@ -60,14 +79,13 @@ public class StudentController {
       lblWarning.setText("");
       tfStudentEmail.setStyle(OUTLINE_GOOD);
     }
-    /*
-    if (userMethods.validatePassword(tfConfirmPassword.getText()) == false){
-        lblPasswordError.setText("Passwords does not match");
-        throw new Exception();
+    if (master.checkExistingEmail(tfStudentEmail.getText())){
+      lblWarning.setText("Email is already registered");
+      throw new Exception("Email is already registered");
+    } else {
+      lblWarning.setText("");
     }
-
-     */
-    // Write comment here
+    // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
       tfFirstName.setStyle(OUTLINE_BAD);
@@ -93,7 +111,7 @@ public class StudentController {
       lblWarning.setText("");
       tfLastName.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    // // Checks that password is between 12-20 characters, that it has at least one uppercase and one lowercase character, that it contains at least one number, that it doesn't contain any blank spaces and that the password and confirm password text field matches.
     if (tfPassword.getText().isBlank()) {
       lblWarning.setText("Password cannot be blank");
       tfPassword.setStyle(OUTLINE_BAD);
@@ -127,27 +145,38 @@ public class StudentController {
       lblWarning.setText("");
       tfPassword.setStyle(OUTLINE_GOOD);
     }
-    // Write comment here
+    // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStudentEmail.getText();
       String password = tfPassword.getText();
       String name = tfFirstName.getText();
       String surname = tfLastName.getText();
-      int graduationYear = Integer.parseInt(tfGraduationYear.getText());
-      String program = tfProgram.getText();
+      int graduationYear = getGraduationYear(event);
+      String program = getProgram(event);
       master.createStudent(email, password, name, surname, graduationYear, program);
+      master.saveUsers();
       master.showLogin();
     } catch (Exception exception)  {
-       // Do something here.
+      exception.printStackTrace();
     }
   }
 
+  //Button that cancels registration and brings you back to the login page
   @FXML
   void cancelRegistration(ActionEvent event) {
     master.showLogin();
   }
-  
+
   public void setMaster(MasterController master) {
     this.master = master;
+  }
+
+  //Initializes and gives options to the choice boxes
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    graduationYearChoice.getItems().addAll(graduationYear);
+    graduationYearChoice.setOnAction(this::getGraduationYear);
+    programChoice.getItems().addAll(program);
+    programChoice.setOnAction(this::getProgram);
   }
 }
