@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class EventItem {
   double normalHeight;
   double detailsHeight;
+  int eventId;
   boolean attending;
   Event event;
   SequentialTransition emojiAnimation;
@@ -98,7 +99,6 @@ public class EventItem {
   private ImageView imgUserReaction;
 
   private MasterController master;
-
 
   @FXML
   void attendEvent(ActionEvent event) throws IOException {
