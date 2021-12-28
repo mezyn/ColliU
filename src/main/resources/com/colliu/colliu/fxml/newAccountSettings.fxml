@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+         <content>
+            <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+               <children>
+                  <Label layoutX="390.0" layoutY="46.0" text="Account Settings" textFill="#5e81f4">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="769.0" layoutY="109.0" prefHeight="328.0" prefWidth="224.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/profile_placeholder.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblYourName" layoutX="62.0" layoutY="173.0" text="Your name">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblYourEmail" layoutX="83.0" layoutY="213.0" text="Your Email" />
+                        <Label fx:id="lblYourProgram" layoutX="74.0" layoutY="238.0" text="Your program" />
+                        <Label fx:id="lblYourUserClass" layoutX="58.0" layoutY="291.0" text="Student/Admin/Teacher" />
+                        <Label fx:id="lblYourExamYear" layoutX="83.0" layoutY="264.0" text="Exam Year" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="12.0" layoutY="111.0" prefHeight="631.0" prefWidth="738.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Button fx:id="onButtonChangeFirstName" layoutX="187.0" layoutY="78.0" mnemonicParsing="false" onAction="#onButtonChangeFirstName" text="Change first name" />
+                        <TextField fx:id="tfEnterNewFirstName" layoutX="2.0" layoutY="65.0" prefHeight="25.0" prefWidth="175.0" promptText="Enter new first name" />
+                        <TextField fx:id="tfNewLastName" layoutX="2.0" layoutY="178.0" prefHeight="25.0" prefWidth="175.0" promptText="Enter new last name" />
+                        <TextField fx:id="tfRepeatNewLastName" layoutX="1.0" layoutY="212.0" prefHeight="25.0" prefWidth="175.0" promptText="Repeat new last name" />
+                        <Button fx:id="btnChangeLastName" layoutX="187.0" layoutY="191.0" mnemonicParsing="false" onAction="#onButtonChangeLastName" text="Change last name" />
+                        <TextField fx:id="tfRepeatFirstName" layoutX="2.0" layoutY="97.0" prefHeight="25.0" prefWidth="175.0" promptText="Repeat new first name" />
+                        <Button fx:id="btnChangePassword" layoutX="458.0" layoutY="335.0" mnemonicParsing="false" onAction="#onButtonChangePassword" text="Change password" />
+                        <PasswordField fx:id="tfCurrentPassword" layoutX="1.0" layoutY="301.0" prefHeight="25.0" prefWidth="440.0" promptText="Current password" />
+                        <PasswordField fx:id="tfNewPassword" layoutY="335.0" prefHeight="25.0" prefWidth="440.0" promptText="New password" />
+                        <PasswordField fx:id="tfRepeatNewPassword" layoutY="369.0" prefHeight="25.0" prefWidth="440.0" promptText="Repeat new password" />
+                        <Button fx:id="btnSoftwareEngineering" layoutX="2.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressSEM" text="Software Engineering" />
+                        <Button fx:id="btnSystemvetenskap" layoutX="148.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressSystemvetenskap" text="Science of Systems" />
+                        <Button fx:id="btnDatavetenskap" layoutX="284.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressDatavetenskap" text="Computer Science" />
+                        <Button fx:id="btnKognitionsvetenskap" layoutX="418.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressKognitionsvetenskap" text="Cognitive Science" />
+                        <TextField fx:id="tfNewGraduationYear" layoutX="2.0" layoutY="574.0" promptText="Enter graduation year" />
+                        <Button fx:id="btnChangeGraduationYear" layoutX="171.0" layoutY="574.0" mnemonicParsing="false" onAction="#onButtomPressChangeGraduationYear" text="Change graduation year" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
