@@ -1,22 +1,20 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import user.User;
-import user.UserMethods;
-
-import java.io.IOException;
 
 public class LoginController {
 
   MasterController master;
+
+  private String[][] loginDetails;
 
   @FXML
   private Button forgotpassword;
@@ -60,7 +58,7 @@ if the input password matches the email address. If both are correct, the user s
 to the event page(homepage). Otherwise, the warning label shows which action the user shall take to successfully login. */
 
   @FXML
-  void onLogInClick() throws Exception {
+  void onLogInClick() {
     String uEmail = guEmail.getText();
     String uPassword = password.getText();
 
@@ -119,20 +117,63 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   }
 
   public void setMaster(MasterController master) {
-      this.master = master;
+    this.master = master;
+    loginDetails = new String[master.getAllusers().size()][2];
+    for (int i = 0; i < master.getAllusers().size(); i++) {
+      loginDetails[i][0] = master.getAllusers().get(i).getEmail();
+      loginDetails[i][1] = master.getAllusers().get(i).getPassword();
+    }
+    ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Staff4", "Student", "Student2", "Student3", "Student4");
+    cbLogin.setItems(items);
+    cbLogin.getSelectionModel().selectFirst();
   }
 
   @FXML
-  void ChangeLogin(ActionEvent event) {
-    String button = ((Button) event.getSource()).getText();
-    if(button.equals("Student")) {
-      guEmail.setText("student@student.gu.se");
-    } else if(button.equals("Admin")) {
-      guEmail.setText("admin@student.gu.se");
-    } else {
-      guEmail.setText("staff@teacher.gu.se");
+  private ComboBox<String> cbLogin;
+
+  @FXML
+  void enterDetails(ActionEvent event) {
+    String email;
+    String pass;
+    switch(cbLogin.getValue()) {
+      case "Admin":
+        email = loginDetails[0][0];
+        pass = loginDetails[0][1];
+        break;
+      case "Staff":
+        email = loginDetails[1][0];
+        pass = loginDetails[1][1];
+        break;
+      case "Staff2":
+        email = loginDetails[2][0];
+        pass = loginDetails[2][1];
+        break;
+      case "Staff3":
+        email = loginDetails[3][0];
+        pass = loginDetails[3][1];
+        break;
+      case "Staff4":
+        email = loginDetails[4][0];
+        pass = loginDetails[4][1];
+        break;
+      case "Student":
+        email = loginDetails[5][0];
+        pass = loginDetails[5][1];
+        break;
+      case "Student2":
+        email = loginDetails[6][0];
+        pass = loginDetails[6][1];
+        break;
+      case "Student3":
+        email = loginDetails[7][0];
+        pass = loginDetails[7][1];
+        break;
+      default:
+        email = loginDetails[8][0];
+        pass = loginDetails[8][1];
     }
-    password.setText("Hej123123!!");
+    guEmail.setText(email);
+    password.setText(pass);
   }
 
 }

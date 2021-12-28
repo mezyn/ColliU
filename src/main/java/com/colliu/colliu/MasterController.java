@@ -338,8 +338,8 @@ public class MasterController {
   }
 
   public Event[] getNotifications() {
-    String uEmail = getCurrentUser().getEmail();
-    String uProgram = ((Student)getCurrentUser()).getProgram();
-    return eventMethods.getNotifications(uEmail, uProgram);
+    String userEmail = getCurrentUser().getEmail();
+    String userProgram = ((Student)getCurrentUser()).getProgram();
+    return eventMethods.getNotifications(userEmail, userProgram);
   }
 }
