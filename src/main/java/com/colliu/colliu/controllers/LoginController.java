@@ -119,11 +119,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   public void setMaster(MasterController master) {
     this.master = master;
     loginDetails = new String[master.getAllusers().size()][2];
+    System.out.println(master.getAllusers().size());
     for (int i = 0; i < master.getAllusers().size(); i++) {
       loginDetails[i][0] = master.getAllusers().get(i).getEmail();
       loginDetails[i][1] = master.getAllusers().get(i).getPassword();
     }
-    ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Staff4", "Student", "Student2", "Student3", "Student4");
+    ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Student", "Student2", "Student3", "Student4");
     cbLogin.setItems(items);
     cbLogin.getSelectionModel().selectFirst();
   }
@@ -152,25 +153,21 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         email = loginDetails[3][0];
         pass = loginDetails[3][1];
         break;
-      case "Staff4":
+      case "Student":
         email = loginDetails[4][0];
         pass = loginDetails[4][1];
         break;
-      case "Student":
+      case "Student2":
         email = loginDetails[5][0];
         pass = loginDetails[5][1];
         break;
-      case "Student2":
+      case "Student3":
         email = loginDetails[6][0];
         pass = loginDetails[6][1];
         break;
-      case "Student3":
+      default:
         email = loginDetails[7][0];
         pass = loginDetails[7][1];
-        break;
-      default:
-        email = loginDetails[8][0];
-        pass = loginDetails[8][1];
     }
     guEmail.setText(email);
     password.setText(pass);
