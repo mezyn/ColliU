@@ -305,10 +305,17 @@ public class MasterController {
       showError(NO_EVENT_FILE + e);
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
-    standardEvents.add(new Event(0, "Gaming night with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "Software engineering and management", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
-    standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "Kognitionsvetenskap", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
-    standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "Software engineering and management", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATTENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
-    standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "Software engineering and management", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATTENDANCE IS MANDATORY!!!!", "Student Union", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(0, "Gaming night", LocalDate.of(2022, 1, 17), "19:30", "Discord", "Software engineering and management", "Welcome to a great gaming event with all my favorite games!", "Gaming", "christian.carlsson@cse.gu.se"));
+    standardEvents.add(new Event(1, "'The Complications of gaming' with Isak Ingvarsson", LocalDate.of(2022, 2, 24), "13:15", "Barbord", "Kognitionsvetenskap", "The beloved writer Isak Ingvarsson would like to share the groundbreaking findings from his research!", "Guest Lecture", "christian.carlsson@cse.gu.se"));
+    standardEvents.add(new Event(2, "Weekend Hackathon", LocalDate.of(2022, 2, 12), "09:00", "Discord", "Software engineering and management", "The department of Computer science and Engineering creates an opportunity for the first year students to a hackathon with the theme of sustainable software development.", "Hackathon", "christian.carlsson@cse.gu.se"));
+    standardEvents.add(new Event(3, "Lunch Lecture with Jonathan Johansson", LocalDate.of(2022, 3, 16), "12:15", "Styrbord", "Systemvetenskap", "Learn the new trend in the job market with free lunch!", "Lunch Lecture", "christian.carlsson@cse.gu.se"));
+    standardEvents.add(new Event(4, "Social ", LocalDate.of(2022, 2, 23), "19:30", "Discord", "Software engineering and management", "", "Mingle", "benjamin.bengtsson@gu.se"));
+    standardEvents.add(new Event(5, "Table Tennis", LocalDate.of(2022, 3, 06), "17:30", "Milla", "Software engineering and management", "The Grand Final of weekly table tennis competition.", "Sports", "benjamin.bengtsson@gu.se"));
+    standardEvents.add(new Event(6, "Tentapub", LocalDate.of(2022, 3, 25), "18:00", "Patricia", "Software engineering and management", "Join the tentapub after the exam! Identification required.", "Student Union", "info@gota.gu.se"));
+    standardEvents.add(new Event(7, "City walk", LocalDate.of(2022, 1, 16), "13:00", "Lindholmen Campus", "Datavetenskap", "[For exchange students] Let's have a walk through the city of Gothenburg and get to know the city.", "Student Union", "info@gota.gu.se"));
+    standardEvents.add(new Event(8, "GitLab Workshop", LocalDate.of(2022, 1, 18), "17:00", "Discord", "Software engineering and management", "Great opportunity to learn more about how GitLab works.", "Workshop", "benjamin.bengtsson@gu.se"));
+    standardEvents.add(new Event(9, "Weekend Flee Market", LocalDate.of(2022, 2, 12), "10:00", "Chalmers Johanneberg", "Software engineering and management", "Get the stuff you don't need anymore or come and find good stuff at a cheap price!", "Others", "benjamin.bengtsson@gu.se"));
+
     json.saveEvents(standardEvents);
     return loadEvents();
   }
