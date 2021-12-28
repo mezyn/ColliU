@@ -36,7 +36,7 @@ public class Event {
     this.id = id;
     this.title = title;
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    System.out.println(date);
+    //System.out.println(date);
     this.location = location;
     this.description = description;
     this.category = category;

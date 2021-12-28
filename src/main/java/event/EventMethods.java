@@ -29,7 +29,7 @@ public class EventMethods {
 
 
   public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
-    return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
+    return events.add(new Event(events.size(), name, eventDate, time, location, description, category, program, host));
   }
 
   /*¢

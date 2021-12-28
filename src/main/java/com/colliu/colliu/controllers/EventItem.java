@@ -105,6 +105,7 @@ public class EventItem {
     this.lblDate.setText(String.valueOf(event.getDate()).substring(0, 10));
     this.lblLocation.setText(event.getLocation());
     this.lblTime.setText(event.getTime());
+    this.txtDescription.setText(event.getDescription());
     normalHeight = spAllEvent.getPrefHeight();
     detailsHeight = pnEventDetails.getPrefHeight();
     spAllEvent.setMaxHeight(normalHeight - detailsHeight);

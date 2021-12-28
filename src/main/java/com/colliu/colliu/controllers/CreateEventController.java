@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import user.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,26 +22,6 @@ import java.util.ResourceBundle;
 public class CreateEventController {
 
     MasterController master;
-/*    private Stage thisStage;
-
-    public void closePage() throws Exception { //button that opens staff registration screen
-        String PageName = "page-name.fxml";
-        closeWindow();
-
-        FXMLLoader PageLoader = showWindow(PageName);
-        CreateEventController controllerName = PageLoader.getController();
-        controllerName.setMaster(this);
-    }
-
-   private FXMLLoader showWindow(String pageName) {
-
-    }
-
-    private void closeWindow() {
-        if (thisStage!= null) {
-            thisStage.close();
-        }
-    }*/
 
 //    String currentUser = master.getCurrentUser().getEmail();
 
@@ -75,13 +57,24 @@ public class CreateEventController {
     @FXML
     private Label warningLabel;
 
+    @FXML
+    private AnchorPane anchorPane;
+
+    Stage stage;
 
     @FXML
-    void onCreateEventClicked(ActionEvent event) {
+    void closeWindow(ActionEvent event) {
+        stage = (Stage) anchorPane.getScene().getWindow();
+        stage.close();
+    }
+
+
+    @FXML
+    void onCreateEventClicked(ActionEvent event) throws Exception {
         if (eventTitle.getText().isBlank()) {
             warningLabel.setText("Title cannot be empty.");
         } else if (eventLocation.getText().isBlank()) {
-            warningLabel.setText("Location cannot be empty");
+            warningLabel.setText("Location cannot be empty.");
         } else if (eventDate == null) {
             warningLabel.setText("Please select a date for the event.");
         } else if (eventDate.isBefore(LocalDate.now())) {
@@ -96,8 +89,11 @@ public class CreateEventController {
             warningLabel.setText("Write a description about the event.");
         } else {
             time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-            master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText(), categoryChoiceBox.getValue(), programChoiceBox.getValue(), master.getCurrentUser().getEmail());
-            //closeWindow();
+            master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), programChoiceBox.getValue(), descriptionField.getText(), categoryChoiceBox.getValue(), master.getCurrentUser().getEmail());
+            master.saveEvents();
+            closeWindow(event);
+            master.showEventPage();
+
         }
     }
 
