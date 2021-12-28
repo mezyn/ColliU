@@ -125,7 +125,7 @@ public class MasterController {
   }
 
   public void showProfileSettingsPage() {
-    String profileSettingsPage = "ProfileSettingsPage.fxml";
+    String profileSettingsPage = "newAccountSettings.fxml";
     closeWindow();
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
     ProfileController profileController = profileLoader.getController();

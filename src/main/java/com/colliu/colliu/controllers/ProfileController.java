@@ -5,15 +5,15 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
 import user.Administrator;
 import user.Staff;
 import user.Student;
 
-/**
- *
- */
 public class ProfileController {
   MasterController master;
 
@@ -27,42 +27,41 @@ public class ProfileController {
 
   public void updateProfileTab() {
     int userType = master.getCurrentUser().getType();
-  switch(userType)  {
-  case 1:
-      Student loggedInStudent = (Student) master.getCurrentUser();
-      lblYourUserClass.setText("Student");
-      paneAdminControls.setVisible(false);
-      lblYourProgram.setText(loggedInStudent.getProgram());
-      lblYourExamYear.setText("Class of " + loggedInStudent.getGraduationYear());
-      lblYourName.setText(loggedInStudent.getLastName() + " " + loggedInStudent.getFirstName());
-      lblYourEmail.setText(loggedInStudent.getEmail());
-      break;
-  case 2:
-      Administrator loggedInAdmin = (Administrator) master.getCurrentUser();
-      lblYourUserClass.setText("Student Administrator");
-      lblYourProgram.setText(loggedInAdmin.getProgram());
-      lblYourExamYear.setText("Class of " + loggedInAdmin.getGraduationYear());
-      paneAdminControls.setVisible(true);
-      lblYourName.setText(loggedInAdmin.getLastName() + " " + loggedInAdmin.getFirstName());
-      lblYourEmail.setText(loggedInAdmin.getEmail());
-      break;
-  case 3:
-    Staff loggedInStaff = (Staff) master.user;
-    lblYourUserClass.setText("Staff");
-    paneAdminControls.setVisible(false);
-    lblYourProgram.setText("Change this later as department was removed hehe");
-    lblYourExamYear.setVisible(false);
-    tabChangeProgram.setDisable(true);
-    lblYourName.setText(loggedInStaff.getLastName() + " " + loggedInStaff.getFirstName());
-    lblYourEmail.setText(loggedInStaff.getEmail());
-    break;
-  default:
-      lblYourUserClass.setText("Shit be fucked up");
-      lblYourProgram.setText("Shit be fucked up");
-      lblYourExamYear.setText("Shit be fucked up");
-      paneAdminControls.setVisible(true);
+    switch (userType)  {
+      case 1:
+        Student loggedInStudent = (Student) master.getCurrentUser();
+        lblYourUserClass.setText("Student");
+        paneAdminControls.setVisible(false);
+        lblYourProgram.setText(loggedInStudent.getProgram());
+        lblYourExamYear.setText("Class of " + loggedInStudent.getGraduationYear());
+        lblYourName.setText(loggedInStudent.getLastName() + " " + loggedInStudent.getFirstName());
+        lblYourEmail.setText(loggedInStudent.getEmail());
+        break;
+      case 2:
+        Administrator loggedInAdmin = (Administrator) master.getCurrentUser();
+        lblYourUserClass.setText("Student Administrator");
+        lblYourProgram.setText(loggedInAdmin.getProgram());
+        lblYourExamYear.setText("Class of " + loggedInAdmin.getGraduationYear());
+        //paneAdminControls.setVisible(true);
+        lblYourName.setText(loggedInAdmin.getLastName() + " " + loggedInAdmin.getFirstName());
+        lblYourEmail.setText(loggedInAdmin.getEmail());
+        break;
+      case 3:
+        Staff loggedInStaff = (Staff) master.user;
+        lblYourUserClass.setText("Staff");
+        //paneAdminControls.setVisible(false);
+        lblYourProgram.setText("Change this later as department was removed hehe");
+        lblYourExamYear.setVisible(false);
+        //tabChangeProgram.setDisable(true);
+        //lblYourName.setText(loggedInStaff.getLastName() + " " + loggedInStaff.getFirstName());
+        lblYourEmail.setText(loggedInStaff.getEmail());
+        break;
+      default:
+        lblYourUserClass.setText("Shit be fucked up");
+        lblYourProgram.setText("Shit be fucked up");
+        lblYourExamYear.setText("Shit be fucked up");
+        paneAdminControls.setVisible(true);
     }
-
   }
 
   @FXML
@@ -381,5 +380,161 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   }
 
 
+  @FXML
+  private TextField tfName;
+
+  @FXML
+  private TextField tfNameConfirm;
+
+  @FXML
+  private TextField tfSurname;
+
+  @FXML
+  private TextField tfSurnameConfirm;
+
+  @FXML
+  private PasswordField pfPassword;
+
+  @FXML
+  private PasswordField pfPasswordConfirm;
+
+  @FXML
+  private Button btnCloseSettings;
+
+  @FXML
+  private Button btnSaveSettings;
+
+  @FXML
+  private ComboBox<String> cbProgram;
+
+  @FXML
+  private ComboBox<Integer> cbGraduationYear;
+
+  @FXML
+  private Label lblWarningName;
+
+  @FXML
+  private Label lblWarningSurname;
+
+  @FXML
+  private Label lblWarningPassword;
+
+  @FXML
+  private Label lblWarningStudies;
+
+  private boolean nameCheck = true;
+  private boolean surnameCheck = true;
+  private boolean passwordCheck = true;
+  private boolean programCheck = true;
+  private boolean graduationCheck = true;
+
+  @FXML
+  void onTextfieldType(KeyEvent event) {
+    String normalField = "-fx-background-color:#FFF; -fx-border-color:#DDD; -fx-border-radius: 5; -fx-text-fill:#333;";
+    String badField = "-fx-background-color:#FFF; -fx-border-color:rgb(246, 168, 166); -fx-border-radius: 5; -fx-text-fill:#333;";
+    String goodField = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
+    if (event.getSource() instanceof PasswordField passwordField) {
+      System.out.println("Typing in pw field: " + passwordField);
+      if (pfPassword.getText().length() + pfPasswordConfirm.getText().length() == 0) {
+        lblWarningPassword.setText("");
+        pfPassword.setStyle(normalField);
+        pfPasswordConfirm.setStyle(normalField);
+        passwordCheck = true;
+      } else if (!master.checkPassword(pfPassword.getText())) {
+        lblWarningPassword.setWrapText(true);
+        lblWarningPassword.setText("Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.");
+        passwordCheck = false;
+        pfPasswordConfirm.setStyle(badField);
+        pfPassword.setStyle(badField);
+      } else if (!pfPassword.getText().equals(pfPasswordConfirm.getText())) {
+        lblWarningPassword.setText("Passwords don't match.");
+        passwordCheck = false;
+        pfPasswordConfirm.setStyle(badField);
+        pfPassword.setStyle(badField);
+      } else {
+        lblWarningPassword.setText("");
+        passwordCheck = true;
+        pfPasswordConfirm.setStyle(goodField);
+        pfPassword.setStyle(goodField);
+      }
+    } else if (event.getSource() instanceof TextField typedField) {
+      if ((typedField == tfName || typedField == tfNameConfirm) && (tfName.getText().equals(tfNameConfirm.getText()) || (tfName.getText().length() + tfNameConfirm.getText().length() == 0))) {
+        nameCheck = true;
+        lblWarningName.setText("");
+        tfNameConfirm.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? normalField : goodField));
+        tfName.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? normalField : goodField));
+      } else if ((typedField == tfName || typedField == tfNameConfirm) && !tfNameConfirm.getText().equals(tfName.getText())) {
+        nameCheck = false;
+        lblWarningName.setText("Names don't match.");
+        tfNameConfirm.setStyle(badField);
+        tfName.setStyle(badField);
+      } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && (tfSurname.getText().equals(tfSurnameConfirm.getText()) || (tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0))) {
+        surnameCheck = true;
+        lblWarningSurname.setText("");
+        tfSurnameConfirm.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? normalField : goodField));
+        tfSurname.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? normalField : goodField));
+      } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && !tfNameConfirm.getText().equals(tfSurname.getText())) {
+        surnameCheck = false;
+        lblWarningSurname.setText("Surnames don't match.");
+        tfSurname.setStyle(badField);
+        tfSurnameConfirm.setStyle(badField);
+      }
+    }
+    checkSavePossible();
+  }
+
+  @FXML
+  void onComboBoxSelect(ActionEvent event) {
+
+  }
+
+  @FXML
+  void closeSettings(ActionEvent event) {
+
+  }
+
+
+  private void checkSavePossible() {
+    String cancelButton = "-fx-background-color:rgb(246, 168, 166);";
+    String normalButton = "-fx-background-color:#DDD;";
+
+    boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
+        + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
+        + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0;
+
+    if (noChanges) {
+      System.out.println("Changing savesettings and closesettings..");
+      btnSaveSettings.setDisable(true);
+      btnCloseSettings.setStyle(normalButton);
+      btnCloseSettings.setText("Close");
+    } else if (nameCheck && surnameCheck && passwordCheck && programCheck && graduationCheck) {
+      btnSaveSettings.setDisable(false);
+      btnCloseSettings.setText("Cancel");
+      btnCloseSettings.setStyle(cancelButton);
+    } else {
+      btnSaveSettings.setDisable(true);
+      btnCloseSettings.setText("Cancel");
+      btnCloseSettings.setStyle(cancelButton);
+    }
+  }
+
+  private void toggleClose() {
+
+  }
+
+  @FXML
+  void saveSettings(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onButtonEntered(MouseEvent event) {
+    ((Button) event.getSource()).setOpacity(0.8);
+  }
+
+  @FXML
+  void onButtonExited(MouseEvent event) {
+    ((Button) event.getSource()).setOpacity(1);
+  }
 
  }
