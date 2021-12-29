@@ -21,7 +21,9 @@ import user.*;
  * * * * * * * * * * * *
  **/
 
-public class MasterController {
+public class
+
+MasterController {
 
   private final UserMethods userMethods;
   private final Data json;

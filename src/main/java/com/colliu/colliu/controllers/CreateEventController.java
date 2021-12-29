@@ -88,6 +88,13 @@ public class CreateEventController {
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
         } else {
+ /*   @FXML
+    void onCreateEventClicked(ActionEvent event) {
+        eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
+    }*/
+ @FXML
+ void onCreateEventClicked() {
+ }
 
             time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
             master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), programChoiceBox.getValue(), descriptionField.getText(), categoryChoiceBox.getValue(), master.getCurrentUser().getEmail());
