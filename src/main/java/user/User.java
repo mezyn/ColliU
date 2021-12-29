@@ -42,9 +42,6 @@ public abstract class User {
     if (!email.endsWith(".gu.se")) {
       throw new Exception("The email must be a GU email-address.");
     }
-    //If-statement needs to contain all different shortenings of departments teachers can belong to
-    //Can't we just write ".gu.se" & "gu.se" instead? i did some research and many of them have ""gu.se" and there are
-    // tons of variation -Mijin
     if (email.contains(" ")) {
       throw new Exception("There cannot be any blank spaces in the email.");
     }
@@ -83,10 +80,12 @@ public abstract class User {
     this.lastName = lastName;
     this.password = password;
     this.email = email;
-    this.logins = new ArrayList<>();     //Not sure how this works
+    this.logins = new ArrayList<>();
     this.accountBanned = false;
     this.type = type;
   }
+
+
 
   public String getFirstName() {
     return this.firstName;
@@ -128,30 +127,35 @@ public abstract class User {
     return firstName + " " + lastName;
   }
 
-  public boolean validatePassword(String password) {
-    return password.equals(this.password);
-  }
-
   public void setAccountStatus(boolean bannedStatus) {
     this.accountBanned = bannedStatus;
   }
 
 
-
-  public void login() {
-    logins.add(new Date());
-  }
-
-  // Returns all user logins as an array(normal array).
-  public Date[] getLogins() {
-    return logins.toArray(new Date[0]);
-  }
-
-  public void addCourse(int id) {
-    courses.add(id);
+// Function that validates user's password
+  public boolean validatePassword(String password) {
+    return password.equals(this.password);
   }
 
   public Integer[] getCourses() {
     return courses.toArray(new Integer[0]);
   }
+
+
+
+// Login function
+  public void login() {
+    logins.add(new Date());
+  }
+
+  // Returns all user logins as an array.
+  public Date[] getLogins() {
+    return logins.toArray(new Date[0]);
+  }
+//
+  public void addCourse(int id) {
+    courses.add(id);
+  }
+
+
 }

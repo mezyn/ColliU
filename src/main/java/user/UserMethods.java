@@ -28,7 +28,9 @@ public class UserMethods {
   // check when user latest logged in(dunno how)? william wrote about it
   //get a user by email?
   //Using user input + calling constructors from the different user-classes?
-  // Write comment here
+
+
+  // Method for finding a user by his Email.
   public int findUser(String searchEmail) {
     if (users.size() == 0) {
       return -1;
@@ -56,7 +58,7 @@ public class UserMethods {
     }
     return true; // change this
   }
-// Write comment here
+// Function for registering as student.
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
@@ -64,7 +66,7 @@ public class UserMethods {
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Write comment here
+// Function for registering as administrator.
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     if (checkExistingEmail(email)) {
       throw new Exception("User is already registered, please try again.");
@@ -72,7 +74,7 @@ public class UserMethods {
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Write comment here
+// Function for registering as staff.
   public String createStaff(String email, String password, String firstName, String lastName, String department, String title) throws Exception {
 
     if (checkExistingEmail(email)) {
@@ -92,7 +94,7 @@ public class UserMethods {
    */
 
 
-// Write comment here
+// Checks if a user with an email as the input String exists.
   public boolean checkExistingEmail(String email) {
 
     for (User user : users) {
@@ -102,7 +104,7 @@ public class UserMethods {
     }
     return false;
   }
-// Write comment here
+//Method for validating password
 //I'm not sure if the validatePassword method is logically correct.
 //So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
   public boolean validatePassword(String password, String email) {
@@ -124,16 +126,17 @@ public class UserMethods {
     }
     return -1;
   }
-// Write comment here
+// Method for getting user by his email
   public User getUserByEmail(String email) {
     for (User user: users) {
       if (user.getEmail().equals(email)) {
-        return user;
+        return user; //returning the user corresponding to that email
       }
     }
     return null;
   }
 
+  // Function for checking the strength of each user's password.
   public boolean checkPasswordComplexity(String password) {
     if (password == null || password.isBlank()) {
       return false;
@@ -169,6 +172,7 @@ public class UserMethods {
     return currentUser.getType();
   }
 
+  // Method for promoting a student to being an admin.
   public void promoteStudentToAdmin(String promoteEmail) throws Exception {
    Student promoteUser = (Student) getUserByEmail(promoteEmail);
    String email = promoteUser.getEmail();
@@ -181,13 +185,13 @@ public class UserMethods {
    createAdministrator(email, password, firstName, lastName, graduationYear, program);
    master.saveUsers();
   }
-
+  // Function for banning a user.
   public void banUser(String userToBan)  {
     getUserByEmail(userToBan).setAccountStatus(true);
     master.saveUsers();
   }
 
-
+ // Function for unbanning a user.
   public void unbanUser(String userToUnban)  {
     getUserByEmail(userToUnban).setAccountStatus(false);
     master.saveUsers();
