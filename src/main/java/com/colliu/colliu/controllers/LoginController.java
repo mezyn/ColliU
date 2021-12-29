@@ -48,12 +48,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     String uEmail = guEmail.getText();
     String uPassword = password.getText();
 
-    if (uEmail.isBlank()) {                              //checks if email is empty
+    if (uEmail.isBlank()) {                              //checks if email field is empty
       warningLabel.setText("Email address cannot be empty.");
-    } else if (uPassword.isBlank()) {                      //check if password is empty
+    } else if (uPassword.isBlank()) {                      //check if password field is empty
       warningLabel.setText("Password cannot be empty.");
     } else {
-      boolean validLogin = master.validateLogin(uEmail, uPassword);
+      boolean validLogin = master.validateLogin(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the user
       if (validLogin) {
         User user = master.findUser(uEmail);
         master.setLoggedInUser(user);
@@ -71,12 +71,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   }
 
   @FXML
-  void registerStaff(ActionEvent event) throws Exception {
+  void registerStaff(ActionEvent event) {
     master.showRegisterStaff();
   }
 
   @FXML
-  void registerStudent(ActionEvent event) throws Exception {
+  void registerStudent(ActionEvent event) {
     master.showRegisterStudent();
   }
 
