@@ -267,7 +267,7 @@ public class EventController {
 
   /*
     This method loads all the events;
-    To make it work for tags you can add paremeters as needed:
+    To make it work for tags you can add parameters as needed:
    */
 
   private void loadEvents(Event[] events) {
