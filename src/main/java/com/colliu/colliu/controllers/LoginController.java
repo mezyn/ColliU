@@ -17,9 +17,6 @@ public class LoginController {
   private String[][] loginDetails;
 
   @FXML
-  private Button forgotpassword;
-
-  @FXML
   private TextField guEmail;
 
   @FXML
@@ -29,29 +26,7 @@ public class LoginController {
   private PasswordField password;
 
   @FXML
-  private Button newTeacher;
-
-  @FXML
-  private Button newStaff;
-
-  @FXML
   private Label warningLabel;
-
-  @FXML
-  private Pane accountBannedPane;
-
-  @FXML
-  private Button btnAccountBannedOK;
-
-  @FXML
-  void onForgotPasswordClick(ActionEvent event) throws Exception {
-    master.showForgottenPassword();
-  }
-
-  @FXML
-  void onButtonPressAccountBannedOK(ActionEvent event) throws Exception {
-    accountBannedPane.setVisible(false);
-  }
 
   /* Upon login button click, the system checks if the input email is already registered in the system as well as
 if the input password matches the email address. If both are correct, the user succeeds to log in and will be sent
@@ -73,7 +48,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         master.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
         if (accountStatus) {
-          accountBannedPane.setVisible(accountStatus);
+          warningLabel.setText("Account is permanently banned.");
         } else {
           master.showEventPage();
         }
