@@ -4,35 +4,32 @@ package user;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Parameters for the User class.
+/*
+ This class is a parent class for the other user type classes; namely, student, staff and administrator.
+ As this is an abstract class, a User object cannot be generated; a user shall be either student (administrator is also student) of staff.
+ For every user, the application requires information regarding the attributes below.
  */
 public abstract class User {
 
-  private int type;
-  private String email;
+  private int type; //Check user type. 1: Student, 2: Administrator, 3: Staff
+  private String email; //Take email address
   private String password;
   private String firstName;
   private String lastName;
-  private ArrayList<Date> logins;
-  private boolean accountBanned;
-  private ArrayList<Integer> courses; // Store only course ID here. Then use the ID to find the actual course object.
+  private ArrayList<Date> logins; //Date of last login - relevant to
+  private boolean accountBanned; //A user can be banned from the system. This attribute saves the information if a user is banned or not.
 
-  public User() {
-
+  public User() { //default constructor
   }
 
-
-  /**
-   * This is a constructor for the User class.
-   * It prevents the following:
-   * Emails from being blank, having the wrong format, having special characters "@", and that they are not an official
-   * GU email.
-   * Passwords from being empty, that they have to at least have one uppercase letter,
-   * one lowercase letter, one number and that they are between 12 and 20 characters long.
-   * First names from being blank.
-   * Last names from being blank.
-   * special chars
+  /*
+   This is a constructor for the User class.
+   It prevents the following:
+   - First names from being blank,
+   - Last names from being blank,
+   - Emails from being blank, having the wrong format, having special characters "@", and that they are not an official GU email,
+   - Passwords from being empty, that they have to at least have one uppercase letter, one lowercase letter, one number and that they are between 12 and 20 characters long, special chars,
+   The abovementioned features are implemented in Staff-/StudentControllers.
    */
 
   public User(String email, String password, String firstName, String lastName, int type) throws Exception {
@@ -41,11 +38,12 @@ public abstract class User {
     this.lastName = lastName;
     this.password = password;
     this.email = email;
-    this.logins = new ArrayList<>();
-    this.accountBanned = false;
+    this.logins = new ArrayList<>(); //It saves the last login date
+    this.accountBanned = false; //By default, all users are not banned upon creation
     this.type = type;
   }
 
+  // Getters and Setters
   public String getFirstName() {
     return this.firstName;
   }
@@ -94,17 +92,4 @@ public abstract class User {
     this.accountBanned = bannedStatus;
   }
 
-
-
-
-
-// Login function
-  public void login() {
-    logins.add(new Date());
-  }
-
-  // Returns all user logins as an array.
-  public Date[] getLogins() {
-    return logins.toArray(new Date[0]);
-  }
 }

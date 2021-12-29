@@ -1,22 +1,15 @@
 package user;
 
 import com.colliu.colliu.MasterController;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+  // This class contains methods relevant to users; student, staff, administrator.
 
-/**
- *********************************
- * Methods related to the users. *
- *********************************
- **/
-public class UserMethods {
-  private ArrayList<User> users;
-  MasterController master;
-  public User currentUser;
+  public class UserMethods {
+    private ArrayList<User> users;
+    MasterController master;
+    public User currentUser;
 
-  // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) {
     this.master = master;
