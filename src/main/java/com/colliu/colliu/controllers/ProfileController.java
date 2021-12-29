@@ -312,7 +312,7 @@ public class ProfileController {
       String program = cbPrograms.getValue();
       int graduationYear = cbGraduationYear.getValue();
 
-      int index = master.getAllusers().indexOf(master.getCurrentUser());
+      int index = master.getAllUsers().indexOf(master.getCurrentUser());
       master.setName(index, name);
       master.setSurname(index, surname);
       master.setPassword(index, password);

@@ -35,7 +35,7 @@ public class Info {
 
     public static final String ERROR_PAGE = "ErrorPage.fxml";
     public static final String ACCOUNT_SETTINGS = "newAccountSettings.fxml";
-    public static final String EVENT_CREATION = "create-event.fxml";
+    public static final String EVENT_CREATION = "EventCreationPage.fxml";
     public static final String HOMEPAGE = "EventPage.fxml";
     public static final String LOGIN = "LoginPage.fxml";
     public static final String REGISTER_STAFF = "staff-registration.fxml";

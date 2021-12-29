@@ -24,14 +24,6 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="forgotpassword" layoutX="29.0" layoutY="90.0" lineSpacing="10.0" mnemonicParsing="false" onMouseEntered="#underlineOn" onMouseExited="#underlineOff" prefHeight="24.0" prefWidth="104.0" style="-fx-background-color: none;" text="Forgot Password?">
-               <font>
-                  <Font size="11.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <Button fx:id="btnNewStudent" layoutX="84.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStudent" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Student">
                <opaqueInsets>
                   <Insets top="5.0" />
