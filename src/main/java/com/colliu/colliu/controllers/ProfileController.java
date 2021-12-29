@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Text;
 import user.Administrator;
 import user.Staff;
@@ -386,6 +387,12 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   String goodField = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
 
   @FXML
+  private Label lblUsername;
+
+  @FXML
+  private VBox vbProfileDetails;
+
+  @FXML
   private TextField tfName;
 
   @FXML
@@ -539,10 +546,17 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
   @FXML
   void saveSettings(ActionEvent event) {
-    boolean correctPassword = pfCurrentPassword.getText().equals(master.getCurrentUser().getPassword());
+    boolean correctPassword = master.getCurrentUser().validatePassword(pfCurrentPassword.getText());
     if (correctPassword) {
-
+      String name = (tfName.getText().length() > 0 ? tfName.getText() : master.getCurrentUser().getFirstName());
+      String surname = (tfSurname.getText().length() > 0 ? tfSurname.getText() : master.getCurrentUser().getLastName());
+      String password = (pfPassword.getText().length() > 0 ? pfPassword.getText() : master.getCurrentUser().getPassword());
+      int index = master.getAllusers().indexOf(master.getCurrentUser());
+      master.setName(index, name);
+      master.setSurname(index, surname);
+      master.setPassword(index, password);
     } else {
+      lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? "Incorrect password." : "Enter your current password.");
       lblIncorrectPassword.setVisible(true);
     }
   }
@@ -555,6 +569,28 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   @FXML
   void onButtonExited(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(1);
+  }
+
+  public void load() {
+    String name = master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName();
+    String email = master.getCurrentUser().getEmail();
+    String role;
+    int type = master.getCurrentUser().getType();
+    if (type < 3) {
+      String program = ((Student) master.getCurrentUser()).getProgram();
+      String graduation = String.valueOf(((Student) master.getCurrentUser()).getGraduationYear());
+      role = type == 1 ? "Student" : "Administrator";
+      lblYourProgram.setText(program);
+      lblYourExamYear.setText(graduation);
+    } else {
+      role = "Staff";
+      // Removes labels:
+      vbProfileDetails.getChildren().remove(lblYourProgram);
+      vbProfileDetails.getChildren().remove(lblYourExamYear);
+    }
+    lblUsername.setText(name);
+    lblYourEmail.setText(email);
+    lblYourUserClass.setText(role);
   }
 
  }

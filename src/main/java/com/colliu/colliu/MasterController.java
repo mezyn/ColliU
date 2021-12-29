@@ -130,7 +130,8 @@ public class MasterController {
     FXMLLoader profileLoader = showWindow(profileSettingsPage);
     ProfileController profileController = profileLoader.getController();
     profileController.setMaster(this);
-    profileController.updateProfileTab();
+    //profileController.updateProfileTab();
+    profileController.load();
   }
 
   private void closeWindow() {
@@ -264,6 +265,26 @@ public class MasterController {
 
   public ArrayList<User> getAllusers() {
     return userMethods.getAllUsers();
+  }
+
+  /*
+
+    These three methods takes an index, where in the arraylist we find our user we want to edit.
+    It also takes a String with updated info, for what we want to change.
+    The reason we take the index is in case we want to further develop the admin tools to allow manually changing user-information.
+
+   */
+
+  public void setName(int index, String name) {
+    userMethods.getAllUsers().get(index).setFirstName(name);
+  }
+
+  public void setSurname(int index, String surname) {
+    userMethods.getAllUsers().get(index).setLastName(surname);
+  }
+
+  public void setPassword(int index, String password) {
+    userMethods.getAllUsers().get(index).setPassword(password);
   }
 
   /*

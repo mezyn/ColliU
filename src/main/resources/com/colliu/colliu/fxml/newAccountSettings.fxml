@@ -25,25 +25,25 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Pane layoutX="773.0" layoutY="109.0" prefHeight="328.0" prefWidth="226.0" style="-fx-background-color: #FFFFFF;">
+            <VBox fx:id="vbProfileDetails" alignment="CENTER" layoutX="773.0" layoutY="109.0" spacing="5.0" style="-fx-padding: 15 0; -fx-background-color: #FFF;">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/profile_placeholder.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lblUsername" layoutX="65.0" layoutY="172.0" text="Your name">
+                  <Label fx:id="lblUsername" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your name" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblYourEmail" layoutX="85.0" layoutY="214.0" text="Your Email" />
-                  <Label fx:id="lblYourProgram" layoutX="73.0" layoutY="238.0" text="Your program" />
-                  <Label fx:id="lblYourUserClass" layoutX="49.0" layoutY="290.0" text="Student/Admin/Teacher" />
-                  <Label fx:id="lblYourExamYear" layoutX="83.0" layoutY="264.0" text="Exam Year" />
+                  <Label fx:id="lblYourEmail" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your Email" textAlignment="CENTER" />
+                  <Label fx:id="lblYourProgram" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your program" textAlignment="CENTER" />
+                  <Label fx:id="lblYourUserClass" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Student/Admin/Teacher" textAlignment="CENTER" />
+                  <Label fx:id="lblYourExamYear" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Exam Year" textAlignment="CENTER" />
                </children>
-            </Pane>
-            <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="109.0" style="-fx-box-border: transparent; -fx-focus-color: transparent; -fx-soft-focus: transparent;" vbarPolicy="NEVER">
+            </VBox>
+            <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="109.0" style="-fx-box-border: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" vbarPolicy="NEVER">
                <content>
                   <AnchorPane prefHeight="599.0" prefWidth="723.0" style="-fx-background-color: #FFF;">
                      <children>
@@ -191,7 +191,7 @@
             </ScrollPane>
             <Pane layoutX="773.0" layoutY="462.0" prefHeight="248.0" prefWidth="226.0" style="-fx-background-color: #FFF;">
                <children>
-                  <PasswordField fx:id="pfCurrentPassword" layoutX="27.0" layoutY="41.0" onKeyTyped="#onPasswordEntered" prefHeight="45.0" prefWidth="176.0" promptText="Current password">
+                  <PasswordField fx:id="pfCurrentPassword" layoutX="27.0" layoutY="41.0" onKeyTyped="#onPasswordEntered" prefHeight="45.0" prefWidth="176.0" promptText="Current password" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: #DDD; -fx-background-color: #FFF; -fx-text-fill: #333; -fx-border-radius: 5;">
                      <font>
                         <Font size="18.0" />
                      </font>
