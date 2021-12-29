@@ -272,7 +272,7 @@ public class MasterController {
     }
   }
 
-  public ArrayList<User> getAllusers() {
+  public ArrayList<User> getAllUsers() {
     return userMethods.getAllUsers();
   }
 
@@ -380,6 +380,4 @@ public class MasterController {
     String userProgram = ((Student)getCurrentUser()).getProgram();
     return eventMethods.getNotifications(userEmail, userProgram);
   }
-
-
 }

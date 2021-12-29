@@ -13,6 +13,7 @@ public class StaffController {
 
   private MasterController master;
 
+
   @FXML
   private Button btnCreateStaff;
 
