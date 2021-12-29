@@ -196,6 +196,10 @@ public class EventController {
     pnUserName.setStyle(BUTTON_HOVER_OFF);
   }
 
+  /*
+  By ticking the check boxes of categories, a user can filter out only the events of one's interest.
+  If none of the checkboxes are selected(default), the page shows all the events without filtering.
+  */
   @FXML
   void onFilterClick(ActionEvent event) throws Exception {
     ArrayList<String> tags = new ArrayList<>();

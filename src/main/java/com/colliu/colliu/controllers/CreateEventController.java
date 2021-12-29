@@ -19,11 +19,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/*
+The goal of this class is to control EventCreation.fxml file, that is, to handle the event creation.
+*/
+
 public class CreateEventController {
 
     MasterController master;
-
-//    String currentUser = master.getCurrentUser().getEmail();
 
     @FXML
     private ChoiceBox<String> categoryChoiceBox;
@@ -68,6 +70,13 @@ public class CreateEventController {
         stage.close();
     }
 
+    /*
+    Upon 'create event' button click, the application check if the input from user is correct and valid.
+    Below is a number of features of what this method does;
+    - None of the field should be empty; i.e. only the event with all required information can be created.
+    - The method takes an event date with JavaFX DatePicker. A user cannot create an event in the past.
+    Upon the button click, the event creation page is closed and the user is sent back to the event page.
+    */
 
     @FXML
     void onCreateEventClicked(ActionEvent event) throws Exception {
@@ -99,15 +108,6 @@ public class CreateEventController {
     }
 
 
-
-    /*@Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        categoryChoiceBox.getItems().addAll(categories);
-        hourChoiceBox.getItems().addAll(hours);
-        minuteChoiceBox.getItems().addAll(minutes);
-
-    }*/
-
     public void setMaster(MasterController master) {
         this.master = master;
     }
@@ -115,16 +115,12 @@ public class CreateEventController {
 
     @FXML
     void setDate(ActionEvent event) {
-        //date.setValue(LocalDate.now());
         eventDate = date.getValue();
     }
 
     public void load() {
-        //time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-        //categoryChoiceBox.getItems().addAll("Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others");
-        //hourChoiceBox.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
-        //minuteChoiceBox.getItems().addAll("00","05","10","15","20","25","30","35","40","45","50","55");
-        //programChoiceBox.getItems().addAll("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+
+        //Adding relevant alternatives to the choice boxes/dropdown boxes, among which a user can select information about events
         categoryChoiceBox.setValue("Choose category");
         hourChoiceBox.setValue("HH");
         minuteChoiceBox.setValue("MM");

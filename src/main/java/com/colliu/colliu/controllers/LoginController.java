@@ -16,6 +16,7 @@ public class LoginController {
 
   private String[][] loginDetails;
 
+
   @FXML
   private Button forgotpassword;
 
@@ -62,17 +63,17 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     String uEmail = guEmail.getText();
     String uPassword = password.getText();
 
-    if (uEmail.isBlank()) {                              //checks if email is empty
+    if (uEmail.isBlank()) {                              //checks if email field is empty
       warningLabel.setText("Email address cannot be empty.");
-    } else if (uPassword.isBlank()) {                      //check if password is empty
+    } else if (uPassword.isBlank()) {                      //check if password field is empty
       warningLabel.setText("Password cannot be empty.");
     } else {
-      boolean validLogin = master.validateLogin(uEmail, uPassword);
+      boolean validLogin = master.validateLogin(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the user
       if (validLogin) {
         User user = master.findUser(uEmail);
         master.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
-        if (accountStatus) {
+        if (accountStatus) { //if the logged in user has been banned, the application do not show them an event page but set a different visibility setting
           accountBannedPane.setVisible(accountStatus);
         } else {
           master.showEventPage();
