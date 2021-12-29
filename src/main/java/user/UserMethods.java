@@ -157,6 +157,7 @@ public class UserMethods {
   }
 
   public User getLoggedInUser() {
+    currentUser = getUserByEmail(currentUser.getEmail());
     return currentUser;
   }
 
@@ -164,17 +165,31 @@ public class UserMethods {
     return currentUser.getType();
   }
 
-  public void promoteStudentToAdmin(String promoteEmail) throws Exception {
-   Student promoteUser = (Student) getUserByEmail(promoteEmail);
-   String email = promoteUser.getEmail();
-   String password = promoteUser.getPassword();
-   String firstName = promoteUser.getFirstName();
-   String lastName = promoteUser.getLastName();
-   String program = promoteUser.getProgram();
-   int graduationYear = promoteUser.getGraduationYear();
-   users.remove(findUser(email));
-   createAdministrator(email, password, firstName, lastName, graduationYear, program);
+  public void toggleAdminStatus (String email) throws Exception {
+    Student student = (Student) getUserByEmail(email);
+    boolean isBanned = student.getAccountStatus();
+    String password = student.getPassword();
+    String firstName = student.getFirstName();
+    String lastName = student.getLastName();
+    String program = student.getProgram();
+    int graduationYear = student.getGraduationYear();
+    users.remove(findUser(email));
+    if (student.getType() == 2) {
+      createStudent(email, password, firstName, lastName, graduationYear, program);
+    } else {
+      createAdministrator(email, password, firstName, lastName, graduationYear, program);
+    }
+    Student newStudent = (Student) getUserByEmail(email);
+    newStudent.setAccountStatus(isBanned);
    master.saveUsers();
+  }
+
+  public void promoteStudent(String email) throws Exception {
+    toggleAdminStatus(email);
+  }
+
+  public void demoteAdmin(String email) throws Exception {
+    toggleAdminStatus(email);
   }
 
   public void banUser(String userToBan)  {
@@ -190,6 +205,15 @@ public class UserMethods {
 
   public ArrayList<User> getAllUsers() {
     return users;
+  }
+
+  public void removeUser(String email) {
+    users.remove(findUser(email));
+    master.saveUsers();
+  }
+
+  public void addUser(User user) {
+    users.add(user);
   }
 
 }

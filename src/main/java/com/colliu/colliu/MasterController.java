@@ -33,7 +33,9 @@ public class MasterController {
   private final String FAIL_SAVE_EVENTS = "Could not save events to: Event.JSON.";
   private final String NO_USER_FILE = "Missing file(s): Student.JSON or Staff.JSON in documents/ColliU/ directory.";
   private final String USER_FILE_CORRUPT = "User file(s): Student.JSON or Staff.JSON are corrupt and can not be loaded.";
-  private final String CANT_PROMOTE_STUDENT = "An error was caught when promoting student: ";
+  private final String CANT_PROMOTE_STUDENT = "An error was caught when promoting user: ";
+  private final String CANT_DEMOTE_ADMIN = "An error was caught when demoting user: ";
+  private final String CANT_CHANGE_STATUS ="An error was caught when changing user's status: ";
   private final String CANT_CREATE_STAFF = "An error was caught when creating new staff: ";
   private final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
   private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
@@ -196,13 +198,43 @@ public class MasterController {
     userMethods.unbanUser(email);
   }
 
+  public void toggleAdminStatus(String email) {
+    try {
+      userMethods.toggleAdminStatus(email);
+    } catch (Exception e) {
+      StringWriter error = new StringWriter();
+      e.printStackTrace(new PrintWriter(error));
+      showError(CANT_CHANGE_STATUS + System.lineSeparator() + error);
+    }
+  }
+
   public void makeAdmin(String email) {
     try {
-      userMethods.promoteStudentToAdmin(email);
+      userMethods.promoteStudent(email);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));
       showError(CANT_PROMOTE_STUDENT + System.lineSeparator() + error);
+    }
+  }
+
+  public void demoteAdmin(String email) {
+    try {
+      userMethods.demoteAdmin(email);
+    } catch (Exception e) {
+      StringWriter error = new StringWriter();
+      e.printStackTrace(new PrintWriter(error));
+      showError(CANT_DEMOTE_ADMIN + System.lineSeparator() + error);
+    }
+  }
+
+  public void removeUser(String email) {
+    try {
+      userMethods.removeUser(email);
+    } catch (Exception e) {
+      StringWriter error = new StringWriter();
+      e.printStackTrace(new PrintWriter(error));
+      showError(CANT_REMOVE_USER + System.lineSeparator() + error);
     }
   }
 
@@ -224,6 +256,10 @@ public class MasterController {
       e.printStackTrace(new PrintWriter(error));
       showError(CANT_CREATE_STAFF + System.lineSeparator() + error);
     }
+  }
+
+  public void addUser(User user) {
+    userMethods.addUser(user);
   }
 
   public ArrayList<User> loadUsers() {

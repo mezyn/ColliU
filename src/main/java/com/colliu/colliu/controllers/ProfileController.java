@@ -2,33 +2,39 @@ package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
 import java.io.IOException;
+import java.time.Year;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Text;
 import user.Administrator;
 import user.Staff;
 import user.Student;
+import user.User;
 
 public class ProfileController {
   MasterController master;
+  User oldUser;
 
   public void setMaster(MasterController master) {
     this.master = master;
   }
 
-  /** Updates profile tab.
+  /**
+   * Updates profile tab.
    * Updates the profile tab when we need to.
    */
 
   public void updateProfileTab() {
     int userType = master.getCurrentUser().getType();
-    switch (userType)  {
+    switch (userType) {
       case 1:
         Student loggedInStudent = (Student) master.getCurrentUser();
         lblYourUserClass.setText("Student");
@@ -69,12 +75,12 @@ public class ProfileController {
   private Tab tabChangeProgram;
 
   @FXML
-    private Button btnReturn;
+  private Button btnReturn;
   @FXML
-    private Label Announcements;
+  private Label Announcements;
 
   @FXML
- void onReturnButtonClick(ActionEvent event) throws Exception {
+  void onReturnButtonClick(ActionEvent event) throws Exception {
     master.showEventPage();
   }
   //Profile tab
@@ -82,34 +88,34 @@ public class ProfileController {
   //Profile tab
 
   @FXML
-    private Label lblYourName;
+  private Label lblYourName;
   @FXML
-    private Label lblYourEmail;
+  private Label lblYourEmail;
   @FXML
-    private Label lblYourProgram;
+  private Label lblYourProgram;
   @FXML
-    private Label lblYourExamYear;
+  private Label lblYourExamYear;
   @FXML
-    private Label lblYourUserClass;
+  private Label lblYourUserClass;
 
   //Profile tab admin controlls
   //Profile tab admin controlls
   //Profile tab admin controlls
 
   @FXML
-    private Pane paneAdminControls;
+  private Pane paneAdminControls;
   @FXML
-    private Button btnBanUser;
+  private Button btnBanUser;
   @FXML
-    private Button btnUnbanUser;
+  private Button btnUnbanUser;
   @FXML
-    private Button btnPromoteUserToAdmin;
+  private Button btnPromoteUserToAdmin;
   @FXML
-    private Label lblAdministratorControls;
+  private Label lblAdministratorControls;
   @FXML
   private Label lblAdminConfirmationLabel;
   @FXML
-    private TextField tfAdministratorConstrols;
+  private TextField tfAdministratorConstrols;
 
   @FXML
   void onButtonPressPromoteUserToAdmin() {
@@ -118,10 +124,14 @@ public class ProfileController {
   }
 
   @FXML
-  void onButtonPressBanUser() throws Exception {
-    master.banUser(tfAdministratorConstrols.getText());
-    lblAdminConfirmationLabel.setVisible(true);
-    lblAdminConfirmationLabel.setText("User was successfully banned.");
+  void onButtonPressBanUser() {
+    boolean setBan = !(master.findUser(tfSearchUser.getText()) != null && master.findUser(tfSearchUser.getText()).getAccountStatus());
+    if (setBan) {
+      master.banUser(tfSearchUser.getText());
+    } else {
+      master.unbanUser(tfSearchUser.getText());
+    }
+    toggleSearchButtons();
   }
 
   @FXML
@@ -142,29 +152,29 @@ public class ProfileController {
 
 
   @FXML
-    private Button btnChangeLastName;
+  private Button btnChangeLastName;
   @FXML
-    private Label lblFirstNameChangedSuccessfully;
+  private Label lblFirstNameChangedSuccessfully;
   @FXML
-    private Label lblFirstNameMatch;
+  private Label lblFirstNameMatch;
   @FXML
-    private Label lblLastNameMatch;
+  private Label lblLastNameMatch;
   @FXML
-    private Label lblLastNameChangedSuccessfully;
+  private Label lblLastNameChangedSuccessfully;
   @FXML
-    private Text txtChangeName;
+  private Text txtChangeName;
   @FXML
-    private TextField tfEnterNewFirstName;
+  private TextField tfEnterNewFirstName;
   @FXML
-    private TextField tfNewLastName;
+  private TextField tfNewLastName;
   @FXML
-    private TextField tfRepeatNewLastName;
+  private TextField tfRepeatNewLastName;
   @FXML
-    private TextField tfRepeatFirstName;
+  private TextField tfRepeatFirstName;
 
   @FXML
-    void onButtonChangeFirstName(ActionEvent event) throws IOException {
-    if (tfEnterNewFirstName.getText().equals(tfRepeatFirstName.getText())) {
+  void onButtonChangeFirstName(ActionEvent event) throws IOException {
+    if (tfName.getText().equals(tfNameConfirm.getText())) {
       int userType = master.getCurrentUser().getType();
 
       if (userType == 1) {
@@ -188,7 +198,7 @@ public class ProfileController {
   }
 
   @FXML
- void onButtonChangeLastName(ActionEvent event) throws IOException {
+  void onButtonChangeLastName(ActionEvent event) throws IOException {
     if (tfNewLastName.getText().equals(tfRepeatNewLastName.getText())) {
       int userType = master.user.getType();
 
@@ -217,28 +227,28 @@ public class ProfileController {
   //Change password tab
 
   @FXML
-    private Button btnChangePasword;
+  private Button btnChangePasword;
   @FXML
-    private Label lblChangePasswordError;
+  private Label lblChangePasswordError;
   @FXML
-    private Label lblPasswordChangedSuccessfully;
+  private Label lblPasswordChangedSuccessfully;
   @FXML
-    private Label lblPasswordComplexityError;
+  private Label lblPasswordComplexityError;
   @FXML
-    private PasswordField tfCurrentPassword;
+  private PasswordField tfCurrentPassword;
   @FXML
-    private PasswordField tfNewPassword;
+  private PasswordField tfNewPassword;
   @FXML
-    private PasswordField tfRepeatNewPassword;
+  private PasswordField tfRepeatNewPassword;
   @FXML
-    private Text txtChangePassword;
+  private Text txtChangePassword;
 
   @FXML
- void onButtonChangePassword(ActionEvent event) throws Exception {
+  void onButtonChangePassword(ActionEvent event) throws Exception {
     if (!master.checkPassword(tfNewPassword.getText())) {
       lblPasswordComplexityError.setVisible(true);
     } else {
-      if (master.validateLogin(tfCurrentPassword.getText(), master.getCurrentUser().getEmail()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText()) ) {
+      if (master.validateLogin(tfCurrentPassword.getText(), master.getCurrentUser().getEmail()) && tfNewPassword.getText().equals(tfRepeatNewPassword.getText())) {
         int userType = master.getCurrentUser().getType();
 
         if (userType == 1) {
@@ -267,22 +277,22 @@ public class ProfileController {
   //Change program tab
 
   @FXML
-    private Button btnDataVetenskap;
+  private Button btnDataVetenskap;
   @FXML
-    private Button btnSoftwareEngineering;
+  private Button btnSoftwareEngineering;
   @FXML
-    private Button btnSystemvetenskap;
+  private Button btnSystemvetenskap;
   @FXML
-    private Label lblSuccessfullyChangedProgam;
+  private Label lblSuccessfullyChangedProgam;
   @FXML
-    private TextField tfNewGraduationYear;
+  private TextField tfNewGraduationYear;
   @FXML
-    private Button btnChangeGraduationYear;
+  private Button btnChangeGraduationYear;
   @FXML
-    private Label lblGraduationYearError;
+  private Label lblGraduationYearError;
 
   @FXML
-    void onButtonPressSEM() throws Exception {
+  void onButtonPressSEM() throws Exception {
     int userType = master.getCurrentUser().getType();
     if (userType == 1) {
       Student loggedInStudent = (Student) master.user;
@@ -296,7 +306,7 @@ public class ProfileController {
   }
 
   @FXML
-    void onButtonPressSystemvetenskap() throws Exception {
+  void onButtonPressSystemvetenskap() throws Exception {
     int userType = master.getCurrentUser().getType();
     if (userType == 1) {
       Student loggedInStudent = (Student) master.user;
@@ -310,7 +320,7 @@ public class ProfileController {
   }
 
   @FXML
-    void onButtonPressDatavetenskap() throws Exception {
+  void onButtonPressDatavetenskap() throws Exception {
     int userType = master.getCurrentUser().getType();
     if (userType == 1) {
       Student loggedInStudent = (Student) master.user;
@@ -324,7 +334,7 @@ public class ProfileController {
   }
 
   @FXML
-    void onButtonPressKognitionsvetenskap() throws Exception {
+  void onButtonPressKognitionsvetenskap() throws Exception {
     int userType = master.getCurrentUser().getType();
     if (userType == 1) {
       Student loggedInStudent = (Student) master.user;
@@ -338,7 +348,7 @@ public class ProfileController {
   }
 
   @FXML
-    void onButtomPressChangeGraduationYear() throws Exception {
+  void onButtomPressChangeGraduationYear() throws Exception {
     int userType = master.getCurrentUser().getType();
 
     if (!tfNewGraduationYear.getText().matches("(.*[0-9].*)")) {
@@ -362,12 +372,12 @@ public class ProfileController {
   //Testing stuff
 
   @FXML
-    private Button btbTestingUserInfo;
+  private Button btbTestingUserInfo;
   @FXML
-    private Label lblTest;
+  private Label lblTest;
 
   @FXML
-void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What should load when you go to this javaFX scene
+  void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What should load when you go to this javaFX scene
     // User currentUser2 = master.userMethods.getLoggedInUser();
     lblTest.setText(String.valueOf(master.user.getClass()));
 
@@ -383,11 +393,18 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
  */
   }
 
-  String cancelButton = "-fx-background-color:rgb(246, 168, 166);";
-  String normalButton = "-fx-background-color:#DDD;";
+//  String redButton = "-fx-background-color:rgb(246, 168, 166);";
+//  String greenButton = "-fx-background-color: rgb(192,236,204)";
+//  String normalButton = "-fx-background-color:#DDD;";
   String normalField = "-fx-background-color:#FFF; -fx-border-color:#DDD; -fx-border-radius: 5; -fx-text-fill:#333;";
   String badField = "-fx-background-color:#FFF; -fx-border-color:rgb(246, 168, 166); -fx-border-radius: 5; -fx-text-fill:#333;";
   String goodField = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
+
+  @FXML
+  private ComboBox<String> cbPrograms;
+
+  @FXML
+  private ComboBox<Integer> cbGraduationYear;
 
   @FXML
   private Label lblUsername;
@@ -420,12 +437,6 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   private Button btnSaveSettings;
 
   @FXML
-  private ComboBox<String> cbProgram;
-
-  @FXML
-  private ComboBox<Integer> cbGraduationYear;
-
-  @FXML
   private Label lblWarningName;
 
   @FXML
@@ -442,6 +453,24 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
   @FXML
   private PasswordField pfCurrentPassword;
+
+  @FXML
+  private TextField tfSearchUser;
+
+  @FXML
+  private Button btnToggleBan;
+
+  @FXML
+  private Button btnDeleteAccount;
+
+  @FXML
+  private Button btnPromoteAccount;
+
+  @FXML
+  private Pane adminSettings;
+
+  @FXML
+  private VBox vbStudies;
 
   private boolean nameCheck = true;
   private boolean surnameCheck = true;
@@ -462,8 +491,8 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         lblWarningPassword.setWrapText(true);
         lblWarningPassword.setText("Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.");
         passwordCheck = false;
-        pfPasswordConfirm.setStyle(pfPasswordConfirm.getText().length() > 0 ? badField : normalField);
-        pfPassword.setStyle(pfPassword.getText().length() > 0 ? badField : normalField);
+        pfPasswordConfirm.setStyle(pfPasswordConfirm.getText().length() > 0 ? (master.checkPassword(pfPasswordConfirm.getText()) ? goodField : badField) : normalField);
+        pfPassword.setStyle(pfPassword.getText().length() > 0 ? (master.checkPassword(pfPassword.getText()) ? goodField : badField) : normalField);
       } else if (!pfPassword.getText().equals(pfPasswordConfirm.getText())) {
         lblWarningPassword.setText(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? "Passwords don't match." : "");
         passwordCheck = false;
@@ -483,8 +512,8 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         tfName.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? normalField : goodField));
       } else if ((typedField == tfName || typedField == tfNameConfirm) && !tfNameConfirm.getText().equals(tfName.getText())) {
         nameCheck = false;
-        lblWarningName.setText(tfNameConfirm.getText().length() > 0  && tfName.getText().length() > 0 ? "Names don't match." : "");
-        tfNameConfirm.setStyle(tfNameConfirm.getText().length() > 0  && tfName.getText().length() > 0 ? badField : normalField);
+        lblWarningName.setText(tfNameConfirm.getText().length() > 0 && tfName.getText().length() > 0 ? "Names don't match." : "");
+        tfNameConfirm.setStyle(tfNameConfirm.getText().length() > 0 && tfName.getText().length() > 0 ? badField : normalField);
         tfName.setStyle(tfName.getText().length() > 0 ? goodField : normalField);
       } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && (tfSurname.getText().equals(tfSurnameConfirm.getText()) || (tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0))) {
         surnameCheck = true;
@@ -493,7 +522,7 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         tfSurname.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? normalField : goodField));
       } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && !tfNameConfirm.getText().equals(tfSurname.getText())) {
         surnameCheck = false;
-        lblWarningSurname.setText(tfSurnameConfirm.getText().length() > 0  && tfSurname.getText().length() > 0 ? "Surnames don't match." : "");
+        lblWarningSurname.setText(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? "Surnames don't match." : "");
         tfSurname.setStyle(tfSurname.getText().length() > 0 ? goodField : normalField);
         tfSurnameConfirm.setStyle(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? badField : normalField);
       }
@@ -515,21 +544,21 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   private void checkSavePossible() {
 
     boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
-        + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
-        + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0;
+            + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
+            + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0;
 
     if (noChanges) {
       btnSaveSettings.setDisable(true);
-      btnCloseSettings.setStyle(normalButton);
+      btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_NORMAL);
       btnCloseSettings.setText("Close");
     } else if (nameCheck && surnameCheck && passwordCheck && programCheck && graduationCheck) {
       btnSaveSettings.setDisable(false);
       btnCloseSettings.setText("Cancel");
-      btnCloseSettings.setStyle(cancelButton);
+      btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
     } else {
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setText("Cancel");
-      btnCloseSettings.setStyle(cancelButton);
+      btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
     }
   }
 
@@ -544,7 +573,56 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
   @FXML
   void onSearchUser(KeyEvent event) {
+    String email = tfSearchUser.getText();
+    if (email.length() > 0 && master.findUser(email) == null) {
+      load();
+      tfSearchUser.setStyle(normalField);
+      btnToggleBan.setDisable(true);
+      btnPromoteAccount.setDisable(true);
+      btnDeleteAccount.setDisable(true);
+    } else if (master.findUser(email) == null) {
+      load();
+      tfSearchUser.setStyle(badField);
+      btnToggleBan.setDisable(true);
+      btnPromoteAccount.setDisable(true);
+      btnDeleteAccount.setDisable(true);
+    } else {
+      tfSearchUser.setStyle(goodField);
+      // get logged in user's name:
+      User user = master.findUser(email);
+      displayUser(user);
+      toggleSearchButtons();
+    }
+  }
 
+  private void displayUser(User user) {
+    int type = user.getType();
+    String name = user.getFirstName() + " " + user.getLastName();
+    String email = user.getEmail();
+    String role;
+    if (type < 3) {
+      // Get student's program:
+      String program = ((Student) master.findUser(email)).getProgram();
+      // Get student's graduation year:
+      String graduation = String.valueOf(((Student) master.findUser(email)).getGraduationYear());
+      // Set role to student / admin depending on "type".
+      role = type == 1 ? "Student" : "Administrator";
+      // Set info on profile dashboard
+      lblYourProgram.setText(program);
+      lblYourExamYear.setText(graduation);
+    } else { // If staff:
+      role = "Staff";
+      // Removes labels from profile dashboard:
+      vbProfileDetails.getChildren().remove(lblYourProgram);
+      vbProfileDetails.getChildren().remove(lblYourExamYear);
+    }
+    // Set universal info on profile dashboard
+    lblUsername.setText(name);
+    lblYourEmail.setText(email);
+    lblYourUserClass.setText(role);
+    btnToggleBan.setDisable(false);
+    btnPromoteAccount.setDisable(false);
+    btnDeleteAccount.setDisable(false);
   }
 
   @FXML
@@ -558,6 +636,8 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
       master.setName(index, name);
       master.setSurname(index, surname);
       master.setPassword(index, password);
+      master.saveUsers();
+      lblIncorrectPassword.setText("Saved successfully!");
     } else {
       lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? "Incorrect password." : "Enter your current password.");
       lblIncorrectPassword.setVisible(true);
@@ -575,25 +655,45 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   }
 
   public void load() {
-    String name = master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName();
-    String email = master.getCurrentUser().getEmail();
-    String role;
-    int type = master.getCurrentUser().getType();
-    if (type < 3) {
-      String program = ((Student) master.getCurrentUser()).getProgram();
-      String graduation = String.valueOf(((Student) master.getCurrentUser()).getGraduationYear());
-      role = type == 1 ? "Student" : "Administrator";
-      lblYourProgram.setText(program);
-      lblYourExamYear.setText(graduation);
+    User currentUser = master.getCurrentUser();
+    displayUser(currentUser);
+    if (currentUser.getType() < 3) {
+      ObservableList<String> programs = FXCollections.observableArrayList("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+      cbPrograms.setItems(programs);
+      cbPrograms.setValue(((Student) currentUser).getProgram());
+      int year = Year.now().getValue();
+      ObservableList<Integer> graduationYears = FXCollections.observableArrayList(year, (year + 1), (year + 2), (year + 3));
+      cbGraduationYear.setItems(graduationYears);
+      cbGraduationYear.setValue(((Student) currentUser).getGraduationYear());
     } else {
-      role = "Staff";
-      // Removes labels:
-      vbProfileDetails.getChildren().remove(lblYourProgram);
-      vbProfileDetails.getChildren().remove(lblYourExamYear);
+      vbStudies.setDisable(true);
     }
-    lblUsername.setText(name);
-    lblYourEmail.setText(email);
-    lblYourUserClass.setText(role);
+
+    adminSettings.setDisable(currentUser.getType() != 2);
   }
 
- }
+  private void toggleSearchButtons() {
+    String email = tfSearchUser.getText();
+    boolean accountExists = oldUser == null;
+    if (accountExists) {
+      int role = master.findUser(tfSearchUser.getText()).getType();
+      if (master.findUser(email).getAccountStatus()) {
+        btnToggleBan.setText("Unban");
+        btnToggleBan.setStyle(miscellaneous.Style.BUTTON_GREEN);
+      } else {
+        btnToggleBan.setText("Ban");
+        btnToggleBan.setStyle(miscellaneous.Style.BUTTON_RED);
+      }
+      if (role == 3) {
+        btnPromoteAccount.setDisable(true);
+      } else {
+        btnPromoteAccount.setText(role == 2 ? "Demote" : "Promote");
+        btnPromoteAccount.setStyle(role == 2 ? miscellaneous.Style.BUTTON_RED : miscellaneous.Style.BUTTON_GREEN);
+      }
+    } else {
+      btnPromoteAccount.setDisable(true);
+      btnToggleBan.setDisable(true);
+    }
+    btnDeleteAccount.setText(oldUser == null ? "Delete" : "Undo");
+  }
+}
