@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class UserMethods {
   private ArrayList<User> users;
   MasterController master;
-  private User currentUser;
+  public User currentUser;
+
   // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) {
@@ -129,13 +130,17 @@ public class UserMethods {
       return false;
     }
     if (password.length() < 11 || password.length() > 20) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[A-Z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[a-z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[0-9].*)")) {
-      return false;    }
+      return false;
+    }
     if (password.contains(" ")) {
       return false;
     } else {

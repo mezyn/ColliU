@@ -38,6 +38,7 @@ public class MasterController {
   private final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
   private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
   private final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
+  private final String CANT_REMOVE_USER = "An error was caught when trying to remove a user: ";
   private final int UPCOMING_EVENTS = 1;
   private final int PAST_EVENTS = 2;
   private final int ATTENDING_EVENTS = 3;

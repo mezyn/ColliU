@@ -112,17 +112,9 @@ public class ProfileController {
     private TextField tfAdministratorConstrols;
 
   @FXML
-  void onButtonPressPromoteUserToAdmin() throws Exception {
-    master.makeAdmin(tfAdministratorConstrols.getText());
-    lblAdminConfirmationLabel.setVisible(true);
-    lblAdminConfirmationLabel.setText("User was successfully promoted.");
-  }
-
-  @FXML
-  void onButtonPressUnbanUser() throws Exception {
-    master.unbanUser(tfAdministratorConstrols.getText());
-    lblAdminConfirmationLabel.setVisible(true);
-    lblAdminConfirmationLabel.setText("User was successfully unbanned.");
+  void onButtonPressPromoteUserToAdmin() {
+    master.toggleAdminStatus(tfSearchUser.getText());
+    toggleSearchButtons();
   }
 
   @FXML
@@ -132,9 +124,22 @@ public class ProfileController {
     lblAdminConfirmationLabel.setText("User was successfully banned.");
   }
 
-  //Change name tab
-  //Change name tab
-  //Change name tab
+  @FXML
+  void onDeleteUser() {
+    if (oldUser == null) {
+      oldUser = master.findUser(tfSearchUser.getText());
+      master.removeUser(tfSearchUser.getText());
+      load();
+    } else {
+      master.addUser(oldUser);
+      tfSearchUser.setText(oldUser.getEmail());
+      displayUser(oldUser);
+      oldUser = null;
+    }
+    toggleSearchButtons();
+    tfSearchUser.setStyle(goodField);
+  }
+
 
   @FXML
     private Button btnChangeLastName;
@@ -172,9 +177,7 @@ public class ProfileController {
         Administrator loggedInAdmin = (Administrator) master.user;
         loggedInAdmin.setFirstName(tfEnterNewFirstName.getText());
       }
-      lblFirstNameChangedSuccessfully.setVisible(true);
-      lblFirstNameMatch.setVisible(false);
-      updateProfileTab();
+      load();
       master.saveUsers();
     } else {
       lblFirstNameMatch.setVisible(true);
