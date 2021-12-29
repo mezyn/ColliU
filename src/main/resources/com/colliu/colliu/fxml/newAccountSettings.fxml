@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.ProfileController">
    <children>
@@ -113,15 +112,15 @@
                                     <Font size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextFlow>
+                              <AnchorPane>
                                  <children>
-                                    <Label fx:id="lblWarningPassword" alignment="TOP_LEFT" maxHeight="80.0" maxWidth="200.0" prefWidth="200.0" style="-fx-text-fill: rgb(246, 168, 166);">
+                                    <Label fx:id="lblWarningPassword" alignment="TOP_LEFT" maxHeight="80.0" maxWidth="200.0" prefWidth="200.0" style="-fx-text-fill: rgb(246, 168, 166); -fx-line-spacing: -7;">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
-                              </TextFlow>
+                              </AnchorPane>
                            </children>
                         </VBox>
                         <VBox layoutX="414.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
@@ -150,7 +149,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="tfSearchUser" layoutX="48.0" layoutY="46.0" prefHeight="41.0" prefWidth="380.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <TextField fx:id="tfSearchUser" layoutX="48.0" layoutY="46.0" onKeyTyped="#onSearchUser" prefHeight="41.0" prefWidth="451.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -160,7 +159,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnToggleBan" accessibleText="Fix errors to save" layoutX="48.0" layoutY="114.0" mnemonicParsing="false" onAction="#saveSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: rgb(246, 168, 166);" text="Ban">
+                              <Button fx:id="btnToggleBan" accessibleText="Fix errors to save" layoutX="215.0" layoutY="114.0" mnemonicParsing="false" onAction="#saveSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: rgb(246, 168, 166);" text="Ban">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -168,7 +167,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnDeleteAccount" layoutX="188.0" layoutY="114.0" mnemonicParsing="false" onAction="#closeSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #DDD;" text="Delete">
+                              <Button fx:id="btnDeleteAccount" layoutX="382.0" layoutY="114.0" mnemonicParsing="false" onAction="#closeSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: #DDD;" text="Delete">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -176,7 +175,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnPromoteAccount" accessibleText="Fix errors to save" layoutX="328.0" layoutY="114.0" mnemonicParsing="false" onAction="#saveSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: rgb(192,236,204);" text="Promote">
+                              <Button fx:id="btnPromoteAccount" accessibleText="Fix errors to save" layoutX="48.0" layoutY="114.0" mnemonicParsing="false" onAction="#saveSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: rgb(192,236,204);" text="Promote">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -192,7 +191,7 @@
             </ScrollPane>
             <Pane layoutX="773.0" layoutY="462.0" prefHeight="248.0" prefWidth="226.0" style="-fx-background-color: #FFF;">
                <children>
-                  <PasswordField fx:id="tfCurrentPassword" layoutX="27.0" layoutY="41.0" prefHeight="45.0" prefWidth="176.0" promptText="Current password">
+                  <PasswordField fx:id="pfCurrentPassword" layoutX="27.0" layoutY="41.0" onKeyTyped="#onPasswordEntered" prefHeight="45.0" prefWidth="176.0" promptText="Current password">
                      <font>
                         <Font size="18.0" />
                      </font>

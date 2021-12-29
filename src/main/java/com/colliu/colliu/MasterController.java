@@ -342,4 +342,6 @@ public class MasterController {
     String userProgram = ((Student)getCurrentUser()).getProgram();
     return eventMethods.getNotifications(userEmail, userProgram);
   }
+
+
 }

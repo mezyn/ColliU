@@ -427,6 +427,12 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   @FXML
   private Label lblWarningStudies;
 
+  @FXML
+  private Label lblIncorrectPassword;
+
+  @FXML
+  private PasswordField pfCurrentPassword;
+
   private boolean nameCheck = true;
   private boolean surnameCheck = true;
   private boolean passwordCheck = true;
@@ -442,17 +448,17 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         pfPassword.setStyle(normalField);
         pfPasswordConfirm.setStyle(normalField);
         passwordCheck = true;
-      } else if (!master.checkPassword(pfPassword.getText())) {
+      } else if (!master.checkPassword(pfPassword.getText()) && !master.checkPassword(pfPasswordConfirm.getText())) {
         lblWarningPassword.setWrapText(true);
         lblWarningPassword.setText("Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.");
         passwordCheck = false;
-        pfPasswordConfirm.setStyle(badField);
-        pfPassword.setStyle(badField);
+        pfPasswordConfirm.setStyle(pfPasswordConfirm.getText().length() > 0 ? badField : normalField);
+        pfPassword.setStyle(pfPassword.getText().length() > 0 ? badField : normalField);
       } else if (!pfPassword.getText().equals(pfPasswordConfirm.getText())) {
-        lblWarningPassword.setText("Passwords don't match.");
+        lblWarningPassword.setText(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? "Passwords don't match." : "");
         passwordCheck = false;
-        pfPasswordConfirm.setStyle(badField);
-        pfPassword.setStyle(badField);
+        pfPasswordConfirm.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? badField : normalField);
+        pfPassword.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? badField : normalField);
       } else {
         lblWarningPassword.setText("");
         passwordCheck = true;
@@ -492,7 +498,7 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
   @FXML
   void closeSettings(ActionEvent event) {
-
+    master.showEventPage();
   }
 
 
@@ -522,8 +528,23 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
   }
 
   @FXML
-  void saveSettings(ActionEvent event) {
+  void onPasswordEntered(KeyEvent event) {
+    lblIncorrectPassword.setVisible(false);
+  }
 
+  @FXML
+  void onSearchUser(KeyEvent event) {
+
+  }
+
+  @FXML
+  void saveSettings(ActionEvent event) {
+    boolean correctPassword = pfCurrentPassword.getText().equals(master.getCurrentUser().getPassword());
+    if (correctPassword) {
+
+    } else {
+      lblIncorrectPassword.setVisible(true);
+    }
   }
 
   @FXML
