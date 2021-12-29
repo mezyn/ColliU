@@ -35,8 +35,6 @@ public class ProfileController {
    */
 
   @FXML
-  private Label lblYourName;
-  @FXML
   private Label lblYourEmail;
   @FXML
   private Label lblYourProgram;
@@ -207,7 +205,8 @@ public class ProfileController {
 
   @FXML
   void onComboBoxSelect(ActionEvent event) {
-
+    if(cbPrograms.getValue() != null && cbGraduationYear.getValue() != null)
+      checkSavePossible();
   }
 
   @FXML
@@ -220,19 +219,22 @@ public class ProfileController {
 
     boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
             + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
-            + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0;
+            + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0
+            && (master.getCurrentUser().getType() == 3
+            || (cbPrograms.getValue().equals(((Student) master.getCurrentUser()).getProgram())
+            && cbGraduationYear.getValue() == ((Student) master.getCurrentUser()).getGraduationYear()));
 
     if (noChanges) {
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_NORMAL);
-      btnCloseSettings.setText("Close");
+      btnCloseSettings.setText(Info.CLOSE);
     } else if (nameCheck && surnameCheck && passwordCheck) {
       btnSaveSettings.setDisable(false);
-      btnCloseSettings.setText("Cancel");
+      btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
     } else {
       btnSaveSettings.setDisable(true);
-      btnCloseSettings.setText("Cancel");
+      btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
     }
   }
@@ -319,9 +321,13 @@ public class ProfileController {
         master.setGraduation(index, graduationYear);
       }
       master.saveUsers();
-      lblIncorrectPassword.setText("Saved successfully!");
+      load();
+      lblIncorrectPassword.setText(Info.SAVE_SUCCESS);
+      lblIncorrectPassword.setStyle(Style.LABEL_GREEN);
+      lblIncorrectPassword.setVisible(true);
     } else {
-      lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? "Incorrect password." : "Enter your current password.");
+      lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? Info.INCORRECT_PASSWORD : Info.ENTER_PASSWORD);
+      lblIncorrectPassword.setStyle(Style.LABEL_RED);
       lblIncorrectPassword.setVisible(true);
     }
   }

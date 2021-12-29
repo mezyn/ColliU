@@ -38,10 +38,6 @@ public class Student extends User {
     return this.program;
   }
 
-  public void setprogram (String program) {
-    this.program = program;
-  }
-
   public int getGraduationYear() {
     return this.graduationYear;
   }
@@ -50,17 +46,9 @@ public class Student extends User {
     this.graduationYear =  graduationYear;
   }
 
-  public void setProgram(String program) {
-    program = this.program;
+  public void setProgram (String program) {
+    this.program = this.program;
   }
-
-  //public ArrayList<String> getCourses() {
-  //  return courses;
-  //}
-
-  //public ArrayList<String> getInterests() {
-  //  return this.interests;
-  //}
 
 }
 
