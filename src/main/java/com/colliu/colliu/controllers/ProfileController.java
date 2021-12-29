@@ -379,6 +379,11 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
  */
   }
 
+  String cancelButton = "-fx-background-color:rgb(246, 168, 166);";
+  String normalButton = "-fx-background-color:#DDD;";
+  String normalField = "-fx-background-color:#FFF; -fx-border-color:#DDD; -fx-border-radius: 5; -fx-text-fill:#333;";
+  String badField = "-fx-background-color:#FFF; -fx-border-color:rgb(246, 168, 166); -fx-border-radius: 5; -fx-text-fill:#333;";
+  String goodField = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
 
   @FXML
   private TextField tfName;
@@ -430,9 +435,6 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
   @FXML
   void onTextfieldType(KeyEvent event) {
-    String normalField = "-fx-background-color:#FFF; -fx-border-color:#DDD; -fx-border-radius: 5; -fx-text-fill:#333;";
-    String badField = "-fx-background-color:#FFF; -fx-border-color:rgb(246, 168, 166); -fx-border-radius: 5; -fx-text-fill:#333;";
-    String goodField = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
     if (event.getSource() instanceof PasswordField passwordField) {
       System.out.println("Typing in pw field: " + passwordField);
       if (pfPassword.getText().length() + pfPasswordConfirm.getText().length() == 0) {
@@ -465,9 +467,9 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         tfName.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? normalField : goodField));
       } else if ((typedField == tfName || typedField == tfNameConfirm) && !tfNameConfirm.getText().equals(tfName.getText())) {
         nameCheck = false;
-        lblWarningName.setText("Names don't match.");
-        tfNameConfirm.setStyle(badField);
-        tfName.setStyle(badField);
+        lblWarningName.setText(tfNameConfirm.getText().length() > 0  && tfName.getText().length() > 0 ? "Names don't match." : "");
+        tfNameConfirm.setStyle(tfNameConfirm.getText().length() > 0  && tfName.getText().length() > 0 ? badField : normalField);
+        tfName.setStyle(tfName.getText().length() > 0 ? goodField : normalField);
       } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && (tfSurname.getText().equals(tfSurnameConfirm.getText()) || (tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0))) {
         surnameCheck = true;
         lblWarningSurname.setText("");
@@ -475,9 +477,9 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
         tfSurname.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? normalField : goodField));
       } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && !tfNameConfirm.getText().equals(tfSurname.getText())) {
         surnameCheck = false;
-        lblWarningSurname.setText("Surnames don't match.");
-        tfSurname.setStyle(badField);
-        tfSurnameConfirm.setStyle(badField);
+        lblWarningSurname.setText(tfSurnameConfirm.getText().length() > 0  && tfSurname.getText().length() > 0 ? "Surnames don't match." : "");
+        tfSurname.setStyle(tfSurname.getText().length() > 0 ? goodField : normalField);
+        tfSurnameConfirm.setStyle(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? badField : normalField);
       }
     }
     checkSavePossible();
@@ -495,15 +497,12 @@ void onButtonClickTestUserInfo(ActionEvent event) throws Exception { //What shou
 
 
   private void checkSavePossible() {
-    String cancelButton = "-fx-background-color:rgb(246, 168, 166);";
-    String normalButton = "-fx-background-color:#DDD;";
 
     boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
         + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
         + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0;
 
     if (noChanges) {
-      System.out.println("Changing savesettings and closesettings..");
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setStyle(normalButton);
       btnCloseSettings.setText("Close");
