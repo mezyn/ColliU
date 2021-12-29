@@ -117,12 +117,7 @@ public class MasterController {
     eventCreateController.setMaster(this);
     eventCreateController.load();
   }
-
-  public void showForgottenPassword() {
-    String forgottenPasswordPage = "forgot-password.fxml";
-    ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
-    controller.setMaster(this);
-  }
+  
 
   public void showProfileSettingsPage() {
     String profileSettingsPage = "ProfileSettingsPage.fxml";
@@ -262,7 +257,7 @@ public class MasterController {
     }
   }
 
-  public ArrayList<User> getAllusers() {
+  public ArrayList<User> getAllUsers() {
     return userMethods.getAllUsers();
   }
 
