@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class UserMethods {
   private ArrayList<User> users;
   MasterController master;
-  private User currentUser;
+  public User currentUser;
+
   // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) {
@@ -28,7 +29,9 @@ public class UserMethods {
   // check when user latest logged in(dunno how)? william wrote about it
   //get a user by email?
   //Using user input + calling constructors from the different user-classes?
-  // Write comment here
+
+
+  // Method for finding a user by his Email.
   public int findUser(String searchEmail) {
     if (users.size() == 0) {
       return -1;
@@ -56,12 +59,12 @@ public class UserMethods {
     }
     return true; // change this
   }
-// Write comment here
+// Function for registering as student.
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Write comment here
+// Function for registering as administrator.
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
@@ -82,7 +85,7 @@ public class UserMethods {
    */
 
 
-// Write comment here
+// Checks if a user with an email as the input String exists.
   public boolean checkExistingEmail(String email) {
 
     for (User user : users) {
@@ -92,7 +95,7 @@ public class UserMethods {
     }
     return false;
   }
-// Write comment here
+//Method for validating password
 //I'm not sure if the validatePassword method is logically correct.
 //So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
   public boolean validatePassword(String password, String email) {
@@ -114,28 +117,33 @@ public class UserMethods {
     }
     return -1;
   }
-// Write comment here
+// Method for getting user by his email
   public User getUserByEmail(String email) {
     for (User user: users) {
       if (user.getEmail().equals(email)) {
-        return user;
+        return user; //returning the user corresponding to that email
       }
     }
     return null;
   }
 
+  // Function for checking the strength of each user's password.
   public boolean checkPasswordComplexity(String password) {
     if (password == null || password.isBlank()) {
       return false;
     }
     if (password.length() < 11 || password.length() > 20) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[A-Z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[a-z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[0-9].*)")) {
-      return false;    }
+      return false;
+    }
     if (password.contains(" ")) {
       return false;
     } else {
@@ -152,6 +160,7 @@ public class UserMethods {
   }
 
   public User getLoggedInUser() {
+    currentUser = getUserByEmail(currentUser.getEmail());
     return currentUser;
   }
 
@@ -159,17 +168,31 @@ public class UserMethods {
     return currentUser.getType();
   }
 
-  public void promoteStudentToAdmin(String promoteEmail) throws Exception {
-   Student promoteUser = (Student) getUserByEmail(promoteEmail);
-   String email = promoteUser.getEmail();
-   String password = promoteUser.getPassword();
-   String firstName = promoteUser.getFirstName();
-   String lastName = promoteUser.getLastName();
-   String program = promoteUser.getProgram();
-   int graduationYear = promoteUser.getGraduationYear();
-   users.remove(findUser(email));
-   createAdministrator(email, password, firstName, lastName, graduationYear, program);
+  public void toggleAdminStatus (String email) throws Exception {
+    Student student = (Student) getUserByEmail(email);
+    boolean isBanned = student.getAccountStatus();
+    String password = student.getPassword();
+    String firstName = student.getFirstName();
+    String lastName = student.getLastName();
+    String program = student.getProgram();
+    int graduationYear = student.getGraduationYear();
+    users.remove(findUser(email));
+    if (student.getType() == 2) {
+      createStudent(email, password, firstName, lastName, graduationYear, program);
+    } else {
+      createAdministrator(email, password, firstName, lastName, graduationYear, program);
+    }
+    Student newStudent = (Student) getUserByEmail(email);
+    newStudent.setAccountStatus(isBanned);
    master.saveUsers();
+  }
+
+  public void promoteStudent(String email) throws Exception {
+    toggleAdminStatus(email);
+  }
+
+  public void demoteAdmin(String email) throws Exception {
+    toggleAdminStatus(email);
   }
 
   public void banUser(String userToBan)  {
@@ -177,7 +200,7 @@ public class UserMethods {
     master.saveUsers();
   }
 
-
+ // Function for unbanning a user.
   public void unbanUser(String userToUnban)  {
     getUserByEmail(userToUnban).setAccountStatus(false);
     master.saveUsers();
@@ -185,6 +208,15 @@ public class UserMethods {
 
   public ArrayList<User> getAllUsers() {
     return users;
+  }
+
+  public void removeUser(String email) {
+    users.remove(findUser(email));
+    master.saveUsers();
+  }
+
+  public void addUser(User user) {
+    users.add(user);
   }
 
 }

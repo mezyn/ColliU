@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
@@ -9,61 +12,215 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.ProfileController">
    <children>
-      <ScrollPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
-         <content>
-            <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251); -fx-border-color: #5e81f4;">
+         <children>
+            <Label layoutX="281.0" layoutY="48.0" text="Account Settings" textFill="#5e81f4">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <VBox fx:id="vbProfileDetails" alignment="CENTER" layoutX="773.0" layoutY="109.0" spacing="5.0" style="-fx-padding: 15 0; -fx-background-color: #FFF;">
                <children>
-                  <Label layoutX="390.0" layoutY="46.0" text="Account Settings" textFill="#5e81f4">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/profile_placeholder.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblUsername" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your name" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="769.0" layoutY="109.0" prefHeight="328.0" prefWidth="224.0" style="-fx-background-color: #FFFFFF;">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/profile_placeholder.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="lblYourName" layoutX="62.0" layoutY="173.0" text="Your name">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblYourEmail" layoutX="83.0" layoutY="213.0" text="Your Email" />
-                        <Label fx:id="lblYourProgram" layoutX="74.0" layoutY="238.0" text="Your program" />
-                        <Label fx:id="lblYourUserClass" layoutX="58.0" layoutY="291.0" text="Student/Admin/Teacher" />
-                        <Label fx:id="lblYourExamYear" layoutX="83.0" layoutY="264.0" text="Exam Year" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="12.0" layoutY="111.0" prefHeight="631.0" prefWidth="738.0" style="-fx-background-color: #FFFFFF;">
-                     <children>
-                        <Button fx:id="onButtonChangeFirstName" layoutX="187.0" layoutY="78.0" mnemonicParsing="false" onAction="#onButtonChangeFirstName" text="Change first name" />
-                        <TextField fx:id="tfEnterNewFirstName" layoutX="2.0" layoutY="65.0" prefHeight="25.0" prefWidth="175.0" promptText="Enter new first name" />
-                        <TextField fx:id="tfNewLastName" layoutX="2.0" layoutY="178.0" prefHeight="25.0" prefWidth="175.0" promptText="Enter new last name" />
-                        <TextField fx:id="tfRepeatNewLastName" layoutX="1.0" layoutY="212.0" prefHeight="25.0" prefWidth="175.0" promptText="Repeat new last name" />
-                        <Button fx:id="btnChangeLastName" layoutX="187.0" layoutY="191.0" mnemonicParsing="false" onAction="#onButtonChangeLastName" text="Change last name" />
-                        <TextField fx:id="tfRepeatFirstName" layoutX="2.0" layoutY="97.0" prefHeight="25.0" prefWidth="175.0" promptText="Repeat new first name" />
-                        <Button fx:id="btnChangePassword" layoutX="458.0" layoutY="335.0" mnemonicParsing="false" onAction="#onButtonChangePassword" text="Change password" />
-                        <PasswordField fx:id="tfCurrentPassword" layoutX="1.0" layoutY="301.0" prefHeight="25.0" prefWidth="440.0" promptText="Current password" />
-                        <PasswordField fx:id="tfNewPassword" layoutY="335.0" prefHeight="25.0" prefWidth="440.0" promptText="New password" />
-                        <PasswordField fx:id="tfRepeatNewPassword" layoutY="369.0" prefHeight="25.0" prefWidth="440.0" promptText="Repeat new password" />
-                        <Button fx:id="btnSoftwareEngineering" layoutX="2.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressSEM" text="Software Engineering" />
-                        <Button fx:id="btnSystemvetenskap" layoutX="148.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressSystemvetenskap" text="Science of Systems" />
-                        <Button fx:id="btnDatavetenskap" layoutX="284.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressDatavetenskap" text="Computer Science" />
-                        <Button fx:id="btnKognitionsvetenskap" layoutX="418.0" layoutY="464.0" mnemonicParsing="false" onAction="#onButtonPressKognitionsvetenskap" text="Cognitive Science" />
-                        <TextField fx:id="tfNewGraduationYear" layoutX="2.0" layoutY="574.0" promptText="Enter graduation year" />
-                        <Button fx:id="btnChangeGraduationYear" layoutX="171.0" layoutY="574.0" mnemonicParsing="false" onAction="#onButtomPressChangeGraduationYear" text="Change graduation year" />
-                     </children>
-                  </Pane>
+                  <Label fx:id="lblYourEmail" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your Email" textAlignment="CENTER" />
+                  <Label fx:id="lblYourProgram" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Your program" textAlignment="CENTER" />
+                  <Label fx:id="lblYourUserClass" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Student/Admin/Teacher" textAlignment="CENTER" />
+                  <Label fx:id="lblYourExamYear" alignment="CENTER" contentDisplay="CENTER" prefWidth="226.0" text="Exam Year" textAlignment="CENTER" />
                </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
+            </VBox>
+            <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="109.0" style="-fx-box-border: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <AnchorPane prefHeight="599.0" prefWidth="723.0" style="-fx-background-color: #FFF;">
+                     <children>
+                        <VBox layoutX="67.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="First name">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfName" onKeyTyped="#onTextfieldType" prefHeight="25.0" promptText="Enter new first name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="tfNameConfirm" onAction="#onTextfieldType" onKeyTyped="#onTextfieldType" prefHeight="25.0" promptText="Repeat new first name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="lblWarningName" style="-fx-text-fill: rgb(246, 168, 166);">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="414.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Last name">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfSurname" onAction="#onTextfieldType" onKeyTyped="#onTextfieldType" prefHeight="25.0" promptText="Enter new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="tfSurnameConfirm" onAction="#onTextfieldType" onKeyTyped="#onTextfieldType" prefHeight="25.0" promptText="Repeat new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="lblWarningSurname" style="-fx-text-fill: rgb(246, 168, 166);">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="67.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Modify password">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="pfPassword" onAction="#onTextfieldType" onKeyTyped="#onTextfieldType" prefHeight="14.0" promptText="New password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </PasswordField>
+                              <PasswordField fx:id="pfPasswordConfirm" onAction="#onTextfieldType" onKeyTyped="#onTextfieldType" prefHeight="25.0" promptText="Repeat new password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </PasswordField>
+                              <AnchorPane>
+                                 <children>
+                                    <Label fx:id="lblWarningPassword" alignment="TOP_LEFT" maxHeight="80.0" maxWidth="200.0" prefWidth="200.0" style="-fx-text-fill: rgb(246, 168, 166); -fx-line-spacing: -7;">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vbStudies" layoutX="414.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Your studies">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbPrograms" onAction="#onComboBoxSelect" prefHeight="30.0" prefWidth="200.0" promptText="Program" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
+                              <ComboBox fx:id="cbGraduationYear" onAction="#onComboBoxSelect" prefWidth="200.0" promptText="Graduation year" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
+                              <Label fx:id="lblWarningStudies" style="-fx-text-fill: rgb(246, 168, 166);">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <Pane fx:id="adminSettings" layoutX="67.0" layoutY="385.0" prefHeight="200.0" prefWidth="547.0" style="-fx-border-color: #DDD; -fx-background-color: #FFF;">
+                           <children>
+                              <Label layoutX="48.0" layoutY="-20.0" style="-fx-background-color: #FFF;" text="Admin Settings" textFill="#5e81f4">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="tfSearchUser" layoutX="48.0" layoutY="46.0" onKeyTyped="#onSearchUser" prefHeight="41.0" prefWidth="451.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="48.0" layoutY="14.0" text="Search user">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnToggleBan" accessibleText="" disable="true" layoutX="215.0" layoutY="114.0" mnemonicParsing="false" onAction="#onButtonPressBanUser" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: rgb(246, 168, 166);" text="Ban">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnDeleteAccount" disable="true" layoutX="382.0" layoutY="114.0" mnemonicParsing="false" onAction="#onDeleteUser" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: #DDD;" text="Delete">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnPromoteAccount" accessibleText="" disable="true" layoutX="48.0" layoutY="114.0" mnemonicParsing="false" onAction="#onButtonPressPromoteUserToAdmin" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="117.0" style="-fx-background-color: rgb(192,236,204);" text="Promote">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <Pane layoutX="773.0" layoutY="462.0" prefHeight="248.0" prefWidth="226.0" style="-fx-background-color: #FFF;">
+               <children>
+                  <PasswordField fx:id="pfCurrentPassword" layoutX="27.0" layoutY="41.0" onKeyTyped="#onPasswordEntered" prefHeight="45.0" prefWidth="176.0" promptText="Current password" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: #DDD; -fx-background-color: #FFF; -fx-text-fill: #333; -fx-border-radius: 5;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="btnSaveSettings" accessibleText="Fix errors to save" disable="true" layoutX="27.0" layoutY="113.0" mnemonicParsing="false" onAction="#saveSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="176.0" style="-fx-background-color: rgb(192,236,204);" text="Save">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="14.0" prefHeight="27.0" prefWidth="176.0" text="Save Changes">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnCloseSettings" layoutX="27.0" layoutY="167.0" mnemonicParsing="false" onAction="#closeSettings" onMouseEntered="#onButtonEntered" onMouseExited="#onButtonExited" prefHeight="45.0" prefWidth="176.0" style="-fx-background-color: #DDD;" text="Close">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label fx:id="lblIncorrectPassword" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="90.0" prefHeight="17.0" prefWidth="176.0" style="-fx-text-fill: rgb(246, 168, 166);" text="Invalid password" visible="false" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

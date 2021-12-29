@@ -14,6 +14,7 @@ import java.util.Date;
  */
 
 public class Event {
+  //About event information
   private final Date creationDate;
   private final int id;
   private String time;
@@ -25,11 +26,10 @@ public class Event {
   private String location;
   private String description;
   private String category;
-  private String program;
-  private boolean active;
-  private String host;
-  private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
-  private final ArrayList<Integer> guestTutors; //Same here, what does the roll of guest tutors at an event?
+  private String program; //relevant study program
+  private boolean active; //check whether the event has passed
+  private String host; //check who is the host of event with the host's email address
+  private final ArrayList<String> attending; //a list of attendees to events
   private final ArrayList<String> seenBy;
   private final ArrayList<String[]> reactions;
 
@@ -45,7 +45,6 @@ public class Event {
     creationDate = Date.from(LocalDate.now(ZoneId.of("Europe/Berlin")).atStartOfDay(ZoneId.systemDefault()).toInstant());
     this.time = time;
     attending = new ArrayList<>();
-    guestTutors = new ArrayList<>();
     seenBy = new ArrayList<>();
     active = true;
     this.host = host;

@@ -17,7 +17,6 @@ public class Student extends User {
      *
      */
 
-  //public Student(){} //default constructor
 
   public Student(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     super(email, password, firstName, lastName, 1);
@@ -38,10 +37,6 @@ public class Student extends User {
     return this.program;
   }
 
-  public void setprogram (String program) {
-    this.program = program;
-  }
-
   public int getGraduationYear() {
     return this.graduationYear;
   }
@@ -50,17 +45,9 @@ public class Student extends User {
     this.graduationYear =  graduationYear;
   }
 
-  public void setProgram(String program) {
-    program = this.program;
+  public void setProgram (String program) {
+    this.program = this.program;
   }
-
-  //public ArrayList<String> getCourses() {
-  //  return courses;
-  //}
-
-  //public ArrayList<String> getInterests() {
-  //  return this.interests;
-  //}
 
 }
 

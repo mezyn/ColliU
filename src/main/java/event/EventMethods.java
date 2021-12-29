@@ -27,6 +27,7 @@ public class EventMethods {
     events = master.loadEvents();
   }
 
+  //Take relevant event information from a user and create an event.
   public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
     return events.add(new Event(events.size(), name, eventDate, time, location, description, category, program, host));
   }

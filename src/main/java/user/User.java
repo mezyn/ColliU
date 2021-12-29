@@ -41,7 +41,7 @@ public abstract class User {
     this.lastName = lastName;
     this.password = password;
     this.email = email;
-    this.logins = new ArrayList<>();     //Not sure how this works
+    this.logins = new ArrayList<>();
     this.accountBanned = false;
     this.type = type;
   }
@@ -96,20 +96,15 @@ public abstract class User {
 
 
 
+
+
+// Login function
   public void login() {
     logins.add(new Date());
   }
 
-  // Returns all user logins as an array(normal array).
+  // Returns all user logins as an array.
   public Date[] getLogins() {
     return logins.toArray(new Date[0]);
-  }
-
-  public void addCourse(int id) {
-    courses.add(id);
-  }
-
-  public Integer[] getCourses() {
-    return courses.toArray(new Integer[0]);
   }
 }

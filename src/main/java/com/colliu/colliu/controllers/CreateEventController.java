@@ -19,31 +19,29 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/*
+The goal of this class is to control EventCreation.fxml file, that is, to handle the event creation.
+*/
+
 public class CreateEventController {
-
     MasterController master;
-
-//    String currentUser = master.getCurrentUser().getEmail();
-
-    @FXML
-    private ChoiceBox<String> categoryChoiceBox;
-
     private String time;
-
-    @FXML
-    private DatePicker date;
-
-
     LocalDate eventDate;
 
     @FXML
-    private ChoiceBox<String> hourChoiceBox;
+    private ChoiceBox<String> cbCategories;
 
     @FXML
-    private ChoiceBox<String> minuteChoiceBox;
+    private DatePicker dpDate;
 
     @FXML
-    private ChoiceBox<String> programChoiceBox;
+    private ChoiceBox<String> cbHours;
+
+    @FXML
+    private ChoiceBox<String> cbMinutes;
+
+    @FXML
+    private ChoiceBox<String> cbPrograms;
 
     @FXML
     private TextField eventTitle;
@@ -62,15 +60,16 @@ public class CreateEventController {
 
     Stage stage;
 
-    @FXML
-    void closeWindow(ActionEvent event) {
-        stage = (Stage) anchorPane.getScene().getWindow();
-        stage.close();
-    }
+    /*
+    Upon 'create event' button click, the application check if the input from user is correct and valid.
+    Below is a number of features of what this method does;
+    - None of the field should be empty; i.e. only the event with all required information can be created.
+    - The method takes an event date with JavaFX DatePicker. A user cannot create an event in the past.
+    Upon the button click, the event creation page is closed and the user is sent back to the event page.
+    */
 
-
     @FXML
-    void onCreateEventClicked(ActionEvent event) throws Exception {
+    void onCreateEventClicked(ActionEvent event) {
         if (eventTitle.getText().isBlank()) {
             warningLabel.setText("Title cannot be empty.");
         } else if (eventLocation.getText().isBlank()) {
@@ -79,34 +78,21 @@ public class CreateEventController {
             warningLabel.setText("Please select a date for the event.");
         } else if (eventDate.isBefore(LocalDate.now())) {
             warningLabel.setText("Event cannot be created for a past date.");
-        } else if (hourChoiceBox.getValue().equals("HH") || minuteChoiceBox.getValue().equals("MM")) {
+        } else if (cbHours.getValue().equals("HH") || cbMinutes.getValue().equals("MM")) {
             warningLabel.setText("Event time cannot be empty.");
-        } else if (categoryChoiceBox.getValue().equals("Choose category")) {
+        } else if (cbCategories.getValue().equals("Choose category")) {
             warningLabel.setText("Choose a category for the event.");
-        } else if (programChoiceBox.getValue().equals("Choose program")) {
+        } else if (cbPrograms.getValue().equals("Choose program")) {
             warningLabel.setText("Choose a study program that is relevant to the event.");
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
         } else {
-
-            time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-            master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), programChoiceBox.getValue(), descriptionField.getText(), categoryChoiceBox.getValue(), master.getCurrentUser().getEmail());
+            time = cbHours.getValue() + ":" + cbMinutes.getValue();
+            master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), cbPrograms.getValue(), descriptionField.getText(), cbCategories.getValue(), master.getCurrentUser().getEmail());
             master.saveEvents();
-            closeWindow(event);
             master.showEventPage();
-
         }
     }
-
-
-
-    /*@Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        categoryChoiceBox.getItems().addAll(categories);
-        hourChoiceBox.getItems().addAll(hours);
-        minuteChoiceBox.getItems().addAll(minutes);
-
-    }*/
 
     public void setMaster(MasterController master) {
         this.master = master;
@@ -115,29 +101,29 @@ public class CreateEventController {
 
     @FXML
     void setDate(ActionEvent event) {
-        //date.setValue(LocalDate.now());
-        eventDate = date.getValue();
+        eventDate = dpDate.getValue();
     }
 
     public void load() {
-        //time = hourChoiceBox.getValue() + ":" + minuteChoiceBox.getValue();
-        //categoryChoiceBox.getItems().addAll("Gaming", "Guest Lecture", "Hackathon","Lunch Lecture", "Mingle", "Sports","Student Union", "Workshop","Others");
-        //hourChoiceBox.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
-        //minuteChoiceBox.getItems().addAll("00","05","10","15","20","25","30","35","40","45","50","55");
-        //programChoiceBox.getItems().addAll("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
-        categoryChoiceBox.setValue("Choose category");
-        hourChoiceBox.setValue("HH");
-        minuteChoiceBox.setValue("MM");
-        programChoiceBox.setValue("Choose program");
-        ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
-        categoryChoiceBox.setItems(categories);
-        ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
-        hourChoiceBox.setItems(hours);
-        ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55");
-        minuteChoiceBox.setItems(minutes);
-        ObservableList<String> programs = FXCollections.observableArrayList("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
-        programChoiceBox.setItems(programs);
+        //Adding relevant alternatives to the choice boxes/dropdown boxes, among which a user can select information about events
+        cbCategories.setValue("Choose category");
+        cbHours.setValue("HH");
+        cbMinutes.setValue("MM");
+        cbPrograms.setValue("Choose program");
 
+        ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
+        cbCategories.setItems(categories);
+        ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+        cbHours.setItems(hours);
+        ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55");
+        cbMinutes.setItems(minutes);
+        ObservableList<String> programs = FXCollections.observableArrayList("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+        cbPrograms.setItems(programs);
+    }
+
+    @FXML
+    void onCancelClick(ActionEvent event) {
+        master.showEventPage();
     }
 
 }

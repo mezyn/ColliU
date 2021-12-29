@@ -17,9 +17,6 @@ public class LoginController {
   private String[][] loginDetails;
 
   @FXML
-  private Button forgotpassword;
-
-  @FXML
   private TextField guEmail;
 
   @FXML
@@ -29,12 +26,6 @@ public class LoginController {
   private PasswordField password;
 
   @FXML
-  private Button newTeacher;
-
-  @FXML
-  private Button newStaff;
-
-  @FXML
   private Label warningLabel;
 
   @FXML
@@ -42,11 +33,6 @@ public class LoginController {
 
   @FXML
   private Button btnAccountBannedOK;
-
-  @FXML
-  void onForgotPasswordClick(ActionEvent event) throws Exception {
-    master.showForgottenPassword();
-  }
 
   @FXML
   void onButtonPressAccountBannedOK(ActionEvent event) throws Exception {
@@ -62,18 +48,18 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     String uEmail = guEmail.getText();
     String uPassword = password.getText();
 
-    if (uEmail.isBlank()) {                              //checks if email is empty
+    if (uEmail.isBlank()) {                              //checks if email field is empty
       warningLabel.setText("Email address cannot be empty.");
-    } else if (uPassword.isBlank()) {                      //check if password is empty
+    } else if (uPassword.isBlank()) {                      //check if password field is empty
       warningLabel.setText("Password cannot be empty.");
     } else {
-      boolean validLogin = master.validateLogin(uEmail, uPassword);
+      boolean validLogin = master.validateLogin(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the user
       if (validLogin) {
         User user = master.findUser(uEmail);
         master.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
         if (accountStatus) {
-          accountBannedPane.setVisible(accountStatus);
+          warningLabel.setText("Account is permanently banned.");
         } else {
           master.showEventPage();
         }
@@ -85,12 +71,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
   }
 
   @FXML
-  void registerStaff(ActionEvent event) throws Exception {
+  void registerStaff(ActionEvent event) {
     master.showRegisterStaff();
   }
 
   @FXML
-  void registerStudent(ActionEvent event) throws Exception {
+  void registerStudent(ActionEvent event) {
     master.showRegisterStudent();
   }
 
@@ -118,11 +104,11 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   public void setMaster(MasterController master) {
     this.master = master;
-    loginDetails = new String[master.getAllusers().size()][2];
-    System.out.println(master.getAllusers().size());
-    for (int i = 0; i < master.getAllusers().size(); i++) {
-      loginDetails[i][0] = master.getAllusers().get(i).getEmail();
-      loginDetails[i][1] = master.getAllusers().get(i).getPassword();
+    loginDetails = new String[master.getAllUsers().size()][2];
+    System.out.println(master.getAllUsers().size());
+    for (int i = 0; i < master.getAllUsers().size(); i++) {
+      loginDetails[i][0] = master.getAllUsers().get(i).getEmail();
+      loginDetails[i][1] = master.getAllUsers().get(i).getPassword();
     }
     ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Student", "Student2", "Student3", "Student4");
     cbLogin.setItems(items);
