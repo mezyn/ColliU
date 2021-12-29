@@ -51,6 +51,9 @@ public class CreateEventController implements Initializable {
     void onCreateEventClicked(ActionEvent event) {
         eventController.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), categoryChoiceBox.getValue(), courseCode.getText());
     }*/
+ @FXML
+ void onCreateEventClicked() {
+ }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,4 +62,5 @@ public class CreateEventController implements Initializable {
         minuteChoiceBox.getItems().addAll(minutes);
 
     }
+
 }
