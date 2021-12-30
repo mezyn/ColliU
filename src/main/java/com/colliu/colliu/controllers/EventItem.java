@@ -182,6 +182,11 @@ public class EventItem {
     }
   }
 
+  @FXML
+  void toggleAttend() {
+    stpAttendees.setVisible(!stpAttendees.isVisible());
+  }
+
   public void load(Event event) {
     setEvent(event);
     setEventInfo();

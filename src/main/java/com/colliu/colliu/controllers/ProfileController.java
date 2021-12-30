@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import miscellaneous.Info;
@@ -146,6 +148,18 @@ public class ProfileController {
   private Pane adminSettings;
 
   @FXML
+  private AnchorPane apAccountSettings;
+
+  @FXML
+  private VBox vbName;
+
+  @FXML
+  private VBox vbSurname;
+
+  @FXML
+  private VBox vbPassword;
+
+  @FXML
   private VBox vbStudies;
 
   private boolean nameCheck = true;
@@ -181,23 +195,23 @@ public class ProfileController {
       if ((typedField == tfName || typedField == tfNameConfirm) && (tfName.getText().equals(tfNameConfirm.getText()) || (tfName.getText().length() + tfNameConfirm.getText().length() == 0))) {
         nameCheck = true;
         lblWarningName.setText("");
-        tfNameConfirm.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
         tfName.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
+        tfNameConfirm.setStyle((tfName.getText().length() + tfNameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
       } else if ((typedField == tfName || typedField == tfNameConfirm) && !tfNameConfirm.getText().equals(tfName.getText())) {
         nameCheck = false;
         lblWarningName.setText(tfNameConfirm.getText().length() > 0 && tfName.getText().length() > 0 ? "Names don't match." : "");
-        tfNameConfirm.setStyle(tfNameConfirm.getText().length() > 0 && tfName.getText().length() > 0 ? Style.TEXTFIELD_RED : Style.TEXTFIELD_NORMAL);
-        tfName.setStyle(tfName.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
+        tfNameConfirm.setStyle(tfNameConfirm.getText().length() > 0 && tfName.getText().length() > 0 ? Style.TEXTFIELD_RED : tfNameConfirm.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
+        tfName.setStyle(tfName.getText().length() > 0 ? Style.TEXTFIELD_GREEN : tfName.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
       } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && (tfSurname.getText().equals(tfSurnameConfirm.getText()) || (tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0))) {
         surnameCheck = true;
         lblWarningSurname.setText("");
-        tfSurnameConfirm.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
         tfSurname.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
-      } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && !tfNameConfirm.getText().equals(tfSurname.getText())) {
+        tfSurnameConfirm.setStyle((tfSurname.getText().length() + tfSurnameConfirm.getText().length() == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_GREEN));
+      } else if ((typedField == tfSurname || typedField == tfSurnameConfirm) && !tfSurnameConfirm.getText().equals(tfSurname.getText())) {
         surnameCheck = false;
         lblWarningSurname.setText(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? "Surnames don't match." : "");
-        tfSurname.setStyle(tfSurname.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
-        tfSurnameConfirm.setStyle(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? Style.TEXTFIELD_RED : Style.TEXTFIELD_NORMAL);
+        tfSurname.setStyle(tfSurname.getText().length() > 0 ? Style.TEXTFIELD_GREEN : tfSurname.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
+        tfSurnameConfirm.setStyle(tfSurnameConfirm.getText().length() > 0 && tfSurname.getText().length() > 0 ? Style.TEXTFIELD_RED : tfSurnameConfirm.getText().length() > 0 ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL);
       }
     }
     checkSavePossible();
@@ -354,10 +368,30 @@ public class ProfileController {
       cbGraduationYear.setItems(graduationYears);
       cbGraduationYear.setValue(((Student) currentUser).getGraduationYear());
     } else {
-      vbStudies.setDisable(true);
+      apAccountSettings.getChildren().remove(vbStudies);
     }
-
-    adminSettings.setDisable(currentUser.getType() != 2);
+    if (currentUser.getType() != 2) {
+      apAccountSettings.getChildren().remove(adminSettings);
+      VBox asthetics = new VBox();
+      asthetics.setPrefWidth(547);
+      asthetics.setLayoutX(67);
+      asthetics.setSpacing(45.5);
+      asthetics.getChildren().add(vbName);
+      asthetics.getChildren().add(vbSurname);
+      asthetics.getChildren().add(vbPassword);
+      vbStudies.getChildren().remove(cbPrograms);
+      vbStudies.getChildren().remove(cbGraduationYear);
+      if (currentUser.getType() != 3) {
+        HBox flatStudies = new HBox();
+        flatStudies.getChildren().add(cbPrograms);
+        flatStudies.getChildren().add(cbGraduationYear);
+        flatStudies.setSpacing(5);
+        vbStudies.getChildren().add(1, flatStudies);
+        asthetics.getChildren().add(vbStudies);
+      }
+      asthetics.setLayoutY((599 - 504) / 2);
+      apAccountSettings.getChildren().setAll(asthetics);
+    }
   }
 
   private void toggleSearchButtons() {
