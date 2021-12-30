@@ -1,26 +1,16 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
-import event.Event;
-import event.EventMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import user.User;
 
-import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ResourceBundle;
+
 
 /*
-The goal of this class is to control EventCreation.fxml file, that is, to handle the event creation.
+The goal of this class is to control EventCreation.fxml file; that is, to handle the event creation.
 */
 
 public class CreateEventController {
@@ -29,19 +19,19 @@ public class CreateEventController {
     LocalDate eventDate;
 
     @FXML
-    private ChoiceBox<String> cbCategories;
+    private ChoiceBox<String> cbCategories; //Event categories
 
     @FXML
-    private DatePicker dpDate;
+    private DatePicker dpDate; //Event date
 
     @FXML
-    private ChoiceBox<String> cbHours;
+    private ChoiceBox<String> cbHours; //Event hour(time)
 
     @FXML
-    private ChoiceBox<String> cbMinutes;
+    private ChoiceBox<String> cbMinutes; //Event minute(time)
 
     @FXML
-    private ChoiceBox<String> cbPrograms;
+    private ChoiceBox<String> cbPrograms; //Study program related to event
 
     @FXML
     private TextField eventTitle;
@@ -52,24 +42,23 @@ public class CreateEventController {
     @FXML
     private TextField descriptionField;
 
+    /* When a user did not fill all necessary information to create an event,
+     The application tells the user what to be fixed by presenting messages with the JavaFX label. */
     @FXML
     private Label warningLabel;
 
-    @FXML
-    private AnchorPane anchorPane;
 
-    Stage stage;
 
     /*
     Upon 'create event' button click, the application check if the input from user is correct and valid.
     Below is a number of features of what this method does;
     - None of the field should be empty; i.e. only the event with all required information can be created.
     - The method takes an event date with JavaFX DatePicker. A user cannot create an event in the past.
-    Upon the button click, the event creation page is closed and the user is sent back to the event page.
+    Upon a button click, the event creation page is closed and the user is sent back to the event page.
     */
 
     @FXML
-    void onCreateEventClicked(ActionEvent event) {
+    void onCreateEventClicked() {
         if (eventTitle.getText().isBlank()) {
             warningLabel.setText("Title cannot be empty.");
         } else if (eventLocation.getText().isBlank()) {
@@ -86,7 +75,7 @@ public class CreateEventController {
             warningLabel.setText("Choose a study program that is relevant to the event.");
         } else if (descriptionField.getText().isBlank()) {
             warningLabel.setText("Write a description about the event.");
-        } else {
+        } else { // When all required information has been registered by a user
             time = cbHours.getValue() + ":" + cbMinutes.getValue();
             master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), cbPrograms.getValue(), descriptionField.getText(), cbCategories.getValue(), master.getCurrentUser().getEmail());
             master.saveEvents();
@@ -94,23 +83,30 @@ public class CreateEventController {
         }
     }
 
+
     public void setMaster(MasterController master) {
         this.master = master;
     }
 
 
     @FXML
-    void setDate(ActionEvent event) {
+    void setDate() {
         eventDate = dpDate.getValue();
     }
 
+
+    /*
+    This method contains components that shall be loaded in event creation page
+    */
     public void load() {
-        //Adding relevant alternatives to the choice boxes/dropdown boxes, among which a user can select information about events
+
+        // The page should show relevant alternatives to the choice boxes/dropdown boxes, among which a user can select information about events
         cbCategories.setValue("Choose category");
         cbHours.setValue("HH");
         cbMinutes.setValue("MM");
         cbPrograms.setValue("Choose program");
 
+        // Alternatives that a user can choose - this will keep consistency of the application
         ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
         cbCategories.setItems(categories);
         ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
@@ -121,8 +117,10 @@ public class CreateEventController {
         cbPrograms.setItems(programs);
     }
 
+
+    // When cancel clicked, a user is sent back to the event page.
     @FXML
-    void onCancelClick(ActionEvent event) {
+    void onCancelClick() {
         master.showEventPage();
     }
 
