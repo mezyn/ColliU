@@ -315,7 +315,7 @@ MasterController {
   }
 
   public Event[] filterEvents(String[] tags) {
-    String program = ((Student) getCurrentUser()).getProgram();
+    String program = (getCurrentUser() instanceof Student ? ((Student) getCurrentUser()).getProgram() : Info.STAFF_FILTER);
     return (tags.length > 0 ? eventMethods.filterEvents(program, tags) : eventMethods.getEvents(program, Info.UPCOMING_EVENTS));
   }
 
@@ -332,7 +332,7 @@ MasterController {
   }
 
   private Event[] getEvents(int type) {
-    if (getCurrentUser().getType() < 3 ) {
+    if (getCurrentUser().getType() < Info.TYPE_STAFF ) {
       String program = ((Student) getCurrentUser()).getProgram();
       return eventMethods.getEvents(program, type);
     } else {

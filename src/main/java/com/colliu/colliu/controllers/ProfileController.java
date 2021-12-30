@@ -162,15 +162,15 @@ public class ProfileController {
         passwordCheck = true;
       } else if (!master.checkPassword(pfPassword.getText()) && !master.checkPassword(pfPasswordConfirm.getText())) {
         lblWarningPassword.setWrapText(true);
-        lblWarningPassword.setText("Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.");
+        lblWarningPassword.setText((pfPassword.getText().length() > 0 && !master.checkPassword(pfPassword.getText())) || (pfPasswordConfirm.getText().length() > 0 && !master.checkPassword(pfPasswordConfirm.getText())) ? "Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol." : "");
         passwordCheck = false;
         pfPasswordConfirm.setStyle(pfPasswordConfirm.getText().length() > 0 ? (master.checkPassword(pfPasswordConfirm.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_RED) : Style.TEXTFIELD_NORMAL);
         pfPassword.setStyle(pfPassword.getText().length() > 0 ? (master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_RED) : Style.TEXTFIELD_NORMAL);
       } else if (!pfPassword.getText().equals(pfPasswordConfirm.getText())) {
         lblWarningPassword.setText(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? "Passwords don't match." : "");
         passwordCheck = false;
-        pfPasswordConfirm.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? Style.TEXTFIELD_RED : Style.TEXTFIELD_NORMAL);
-        pfPassword.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? Style.TEXTFIELD_RED : Style.TEXTFIELD_NORMAL);
+        pfPasswordConfirm.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? Style.TEXTFIELD_RED : (master.checkPassword(pfPasswordConfirm.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL));
+        pfPassword.setStyle(pfPassword.getText().length() > 0 && !master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_RED : (master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL));
       } else {
         lblWarningPassword.setText("");
         passwordCheck = true;
@@ -205,7 +205,7 @@ public class ProfileController {
 
   @FXML
   void onComboBoxSelect(ActionEvent event) {
-    if(cbPrograms.getValue() != null && cbGraduationYear.getValue() != null)
+    if (cbPrograms.getValue() != null && cbGraduationYear.getValue() != null)
       checkSavePossible();
   }
 

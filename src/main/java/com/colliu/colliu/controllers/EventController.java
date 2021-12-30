@@ -14,12 +14,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.scene.text.Text;
+import miscellaneous.Info;
+import miscellaneous.Style;
+import org.controlsfx.control.ToggleSwitch;
 
 public class EventController {
 
@@ -27,6 +29,7 @@ public class EventController {
   final String BUTTON_HOVER_OFF = "-fx-background-color: none;";
   final int STAFF = 3;
   MasterController master;
+  ArrayList<String> tags = new ArrayList<>();
 
 
   @FXML
@@ -120,6 +123,9 @@ public class EventController {
   private Label lblEventPageHeader;
 
   @FXML
+  private VBox vbCategories;
+
+  @FXML
   void filterEvent(MouseEvent event) {
 
   }
@@ -201,37 +207,14 @@ public class EventController {
   If none of the checkboxes are selected(default), the page shows all the events without filtering.
   */
   @FXML
-  void onFilterClick(ActionEvent event) throws Exception {
-    ArrayList<String> tags = new ArrayList<>();
-
-    if(cb1.isSelected()) {
-      tags.add("Gaming");
+  void onFilterClick(String category) {
+    int categoryIndex = tags.indexOf(category);
+    if (categoryIndex >= 0) {
+      tags.remove(categoryIndex);
+    } else {
+      tags.add(category);
     }
-    if(cb2.isSelected()) {
-      tags.add("Guest Lecture");
-    }
-    if(cb3.isSelected()) {
-      tags.add("Hackathon");
-    }
-    if(cb4.isSelected()) {
-      tags.add("Lunch lecture");
-    }
-    if(cb5.isSelected()) {
-      tags.add("Mingle");
-    }
-    if(cb6.isSelected()) {
-      tags.add("Sports");
-    }
-    if(cb7.isSelected()) {
-      tags.add("Student Union");
-    }
-    if(cb8.isSelected()) {
-      tags.add("Workshop");
-    }
-    if(cb9.isSelected()) {
-      tags.add("Others");
-    }
-
+    System.out.println(category);
     String[] tagsToFilter = tags.toArray(new String[0]);
     loadEvents(master.filterEvents(tagsToFilter));
   }
@@ -263,6 +246,9 @@ public class EventController {
     } else {
       loadStaff();
     }
+
+    setCategories();
+
   }
 
   /*
@@ -364,6 +350,26 @@ public class EventController {
       });
     }
     return pnNotification;
+  }
+
+  private void setCategories() {
+    int size = Info.CATEGORIES.length;
+    Node[] switches = new Node[size];;
+    for (int i = 0; i < size; i++) {
+      HBox hbCategory = new HBox();
+      Label lblCategory = new Label(Info.CATEGORIES[i]);
+      ToggleSwitch tsCategory = new ToggleSwitch();
+      tsCategory.setOnMouseClicked(e -> onFilterClick(lblCategory.getText()));
+      tsCategory.setMaxWidth(30);
+      lblCategory.setMinWidth(168);
+      hbCategory.getChildren().add(lblCategory);
+      hbCategory.getChildren().add(tsCategory);
+      tsCategory.setStyle(Style.TOGGLESWITCH);
+      switches[i] = hbCategory;
+    }
+    vbCategories.getChildren().clear();
+    vbCategories.getChildren().setAll(switches);
+    vbCategories.setStyle("-fx-background-color:#EEE;");
   }
 
 }

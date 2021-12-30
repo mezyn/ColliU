@@ -15,9 +15,9 @@
 
 <StackPane fx:id="spAllEvent" alignment="TOP_CENTER" prefHeight="293.0" prefWidth="564.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 5; -fx-box-sizing: bord-b; -fx-background-color: rgb(165,200,228);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.EventItem">
    <children>
-      <Pane fx:id="eventBackground" layoutX="5.0" StackPane.alignment="CENTER">
+      <Pane layoutX="5.0" StackPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imgBanner" fitHeight="80.0" fitWidth="554.0" pickOnBounds="true" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;">
+            <ImageView fitHeight="80.0" fitWidth="554.0" pickOnBounds="true" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;">
                <image>
                   <Image url="@../images/banner.gif" />
                </image>
@@ -95,7 +95,7 @@
                      <children>
                         <ScrollPane hbarPolicy="NEVER" maxHeight="100.0" maxWidth="150.0" prefWidth="150.0" style="-fx-border-color: transparent; -fx-box-border: transparent; -fx-background: #FFF; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" vbarPolicy="NEVER">
                            <content>
-                              <VBox fx:id="vbReactions" prefWidth="150.0" style="-fx-background: transparent;" />
+                              <VBox fx:id="vbReactions" prefWidth="150.0" style="-fx-background: #FFF;" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -116,7 +116,7 @@
                <children>
                   <ScrollPane hbarPolicy="NEVER" style="-fx-border-color: transparent; -fx-box-border: transparent; -fx-background: #FFF; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" vbarPolicy="NEVER">
                      <content>
-                        <VBox fx:id="vbAttendees" prefWidth="144.0" style="-fx-background-color: transparent; -fx-focus-color: transparent; -fx-box-border: transparent;" />
+                        <VBox fx:id="vbAttendees" prefWidth="144.0" style="-fx-background-color: #FFF; -fx-focus-color: transparent; -fx-box-border: transparent;" />
                      </content>
                   </ScrollPane>
                </children>

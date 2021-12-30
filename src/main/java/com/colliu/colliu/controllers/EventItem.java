@@ -2,8 +2,12 @@ package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
 import event.Event;
-import javafx.animation.*;
-import javafx.event.ActionEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,13 +18,11 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import miscellaneous.Info;
+import miscellaneous.Style;
 
 public class EventItem {
   double normalHeight;
@@ -29,12 +31,7 @@ public class EventItem {
   Event event;
   SequentialTransition emojiAnimation;
   SequentialTransition activeReaction;
-
-  @FXML
-  private Pane eventBackground;
-
-  @FXML
-  private ImageView imgBanner;
+  ImageView activeReactionImage;
 
   @FXML
   private Label lblAttendees;
@@ -85,9 +82,6 @@ public class EventItem {
   private VBox vbReactions;
 
   @FXML
-  private Pane pnReactions;
-
-  @FXML
   private StackPane stpReactions;
 
   @FXML
@@ -101,7 +95,7 @@ public class EventItem {
   private MasterController master;
 
   @FXML
-  void attendEvent(ActionEvent event) throws IOException {
+  void attendEvent() {
     setAttending(!attending);
   }
 
@@ -120,7 +114,7 @@ public class EventItem {
   }
 
   @FXML
-  void showDetails(ActionEvent event) {
+  void showDetails() {
     boolean showDetails = !(pnEventDetails.isVisible());
     spAllEvent.setMaxHeight((showDetails ? normalHeight : normalHeight - detailsHeight));
     btnShowDetails.setText((showDetails ? "Hide Details" : "Show Details"));
@@ -150,7 +144,9 @@ public class EventItem {
     ImageView reactionImage = ((ImageView) event.getSource());
     int reaction;
     String userEmail = master.getCurrentUser().getEmail();
-    String name = master.getCurrentUser().getFirstName() + " " + master.getCurrentUser().getLastName();
+    String name = master.getCurrentUser().getFirstName() + " "
+            + master.getCurrentUser().getLastName();
+
     if (reactionImage.equals(imgReactionOne)) {
       reaction = 1;
     } else if (reactionImage.equals(imgReactionTwo)) {
@@ -160,7 +156,9 @@ public class EventItem {
     } else {
       reaction = 4;
     }
-
+    if (activeReaction != null) {
+      stopEmoji(activeReactionImage);
+    }
     this.event.addReaction(userEmail, reaction, name);
     addReactions();
     master.saveEvents();
@@ -232,13 +230,7 @@ public class EventItem {
     String userEmail = master.getCurrentUser().getEmail();
     attending = event.getAttending().contains(userEmail);
 
-    if (attending) {
-      btnAttend.setStyle("-fx-background-color: rgb(246, 168, 166);");
-      btnAttend.setText("Cancel");
-    } else {
-      btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
-      btnAttend.setText("Attend");
-    }
+    setAttending(!attending);
 
     pnEventDetails.setVisible(false);
   }
@@ -256,15 +248,14 @@ public class EventItem {
     String userEmail = master.getCurrentUser().getEmail();
     if (attending) {
       event.addAttendee(userEmail);
-      btnAttend.setStyle("-fx-background-color: rgb(246, 168, 166);");
-      btnAttend.setText("Cancel");
+      btnAttend.setStyle(Style.BUTTON_RED);
+      btnAttend.setText(Info.CANCEL);
     } else {
       event.delAttendee(userEmail);
-      btnAttend.setStyle("-fx-background-color: rgb(192,236,204);");
-      btnAttend.setText("Attend");
+      btnAttend.setStyle(Style.BUTTON_GREEN);
+      btnAttend.setText(Info.ATTEND);
     }
     master.saveEvents();
-    setEventInfo();
   }
 
   void addReactions() {
@@ -277,9 +268,17 @@ public class EventItem {
     // Retrieve all reactions in a sorted ArrayList.
     ArrayList<String[]> reactions = sortReactions(event.getReactions());
     int size = reactions.size();
-
-    if (imgUserReaction != null) {
-      spinEmoji(imgUserReaction);
+    if (activeReaction != null) {
+      activeReaction.stop();
+      emojiAnimation.stop();
+      System.out.println("Should stop active Sequential Transition");
+    }
+    if (imgUserReaction != null && imgUserReaction != activeReactionImage) {
+      stopEmoji(imgUserReaction);
+      activeReaction = spinEmoji(imgUserReaction);
+      activeReaction.play();
+      activeReactionImage = imgUserReaction;
+      System.out.println("Should start new Sequential Transition");
     }
 
     // Create a new array of nodes with either 2 slots or the size of arraylist.
@@ -300,9 +299,9 @@ public class EventItem {
 
       reactionList[0] = infoPane(noReacts, null, empty);
     }
+
     vbReactions.setSpacing(2);
     vbReactions.getChildren().setAll(reactionList);
-    vbReactions.setStyle("-fx-background-color:#FFF");
     int height = size > 2 ? (size > 5 ? 5 * 20 : size * 20) : 40;
     double layoutY = 100 - height;
     stpReactions.setLayoutY(layoutY);
@@ -326,7 +325,7 @@ public class EventItem {
           case 1:
             if (reaction[1].equals("1")) {
               sortedReactions.add(reaction);
-              if(reaction[0].equals(userEmail)) {
+              if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionOne;
               }
             }
@@ -334,7 +333,7 @@ public class EventItem {
           case 2:
             if (reaction[1].equals("2")) {
               sortedReactions.add(reaction);
-              if(reaction[0].equals(userEmail)) {
+              if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionTwo;
               }
             }
@@ -342,7 +341,7 @@ public class EventItem {
           case 3:
             if (reaction[1].equals("3")) {
               sortedReactions.add(reaction);
-              if(reaction[0].equals(userEmail)) {
+              if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionThree;
               }
             }
@@ -350,7 +349,7 @@ public class EventItem {
           default:
             if (reaction[1].equals("4")) {
               sortedReactions.add(reaction);
-              if(reaction[0].equals(userEmail)) {
+              if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionFour;
               }
             }
@@ -419,7 +418,10 @@ public class EventItem {
     return pnReaction;
   }
 
-  private void spinEmoji(ImageView emoji) {
+  private SequentialTransition spinEmoji(ImageView emoji) {
+    if (activeReaction != null) {
+      stopEmoji(imgUserReaction);
+    }
     // Our animation for rotating picture left
     RotateTransition rotateLeft = new RotateTransition(Duration.millis(100), emoji);
     rotateLeft.setByAngle(15); // Rotate 15 degrees to left
@@ -432,17 +434,10 @@ public class EventItem {
     rotateRight.setCycleCount(1); // Rotate once
     rotateRight.setInterpolator(Interpolator.LINEAR);
 
-    // Slight paus in animation for smoothness
-    RotateTransition rotatePaus = new RotateTransition(Duration.millis(1000), emoji);
-    rotatePaus.setByAngle(0); // Does not rotate at all
+    // Slight pause in animation for smoothness
+    RotateTransition rotatePause = new RotateTransition(Duration.millis(1000), emoji);
+    rotatePause.setByAngle(0); // Does not rotate at all
     rotateRight.setCycleCount(1); // Pauses only once
-
-    // Get image's current rotation
-    double yx = emoji.getLocalToSceneTransform().getMyx();
-    double yy = emoji.getLocalToSceneTransform().getMyy();
-
-    // Then calculate the angle that needs to be reverse for rotation 0
-    double angle = -(Math.atan2(yx, yy) * 100) / 2;
 
     // Create a new rotation animation, play it once and make it return to 0 degrees angle.
     RotateTransition evenOut = new RotateTransition(Duration.millis(100), emoji);
@@ -450,16 +445,18 @@ public class EventItem {
     evenOut.setCycleCount(1);
     evenOut.setInterpolator(Interpolator.LINEAR);
 
-    SequentialTransition emojiSequence = new SequentialTransition(rotateLeft, rotateRight, evenOut); // First rotate left, then right, then paus
+    // First rotate left, then right, then pause
+    SequentialTransition emojiSequence = new SequentialTransition(rotateLeft, rotateRight, evenOut);
     emojiSequence.setCycleCount(3); // rotate 3 times then pause
-    emojiAnimation = new SequentialTransition(emojiSequence, rotatePaus);
+    emojiAnimation = new SequentialTransition(emojiSequence, rotatePause);
     emojiAnimation.setCycleCount(Timeline.INDEFINITE);
-    activeReaction = emojiAnimation;
+    SequentialTransition copyEmojiAnimation = emojiAnimation;
     emojiAnimation.play(); // Start sequence.
+    return copyEmojiAnimation;
   }
 
   private void stopEmoji(ImageView image) {
-    if (emojiAnimation != null) {
+    if (emojiAnimation != null && emojiAnimation != activeReaction) {
       // Stop the sequence of rotations
       emojiAnimation.stop();
     }

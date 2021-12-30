@@ -16,4 +16,7 @@ public class Style {
   static final public String TEXTFIELD_GREEN = "-fx-background-color:#FFF; -fx-border-color:rgb(192,236,204); -fx-border-radius: 5; -fx-text-fill:#333;";
   static final public String TEXTFIELD_RED = "-fx-background-color:#FFF; -fx-border-color:rgb(246, 168, 166); -fx-border-radius: 5; -fx-text-fill:#333;";
   static final public String TEXTFIELD_NORMAL = "-fx-background-color:#FFF; -fx-border-color:#DDD; -fx-border-radius: 5; -fx-text-fill:#333;";
+
+  static final public String TOGGLESWITCH = "-fx-border-radius:15;";
+  static final public String BACKGROUND_BLUE = "-fx-background-color:  rgb(165,200,228);";
 }

@@ -1,17 +1,12 @@
 package event;
 
-import com.colliu.colliu.Master;
 import com.colliu.colliu.MasterController;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import com.colliu.colliu.MasterController;
+import miscellaneous.Info;
 import user.User;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 /** This class handles the Event Object.
  * All methods for adding, getting and manipulating the info will be called from this class.
@@ -20,7 +15,6 @@ public class EventMethods {
 
   ArrayList<Event> events;
   MasterController master;
-  private final int UPCOMING_EVENTS = 1;
 
   public EventMethods(MasterController masterClass) {
     master = masterClass;
@@ -48,6 +42,9 @@ public class EventMethods {
   Then it returns an array of the Id of all those events.
    */
   public Event[] getEvents(String program, int type) {
+    if (program.equals(Info.STAFF_FILTER)) {
+      return getHostingEvents(master.getCurrentUser(), Info.UPCOMING_EVENTS);
+    }
     ArrayList<Event> recommendedEvents = new ArrayList<>();
     // Loop through all the courses that was sent with method
     for (Event event : this.events) {
@@ -74,7 +71,7 @@ public class EventMethods {
   }
 
   public Event[] getNotifications(String email, String program) { // Will return an array of all event-IDs that have not been seen
-    Event[] recommendedEvents = getEvents(program, UPCOMING_EVENTS);
+    Event[] recommendedEvents = getEvents(program, Info.UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
       LocalDate eventCreated = event.getCreationDate();
@@ -89,7 +86,7 @@ public class EventMethods {
   //a method for filtering events
 
   public Event[] filterEvents(String program, String[] tags) {
-    Event[] programEvents = getEvents(program, UPCOMING_EVENTS);
+    Event[] programEvents = (program.equals(Info.STAFF_FILTER) ? getHostingEvents(master.getCurrentUser(), Info.UPCOMING_EVENTS) : getEvents(program, Info.UPCOMING_EVENTS));
     ArrayList<Event> filteredEvents = new ArrayList<>();
     // Loops through all the events at first:
     for (int i = 0; i < programEvents.length; i++) {
