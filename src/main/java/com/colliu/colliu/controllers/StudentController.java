@@ -5,14 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import miscellaneous.Style;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
-
-  final private String OUTLINE_BAD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color: #f6a8a6; -fx-border-style: solid;";
-  final private String OUTLINE_GOOD = "-fx-border-radius:1; -fx-border-width: 1; -fx-border-color:  rgb(192,236,204); -fx-border-style: solid;";
+  private MasterController master;
 
   @FXML
   private Button btnRegister;
@@ -57,7 +56,6 @@ public class StudentController implements Initializable {
 
   @FXML
   private TextField tfStudentEmail;
-  private MasterController master;
 
   // Tells user what input is wrong if it is, otherwise it creates a student
   @FXML
@@ -65,19 +63,19 @@ public class StudentController implements Initializable {
     // Checks if the Email that the user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the user if any of these are fulfilled.
     if (tfStudentEmail.getText().isBlank()) {
       lblWarning.setText("Email cannot be blank");
-      tfStudentEmail.setStyle(OUTLINE_BAD);
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email name cannot be blank");
     } else if (!tfStudentEmail.getText().endsWith("student.gu.se")) {
       lblWarning.setText("Email must end with: 'student.gu.se'");
-      tfStudentEmail.setStyle(OUTLINE_BAD);
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email must end with: 'student.gu.se'");
     } else if (tfStudentEmail.getText().contains(" ")) {
       lblWarning.setText("Email cannot contain any blank spaces");
-      tfStudentEmail.setStyle(OUTLINE_BAD);
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email cannot contain any blank spaces");
     } else {
       lblWarning.setText("");
-      tfStudentEmail.setStyle(OUTLINE_GOOD);
+      tfStudentEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
     if (master.findUser(tfStudentEmail.getText()) != null){
       lblWarning.setText("Email is already registered");
@@ -88,62 +86,62 @@ public class StudentController implements Initializable {
     // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
-      tfFirstName.setStyle(OUTLINE_BAD);
+      tfFirstName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("First name cannot be blank");
     } else if (tfFirstName.getText().matches(("(.*[0-9].*)"))) {
       lblWarning.setText("First name cannot contain any numbers");
-      tfFirstName.setStyle(OUTLINE_BAD);
+      tfFirstName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("First name cannot contain any numbers");
     } else {
       lblWarning.setText("");
-      tfFirstName.setStyle(OUTLINE_GOOD);
+      tfFirstName.setStyle(Style.TEXTFIELD_GREEN);
     }
     // Write comment here
     if (tfLastName.getText().isBlank()) {
       lblWarning.setText("Last name cannot be blank.");
-      tfLastName.setStyle(OUTLINE_BAD);
+      tfLastName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Last name cannot be blank");
     } else if (tfLastName.getText().matches(("(.*[0-9].*)"))) {
       lblWarning.setText("Last name cannot " +  System.lineSeparator() + " contain any numbers");
-      tfLastName.setStyle(OUTLINE_BAD);
+      tfLastName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Last name cannot contain any numbers");
     } else {
       lblWarning.setText("");
-      tfLastName.setStyle(OUTLINE_GOOD);
+      tfLastName.setStyle(Style.TEXTFIELD_GREEN);
     }
     // // Checks that password is between 12-20 characters, that it has at least one uppercase and one lowercase character, that it contains at least one number, that it doesn't contain any blank spaces and that the password and confirm password text field matches.
     if (tfPassword.getText().isBlank()) {
       lblWarning.setText("Password cannot be blank");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password cannot be blank");
     } else if (tfPassword.getText().length() < 11 || tfPassword.getText().length() > 20) {
       lblWarning.setText("Password must be between 12 and 20 characters");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must be between 12 and 20 characters");
     } else if (!tfPassword.getText().matches("(.*[A-Z].*)")) {
       lblWarning.setText("Password must contain at least one uppercase letter");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one uppercase letter");
     } else if (!tfPassword.getText().matches("(.*[a-z].*)")) {
       lblWarning.setText("Password must contain at least one lowercase character");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one lowercase character");
     } else if (!tfPassword.getText().matches("(.*[0-9].*)")) {
       lblWarning.setText("Password must contain at least one number");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one number");
     } else if (tfPassword.getText().contains(" ")) {
       lblWarning.setText("Passwords cannot contain blank spaces");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Passwords cannot contain blank spaces");
     }
     if (!tfPassword.getText().equals(tfConfirmPassword.getText())) {
       lblWarning.setText("Passwords does not match");
-      tfPassword.setStyle(OUTLINE_BAD);
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Passwords does not match");
     } else {
       lblWarning.setText("");
-      tfPassword.setStyle(OUTLINE_GOOD);
+      tfPassword.setStyle(Style.TEXTFIELD_GREEN);
     }
     // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {

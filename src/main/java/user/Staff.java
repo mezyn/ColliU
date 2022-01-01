@@ -1,5 +1,7 @@
 package user;
 
+import miscellaneous.Info;
+
 /** Staff class.
  *
  */
@@ -10,6 +12,6 @@ public class Staff extends User {
    */
 
   public Staff(String email, String password, String firstName, String lastName) throws Exception{
-    super(email, password, firstName, lastName, 3);
+    super(email, password, firstName, lastName, Info.TYPE_STAFF);
   }
 }

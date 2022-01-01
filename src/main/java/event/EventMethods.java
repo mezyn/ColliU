@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class EventMethods {
 
-  ArrayList<Event> events;
-  MasterController master;
+  private final ArrayList<Event> events;
+  private final MasterController master;
 
   public EventMethods(MasterController masterClass) {
     master = masterClass;
@@ -26,9 +26,6 @@ public class EventMethods {
     return events.add(new Event(events.size(), name, eventDate, time, location, description, category, program, host));
   }
 
-  public void addReaction(String guEmail, int reaction,  String name, int eventIndex) {
-    events.get(eventIndex).addReaction(guEmail, reaction, name);
-  }
 
   /*¢
   ***********
@@ -41,6 +38,7 @@ public class EventMethods {
   It then loops through this array and compares it with events that haven't expired
   Then it returns an array of the Id of all those events.
    */
+
   public Event[] getEvents(String program, int type) {
     if (program.equals(Info.STAFF_FILTER)) {
       return getHostingEvents(master.getCurrentUser(), Info.UPCOMING_EVENTS);
@@ -74,8 +72,6 @@ public class EventMethods {
     Event[] recommendedEvents = getEvents(program, Info.UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
-      LocalDate eventCreated = event.getCreationDate();
-      boolean isActive = event.isActive();
       if (!event.getSeenBy().contains(email) && event.getDate().isAfter(LocalDate.now())) {
         notSeenEvents.add(event);
       }

@@ -23,15 +23,19 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import miscellaneous.Info;
 import miscellaneous.Style;
+import user.User;
 
 public class EventItem {
-  double normalHeight;
-  double detailsHeight;
-  boolean attending;
-  Event event;
-  SequentialTransition emojiAnimation;
-  SequentialTransition activeReaction;
-  ImageView activeReactionImage;
+  private double fullHeight;
+  private double detailsHeight;
+  private boolean attending;
+  private Event event;
+  private SequentialTransition emojiAnimation;
+  private SequentialTransition activeReaction;
+  private ImageView activeReactionImage;
+  private ImageView imgUserReaction;
+  private MasterController master;
+  private User currentUser;
 
   @FXML
   private Label lblAttendees;
@@ -90,24 +94,20 @@ public class EventItem {
   @FXML
   private VBox vbAttendees;
 
-  private ImageView imgUserReaction;
-
-  private MasterController master;
-
   @FXML
   void attendEvent() {
     setAttending(!attending);
   }
 
   @FXML
-  void spinReaction(MouseEvent event) {
+  void onEmojiMouseEntered(MouseEvent event) {
     // Gets the image that is hovered
     ImageView reaction = ((ImageView) event.getSource());
     spinEmoji(reaction);
   }
 
   @FXML
-  void unSpin(MouseEvent event) {
+  void onEmojiMouseExited(MouseEvent event) {
     // Get image that was hovered
     ImageView reaction = ((ImageView) event.getSource());
     stopEmoji(reaction);
@@ -116,7 +116,7 @@ public class EventItem {
   @FXML
   void showDetails() {
     boolean showDetails = !(pnEventDetails.isVisible());
-    spAllEvent.setMaxHeight((showDetails ? normalHeight : normalHeight - detailsHeight));
+    spAllEvent.setMaxHeight((showDetails ? fullHeight : fullHeight - detailsHeight));
     btnShowDetails.setText((showDetails ? "Hide Details" : "Show Details"));
     pnEventDetails.setVisible(showDetails);
   }
@@ -140,13 +140,12 @@ public class EventItem {
   }
 
   @FXML
-  void reactEvent(MouseEvent event) {
+  void onEmojiClicked(MouseEvent event) {
     ImageView reactionImage = ((ImageView) event.getSource());
-    int reaction;
-    String userEmail = master.getCurrentUser().getEmail();
-    String name = master.getCurrentUser().getFirstName() + " "
-            + master.getCurrentUser().getLastName();
+    String userEmail = currentUser.getEmail();
+    String name = currentUser.getFirstName() + " " + currentUser.getLastName();
 
+    int reaction;
     if (reactionImage.equals(imgReactionOne)) {
       reaction = 1;
     } else if (reactionImage.equals(imgReactionTwo)) {
@@ -156,6 +155,7 @@ public class EventItem {
     } else {
       reaction = 4;
     }
+
     if (activeReaction != null) {
       stopEmoji(activeReactionImage);
     }
@@ -188,6 +188,7 @@ public class EventItem {
   }
 
   public void load(Event event) {
+    currentUser = master.getCurrentUser();
     setEvent(event);
     setEventInfo();
     addReactions();
@@ -214,11 +215,11 @@ public class EventItem {
     this.txtDescription.setText(details);
 
     // Get full height of event and only detail's height.
-    normalHeight = spAllEvent.getPrefHeight();
+    fullHeight = spAllEvent.getPrefHeight();
     detailsHeight = pnEventDetails.getPrefHeight();
 
     // Remove event detail's height from the event.
-    double smallHeight = normalHeight - detailsHeight;
+    double smallHeight = fullHeight - detailsHeight;
     spAllEvent.setMaxHeight(smallHeight);
 
     // Controlling functionality of event buttons
@@ -276,14 +277,12 @@ public class EventItem {
     if (activeReaction != null) {
       activeReaction.stop();
       emojiAnimation.stop();
-      System.out.println("Should stop active Sequential Transition");
     }
     if (imgUserReaction != null && imgUserReaction != activeReactionImage) {
       stopEmoji(imgUserReaction);
       activeReaction = spinEmoji(imgUserReaction);
       activeReaction.play();
       activeReactionImage = imgUserReaction;
-      System.out.println("Should start new Sequential Transition");
     }
 
     // Create a new array of nodes with either 2 slots or the size of arraylist.
@@ -299,10 +298,9 @@ public class EventItem {
     // If there are no reactions we let the user know
     // If there's only one reaction we'll add an empty one to make colors look good.
     if (size == 0) {
-      final String noReacts = "No reactions yet.";
       final boolean empty = true;
 
-      reactionList[0] = infoPane(noReacts, null, empty);
+      reactionList[0] = infoPane(Info.EMPTY_REACTIONS, null, empty);
     }
 
     vbReactions.setSpacing(2);
@@ -328,7 +326,7 @@ public class EventItem {
       for (String[] reaction : reactions) {
         switch (i) {
           case 1:
-            if (reaction[1].equals("1")) {
+            if (reaction[1].equals(Info.REACTION_SMILE)) {
               sortedReactions.add(reaction);
               if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionOne;
@@ -336,7 +334,7 @@ public class EventItem {
             }
             break;
           case 2:
-            if (reaction[1].equals("2")) {
+            if (reaction[1].equals(Info.REACTION_HAPPY)) {
               sortedReactions.add(reaction);
               if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionTwo;
@@ -344,7 +342,7 @@ public class EventItem {
             }
             break;
           case 3:
-            if (reaction[1].equals("3")) {
+            if (reaction[1].equals(Info.REACTION_SHOCK)) {
               sortedReactions.add(reaction);
               if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionThree;
@@ -352,7 +350,7 @@ public class EventItem {
             }
             break;
           default:
-            if (reaction[1].equals("4")) {
+            if (reaction[1].equals(Info.REACTION_LOVE)) {
               sortedReactions.add(reaction);
               if (reaction[0].equals(userEmail)) {
                 imgUserReaction = imgReactionFour;
@@ -380,15 +378,14 @@ public class EventItem {
       String last = master.findUser(attendees.get(i)).getLastName();
       String name = first + " " + last;
 
-      attendeeList[i] = infoPane(name, "", false);
+      attendeeList[i] = infoPane(name, Info.REACTION_BLANK, false);
     }
     if (size == 0) {
-      attendeeList[0] = infoPane("No attendees yet.",  "",  true);
+      attendeeList[0] = infoPane(Info.EMPTY_ATTENDEES,  Info.REACTION_BLANK,  true);
     }
 
     vbAttendees.setSpacing(2);
     vbAttendees.getChildren().setAll(attendeeList);
-    vbAttendees.setStyle("-fx-background-color:#FFF");
     int height = size > 2 ? (size > 15 ? 15 * 14 : size * 14) : 0;
     double layoutY = 210 - height;
     stpAttendees.setLayoutY(layoutY);
@@ -396,20 +393,25 @@ public class EventItem {
 
   private Pane infoPane(String text, String react, boolean empty) {
     Pane pnReaction = new Pane();
-    pnReaction.setStyle("-fx-background-color:#FFF");
+    pnReaction.setStyle(Style.BACKGROUND_WHITE);
     Label lblReactionText = new Label(text);
 
     if (empty) {
-      lblReactionText.setStyle("-fx-font-weight: bold;");
+      lblReactionText.setStyle(Style.LABEL_NORMAL_FAT);
       lblReactionText.setPrefWidth(150);
       lblReactionText.setAlignment(Pos.TOP_CENTER);
     } else {
       String img = switch (react) {
-        case "1" -> String.valueOf(MasterController.class.getResource("images/reaction_one.png"));
-        case "2" -> String.valueOf(MasterController.class.getResource("images/reaction_two.png"));
-        case "3" -> String.valueOf(MasterController.class.getResource("images/reaction_three.png"));
-        default -> String.valueOf(MasterController.class.getResource("images/reaction_four.png"));
+        case Info.REACTION_SMILE ->
+            String.valueOf(MasterController.class.getResource(Info.RESOURCE_IMAGE_SMILE));
+        case Info.REACTION_HAPPY ->
+            String.valueOf(MasterController.class.getResource(Info.RESOURCE_IMAGE_HAPPY));
+        case Info.REACTION_SHOCK ->
+            String.valueOf(MasterController.class.getResource(Info.RESOURCE_IMAGE_SHOCK));
+        default ->
+            String.valueOf(MasterController.class.getResource(Info.RESOURCE_IMAGE_LOVE));
       };
+
       ImageView ivEmoji = new ImageView(img);
       ivEmoji.maxWidth(16);
       ivEmoji.maxHeight(16);

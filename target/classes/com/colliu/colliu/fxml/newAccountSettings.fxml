@@ -45,9 +45,9 @@
             </VBox>
             <ScrollPane hbarPolicy="NEVER" layoutX="25.0" layoutY="109.0" style="-fx-box-border: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane prefHeight="599.0" prefWidth="723.0" style="-fx-background-color: #FFF;">
+                  <AnchorPane fx:id="apAccountSettings" prefHeight="599.0" prefWidth="723.0" style="-fx-background-color: #FFF;">
                      <children>
-                        <VBox layoutX="67.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
+                        <VBox fx:id="vbName" layoutX="67.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label text="First name">
                                  <font>
@@ -71,7 +71,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox layoutX="414.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
+                        <VBox fx:id="vbSurname" layoutX="414.0" layoutY="65.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label text="Last name">
                                  <font>
@@ -95,9 +95,9 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox layoutX="67.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
+                        <VBox fx:id="vbPassword" layoutX="67.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
                            <children>
-                              <Label text="Modify password">
+                              <Label maxWidth="1.7976931348623157E308" text="Modify password">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -114,7 +114,7 @@
                               </PasswordField>
                               <AnchorPane>
                                  <children>
-                                    <Label fx:id="lblWarningPassword" alignment="TOP_LEFT" maxHeight="80.0" maxWidth="200.0" prefWidth="200.0" style="-fx-text-fill: rgb(246, 168, 166); -fx-line-spacing: -7;">
+                                    <Label fx:id="lblWarningPassword" alignment="TOP_LEFT" maxHeight="80.0" minWidth="200.0" style="-fx-text-fill: rgb(246, 168, 166); -fx-line-spacing: -7;">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -123,20 +123,15 @@
                               </AnchorPane>
                            </children>
                         </VBox>
-                        <VBox fx:id="vbStudies" layoutX="414.0" layoutY="200.0" prefWidth="200.0" spacing="5.0">
+                        <VBox fx:id="vbStudies" layoutX="414.0" layoutY="200.0" spacing="5.0">
                            <children>
                               <Label text="Your studies">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cbPrograms" onAction="#onComboBoxSelect" prefHeight="30.0" prefWidth="200.0" promptText="Program" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
-                              <ComboBox fx:id="cbGraduationYear" onAction="#onComboBoxSelect" prefWidth="200.0" promptText="Graduation year" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
-                              <Label fx:id="lblWarningStudies" style="-fx-text-fill: rgb(246, 168, 166);">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
+                              <ComboBox fx:id="cbPrograms" minWidth="200.0" onAction="#onComboBoxSelect" prefHeight="30.0" promptText="Program" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
+                              <ComboBox fx:id="cbGraduationYear" maxWidth="1.7976931348623157E308" minWidth="200.0" onAction="#onComboBoxSelect" promptText="Graduation year" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
                            </children>
                         </VBox>
                         <Pane fx:id="adminSettings" layoutX="67.0" layoutY="385.0" prefHeight="200.0" prefWidth="547.0" style="-fx-border-color: #DDD; -fx-background-color: #FFF;">

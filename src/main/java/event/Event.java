@@ -112,8 +112,7 @@ public class Event {
    */
 
   public void addAttendee(String email) {
-    int index = attending.indexOf(email);
-    if (index == -1) { //If no match found
+    if (!attending.contains(email)) {
       attending.add(email);
     }
   }
@@ -152,7 +151,9 @@ public class Event {
     active = status;
   }
 
-  public void setDescription(String newDescription){this.description = newDescription;}
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
+  }
 
   public String getTime() {
     return time;

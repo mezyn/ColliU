@@ -66,7 +66,7 @@ MasterController {
   public void showRegisterStudent() {
     closeWindow();
 
-    FXMLLoader studentLoader = showWindow(Info.REGISTER_STUDENT);
+    FXMLLoader studentLoader = showWindow(Info.RESOURCE_REGISTER_STUDENT);
     StudentController studentController = studentLoader.getController();
     studentController.setMaster(this);
   }
@@ -74,14 +74,14 @@ MasterController {
   public void showRegisterStaff() { //button that opens staff registration screen
     closeWindow();
 
-    FXMLLoader staffLoader = showWindow(Info.REGISTER_STAFF);
+    FXMLLoader staffLoader = showWindow(Info.RESOURCE_REGISTER_STAFF);
     StaffController staffController = staffLoader.getController();
     staffController.setMaster(this);
   }
 
   public void showLogin() {
     closeWindow();
-    FXMLLoader temp = showWindow(Info.LOGIN);
+    FXMLLoader temp = showWindow(Info.RESOURCE_LOGIN);
     LoginController loginController = temp.getController();
     MasterController newMaster = new MasterController();
     newMaster.setStage(latestStage);
@@ -90,7 +90,7 @@ MasterController {
 
   public void showEventPage() {
     closeWindow();
-    FXMLLoader temp = showWindow(Info.HOMEPAGE);
+    FXMLLoader temp = showWindow(Info.RESOURCE_HOMEPAGE);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
     eventController.load();
@@ -98,7 +98,7 @@ MasterController {
 
   public void showEventCreationPage() {
     closeWindow();
-    FXMLLoader eventCreateLoader = showWindow(Info.EVENT_CREATION);
+    FXMLLoader eventCreateLoader = showWindow(Info.RESOURCE_EVENT_CREATION);
     CreateEventController eventCreateController = eventCreateLoader.getController();
     eventCreateController.setMaster(this);
     eventCreateController.load();
@@ -106,7 +106,7 @@ MasterController {
 
   public void showProfileSettingsPage() {
     closeWindow();
-    FXMLLoader profileLoader = showWindow(Info.ACCOUNT_SETTINGS);
+    FXMLLoader profileLoader = showWindow(Info.RESOURCE_ACCOUNT_SETTINGS);
     ProfileController profileController = profileLoader.getController();
     profileController.setMaster(this);
     profileController.load();
@@ -129,7 +129,7 @@ MasterController {
   }
 
   private void showError(String errorMessage) {
-    FXMLLoader errorLoader = showWindow(Info.ERROR_PAGE);
+    FXMLLoader errorLoader = showWindow(Info.RESOURCE_ERROR_PAGE);
     ErrorController errorController = errorLoader.getController();
     errorController.setError(errorMessage);
   }

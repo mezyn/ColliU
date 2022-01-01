@@ -8,12 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
+import miscellaneous.Info;
 import user.User;
 
 public class LoginController {
-
-  MasterController master;
-
+  private MasterController master;
   private String[][] loginDetails;
 
   @FXML
@@ -28,16 +27,6 @@ public class LoginController {
   @FXML
   private Label warningLabel;
 
-  @FXML
-  private Pane accountBannedPane;
-
-  @FXML
-  private Button btnAccountBannedOK;
-
-  @FXML
-  void onButtonPressAccountBannedOK(ActionEvent event) throws Exception {
-    accountBannedPane.setVisible(false);
-  }
 
   /* Upon login button click, the system checks if the input email is already registered in the system as well as
 if the input password matches the email address. If both are correct, the user succeeds to log in and will be sent
@@ -49,9 +38,9 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     String uPassword = password.getText();
 
     if (uEmail.isBlank()) {                              //checks if email field is empty
-      warningLabel.setText("Email address cannot be empty.");
+      warningLabel.setText(Info.EMPTY_EMAIL);
     } else if (uPassword.isBlank()) {                      //check if password field is empty
-      warningLabel.setText("Password cannot be empty.");
+      warningLabel.setText(Info.EMPTY_PASSWORD);
     } else {
       boolean validLogin = master.validateLogin(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the user
       if (validLogin) {
@@ -59,12 +48,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         master.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
         if (accountStatus) {
-          warningLabel.setText("Account is permanently banned.");
+          warningLabel.setText(Info.ACCOUNT_STATUS_BANNED);
         } else {
           master.showEventPage();
         }
       } else {
-        warningLabel.setText("Email or Password is incorrect.");
+        warningLabel.setText(Info.INCORRECT_LOGIN);
       }
     }
 

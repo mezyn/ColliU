@@ -19,4 +19,7 @@ public class Style {
 
   static final public String TOGGLESWITCH = "-fx-border-radius:15;";
   static final public String BACKGROUND_BLUE = "-fx-background-color:  rgb(165,200,228);";
+  static final public String BACKGROUND_LIGHTGRAY = "-fx-background-color: #FAFAFA;";
+  static final public String BACKGROUND_NONE = "-fx-background: none;";
+  static final public String BACKGROUND_WHITE = "-fx-background: #FFF;";
 }

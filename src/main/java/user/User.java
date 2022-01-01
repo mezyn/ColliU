@@ -16,7 +16,6 @@ public abstract class User {
   private String lastName;
   private ArrayList<Date> logins;
   private boolean accountBanned;
-  private ArrayList<Integer> courses; // Store only course ID here. Then use the ID to find the actual course object.
 
   public User() {
 
@@ -93,18 +92,5 @@ public abstract class User {
   public void setAccountStatus(boolean bannedStatus) {
     this.accountBanned = bannedStatus;
   }
-
-
-
-
-
-// Login function
-  public void login() {
-    logins.add(new Date());
-  }
-
-  // Returns all user logins as an array.
-  public Date[] getLogins() {
-    return logins.toArray(new Date[0]);
-  }
+  
 }

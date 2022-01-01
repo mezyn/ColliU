@@ -1,9 +1,20 @@
 package miscellaneous;
 
+import javax.swing.*;
+
 public class Info {
   public static final String INCORRECT_PASSWORD = "Invalid password.";
   public static final String INCORRECT_EMAIL = "Email doesn't match any users.";
   public static final String INCORRECT_LOGIN = "Email or Password is incorrect.";
+
+  public static final String EMPTY_NAME = "Name cannot be empty.";
+  public static final String EMPTY_PASSWORD = "Password cannot be empty.";
+  public static final String EMPTY_EMAIL = "Email address cannot be empty.";
+  public static final String EMPTY_REACTIONS = "No reactions yet.";
+  public static final String EMPTY_ATTENDEES = "No attendees yet.";
+
+  public static final String ACCOUNT_STATUS_BANNED = "Account is permanently banned.";
+
   public static final String FAIL_SAVE_USERS = "Could not save users to: Students.JSON and/or Staff.JSON.";
   public static final String FAIL_SAVE_EVENTS = "Could not save events to: Event.JSON.";
   public static final String NO_USER_FILE = "Missing file(s): Student.JSON or Staff.JSON in documents/ColliU/ directory.";
@@ -29,21 +40,44 @@ public class Info {
   public static final String KOG = "Cognitive science";
   public static final String SVET = "Systems science";
   public static final String DVET = "Computer science";
+
   public static final int UPCOMING_EVENTS = 1;
   public static final int PAST_EVENTS = 2;
   public static final int ATTENDING_EVENTS = 3;
+
   public static final int TYPE_STUDENT = 1;
   public static final int TYPE_ADMIN = 2;
   public static final int TYPE_STAFF = 3;
 
+  public static final String REACTION_SMILE = "1";
+  public static final String REACTION_HAPPY = "2";
+  public static final String REACTION_SHOCK = "3";
+  public static final String REACTION_LOVE = "4";
+  public static final String REACTION_BLANK = "";
+
+
   public static final String[] CATEGORIES = { "Gaming", "Guest Lecture", "Hackathon",
       "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others" };
   public static final String STAFF_FILTER = "ALL";
-  public static final String ERROR_PAGE = "ErrorPage.fxml";
-  public static final String ACCOUNT_SETTINGS = "newAccountSettings.fxml";
-  public static final String EVENT_CREATION = "EventCreationPage.fxml";
-  public static final String HOMEPAGE = "EventPage.fxml";
-  public static final String LOGIN = "LoginPage.fxml";
-  public static final String REGISTER_STAFF = "staff-registration.fxml";
-  public static final String REGISTER_STUDENT = "student-registration.fxml";
+
+  /*
+      Resources such as pages / images / css files
+   */
+
+  public static final String RESOURCE_ERROR_PAGE = "ErrorPage.fxml";
+  public static final String RESOURCE_ACCOUNT_SETTINGS = "newAccountSettings.fxml";
+  public static final String RESOURCE_EVENT_CREATION = "EventCreationPage.fxml";
+  public static final String RESOURCE_HOMEPAGE = "EventPage.fxml";
+  public static final String RESOURCE_LOGIN = "LoginPage.fxml";
+  public static final String RESOURCE_REGISTER_STAFF = "staff-registration.fxml";
+  public static final String RESOURCE_REGISTER_STUDENT = "student-registration.fxml";
+  public static final String RESOURCE_IMAGE_SMILE = "images/reaction_one.png";
+  public static final String RESOURCE_IMAGE_HAPPY = "images/reaction_two.png";
+  public static final String RESOURCE_IMAGE_SHOCK = "images/reaction_three.png";
+  public static final String RESOURCE_IMAGE_LOVE = "images/reaction_four.png";
+  public static final String DOCUMENT_PATH = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "/ColliU/";
+  public static final String RESOURCE_FILE_STUDENT = DOCUMENT_PATH + "Student.JSON";
+  public static final String RESOURCE_FILE_ADMIN = DOCUMENT_PATH + "Admin.JSON";
+  public static final String RESOURCE_FILE_STAFF = DOCUMENT_PATH + "Staff.JSON";
+  public static final String RESOURCE_FILE_EVENT = DOCUMENT_PATH + "Event.JSON";
 }

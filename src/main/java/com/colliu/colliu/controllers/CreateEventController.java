@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import miscellaneous.Handle;
 import user.User;
 
 import java.io.IOException;
@@ -24,9 +25,9 @@ The goal of this class is to control EventCreation.fxml file, that is, to handle
 */
 
 public class CreateEventController {
-    MasterController master;
+    private MasterController master;
     private String time;
-    LocalDate eventDate;
+    private LocalDate eventDate;
 
     @FXML
     private ChoiceBox<String> cbCategories;
@@ -54,11 +55,6 @@ public class CreateEventController {
 
     @FXML
     private Label warningLabel;
-
-    @FXML
-    private AnchorPane anchorPane;
-
-    Stage stage;
 
     /*
     Upon 'create event' button click, the application check if the input from user is correct and valid.

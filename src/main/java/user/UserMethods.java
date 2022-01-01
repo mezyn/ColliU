@@ -13,8 +13,8 @@ import java.util.ArrayList;
  **/
 public class UserMethods {
   private ArrayList<User> users;
-  MasterController master;
-  public User currentUser;
+  private MasterController master;
+  private User currentUser;
 
   // private String loggedInUserEmail;
 
@@ -155,17 +155,9 @@ public class UserMethods {
     currentUser = user;
   }
 
-  public boolean getAccountStatus(String email) {
-    return currentUser.getAccountStatus();
-  }
-
   public User getLoggedInUser() {
     currentUser = getUserByEmail(currentUser.getEmail());
     return currentUser;
-  }
-
-  public int getCurrentUserType() {
-    return currentUser.getType();
   }
 
   public void toggleAdminStatus (String email) throws Exception {

@@ -132,11 +132,6 @@
                               </Label>
                               <ComboBox fx:id="cbPrograms" minWidth="200.0" onAction="#onComboBoxSelect" prefHeight="30.0" promptText="Program" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
                               <ComboBox fx:id="cbGraduationYear" maxWidth="1.7976931348623157E308" minWidth="200.0" onAction="#onComboBoxSelect" promptText="Graduation year" style="-fx-font-size: 14; -fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5;" />
-                              <Label fx:id="lblWarningStudies" style="-fx-text-fill: rgb(246, 168, 166);">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
                         <Pane fx:id="adminSettings" layoutX="67.0" layoutY="385.0" prefHeight="200.0" prefWidth="547.0" style="-fx-border-color: #DDD; -fx-background-color: #FFF;">

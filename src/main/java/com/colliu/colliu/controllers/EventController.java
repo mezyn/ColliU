@@ -17,19 +17,13 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javafx.scene.text.Text;
 import miscellaneous.Info;
 import miscellaneous.Style;
 import org.controlsfx.control.ToggleSwitch;
 
 public class EventController {
-
-  final String BUTTON_HOVER_ON = "-fx-background-color: #FAFAFA;";
-  final String BUTTON_HOVER_OFF = "-fx-background-color: none;";
-  final int STAFF = 3;
-  MasterController master;
-  ArrayList<String> tags = new ArrayList<>();
+  private MasterController master;
+  private ArrayList<String> tags = new ArrayList<>();
 
 
   @FXML
@@ -167,8 +161,8 @@ public class EventController {
   void toggleDropDown(MouseEvent event) {
     boolean isClicked = !vbNameDropDown.isVisible();
     vbNameDropDown.setVisible(isClicked);
-    String userNameEffectOn = BUTTON_HOVER_ON + "-fx-border-width: 0 1 1 1; -fx-border-style: solid; -fx-border-color: #FAFAFA;";
-    pnUserName.setStyle((isClicked ? userNameEffectOn : BUTTON_HOVER_OFF));
+    String userNameEffect = Style.BACKGROUND_LIGHTGRAY + "-fx-border-width: 0 1 1 1; -fx-border-style: solid; -fx-border-color: #FAFAFA;";
+    pnUserName.setStyle((isClicked ? userNameEffect : Style.BACKGROUND_NONE));
     btnArrowPoint.setText((isClicked ? "▲" : "▼"));
   }
 
@@ -184,22 +178,22 @@ public class EventController {
 
   @FXML
   void hoverEffectOn(MouseEvent event) {
-    ((Button) event.getSource()).setStyle(BUTTON_HOVER_ON);
+    ((Button) event.getSource()).setStyle(Style.BACKGROUND_LIGHTGRAY);
   }
 
   @FXML
   void hoverEffectOff(MouseEvent event) {
-    ((Button) event.getSource()).setStyle(BUTTON_HOVER_OFF);
+    ((Button) event.getSource()).setStyle(Style.BACKGROUND_NONE);
   }
 
   @FXML
   void nameHoverOn(MouseEvent event) {
-    pnUserName.setStyle(BUTTON_HOVER_ON);
+    pnUserName.setStyle(Style.BACKGROUND_LIGHTGRAY);
   }
 
   @FXML
   void nameHoverOff(MouseEvent event) {
-    pnUserName.setStyle(BUTTON_HOVER_OFF);
+    pnUserName.setStyle(Style.BACKGROUND_NONE);
   }
 
   /*
@@ -240,7 +234,7 @@ public class EventController {
     Event[] allEvents = master.getUpcomingEvents();
     setLoggedInName();
     loadEvents(allEvents);
-    if (master.getCurrentUser().getType() != STAFF) {
+    if (master.getCurrentUser().getType() != Info.TYPE_STAFF) {
       vbNameDropDown.getChildren().remove(btnCreateEvent);
       loadNotifications();
     } else {
