@@ -14,30 +14,28 @@ import java.util.Date;
  */
 
 public class Event {
-  //About event information
   private final Date creationDate;
   private final int id;
   private String time;
-  //Related to the method of addEvent(String name, Date eventDate, String location, int courseId) in the EventController class,
-  // you might want to explain what's the system in providing id to each event;
-  // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
   private Date date;
   private String location;
   private String description;
   private String category;
-  private String program; //relevant study program
-  private boolean active; //check whether the event has passed
-  private String host; //check who is the host of event with the host's email address
-  private final ArrayList<String> attending; //a list of attendees to events
+  private String program;
+  private boolean active;
+  private String host;
+  private final ArrayList<String> attending;
   private final ArrayList<String> seenBy;
-  private final ArrayList<String[]> reactions;
 
+  /** Constructor for Event class.
+   *
+   */
   public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
     this.id = id;
     this.title = title;
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    //System.out.println(date);
+    System.out.println(date);
     this.location = location;
     this.description = description;
     this.category = category;
@@ -48,15 +46,9 @@ public class Event {
     seenBy = new ArrayList<>();
     active = true;
     this.host = host;
-    reactions = new ArrayList<>();
+
   }
 
-  /*
-  ********************
-  Retrieve information
-  ********************
-   */
-//Getters and setters
   public String getTitle() {
     return this.title;
   }
@@ -104,19 +96,15 @@ public class Event {
   public boolean isActive() {
     return active; // true if active, False if not.
   }
-
-  /*
-  *******************
-     Modify object 
-  *******************
-   */
-
+  /** Method for adding an attendee to event. **/
   public void addAttendee(String email) {
-    if (!attending.contains(email)) {
+    int index = attending.indexOf(email);
+    if (index == -1) { //If no match found
       attending.add(email);
     }
   }
 
+  /** Method for deleting an attendee to event. **/
   public void delAttendee(String email) {
     int index = attending.indexOf(email);
     if (index != -1) {
@@ -124,21 +112,24 @@ public class Event {
     }
   }
 
-
+/**Method is not used. Could be used for viewing which users have seen the event.**/
   public void addSeenBy(String email) {
     if (!seenBy.contains(email)) {
       seenBy.add(email);
     }
   }
 
+  /**Method is not used. Could be used to update the title the time of an Event. **/
   public void setDate(LocalDate newDate) {
     this.date = Date.from(newDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
   }
 
+  /**Method is not used. Could be used to update the location of an Event. **/
   public void setLocation(String newLocation) {
     this.location = newLocation;
   }
 
+  /**Method is not used. Could be used to update the title of an Event. **/
   public void setTitle(String newName) {
     this.title = newName;
   }
@@ -147,12 +138,9 @@ public class Event {
     this.program = newProgram;
   }
 
+  /**Method is not used. Could be used for setting user status to active or not active. **/
   public void setStatus(boolean status) {
     active = status;
-  }
-
-  public void setDescription(String newDescription) {
-    this.description = newDescription;
   }
 
   public String getTime() {
@@ -162,35 +150,4 @@ public class Event {
   public String getHost() {
     return host;
   }
-
-  public boolean addReaction(String email, int reaction, String name) {
-    String[] info = new String[3];
-    info[0] = email;
-    info[1] = "" + reaction;
-    info[2] = name;
-    boolean removeReaction = false;
-    int index = -1;
-    for (int i = 0; i < reactions.size(); i++) {
-      if (reactions.get(i)[0].equals(info[0])) {
-        index = i;
-        removeReaction = (reactions.get(i)[1].equals(info[1]));
-        break;
-      }
-    }
-    if (index >= 0 && !removeReaction) {
-      reactions.set(index, info);
-      return false;
-    } else if (index >= 0 && removeReaction) {
-      reactions.remove(index);
-      return true;
-    } else {
-      reactions.add(info);
-      return false;
-    }
-  }
-
-  public ArrayList<String[]> getReactions() {
-    return reactions;
-  }
-
 }
