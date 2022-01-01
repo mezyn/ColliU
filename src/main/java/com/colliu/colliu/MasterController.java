@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import miscellaneous.Data;
-import miscellaneous.Info;
 import user.*;
 
 /**
@@ -32,7 +31,18 @@ MasterController {
   private Stage previousStage;
   public User user;
 
-
+  private final String FAIL_SAVE_USERS = "Could not save users to: Students.JSON and/or Staff.JSON.";
+  private final String FAIL_SAVE_EVENTS = "Could not save events to: Event.JSON.";
+  private final String NO_USER_FILE = "Missing file(s): Student.JSON or Staff.JSON in documents/ColliU/ directory.";
+  private final String USER_FILE_CORRUPT = "User file(s): Student.JSON or Staff.JSON are corrupt and can not be loaded.";
+  private final String CANT_PROMOTE_STUDENT = "An error was caught when promoting student: ";
+  private final String CANT_CREATE_STAFF = "An error was caught when creating new staff: ";
+  private final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
+  private final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
+  private final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
+  private final int UPCOMING_EVENTS = 1;
+  private final int PAST_EVENTS = 2;
+  private final int ATTENDING_EVENTS = 3;
 
   public MasterController() {
     json = new Data();
@@ -40,6 +50,7 @@ MasterController {
     eventMethods = new EventMethods(this);
   }
 
+  /**This method ensures that the requested screen is shown to the user.**/
   private FXMLLoader showWindow(String fileName) {
     fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileName));
@@ -58,68 +69,85 @@ MasterController {
 
     } catch (IOException e) {
       showError("Could not load: " + System.lineSeparator() + fileName);
-      e.printStackTrace();
     }
     return fxmlLoader;
   }
 
+  /**This method opens the student registration screen. **/
   public void showRegisterStudent() {
+    String registerStudentPage = "student-registration.fxml";
     closeWindow();
 
-    FXMLLoader studentLoader = showWindow(Info.RESOURCE_REGISTER_STUDENT);
+    FXMLLoader studentLoader = showWindow(registerStudentPage);
     StudentController studentController = studentLoader.getController();
     studentController.setMaster(this);
   }
 
+  /**This method opens the staff registration screen. **/
   public void showRegisterStaff() { //button that opens staff registration screen
+    String registerStaffPage = "staff-registration.fxml";
     closeWindow();
 
-    FXMLLoader staffLoader = showWindow(Info.RESOURCE_REGISTER_STAFF);
+    FXMLLoader staffLoader = showWindow(registerStaffPage);
     StaffController staffController = staffLoader.getController();
     staffController.setMaster(this);
   }
 
+  /**This method opens the Login screen. **/
   public void showLogin() {
+    String loginPage = "LoginPage.fxml";
     closeWindow();
-    FXMLLoader temp = showWindow(Info.RESOURCE_LOGIN);
+
+    FXMLLoader temp = showWindow(loginPage);
     LoginController loginController = temp.getController();
     MasterController newMaster = new MasterController();
     newMaster.setStage(latestStage);
     loginController.setMaster(newMaster);
   }
 
-  public void showEventPage() {
+  /**This method opens the Event / Home screen. **/
+  public void showEventPage() throws Exception {
+    String eventPage = "EventPage.fxml";
     closeWindow();
-    FXMLLoader temp = showWindow(Info.RESOURCE_HOMEPAGE);
+    FXMLLoader temp = showWindow(eventPage);
     EventController eventController = temp.getController();
     eventController.setMaster(this);
-    eventController.load();
+    eventController.loadEvents(getUpcomingEvents());
   }
 
-  public void showEventCreationPage() {
+  /**This method opens the Create Event screen. **/
+  public void showEventCreationPage() throws IOException {
+    String eventCreationPage = "EventCreationPage.fxml";
     closeWindow();
-    FXMLLoader eventCreateLoader = showWindow(Info.RESOURCE_EVENT_CREATION);
+    FXMLLoader eventCreateLoader = showWindow(eventCreationPage);
     CreateEventController eventCreateController = eventCreateLoader.getController();
-    eventCreateController.setMaster(this);
-    eventCreateController.load();
+    //eventCreateController.setMaster(this);
   }
 
-  public void showProfileSettingsPage() {
+  public void showForgottenPassword() throws Exception {
+    String forgottenPasswordPage = "forgot-password.fxml";
+    ForgotPassword controller = showWindow(forgottenPasswordPage).getController();
+    controller.setMaster(this);
+  }
+
+  /**This method opens the Profile Settings screen. **/
+  public void showProfileSettingsPage() throws Exception {
+    String profileSettingsPage = "ProfileSettingsPage.fxml";
     closeWindow();
-    FXMLLoader profileLoader = showWindow(Info.RESOURCE_ACCOUNT_SETTINGS);
+    FXMLLoader profileLoader = showWindow(profileSettingsPage);
     ProfileController profileController = profileLoader.getController();
     profileController.setMaster(this);
-    profileController.load();
+    profileController.updateProfileTab();
   }
 
+  /**This method closes the current screen**/
   private void closeWindow() {
     if (latestStage != null) {
       latestStage.close();
-    } else {
-      System.out.println("Last stage is null ");
     }
   }
 
+  /**This method opens the last screen the user visited before the current one. **/
   public void showLastWindow() {
     Stage temp = latestStage;
     latestStage = previousStage;
@@ -128,8 +156,10 @@ MasterController {
     latestStage.show();
   }
 
+  /**This method shows an error message if an error occurs whilst running the program. **/
   private void showError(String errorMessage) {
-    FXMLLoader errorLoader = showWindow(Info.RESOURCE_ERROR_PAGE);
+    String errorPage = "ErrorPage.fxml";
+    FXMLLoader errorLoader = showWindow(errorPage);
     ErrorController errorController = errorLoader.getController();
     errorController.setError(errorMessage);
   }
@@ -139,9 +169,7 @@ MasterController {
   }
 
   /*
-  *********************
       USER HANDLING
-  *********************
    */
 
   public void setLoggedInUser(User user) {
@@ -156,108 +184,73 @@ MasterController {
     return userMethods.getUserByEmail(email);
   }
 
+  /**This method checks if the email and password are matching when the user is trying to log in. **/
   public boolean validateLogin(String uEmail, String uPassword) {
     return userMethods.checkExistingEmail(uEmail) && userMethods.validatePassword(uPassword, uEmail);
   }
-
+  /**This method checks if the password is complex enough or not when a user tries to register an account. **/
   public boolean checkPassword(String password) {
     return userMethods.checkPasswordComplexity(password);
   }
 
+  /**This method enables an administrator to ban a user through typing the registered email for  an account. **/
   public void banUser(String email) {
     userMethods.banUser(email);
   }
 
+  /**This method enables an administrator to unban a user through typing the registered email for an account. **/
   public void unbanUser(String email) {
     userMethods.unbanUser(email);
   }
 
-  public void toggleAdminStatus(String email) {
-    try {
-      userMethods.toggleAdminStatus(email);
-    } catch (Exception e) {
-      StringWriter error = new StringWriter();
-      e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_CHANGE_STATUS + System.lineSeparator() + error);
-    }
-  }
-
+  /**This method enables an administrator to change User-type from Student to Administrator. **/
   public void makeAdmin(String email) {
     try {
-      userMethods.promoteStudent(email);
+      userMethods.promoteStudentToAdmin(email);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_PROMOTE_STUDENT + System.lineSeparator() + error);
+      showError(CANT_PROMOTE_STUDENT + System.lineSeparator() + error);
     }
   }
 
-  public void demoteAdmin(String email) {
-    try {
-      userMethods.demoteAdmin(email);
-    } catch (Exception e) {
-      StringWriter error = new StringWriter();
-      e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_DEMOTE_ADMIN + System.lineSeparator() + error);
-    }
-  }
-
-  public void removeUser(String email) {
-    try {
-      userMethods.removeUser(email);
-    } catch (Exception e) {
-      StringWriter error = new StringWriter();
-      e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_REMOVE_USER + System.lineSeparator() + error);
-    }
-  }
-
+  /**This method creates an account of user type "Student". **/
   public void createStudent(String email, String password, String name, String surname, int graduationYear, String program) {
     try {
       userMethods.createStudent(email, password, name, surname, graduationYear, program);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_CREATE_STUDENT + System.lineSeparator() + error);
+      showError(CANT_CREATE_STUDENT + System.lineSeparator() + error);
     }
   }
 
-  public void createStaff(String email, String password, String name, String surname) {
+  /**This method creates an account of user type "Staff". **/
+  public void createStaff(String email, String password, String name, String surname, String department, String staffTitle) {
     try {
-      userMethods.createStaff(email, password, name, surname);
+      userMethods.createStaff(email, password, name, surname, department, staffTitle);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));
-      showError(Info.CANT_CREATE_STAFF + System.lineSeparator() + error);
+      showError(CANT_CREATE_STAFF + System.lineSeparator() + error);
     }
-  }
-
-  public void addUser(User user) {
-    userMethods.addUser(user);
   }
 
   public ArrayList<User> loadUsers() {
     try {
       return json.loadUser();
     } catch (FileNotFoundException e) {
-      showError(Info.NO_USER_FILE);
+      showError(NO_USER_FILE);
     } catch (UnsupportedEncodingException e) {
-      showError(Info.USER_FILE_CORRUPT);
+      showError(USER_FILE_CORRUPT);
     } catch (IOException e) {
-      showError(Info.NO_USER_FILE + e);
+      showError(NO_USER_FILE + e);
     }
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
-      standardUsers.add(new Administrator("gusandan@student.gu.se", "a11Black$", "Anna", "Andersson", 2024, Info.SEM));
-      standardUsers.add(new Staff("benjamin.bengtsson@gu.se", "!Lov3MyPiano", "Benjamin", "Bengtsson"));
-      standardUsers.add(new Staff("christian.carlsson@cse.gu.se", "jellY22fi$h", "Christian", "Carlsson"));
-      standardUsers.add(new Staff("info@gota.gu.se", "P^45k9jw", "Göta", "Student Union"));
-      standardUsers.add(new Student("gusdavda@student.gu.se", "!ush3R", "Daniel", "Davidsson", 2022, Info.DVET));
-      standardUsers.add(new Student("guseriem@student.gu.se", "&ebAy.44", "Emil", "Eriksson", 2023, Info.SVET));
-      standardUsers.add(new Student("gusfrefe@student.gu.se", "H!Mnpintd2r!", "Felix", "Fredriksson", 2024, Info.KOG));
-      standardUsers.add(new Student("gushenha@student.gu.se", "5wtyIbm!h", "Hans", "Henriksson", 2026, Info.SEM));
-
-
+      standardUsers.add(new Administrator("admin@student.gu.se", "Hej123123!!", "Erik", "Harring", 2024, "SEM"));
+      standardUsers.add(new Staff("staff@teacher.gu.se", "Hej123123!!", "William", "Hilmersson", "IT", "Prof."));
+      standardUsers.add(new Student("student@student.gu.se", "Hej123123!!", "Kristofer", "Koskunen", 2024, "SEM"));
       json.saveUsers(standardUsers);
       return loadUsers();
     } catch (Exception e) {
@@ -267,43 +260,12 @@ MasterController {
     }
   }
 
+  /**This method saves all registered Users to json file. **/
   public void saveUsers() {
     ArrayList<User> users = userMethods.getAllUsers();
     if (!json.saveUsers(users)) {
-      showError(Info.FAIL_SAVE_USERS);
+      showError(FAIL_SAVE_USERS);
     }
-  }
-
-  public ArrayList<User> getAllUsers() {
-    return userMethods.getAllUsers();
-  }
-
-  /*
-
-    These three methods takes an index, where in the arraylist we find our user we want to edit.
-    It also takes a String with updated info, for what we want to change.
-    The reason we take the index is in case we want to further develop the admin tools to allow manually changing user-information.
-
-   */
-
-  public void setName(int index, String name) {
-    userMethods.getAllUsers().get(index).setFirstName(name);
-  }
-
-  public void setSurname(int index, String surname) {
-    userMethods.getAllUsers().get(index).setLastName(surname);
-  }
-
-  public void setPassword(int index, String password) {
-    userMethods.getAllUsers().get(index).setPassword(password);
-  }
-
-  public void setProgram(int index, String program) {
-    ((Student) userMethods.getAllUsers().get(index)).setProgram(program);
-  }
-
-  public void setGraduation(int index, int year) {
-    ((Student) userMethods.getAllUsers().get(index)).setGraduationYear(year);
   }
 
   /*
@@ -314,25 +276,29 @@ MasterController {
     return eventMethods.getAllEvents();
   }
 
+  /**This method filters the events shown to a user. **/
   public Event[] filterEvents(String[] tags) {
-    String program = (getCurrentUser() instanceof Student ? ((Student) getCurrentUser()).getProgram() : Info.STAFF_FILTER);
-    return (tags.length > 0 ? eventMethods.filterEvents(program, tags) : eventMethods.getEvents(program, Info.UPCOMING_EVENTS));
+    String program = ((Student) getCurrentUser()).getProgram();
+    return (tags.length > 0 ? eventMethods.filterEvents(program, tags) : eventMethods.getEvents(program, UPCOMING_EVENTS));
   }
 
+  /**This method only shows upcoming Events. **/
   public Event[] getUpcomingEvents() {
-    return getEvents(Info.UPCOMING_EVENTS);
+    return getEvents(UPCOMING_EVENTS);
   }
 
+  /**This method only shows past Events. **/
   public Event[] getPastEvents() {
-    return getEvents(Info.PAST_EVENTS);
+    return getEvents(PAST_EVENTS);
   }
 
   public Event[] getAttendingEvents() {
-    return getEvents(Info.ATTENDING_EVENTS);
+    return getEvents(ATTENDING_EVENTS);
   }
 
+  /**This method shows events depending on user-type (Student or Staff). **/
   private Event[] getEvents(int type) {
-    if (getCurrentUser().getType() < Info.TYPE_STAFF ) {
+    if (getCurrentUser().getType() < 3 ) {
       String program = ((Student) getCurrentUser()).getProgram();
       return eventMethods.getEvents(program, type);
     } else {
@@ -340,35 +306,30 @@ MasterController {
     }
   }
 
+  /**This method saves all created Events to json file. **/
   public void saveEvents() {
     ArrayList<Event> events = eventMethods.getAllEvents();
     if (!json.saveEvents(events)) {
-      showError(Info.FAIL_SAVE_EVENTS);
+      showError(FAIL_SAVE_EVENTS);
     }
   }
 
+  /**This method loads all created Events from json file.**/
   public ArrayList<Event> loadEvents() {
     try {
       return json.loadEvent();
     } catch (FileNotFoundException e) {
-      showError(Info.NO_EVENT_FILE);
+      showError(NO_EVENT_FILE);
     } catch (UnsupportedEncodingException e) {
-      showError(Info.EVENT_FILE_CORRUPT);
+      showError(EVENT_FILE_CORRUPT);
     } catch (IOException e) {
-      showError(Info.NO_EVENT_FILE + e);
+      showError(NO_EVENT_FILE + e);
     }
     ArrayList<Event> standardEvents = new ArrayList<>();
-    standardEvents.add(new Event(0, "Gaming night", LocalDate.of(2022, 1, 17), "19:30", "Discord", Info.SEM, "Welcome to a great gaming event with all my favorite games!", "Gaming", "christian.carlsson@cse.gu.se"));
-    standardEvents.add(new Event(1, "'The Complications of gaming' with Isak Ingvarsson", LocalDate.of(2022, 2, 24), "13:15", "Barbord", Info.KOG, "The beloved writer Isak Ingvarsson would like to share the groundbreaking findings from his research!", "Guest Lecture", "christian.carlsson@cse.gu.se"));
-    standardEvents.add(new Event(2, "Weekend Hackathon", LocalDate.of(2022, 2, 12), "09:00", "Discord", Info.SEM, "The department of Computer science and Engineering creates an opportunity for the first year students to a hackathon with the theme of sustainable software development.", "Hackathon", "christian.carlsson@cse.gu.se"));
-    standardEvents.add(new Event(3, "Lunch Lecture with Jonathan Johansson", LocalDate.of(2022, 3, 16), "12:15", "Styrbord", Info.SVET, "Learn the new trend in the job market with free lunch!", "Lunch Lecture", "christian.carlsson@cse.gu.se"));
-    standardEvents.add(new Event(4, "Social ", LocalDate.of(2022, 2, 23), "19:30", "Discord", Info.SEM, "", "Mingle", "benjamin.bengtsson@gu.se"));
-    standardEvents.add(new Event(5, "Table Tennis", LocalDate.of(2022, 3, 06), "17:30", "Milla", Info.SEM, "The Grand Final of weekly table tennis competition.", "Sports", "benjamin.bengtsson@gu.se"));
-    standardEvents.add(new Event(6, "Tentapub", LocalDate.of(2022, 3, 25), "18:00", "Patricia", Info.SEM, "Join the tentapub after the exam! Identification required.", "Student Union", "info@gota.gu.se"));
-    standardEvents.add(new Event(7, "City walk", LocalDate.of(2022, 1, 16), "13:00", "Lindholmen Campus", Info.DVET, "[For exchange students] Let's have a walk through the city of Gothenburg and get to know the city.", "Student Union", "info@gota.gu.se"));
-    standardEvents.add(new Event(8, "GitLab Workshop", LocalDate.of(2022, 1, 18), "17:00", "Discord", Info.SEM, "Great opportunity to learn more about how GitLab works.", "Workshop", "benjamin.bengtsson@gu.se"));
-    standardEvents.add(new Event(9, "Weekend Flee Market", LocalDate.of(2022, 2, 12), "10:00", "Chalmers Johanneberg", Info.SEM, "Get the stuff you don't need anymore or come and find good stuff at a cheap price!", "Others", "benjamin.bengtsson@gu.se"));
-
+    standardEvents.add(new Event(0, "Gaming nigt with Francisco", LocalDate.of(2021, 12, 31), "19:30", "Discord", "SEM", "Welcome to a great gaming event with all my favorite games!", "Gaming", "staff@teacher.gu.se"));
+    standardEvents.add(new Event(1, "Barbecue with Christian", LocalDate.of(2022, 01, 14), "14:30", "Slottskogen", "KOG", "I sure do hope you are hungry!!", "Mingle", "Christinan.Berger@staff.gu.se"));
+    standardEvents.add(new Event(2, "Guest lecture, no lunch allowed!!", LocalDate.of(2022, 03, 24), "12.00", "Svea HL123", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Lunch lecture", "Tina.Turner@staff.gu.se"));
+    standardEvents.add(new Event(3, "You were too late for this event, HAHA!!", LocalDate.of(2021, 12, 20), "18.00", "Chalmers Property", "SEM", "VERY IMPORTANT LECTURE IN HOW TO START A COMPUTER. ATENDANCE IS MANDATORY!!!!", "Student Union", "staff@teacher.gu.se"));
     json.saveEvents(standardEvents);
     return loadEvents();
   }
@@ -378,8 +339,8 @@ MasterController {
   }
 
   public Event[] getNotifications() {
-    String userEmail = getCurrentUser().getEmail();
-    String userProgram = ((Student)getCurrentUser()).getProgram();
-    return eventMethods.getNotifications(userEmail, userProgram);
+    String uEmail = getCurrentUser().getEmail();
+    String uProgram = ((Student)getCurrentUser()).getProgram();
+    return eventMethods.getNotifications(uEmail, uProgram);
   }
 }
