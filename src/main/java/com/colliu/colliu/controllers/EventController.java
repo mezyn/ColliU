@@ -44,12 +44,6 @@ public class EventController {
 
   @FXML
   private Label filterCategory;
-/*
-Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a panel
-  @FXML
-  private ListView<String> filterList;
-  String[] categories = {"Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture","Mingle","Sports","Student Union", "Workshop","Others"};
-    */
 
   @FXML
   private Pane filterPane;
@@ -140,6 +134,8 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
   }
 
+  /**This method alters which information about the event that is shown to the user depending on if the Event is
+   a past or upcoming event.**/
   @FXML
   void eventView(ActionEvent event) {
     Button clicked = ((Button) event.getSource());
@@ -167,11 +163,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     }
   }
 
-  /*
-    This method loads all the events;
-    To make it work for tags you can add paremeters as needed:
-   */
-
+  /**This method loads all the events without filtering. **/
   public void loadEvents(Event[] events) throws IOException {
     eventItems.getChildren().clear(); // resets VBox contents(event list)
     int size = events.length;
@@ -203,10 +195,10 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
 
     for (int i = 0; i < size; i++) {
       notifications[i] = new Pane();
-      //notifications[i]
     }
   }
 
+  /**This method shows or/and hides options by the user profile Icon depending on which of the arrows is pressed. **/
   @FXML
   void toggleDropDown(MouseEvent event) {
     boolean isClicked = !vbNameDropDown.isVisible();
@@ -217,35 +209,41 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
   }
 
   @FXML
+  /**This method redirects the user to their Profile Settings page if the button is clicked. **/
   void openProfileSettings(ActionEvent event) {
-
   }
 
+  /**This method logs out the user when the logout button is clicked. **/
   @FXML
   void logOutUser(ActionEvent event) {
     master.showLogin();
   }
 
+  /**This method creates a hovering effect when the user is hovering over the button. **/
   @FXML
   void hoverEffectOn(MouseEvent event) {
     ((Button) event.getSource()).setStyle(BUTTON_HOVER_ON);
   }
 
+  /**This method removes the hovering effect when the user is not hovering over the button. **/
   @FXML
   void hoverEffectOff(MouseEvent event) {
     ((Button) event.getSource()).setStyle(BUTTON_HOVER_OFF);
   }
 
+  /**This method creates a hovering effect when the user is hovering over their name in their profile. **/
   @FXML
   void nameHoverOn(MouseEvent event) {
     pnUserName.setStyle(BUTTON_HOVER_ON);
   }
 
+  /**This method removes the hovering effect when the user is not hovering over their name in their profile. **/
   @FXML
   void nameHoverOff(MouseEvent event) {
     pnUserName.setStyle(BUTTON_HOVER_OFF);
   }
 
+  /**This method enables the user to filter shown events depending on the set event-tags.**/
   @FXML
   void onFilterClick(ActionEvent event) throws Exception {
     ArrayList<String> tags = new ArrayList<>();
@@ -282,6 +280,7 @@ Not sure how to combine ListView and Checkboxes, so I just put checkboxes in a p
     loadEvents(master.filterEvents(tagsToFilter));
   }
 
+  /**This method redirects the user(Staff) to the Create Event page. **/
   @FXML
   void createNewEvent(ActionEvent event) throws IOException {
     master.showEventCreationPage();

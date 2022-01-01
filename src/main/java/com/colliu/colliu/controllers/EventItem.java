@@ -67,11 +67,13 @@ public class EventItem {
 
   private MasterController master;
 
+  /**This method sets a users' status to Attending the event if the button is pressed. **/
   @FXML
   void attendEvent(ActionEvent event) throws IOException {
     setAttending(!attending);
   }
 
+  /**This method spins the reaction image when the user hovers over it. **/
   @FXML
   void spinReaction(MouseEvent event) throws InterruptedException {
     ImageView reaction = ((ImageView) event.getSource());
@@ -82,6 +84,7 @@ public class EventItem {
     rt.play();
   }
 
+  /**This method stops the reaction image to spin if it is not hovered over again. **/
   @FXML
   void unSpin(MouseEvent event) {
     ImageView reaction = ((ImageView) event.getSource());
@@ -92,6 +95,7 @@ public class EventItem {
     rt.stop();
   }
 
+/**This method allows the user to show the event description. **/
   @FXML
   void showDetails(ActionEvent event) {
     boolean showDetails = !(pnEventDetails.isVisible());
@@ -99,6 +103,9 @@ public class EventItem {
     btnShowDetails.setText((showDetails ? "Hide Details" : "Show Details"));
     pnEventDetails.setVisible(showDetails);
   }
+
+  /**This method gets all the information regarding the event except for the description.
+   It also switches the status between Attend/Cancel depending on if the button is pressed or not pressed. **/
 
   public void setEventInfo() {
     this.lblTitle.setText(event.getTitle());
@@ -124,6 +131,7 @@ public class EventItem {
     pnEventDetails.setVisible(false);
   }
 
+  /**This method creates a hover effect when the user is hovering the event. **/
   @FXML
   void hoverOn(MouseEvent event) {
     if(event.getSource() instanceof Button)
@@ -132,6 +140,7 @@ public class EventItem {
       ((ToggleButton) event.getSource()).setOpacity(0.8);
   }
 
+  /**This method removes the hovering effect when the user is no longer hovering the event. **/
   @FXML
   void hoverOff(MouseEvent event) {
     if(event.getSource() instanceof Button)
@@ -148,6 +157,8 @@ public class EventItem {
     this.event = event;
   }
 
+  /**This method stores the attendees of the event to the event object and alters the view depending on
+   if the user has pressed "Attend" or not. **/
   public void setAttending(boolean status) throws IOException {
     this.attending = status;
     String uEmail = master.getCurrentUser().getEmail();

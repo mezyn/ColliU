@@ -26,23 +26,14 @@ public class EventMethods {
     master = masterClass;
     events = master.loadEvents();
   }
-
-
+   /**This method adds an event when it has been created accordingly.**/
   public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
     return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
   }
 
-  /*¢
-  ***********
-    GETTERS
-  ***********
-   */
-
-  /*
-  This method takes an Array of integers with the user's courses
+  /**This method takes an Array of integers with the user's courses
   It then loops through this array and compares it with events that haven't expired
-  Then it returns an array of the Id of all those events.
-   */
+  Then it returns an array of the ID of all those events.**/
   public Event[] getEvents(String program, int type) {
     ArrayList<Event> recommendedEvents = new ArrayList<>();
     // Loop through all the courses that was sent with method
@@ -69,7 +60,8 @@ public class EventMethods {
     return recommendedEvents.toArray(new Event[0]);
   }
 
-  public Event[] getNotifications(String email, String program) { // Will return an array of all event-IDs that have not been seen
+  /** Method that returns an array of all events that have not been seen. **/
+  public Event[] getNotifications(String email, String program) {
     Event[] recommendedEvents = getEvents(program, UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
@@ -82,14 +74,13 @@ public class EventMethods {
     return notSeenEvents.toArray(new Event[0]);
   }
 
-  //a method for filtering events
-
+  /** Method for filtering events by programs or tags. **/
   public Event[] filterEvents(String program, String[] tags) {
     Event[] programEvents = getEvents(program, UPCOMING_EVENTS);
     ArrayList<Event> filteredEvents = new ArrayList<>();
-    // Loops through all the events at first:
+    // Loops through all the events at first
     for (int i = 0; i < programEvents.length; i++) {
-      // THen loops through all of the tags/filters:
+      // Then loops through all the tags/filters
       for (int j = 0; j < tags.length; j++) {
         // Checks if the category in the event is the same as one of our tags- Also checks if it's already added in our list. to avoid duplicates
         if (programEvents[i].getCategory().equals(tags[j])) {
@@ -97,7 +88,6 @@ public class EventMethods {
           filteredEvents.add(programEvents[i]);
         }
       }
-
     }
     // Returns only the filtered events:
     return filteredEvents.toArray(new Event[0]);
@@ -107,6 +97,7 @@ public class EventMethods {
     return events;
   }
 
+  /**This method stores the event created by a specific user. **/
   public Event[] getHostingEvents(User currentUser, int type) {
     ArrayList<Event> hostingEvents = new ArrayList<>();
     for (Event event : events) {

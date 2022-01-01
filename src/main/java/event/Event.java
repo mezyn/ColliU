@@ -17,9 +17,6 @@ public class Event {
   private final Date creationDate;
   private final int id;
   private String time;
-  //Related to the method of addEvent(String name, Date eventDate, String location, int courseId) in the EventController class,
-  // you might want to explain what's the system in providing id to each event;
-  // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
   private Date date;
   private String location;
@@ -28,9 +25,12 @@ public class Event {
   private String program;
   private boolean active;
   private String host;
-  private final ArrayList<String> attending; //Does it mean participants/attendees? A comment for explanation would be nice
+  private final ArrayList<String> attending;
   private final ArrayList<String> seenBy;
 
+  /** Constructor for Event class.
+   *
+   */
   public Event(int id, String title, LocalDate date, String time, String location, String program, String description, String category, String host) {
     this.id = id;
     this.title = title;
@@ -49,12 +49,6 @@ public class Event {
 
   }
 
-  /*
-  ********************
-  Retrieve information
-  ********************
-   */
-//Getters and setters
   public String getTitle() {
     return this.title;
   }
@@ -102,13 +96,7 @@ public class Event {
   public boolean isActive() {
     return active; // true if active, False if not.
   }
-
-  /*
-  *******************
-     Modify object 
-  *******************
-   */
-
+  /** Method for adding an attendee to event. **/
   public void addAttendee(String email) {
     int index = attending.indexOf(email);
     if (index == -1) { //If no match found
@@ -116,6 +104,7 @@ public class Event {
     }
   }
 
+  /** Method for deleting an attendee to event. **/
   public void delAttendee(String email) {
     int index = attending.indexOf(email);
     if (index != -1) {
@@ -123,21 +112,24 @@ public class Event {
     }
   }
 
-
+/**Method is not used. Could be used for viewing which users have seen the event.**/
   public void addSeenBy(String email) {
     if (!seenBy.contains(email)) {
       seenBy.add(email);
     }
   }
 
+  /**Method is not used. Could be used to update the title the time of an Event. **/
   public void setDate(LocalDate newDate) {
     this.date = Date.from(newDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
   }
 
+  /**Method is not used. Could be used to update the location of an Event. **/
   public void setLocation(String newLocation) {
     this.location = newLocation;
   }
 
+  /**Method is not used. Could be used to update the title of an Event. **/
   public void setTitle(String newName) {
     this.title = newName;
   }
@@ -146,6 +138,7 @@ public class Event {
     this.program = newProgram;
   }
 
+  /**Method is not used. Could be used for setting user status to active or not active. **/
   public void setStatus(boolean status) {
     active = status;
   }
