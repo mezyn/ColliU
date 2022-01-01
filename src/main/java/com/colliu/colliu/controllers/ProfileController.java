@@ -1,7 +1,6 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
-import java.io.IOException;
 import java.time.Year;
 
 import javafx.collections.FXCollections;
@@ -17,9 +16,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import miscellaneous.Info;
 import miscellaneous.Style;
-import org.w3c.dom.Text;
-import user.Administrator;
-import user.Staff;
 import user.Student;
 import user.User;
 
@@ -31,52 +27,21 @@ public class ProfileController {
     this.master = master;
   }
 
-  /**
-   * Updates profile tab.
-   * Updates the profile tab when we need to.
-   */
+  private boolean nameCheck = true;
+  private boolean surnameCheck = true;
+  private boolean passwordCheck = true;
 
   @FXML
   private Label lblYourEmail;
+
   @FXML
   private Label lblYourProgram;
+
   @FXML
   private Label lblYourExamYear;
+
   @FXML
   private Label lblYourUserClass;
-
-  @FXML
-  void onButtonPressPromoteUserToAdmin() {
-    master.toggleAdminStatus(tfSearchUser.getText());
-    toggleSearchButtons();
-  }
-
-  @FXML
-  void onButtonPressBanUser() {
-    boolean setBan = !(master.findUser(tfSearchUser.getText()) != null && master.findUser(tfSearchUser.getText()).getAccountStatus());
-    if (setBan) {
-      master.banUser(tfSearchUser.getText());
-    } else {
-      master.unbanUser(tfSearchUser.getText());
-    }
-    toggleSearchButtons();
-  }
-
-  @FXML
-  void onDeleteUser() {
-    if (oldUser == null) {
-      oldUser = master.findUser(tfSearchUser.getText());
-      master.removeUser(tfSearchUser.getText());
-      load();
-    } else {
-      master.addUser(oldUser);
-      tfSearchUser.setText(oldUser.getEmail());
-      displayUser(oldUser);
-      oldUser = null;
-    }
-    toggleSearchButtons();
-    tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
-  }
 
   @FXML
   private ComboBox<String> cbPrograms;
@@ -124,9 +89,6 @@ public class ProfileController {
   private Label lblWarningPassword;
 
   @FXML
-  private Label lblWarningStudies;
-
-  @FXML
   private Label lblIncorrectPassword;
 
   @FXML
@@ -162,9 +124,39 @@ public class ProfileController {
   @FXML
   private VBox vbStudies;
 
-  private boolean nameCheck = true;
-  private boolean surnameCheck = true;
-  private boolean passwordCheck = true;
+  @FXML
+  void onButtonPressPromoteUserToAdmin() { // Method to promote a student to an admin.
+    master.toggleAdminStatus(tfSearchUser.getText()); //Changes the admin status of the student user by calling the method in master.
+    toggleSearchButtons(); //Toggles being able to click on the buttons and changes their colour.
+  }
+
+  @FXML
+  void onButtonPressBanUser() { // Method to ban users.
+    //Checks if the account status is banned or not and if the search user text field is empty
+    boolean setBan = !(master.findUser(tfSearchUser.getText()) != null && master.findUser(tfSearchUser.getText()).getAccountStatus());
+    if (setBan) { // if the account isn't banned the button changes to ban the user
+      master.banUser(tfSearchUser.getText());
+    } else { // else the button changes to unban the user
+      master.unbanUser(tfSearchUser.getText());
+    }
+    toggleSearchButtons(); //Toggles being able to click on the buttons and changes their colour.
+  }
+
+  @FXML
+  void onDeleteUser() { // Method to delete users.
+    if (oldUser == null) { //Checks if the temporary account oldUser is null or not
+      oldUser = master.findUser(tfSearchUser.getText()); // If the oldUser is null it assigns the user entered in the text field as the new oldUser
+      master.removeUser(tfSearchUser.getText()); // Calls on the removeUser method in userMethods
+      load(); // Calls the load method in the master controller
+    } else { // If the oldUser isn't null
+      master.addUser(oldUser); // Calls the addUser method in userMethods
+      tfSearchUser.setText(oldUser.getEmail()); // Sets the text field as the oldUser's email
+      displayUser(oldUser); // displays the user as on the account settings on the account settings page
+      oldUser = null; // sets the oldUser as null
+    }
+    toggleSearchButtons(); //Toggles being able to click on the buttons and changes their colour.
+    tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
+  }
 
   @FXML
   void onTextfieldType(KeyEvent event) {
@@ -225,59 +217,57 @@ public class ProfileController {
 
   @FXML
   void closeSettings(ActionEvent event) {
-    master.showEventPage();
+    master.showEventPage(); // CLoses the account settings page and opens the event page instead
   }
 
 
   private void checkSavePossible() {
-
+    // Checks if there have been any changes to the name, lastname, password, program or graduation year.
     boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
             + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
             + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0
             && (master.getCurrentUser().getType() == 3
             || (cbPrograms.getValue().equals(((Student) master.getCurrentUser()).getProgram())
             && cbGraduationYear.getValue() == ((Student) master.getCurrentUser()).getGraduationYear()));
-
-    if (noChanges) {
+    if (noChanges) { // If there has been no changes the button changes to "close" and it's not clickable.
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_NORMAL);
       btnCloseSettings.setText(Info.CLOSE);
-    } else if (nameCheck && surnameCheck && passwordCheck) {
+    } else if (nameCheck && surnameCheck && passwordCheck) { // If the nameCheck, surnameCheck and passwordCheck all pass the button becomes clickable and you can save the changes.
       btnSaveSettings.setDisable(false);
       btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
-    } else {
+    } else { // Catches everything else so you can save incorrect information.
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(miscellaneous.Style.BUTTON_RED);
     }
   }
-
-  private void toggleClose() {
-
-  }
+  //private void toggleClose() {
+//
+  //}
 
   @FXML
   void onPasswordEntered(KeyEvent event) {
-    lblIncorrectPassword.setVisible(false);
+    lblIncorrectPassword.setVisible(false); // Checks if the password field next to the save settings is empty or not.
   }
 
   @FXML
-  void onSearchUser(KeyEvent event) {
-    String email = tfSearchUser.getText();
-    if (email.length() > 0 && master.findUser(email) == null) {
-      load();
+  void onSearchUser(KeyEvent event) { //Method for looking through the user arraylist.
+    String email = tfSearchUser.getText(); // Searching by the user's email
+    if (email.length() > 0 && master.findUser(email) == null) { //If the entered email is greater than 0 and is not found in the arraylist:
+      load(); // Calls on the load method and sets the buttons to un-clickable and changes their appearance
       tfSearchUser.setStyle(Style.TEXTFIELD_NORMAL);
       btnToggleBan.setDisable(true);
       btnPromoteAccount.setDisable(true);
       btnDeleteAccount.setDisable(true);
-    } else if (master.findUser(email) == null) {
+    } else if (master.findUser(email) == null) { // IF the entered email is null the buttons become un-clickable and their appearance change
       load();
       tfSearchUser.setStyle(Style.TEXTFIELD_RED);
       btnToggleBan.setDisable(true);
       btnPromoteAccount.setDisable(true);
       btnDeleteAccount.setDisable(true);
-    } else {
+    } else { // If the entered email is correct  it displays the users information and allows the admin to use the controls
       tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
       // get logged in user's name:
       User user = master.findUser(email);
@@ -286,7 +276,7 @@ public class ProfileController {
     }
   }
 
-  private void displayUser(User user) {
+  private void displayUser(User user) { // Displays the user's information on the account settings page
     int type = user.getType();
     String name = user.getFirstName() + " " + user.getLastName();
     String email = user.getEmail();
@@ -319,6 +309,7 @@ public class ProfileController {
   @FXML
   void saveSettings(ActionEvent event) {
     boolean correctPassword = master.getCurrentUser().validatePassword(pfCurrentPassword.getText());
+    // Checks if the password is correct and saves the changes.
     if (correctPassword) {
       String name = (tfName.getText().length() > 0 ? tfName.getText() : master.getCurrentUser().getFirstName());
       String surname = (tfSurname.getText().length() > 0 ? tfSurname.getText() : master.getCurrentUser().getLastName());
@@ -330,10 +321,12 @@ public class ProfileController {
       master.setName(index, name);
       master.setSurname(index, surname);
       master.setPassword(index, password);
+      // If the is lower than type 3, which is students and admins the method also saves their program and graduation year
       if (master.getCurrentUser().getType() < 3) {
         master.setProgram(index, program);
         master.setGraduation(index, graduationYear);
       }
+      // Saves the user and updates the information shown on the account settings page, as well asd changes the labels.
       master.saveUsers();
       load();
       lblIncorrectPassword.setText(Info.SAVE_SUCCESS);
@@ -357,9 +350,11 @@ public class ProfileController {
   }
 
   public void load() {
+    // Method for getting the account information on the current user and displays it on the account settings page.
     User currentUser = master.getCurrentUser();
     displayUser(currentUser);
-    if (currentUser.getType() < 3) {
+    if (currentUser.getType() < 3) { // If the account is a student or administrator
+      // Show the appropriate information for the
       ObservableList<String> programs = FXCollections.observableArrayList(Info.DVET, Info.SVET, Info.KOG, Info.SEM);
       cbPrograms.setItems(programs);
       cbPrograms.setValue(((Student) currentUser).getProgram());
