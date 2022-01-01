@@ -1,5 +1,7 @@
 package user;
 
+import miscellaneous.Info;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,19 +10,16 @@ import java.util.Date;
  *
  */
 public class Student extends User {
-
   private int graduationYear;
-  //private ArrayList<String> courses;
-  //private ArrayList<String> interests;
   private String program;
-  //private boolean isAdministrator;
+
   /** Constructor for Student class.
      *
      */
 
 
   public Student(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    super(email, password, firstName, lastName, 1);
+    super(email, password, firstName, lastName, Info.TYPE_STUDENT);
    //add exceptions
     this.graduationYear = graduationYear;
     this.program = program;
@@ -33,13 +32,9 @@ public class Student extends User {
     this.program = program;
   }
 
-
+  //Getters and setters
   public String getProgram () {
     return this.program;
-  }
-
-  public void setProgram (String program) {
-    this.program = program;
   }
 
   public int getGraduationYear() {
@@ -50,8 +45,9 @@ public class Student extends User {
     this.graduationYear =  graduationYear;
   }
 
-
-
+  public void setProgram (String program) {
+    this.program = program;
+  }
 
 }
 

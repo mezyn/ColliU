@@ -16,7 +16,6 @@ public abstract class User {
   private String lastName;
   private ArrayList<Date> logins;
   private boolean accountBanned;
-  private ArrayList<Integer> courses; // Store only course ID here. Then use the ID to find the actual course object.
 
   public User() {
 
@@ -36,46 +35,7 @@ public abstract class User {
    */
 
   public User(String email, String password, String firstName, String lastName, int type) throws Exception {
-    if (email == null || email.isBlank()) {
-      throw new Exception("Email cannot be blank.");
-    }
-    if (!email.endsWith(".gu.se")) {
-      throw new Exception("The email must be a GU email-address.");
-    }
-    if (email.contains(" ")) {
-      throw new Exception("There cannot be any blank spaces in the email.");
-    }
-    if (password == null || password.isBlank()) {
-      throw new Exception("Password cannot be blank.");
-    }
-    if (password.length() < 11 || password.length() > 20) {
-      throw new Exception("Password must be between 12 and 20 characters.");
-    }
-    if (!password.matches("(.*[A-Z].*)")) {
-      throw new Exception("Password must contain at least one uppercase letter.");
-    }
-    if (!password.matches("(.*[a-z].*)")) {
-      throw new Exception("Password must contain at least one lowercase character.");
-    }
-    if (!password.matches("(.*[0-9].*)")) {
-      throw new Exception("Password must contain at least one number.");
-    }
-    if (password.contains(" ")) {
-      throw new Exception("Passwords cannot contain blank spaces.");
-    }
-    if (firstName == null || firstName.isBlank()) {
-      throw new Exception("First name cannot be blank.");
-    }
-    if (firstName.matches("(.*[0-9].*)")) {
-      throw new Exception("First name cannot contain any numbers.");
-    }
 
-    if (lastName == null || lastName.isBlank()) {
-      throw new Exception("Last name cannot be blank.");
-    }
-    if (lastName.matches("(.*[0-9].*)")) {
-      throw new Exception("Last name cannot contain any numbers.");
-    }
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;
@@ -84,8 +44,6 @@ public abstract class User {
     this.accountBanned = false;
     this.type = type;
   }
-
-
 
   public String getFirstName() {
     return this.firstName;
@@ -127,35 +85,12 @@ public abstract class User {
     return firstName + " " + lastName;
   }
 
-  public void setAccountStatus(boolean bannedStatus) {
-    this.accountBanned = bannedStatus;
-  }
-
-
-// Function that validates user's password
   public boolean validatePassword(String password) {
     return password.equals(this.password);
   }
 
-  public Integer[] getCourses() {
-    return courses.toArray(new Integer[0]);
+  public void setAccountStatus(boolean bannedStatus) {
+    this.accountBanned = bannedStatus;
   }
-
-
-
-// Login function
-  public void login() {
-    logins.add(new Date());
-  }
-
-  // Returns all user logins as an array.
-  public Date[] getLogins() {
-    return logins.toArray(new Date[0]);
-  }
-//
-  public void addCourse(int id) {
-    courses.add(id);
-  }
-
-
+  
 }

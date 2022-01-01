@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import miscellaneous.Info;
 import user.Administrator;
 import user.Staff;
 import user.Student;
@@ -17,12 +18,12 @@ import user.User;
 
 
 public class Master extends Application {
-  Stage stage;
+  private Stage stage;
 
   @Override
   public void start(Stage stage) throws Exception {
     this.stage = stage;
-    showWindow("LoginPage.fxml");
+    showWindow(Info.RESOURCE_LOGIN);
   }
 
   public static void main(String[] args) {
@@ -32,7 +33,6 @@ public class Master extends Application {
   private void showWindow(String fileName) throws Exception {
     FXMLLoader fxmlLoader = new FXMLLoader(Master.class.getResource("fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml")));
     Scene scene = new Scene(fxmlLoader.load());
-    stage.setTitle("Hello!");
     stage.setScene(scene);
     stage.initStyle(StageStyle.UNDECORATED);
     stage.show();

@@ -14,19 +14,24 @@ import java.util.Date;
  */
 
 public class Event {
+  //About event information
   private final Date creationDate;
   private final int id;
   private String time;
+  //Related to the method of addEvent(String name, Date eventDate, String location, int courseId) in the EventController class,
+  // you might want to explain what's the system in providing id to each event;
+  // i.e. the first created event gets an id of 1, and the next one 2, ...
   private String title;
   private Date date;
   private String location;
   private String description;
   private String category;
-  private String program;
-  private boolean active;
-  private String host;
-  private final ArrayList<String> attending;
+  private String program; //relevant study program
+  private boolean active; //check whether the event has passed
+  private String host; //check who is the host of event with the host's email address
+  private final ArrayList<String> attending; //a list of attendees to events
   private final ArrayList<String> seenBy;
+  private final ArrayList<String[]> reactions;
 
   /** Constructor for Event class.
    *
@@ -35,7 +40,7 @@ public class Event {
     this.id = id;
     this.title = title;
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    System.out.println(date);
+    //System.out.println(date);
     this.location = location;
     this.description = description;
     this.category = category;
@@ -46,9 +51,15 @@ public class Event {
     seenBy = new ArrayList<>();
     active = true;
     this.host = host;
-
+    reactions = new ArrayList<>();
   }
 
+  /*
+  ********************
+  Retrieve information
+  ********************
+   */
+//Getters and setters
   public String getTitle() {
     return this.title;
   }
@@ -96,10 +107,18 @@ public class Event {
   public boolean isActive() {
     return active; // true if active, False if not.
   }
-  /** Method for adding an attendee to event. **/
+
+  /*
+  *******************
+     Modify object 
+  *******************
+   */
+
+  /**
+   * Method for adding an attendee to event.
+   */
   public void addAttendee(String email) {
-    int index = attending.indexOf(email);
-    if (index == -1) { //If no match found
+    if (!attending.contains(email)) {
       attending.add(email);
     }
   }
@@ -143,6 +162,10 @@ public class Event {
     active = status;
   }
 
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
+  }
+
   public String getTime() {
     return time;
   }
@@ -150,4 +173,35 @@ public class Event {
   public String getHost() {
     return host;
   }
+
+  public boolean addReaction(String email, int reaction, String name) {
+    String[] info = new String[3];
+    info[0] = email;
+    info[1] = "" + reaction;
+    info[2] = name;
+    boolean removeReaction = false;
+    int index = -1;
+    for (int i = 0; i < reactions.size(); i++) {
+      if (reactions.get(i)[0].equals(info[0])) {
+        index = i;
+        removeReaction = (reactions.get(i)[1].equals(info[1]));
+        break;
+      }
+    }
+    if (index >= 0 && !removeReaction) {
+      reactions.set(index, info);
+      return false;
+    } else if (index >= 0 && removeReaction) {
+      reactions.remove(index);
+      return true;
+    } else {
+      reactions.add(info);
+      return false;
+    }
+  }
+
+  public ArrayList<String[]> getReactions() {
+    return reactions;
+  }
+
 }

@@ -13,8 +13,9 @@ import java.util.ArrayList;
  **/
 public class UserMethods {
   private ArrayList<User> users;
-  MasterController master;
+  private MasterController master;
   private User currentUser;
+
   // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) {
@@ -60,27 +61,17 @@ public class UserMethods {
   }
 // Function for registering as student.
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
 // Function for registering as administrator.
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Function for registering as staff.
-  public String createStaff(String email, String password, String firstName, String lastName, String department, String title) throws Exception {
-
-    if (checkExistingEmail(email)) {
-      throw new Exception("User is already registered, please try again.");
-    }
-    users.add(new Staff(email, password, firstName, lastName, department, title));
+// Write comment here
+  public String createStaff(String email, String password, String firstName, String lastName) throws Exception {
+    users.add(new Staff(email, password, firstName, lastName));
     return "User registered successfully.";
   }
   /*
@@ -142,13 +133,17 @@ public class UserMethods {
       return false;
     }
     if (password.length() < 11 || password.length() > 20) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[A-Z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[a-z].*)")) {
-      return false;    }
+      return false;
+    }
     if (!password.matches("(.*[0-9].*)")) {
-      return false;    }
+      return false;
+    }
     if (password.contains(" ")) {
       return false;
     } else {
@@ -160,32 +155,38 @@ public class UserMethods {
     currentUser = user;
   }
 
-  public boolean getAccountStatus(String email) {
-    return currentUser.getAccountStatus();
-  }
-
   public User getLoggedInUser() {
+    currentUser = getUserByEmail(currentUser.getEmail());
     return currentUser;
   }
 
-  public int getCurrentUserType() {
-    return currentUser.getType();
-  }
-
-  // Method for promoting a student to being an admin.
-  public void promoteStudentToAdmin(String promoteEmail) throws Exception {
-   Student promoteUser = (Student) getUserByEmail(promoteEmail);
-   String email = promoteUser.getEmail();
-   String password = promoteUser.getPassword();
-   String firstName = promoteUser.getFirstName();
-   String lastName = promoteUser.getLastName();
-   String program = promoteUser.getProgram();
-   int graduationYear = promoteUser.getGraduationYear();
-   users.remove(findUser(email));
-   createAdministrator(email, password, firstName, lastName, graduationYear, program);
+  public void toggleAdminStatus (String email) throws Exception {
+    Student student = (Student) getUserByEmail(email);
+    boolean isBanned = student.getAccountStatus();
+    String password = student.getPassword();
+    String firstName = student.getFirstName();
+    String lastName = student.getLastName();
+    String program = student.getProgram();
+    int graduationYear = student.getGraduationYear();
+    users.remove(findUser(email));
+    if (student.getType() == 2) {
+      createStudent(email, password, firstName, lastName, graduationYear, program);
+    } else {
+      createAdministrator(email, password, firstName, lastName, graduationYear, program);
+    }
+    Student newStudent = (Student) getUserByEmail(email);
+    newStudent.setAccountStatus(isBanned);
    master.saveUsers();
   }
-  // Function for banning a user.
+
+  public void promoteStudent(String email) throws Exception {
+    toggleAdminStatus(email);
+  }
+
+  public void demoteAdmin(String email) throws Exception {
+    toggleAdminStatus(email);
+  }
+
   public void banUser(String userToBan)  {
     getUserByEmail(userToBan).setAccountStatus(true);
     master.saveUsers();
@@ -199,6 +200,15 @@ public class UserMethods {
 
   public ArrayList<User> getAllUsers() {
     return users;
+  }
+
+  public void removeUser(String email) {
+    users.remove(findUser(email));
+    master.saveUsers();
+  }
+
+  public void addUser(User user) {
+    users.add(user);
   }
 
 }
