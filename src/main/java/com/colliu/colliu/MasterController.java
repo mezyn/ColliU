@@ -50,6 +50,7 @@ MasterController {
     eventMethods = new EventMethods(this);
   }
 
+  /**This method ensures that the requested screen is shown to the user.**/
   private FXMLLoader showWindow(String fileName) {
     fileName = "fxml/" + (fileName.endsWith(".fxml") ? fileName : fileName + ".fxml");
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileName));
@@ -72,6 +73,7 @@ MasterController {
     return fxmlLoader;
   }
 
+  /**This method opens the student registration screen. **/
   public void showRegisterStudent() {
     String registerStudentPage = "student-registration.fxml";
     closeWindow();
@@ -81,6 +83,7 @@ MasterController {
     studentController.setMaster(this);
   }
 
+  /**This method opens the staff registration screen. **/
   public void showRegisterStaff() { //button that opens staff registration screen
     String registerStaffPage = "staff-registration.fxml";
     closeWindow();
@@ -90,6 +93,7 @@ MasterController {
     staffController.setMaster(this);
   }
 
+  /**This method opens the Login screen. **/
   public void showLogin() {
     String loginPage = "LoginPage.fxml";
     closeWindow();
@@ -101,6 +105,7 @@ MasterController {
     loginController.setMaster(newMaster);
   }
 
+  /**This method opens the Event / Home screen. **/
   public void showEventPage() throws Exception {
     String eventPage = "EventPage.fxml";
     closeWindow();
@@ -110,6 +115,7 @@ MasterController {
     eventController.loadEvents(getUpcomingEvents());
   }
 
+  /**This method opens the Create Event screen. **/
   public void showEventCreationPage() throws IOException {
     String eventCreationPage = "EventCreationPage.fxml";
     closeWindow();
@@ -124,6 +130,7 @@ MasterController {
     controller.setMaster(this);
   }
 
+  /**This method opens the Profile Settings screen. **/
   public void showProfileSettingsPage() throws Exception {
     String profileSettingsPage = "ProfileSettingsPage.fxml";
     closeWindow();
@@ -133,12 +140,14 @@ MasterController {
     profileController.updateProfileTab();
   }
 
+  /**This method closes the current screen**/
   private void closeWindow() {
     if (latestStage != null) {
       latestStage.close();
     }
   }
 
+  /**This method opens the last screen the user visited before the current one. **/
   public void showLastWindow() {
     Stage temp = latestStage;
     latestStage = previousStage;
@@ -147,6 +156,7 @@ MasterController {
     latestStage.show();
   }
 
+  /**This method shows an error message if an error occurs whilst running the program. **/
   private void showError(String errorMessage) {
     String errorPage = "ErrorPage.fxml";
     FXMLLoader errorLoader = showWindow(errorPage);
@@ -159,9 +169,7 @@ MasterController {
   }
 
   /*
-  *********************
       USER HANDLING
-  *********************
    */
 
   public void setLoggedInUser(User user) {
@@ -176,22 +184,26 @@ MasterController {
     return userMethods.getUserByEmail(email);
   }
 
+  /**This method checks if the email and password are matching when the user is trying to log in. **/
   public boolean validateLogin(String uEmail, String uPassword) {
     return userMethods.checkExistingEmail(uEmail) && userMethods.validatePassword(uPassword, uEmail);
   }
-
+  /**This method checks if the password is complex enough or not when a user tries to register an account. **/
   public boolean checkPassword(String password) {
     return userMethods.checkPasswordComplexity(password);
   }
 
+  /**This method enables an administrator to ban a user through typing the registered email for  an account. **/
   public void banUser(String email) {
     userMethods.banUser(email);
   }
 
+  /**This method enables an administrator to unban a user through typing the registered email for an account. **/
   public void unbanUser(String email) {
     userMethods.unbanUser(email);
   }
 
+  /**This method enables an administrator to change User-type from Student to Administrator. **/
   public void makeAdmin(String email) {
     try {
       userMethods.promoteStudentToAdmin(email);
@@ -202,6 +214,7 @@ MasterController {
     }
   }
 
+  /**This method creates an account of user type "Student". **/
   public void createStudent(String email, String password, String name, String surname, int graduationYear, String program) {
     try {
       userMethods.createStudent(email, password, name, surname, graduationYear, program);
@@ -212,6 +225,7 @@ MasterController {
     }
   }
 
+  /**This method creates an account of user type "Staff". **/
   public void createStaff(String email, String password, String name, String surname, String department, String staffTitle) {
     try {
       userMethods.createStaff(email, password, name, surname, department, staffTitle);
@@ -246,6 +260,7 @@ MasterController {
     }
   }
 
+  /**This method saves all registered Users to json file. **/
   public void saveUsers() {
     ArrayList<User> users = userMethods.getAllUsers();
     if (!json.saveUsers(users)) {
@@ -261,15 +276,18 @@ MasterController {
     return eventMethods.getAllEvents();
   }
 
+  /**This method filters the events shown to a user. **/
   public Event[] filterEvents(String[] tags) {
     String program = ((Student) getCurrentUser()).getProgram();
     return (tags.length > 0 ? eventMethods.filterEvents(program, tags) : eventMethods.getEvents(program, UPCOMING_EVENTS));
   }
 
+  /**This method only shows upcoming Events. **/
   public Event[] getUpcomingEvents() {
     return getEvents(UPCOMING_EVENTS);
   }
 
+  /**This method only shows past Events. **/
   public Event[] getPastEvents() {
     return getEvents(PAST_EVENTS);
   }
@@ -278,6 +296,7 @@ MasterController {
     return getEvents(ATTENDING_EVENTS);
   }
 
+  /**This method shows events depending on user-type (Student or Staff). **/
   private Event[] getEvents(int type) {
     if (getCurrentUser().getType() < 3 ) {
       String program = ((Student) getCurrentUser()).getProgram();
@@ -287,6 +306,7 @@ MasterController {
     }
   }
 
+  /**This method saves all created Events to json file. **/
   public void saveEvents() {
     ArrayList<Event> events = eventMethods.getAllEvents();
     if (!json.saveEvents(events)) {
@@ -294,6 +314,7 @@ MasterController {
     }
   }
 
+  /**This method loads all created Events from json file.**/
   public ArrayList<Event> loadEvents() {
     try {
       return json.loadEvent();
