@@ -24,7 +24,7 @@
             <Font size="45.0" />
          </font>
       </Label>
-      <Button fx:id="btnClose" layoutX="255.0" layoutY="309.0" mnemonicParsing="false" onAction="#closeThisWIndow" style="-fx-background-color: #DDD;" text="Close">
+      <Button fx:id="btnClose" layoutX="255.0" layoutY="309.0" mnemonicParsing="false" onAction="#closeThisWindow" style="-fx-background-color: #DDD;" text="Close">
          <font>
             <Font size="24.0" />
          </font>

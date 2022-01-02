@@ -270,7 +270,7 @@ public class MasterController {
   public void createStudent(String email, String pass, String name, String surname, int gradYear,
                             String prog) { // New line is checkstyle requirements(100 chars/line).
     try {
-      userMethods.createStudent(email, password, name, surname, graduationYear, program);
+      userMethods.createStudent(email, pass, name, surname, gradYear, prog);
     } catch (Exception e) {
       StringWriter error = new StringWriter();
       e.printStackTrace(new PrintWriter(error));
