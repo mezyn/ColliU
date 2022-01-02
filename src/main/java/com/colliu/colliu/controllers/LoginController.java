@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import miscellaneous.Info;
 import user.User;
@@ -50,7 +49,7 @@ to the event page(homepage). Otherwise, the warning label shows which action the
         if (accountStatus) {
           warningLabel.setText(Info.ACCOUNT_STATUS_BANNED);
         } else {
-          master.showEventPage();
+          master.showHomepage();
         }
       } else {
         warningLabel.setText(Info.INCORRECT_LOGIN);

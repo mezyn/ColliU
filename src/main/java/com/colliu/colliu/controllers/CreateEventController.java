@@ -1,24 +1,13 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
-import event.Event;
-import event.EventMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import miscellaneous.Handle;
-import user.User;
 
-import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ResourceBundle;
 
 /*
 The goal of this class is to control EventCreation.fxml file, that is, to handle the event creation.
@@ -86,7 +75,7 @@ public class CreateEventController {
             time = cbHours.getValue() + ":" + cbMinutes.getValue();
             master.createEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), cbPrograms.getValue(), descriptionField.getText(), cbCategories.getValue(), master.getCurrentUser().getEmail());
             master.saveEvents();
-            master.showEventPage();
+            master.showHomepage();
         }
     }
 
@@ -119,7 +108,7 @@ public class CreateEventController {
 
     @FXML
     void onCancelClick(ActionEvent event) {
-        master.showEventPage();
+        master.showHomepage();
     }
 
 }

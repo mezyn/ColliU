@@ -1,40 +1,42 @@
 package event;
 
-import com.colliu.colliu.Master;
 import com.colliu.colliu.MasterController;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import com.colliu.colliu.MasterController;
+import miscellaneous.Info;
 import user.User;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
-/** This class handles the Event Object.
+/**
+ * This class handles the Event Object.
  * All methods for adding, getting and manipulating the info will be called from this class.
  */
 public class EventMethods {
 
-  ArrayList<Event> events;
-  MasterController master;
-  private final int UPCOMING_EVENTS = 1;
+  private final ArrayList<Event> events;
+  private final MasterController master;
 
   public EventMethods(MasterController masterClass) {
     master = masterClass;
     events = master.loadEvents();
   }
+
+  //Take relevant event information from a user and create an event.
    /**This method adds an event when it has been created accordingly.**/
   public Boolean addEvent(String name, LocalDate eventDate, String time, String location, String description, String category, String program, String host) {
-    return events.add(new Event(events.size(), name, eventDate, time, location, program, description, category, host));
+    return events.add(new Event(events.size(), name, eventDate, time, location, description, category, program, host));
   }
+
 
   /**This method takes an Array of integers with the user's courses
   It then loops through this array and compares it with events that haven't expired
-  Then it returns an array of the ID of all those events.**/
+  Then it returns an array of the Id of all those events.
+   */
   public Event[] getEvents(String program, int type) {
+    if (program.equals(Info.STAFF_FILTER)) {
+      return getHostingEvents(master.getCurrentUser(), Info.UPCOMING_EVENTS);
+    }
     ArrayList<Event> recommendedEvents = new ArrayList<>();
     // Loop through all the courses that was sent with method
     for (Event event : this.events) {
@@ -61,13 +63,12 @@ public class EventMethods {
   }
 
   /** Method that returns an array of all events that have not been seen. **/
-  public Event[] getNotifications(String email, String program) {
-    Event[] recommendedEvents = getEvents(program, UPCOMING_EVENTS);
+  public Event[] getNotifications(String email, String program) { // Will return an array of all event-IDs that have not been seen
+    Event[] recommendedEvents = getEvents(program, Info.UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
-      LocalDate eventCreated = event.getCreationDate();
       boolean isActive = event.isActive();
-      if (!event.getSeenBy().contains(email) && event.getDate().isAfter(LocalDate.now())) {
+      if (!event.getSeenBy().contains(email) && isActive) {
         notSeenEvents.add(event);
       }
     }
@@ -76,7 +77,7 @@ public class EventMethods {
 
   /** Method for filtering events by programs or tags. **/
   public Event[] filterEvents(String program, String[] tags) {
-    Event[] programEvents = getEvents(program, UPCOMING_EVENTS);
+    Event[] programEvents = (program.equals(Info.STAFF_FILTER) ? getHostingEvents(master.getCurrentUser(), Info.UPCOMING_EVENTS) : getEvents(program, Info.UPCOMING_EVENTS));
     ArrayList<Event> filteredEvents = new ArrayList<>();
     // Loops through all the events at first
     for (int i = 0; i < programEvents.length; i++) {
