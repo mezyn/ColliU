@@ -1,127 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StaffController">
+<AnchorPane maxHeight="768.0" maxWidth="1024.0" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-style: solid; -fx-border-width: 1; -fx-border-color: rgb(245,245,251);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.colliu.controllers.StaffController">
    <children>
-      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Pane layoutY="274.0" prefHeight="494.0" prefWidth="1311.0">
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="452.0" layoutY="70.0" text="ColliU" textFill="#5e81f4">
+         <font>
+            <Font name="System Bold" size="43.0" />
+         </font>
+      </Label>
+      <Pane layoutX="1.0" layoutY="134.0" prefHeight="500.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
-            <VBox layoutX="447.0" layoutY="39.0" prefHeight="326.0" prefWidth="417.0">
+            <VBox layoutX="361.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="303.0">
                <children>
-                  <TextField fx:id="tfStaffEmail" promptText="Email">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="tfStaffFirstName" promptText="First Name">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="tfStaffLastName" promptText="Last Name">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="tfStaffDepartment" promptText="Department">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <PasswordField fx:id="tfStaffPassword" promptText="Password">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </PasswordField>
-                  <Label text="Password must contain:">
-                     <VBox.margin>
-                        <Insets left="8.0" />
-                     </VBox.margin>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="303.0" text="Register Staff Account">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
                   </Label>
-                  <PasswordField fx:id="tfStaffConfirmPassword" promptText="Confirm Password">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </PasswordField>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="GU Email:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffEmail" layoutY="23.0" prefWidth="303.0" promptText="GU Email">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="First name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffFirstName" layoutY="23.0" prefWidth="303.0" promptText="First Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Last name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfStaffLastName" layoutY="23.0" prefWidth="303.0" promptText="Last Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="371.0">
+                     <children>
+                        <Label text="Password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <PasswordField fx:id="tfStaffPassword" layoutY="14.0" prefWidth="303.0" promptText="Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font></PasswordField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Confirm password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="tfStaffConfirmPassword" layoutY="23.0" prefWidth="303.0" promptText="Confirm Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
+                     </children>
+                  </Pane>
                </children>
             </VBox>
-            <Button fx:id="btnCreateStaff" layoutX="608.0" layoutY="385.0" mnemonicParsing="false" onAction="#registerStaff" text="Create account" />
-            <VBox layoutX="894.0" layoutY="39.0" prefHeight="259.0" prefWidth="314.0">
-               <children>
-                  <Label fx:id="lblStaffEmailError">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblStaffNameError">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="14.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblStaffLastNameError">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblStaffPasswordError">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="60.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox layoutX="322.0" layoutY="39.0" prefHeight="259.0" prefWidth="125.0">
-               <children>
-                  <Label text="Enter email:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Enter first name:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="14.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Enter last name:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Enter department:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="14.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Enter password:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Confirm password:">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="30.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <Hyperlink fx:id="hplStaffBack" layoutX="51.0" layoutY="386.0" onAction="#showLogin" text="Back" />
+            <Label fx:id="lblWarning" layoutX="362.0" layoutY="404.0" textFill="#f6a8a6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button layoutX="376.0" layoutY="428.0" mnemonicParsing="false" onAction="#cancelRegistration" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #DDD;" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnCreateStaff" layoutX="528.0" layoutY="428.0" mnemonicParsing="false" onAction="#registerStaff" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="166.0" fitWidth="294.0" layoutX="509.0" layoutY="57.0">
-         <image>
-            <Image url="@../images/ColliU_logo.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

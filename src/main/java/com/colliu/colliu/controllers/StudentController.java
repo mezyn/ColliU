@@ -3,33 +3,21 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import miscellaneous.Style;
 
-public class StudentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StudentController implements Initializable {
+  private MasterController master;
 
   @FXML
   private Button btnRegister;
 
   @FXML
-  private Label lblLastNameError;
-
-  @FXML
-  private Label lblNameError;
-
-  @FXML
-  private Label lblPasswordError;
-
-  @FXML
-  private Label lblProgramError;
-
-  @FXML
-  private Label lblStudentEmail;
-
-  @FXML
-  private Label lblYearError;
+  private Label lblWarning;
 
   @FXML
   private PasswordField tfConfirmPassword;
@@ -38,103 +26,155 @@ public class StudentController {
   private TextField tfFirstName;
 
   @FXML
-  private TextField tfGraduationYear;
-
-  @FXML
   private TextField tfLastName;
 
   @FXML
   private PasswordField tfPassword;
 
   @FXML
-  private TextField tfProgram;
+  private ChoiceBox<String> graduationYearChoice;
+
+  @FXML
+  private ChoiceBox<String> programChoice;
+
+  //Creates an array of strings with the viable options for graduation year, they are used in a choice box
+  private String[] graduationYear = {"2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
+
+  //Creates an array of strings with the viable options for program, they are used in a choice box
+  private String[] program = {"Software engineering and management", "Systemvetenskap", "Kognitionsvetenskap", "Datavetenskap"};
+
+  //Returns value of an option alternative in a choice box
+  public int getGraduationYear(ActionEvent event){
+    int graduationYear = Integer.parseInt(graduationYearChoice.getValue());
+    return graduationYear;
+  }
+
+  //Returns value of an option alternative in a choice box
+  public String getProgram(ActionEvent event){
+    return programChoice.getValue();
+  }
 
   @FXML
   private TextField tfStudentEmail;
-  private MasterController master;
 
   // Tells user what input is wrong if it is, otherwise it creates a student
   @FXML
   void registerStudent(ActionEvent event) throws Exception {
+    // Checks if the Email that the user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the user if any of these are fulfilled.
     if (tfStudentEmail.getText().isBlank()) {
-      lblStudentEmail.setText("Email cannot be blank");
+      lblWarning.setText("Email cannot be blank");
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
+      throw new Exception("Email name cannot be blank");
     } else if (!tfStudentEmail.getText().endsWith("student.gu.se")) {
-      lblStudentEmail.setText("Email must end with: 'student.gu.se'");
+      lblWarning.setText("Email must end with: 'student.gu.se'");
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
+      throw new Exception("Email must end with: 'student.gu.se'");
     } else if (tfStudentEmail.getText().contains(" ")) {
-      lblStudentEmail.setText("Email cannot contain any blank spaces");
+      lblWarning.setText("Email cannot contain any blank spaces");
+      tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
+      throw new Exception("Email cannot contain any blank spaces");
     } else {
-      lblStudentEmail.setText("");
+      lblWarning.setText("");
+      tfStudentEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
-    /*
-    if (userMethods.validatePassword(tfConfirmPassword.getText()) == false){
-        lblPasswordError.setText("Passwords does not match");
-        throw new Exception();
+    if (master.findUser(tfStudentEmail.getText()) != null){
+      lblWarning.setText("Email is already registered");
+      throw new Exception("Email is already registered");
+    } else {
+      lblWarning.setText("");
     }
-
-     */
-    // Write comment here
+    // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfFirstName.getText().isBlank()) {
-      lblNameError.setText("First name cannot be blank");
+      lblWarning.setText("First name cannot be blank");
+      tfFirstName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("First name cannot be blank");
     } else if (tfFirstName.getText().matches(("(.*[0-9].*)"))) {
-      lblNameError.setText("First name cannot contain any numbers");
-      System.out.println("error");
+      lblWarning.setText("First name cannot contain any numbers");
+      tfFirstName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("First name cannot contain any numbers");
     } else {
-      lblNameError.setText("");
+      lblWarning.setText("");
+      tfFirstName.setStyle(Style.TEXTFIELD_GREEN);
     }
     // Write comment here
     if (tfLastName.getText().isBlank()) {
-      lblLastNameError.setText("Last name cannot be blank.");
+      lblWarning.setText("Last name cannot be blank.");
+      tfLastName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Last name cannot be blank");
     } else if (tfLastName.getText().matches(("(.*[0-9].*)"))) {
-      lblLastNameError.setText("Last name cannot " +  System.lineSeparator() + " contain any numbers");
+      lblWarning.setText("Last name cannot " +  System.lineSeparator() + " contain any numbers");
+      tfLastName.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Last name cannot contain any numbers");
     } else {
-      lblLastNameError.setText("");
+      lblWarning.setText("");
+      tfLastName.setStyle(Style.TEXTFIELD_GREEN);
     }
-    // Write comment here
+    // // Checks that password is between 12-20 characters, that it has at least one uppercase and one lowercase character, that it contains at least one number, that it doesn't contain any blank spaces and that the password and confirm password text field matches.
     if (tfPassword.getText().isBlank()) {
-      lblPasswordError.setText("Password cannot be blank");
+      lblWarning.setText("Password cannot be blank");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password cannot be blank");
     } else if (tfPassword.getText().length() < 11 || tfPassword.getText().length() > 20) {
-      lblPasswordError.setText("Password must be between 12 and 20 characters");
+      lblWarning.setText("Password must be between 12 and 20 characters");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must be between 12 and 20 characters");
     } else if (!tfPassword.getText().matches("(.*[A-Z].*)")) {
-      lblPasswordError.setText("Password must contain at least one uppercase letter");
+      lblWarning.setText("Password must contain at least one uppercase letter");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one uppercase letter");
     } else if (!tfPassword.getText().matches("(.*[a-z].*)")) {
-      lblPasswordError.setText("Password must contain at least one lowercase character");
+      lblWarning.setText("Password must contain at least one lowercase character");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one lowercase character");
     } else if (!tfPassword.getText().matches("(.*[0-9].*)")) {
-      lblPasswordError.setText("Password must contain at least one number");
+      lblWarning.setText("Password must contain at least one number");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Password must contain at least one number");
     } else if (tfPassword.getText().contains(" ")) {
-      lblPasswordError.setText("Passwords cannot contain blank spaces");
+      lblWarning.setText("Passwords cannot contain blank spaces");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Passwords cannot contain blank spaces");
     }
     if (!tfPassword.getText().equals(tfConfirmPassword.getText())) {
-      lblPasswordError.setText("Passwords does not match");
+      lblWarning.setText("Passwords does not match");
+      tfPassword.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Passwords does not match");
     } else {
-      lblPasswordError.setText("");
+      lblWarning.setText("");
+      tfPassword.setStyle(Style.TEXTFIELD_GREEN);
     }
-    // Write comment here
+    // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStudentEmail.getText();
       String password = tfPassword.getText();
       String name = tfFirstName.getText();
       String surname = tfLastName.getText();
-      int graduationYear = Integer.parseInt(tfGraduationYear.getText());
-      String program = tfProgram.getText();
-      master.userMethods.createStudent(email, password, name, surname, graduationYear, program);
+      int graduationYear = getGraduationYear(event);
+      String program = getProgram(event);
+      master.createStudent(email, password, name, surname, graduationYear, program);
+      master.saveUsers();
       master.showLogin();
     } catch (Exception exception)  {
-       // Do something here.
+      exception.printStackTrace();
     }
   }
-  
+
+  //Button that cancels registration and brings you back to the login page
+  @FXML
+  void cancelRegistration(ActionEvent event) {
+    master.showLogin();
+  }
+
   public void setMaster(MasterController master) {
     this.master = master;
+  }
+
+  //Initializes and gives options to the choice boxes
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    graduationYearChoice.getItems().addAll(graduationYear);
+    graduationYearChoice.setOnAction(this::getGraduationYear);
+    programChoice.getItems().addAll(program);
+    programChoice.setOnAction(this::getProgram);
   }
 }
