@@ -25,6 +25,11 @@ import miscellaneous.Info;
 import miscellaneous.Style;
 import user.User;
 
+
+/**
+ * This is the controller for each event's UI.
+ * It lets the user manipulate information in the event object.
+ */
 public class EventItem {
   private double fullHeight;
   private double detailsHeight;
@@ -94,11 +99,18 @@ public class EventItem {
   @FXML
   private VBox vbAttendees;
 
+  /**
+   * Toggles setAttending method with opposite of current status.
+   */
   @FXML
   void attendEvent() {
     setAttending(!attending);
   }
 
+  /**
+   * This method spins the reaction image when the user hovers over it.
+   - @Param event is to identify which emoji that triggered the event.
+   */
   @FXML
   void onEmojiMouseEntered(MouseEvent event) {
     // Gets the image that is hovered
@@ -106,6 +118,10 @@ public class EventItem {
     spinEmoji(reaction);
   }
 
+  /**
+   * This method stops the reaction image to spin if it is not hovered over again.
+   -@param event identifies which emoji triggered the event.
+   */
   @FXML
   void onEmojiMouseExited(MouseEvent event) {
     // Get image that was hovered
@@ -113,6 +129,10 @@ public class EventItem {
     stopEmoji(reaction);
   }
 
+  /**
+   * Increases the height of the stack-pane to display more information-
+   * in the loaded event_design.fxml.
+  */
   @FXML
   void showDetails() {
     boolean showDetails = !(pnEventDetails.isVisible());
@@ -121,6 +141,11 @@ public class EventItem {
     pnEventDetails.setVisible(showDetails);
   }
 
+  /**
+   * When placing the mouse on top of a button triggers this event.
+   * Then change the opacity of the button/togglebutton.
+   - @param event is helping identify which button was hovered.
+   */
   @FXML
   void buttonOnMouseEnter(MouseEvent event) {
     if (event.getSource() instanceof Button) {
@@ -130,6 +155,11 @@ public class EventItem {
     }
   }
 
+  /**
+   * Resets the opacity of the Button that was hovered.
+   - @param event identifies which button is no longer hovered.
+   */
+
   @FXML
   void buttonOnMouseExited(MouseEvent event) {
     if (event.getSource() instanceof Button) {
@@ -138,6 +168,12 @@ public class EventItem {
       ((ToggleButton) event.getSource()).setOpacity(1);
     }
   }
+
+  /**
+   * When clicking an emoji add this emoji to the event's reactiona arraylist.
+   * Also starts an animation to help the user keep track of which reaction they pressed.
+   - @param event identifies which of the 4 emojis were clicked on.
+   */
 
   @FXML
   void onEmojiClicked(MouseEvent event) {
@@ -156,38 +192,68 @@ public class EventItem {
       reaction = 4;
     }
 
-    if (activeReaction != null) {
+    if (activeReaction != null) { // If there's an ongoing animation stop it
       stopEmoji(activeReactionImage);
     }
+
+    // Add, remove or modify reaction to the event.
     this.event.addReaction(userEmail, reaction, name);
+    // Update the list of reactions.
     addReactions();
+    // Save event data.
     master.saveEvents();
   }
 
+  /**
+   * Display either who is attending the event or what reactions have been pressed.
+   - @param event helps idenitfy if the user wants to display reactions/attending list.
+   */
+
   @FXML
   void showInfo(MouseEvent event) {
+    // If hovering the reaction counter/reaction list
     if (event.getSource() == lblReactions || event.getSource() == stpReactions) {
       stpReactions.setVisible(true);
-    } else {
+    } else { // The user clicked attending label or hovered Attending list.
       stpAttendees.setVisible(true);
     }
   }
 
+  /**
+   * This method hides the popup of who is attending/has reactied to an event.
+   - @param event helps idenitfy which info to hide.
+   */
   @FXML
   void closeInfo(MouseEvent event) {
+    // If user is no longer hovering the reaction counter or list of reactions.
     if (event.getSource() == lblReactions || event.getSource() == stpReactions) {
       stpReactions.setVisible(false);
-    } else {
+    } else { // If the user clicked on attending label again.
       stpAttendees.setVisible(false);
     }
   }
 
+  /**
+   * When user clicks on the attendees button.
+   */
   @FXML
   void toggleAttend() {
     stpAttendees.setVisible(!stpAttendees.isVisible());
   }
 
+  /*
+  *******************
+  * FUNCTIONALITY
+  *******************
+   */
+
+  /**
+   * Sets all required information for the event loaded.
+   - @param event Is a copy of the event object.
+   */
+
   public void load(Event event) {
+    // Sets a reference to the logged in user.
     currentUser = master.getCurrentUser();
     setEvent(event);
     setEventInfo();
@@ -195,10 +261,14 @@ public class EventItem {
     addAttendees();
   }
 
+  /**
+   * All visuals from the event object displayed in the ui.
+   */
   private void setEventInfo() {
     String title = event.getTitle();
     this.lblTitle.setText(title);
 
+    // Grabs only the date value DD/MM/YYYY from LocalDate.
     String date = String.valueOf(event.getDate()).substring(0, 10);
     this.lblDate.setText(date);
 
@@ -208,6 +278,7 @@ public class EventItem {
     String time = event.getTime();
     this.lblTime.setText(time);
 
+    // Displays the number of attendees.
     String attendees = String.valueOf(event.getAttending().size());
     this.lblAttendees.setText(attendees);
 
@@ -230,24 +301,42 @@ public class EventItem {
     imgReactionThree.setDisable(eventPassed);
     imgReactionFour.setDisable(eventPassed);
 
+    // Staff cant attend their own events.
     boolean isStudent = master.getCurrentUser().getType() < 3;
     btnAttend.setVisible(isStudent);
 
     String userEmail = master.getCurrentUser().getEmail();
     attending = event.getAttending().contains(userEmail);
 
+    // Toggles the attend button if user is already attending the event.
     setAttending(!attending);
 
+    // Hides the detailed info.
     pnEventDetails.setVisible(false);
   }
-  
+
+  /**
+   * Assigns the mastercontroller reference to already created object.
+   - @param master is the reference to our mastercontroller.
+   */
+
   public void setMaster(MasterController master) {
     this.master = master;
   }
 
+  /**
+   * Sets a reference to the event that is loaded into our controller.
+   - @param event The event that is displayed to the user.
+   */
+
   private void setEvent(Event event) {
     this.event = event;
   }
+
+  /**
+   * Updates the attend button with styling depending on if user is attending or not.
+   - @param status is the new status of the button "attend"/"cancel".
+   */
 
   private void setAttending(boolean status) {
     this.attending = status;
@@ -264,24 +353,40 @@ public class EventItem {
     master.saveEvents();
   }
 
+  /**
+   * Sets the reaction counter to number of reactions in the arraylist.
+   * Then loads the list of all reactions.
+   */
   void addReactions() {
     int reactions = event.getReactions().size();
     lblReactions.setText("" + reactions);
     loadReactionList();
   }
 
+  /**
+   * Loads all the reactions to this event.
+   */
   void loadReactionList() {
     // Retrieve all reactions in a sorted ArrayList.
     ArrayList<String[]> reactions = sortReactions(event.getReactions());
     int size = reactions.size();
+    // when this method is called we need to stop the ongoing animations.
+    // to prevent multiple emojis being animated at once.
+
+    // If there's an ongoing indefinite reaction, stop it.
     if (activeReaction != null) {
       activeReaction.stop();
       emojiAnimation.stop();
     }
+
+    // If user has reacted to the event imgUserReaction will be set method.
     if (imgUserReaction != null && imgUserReaction != activeReactionImage) {
+      // Stop the animation.
       stopEmoji(imgUserReaction);
+      // create a new animation and play it
       activeReaction = spinEmoji(imgUserReaction);
       activeReaction.play();
+      // assign the active emoji to a global variable for toggle controlling
       activeReactionImage = imgUserReaction;
     }
 
@@ -310,13 +415,14 @@ public class EventItem {
     stpReactions.setLayoutY(layoutY);
   }
 
-  /*
-    This method will first loop through 1-4 (The reactions available)
-    It will in each iteration loop through all the reactions
-    It will then check if the reaction of the event is the same as the reaction we're
-    -checking(1 through 4).
-    If it is a match it will add that reaction to another arraylist and go to the next one.
-    Thus, we are sorting them based on reaction 1, 2, 3 and 4.
+  /**
+   * This method will first loop through 1-4 (The reactions available)
+   * It will in each iteration loop through all the reactions
+   * It will then check if the reaction of the event is the same as the reaction we're
+   * -checking(1 through 4).
+   * If it is a match it will add that reaction to another arraylist and go to the next one.
+   * Thus, we are sorting them based on reaction 1, 2, 3 and 4.
+   -@param reactions Is the list of reactions that are sorted.
    */
 
   private ArrayList<String[]> sortReactions(ArrayList<String[]> reactions) {
@@ -362,11 +468,19 @@ public class EventItem {
     return sortedReactions;
   }
 
+  /**
+   * Display the size of users attending this event.
+   */
+
   private void addAttendees() {
     String attendees = "" + event.getAttending().size();
     lblAttendees.setText(attendees);
     loadAttendeesList();
   }
+
+  /**
+   * Loads all names into a VBox of panes with the student's names who are attending the event.
+   */
 
   private void loadAttendeesList() {
     // Retrieve all attendees for event
@@ -390,6 +504,14 @@ public class EventItem {
     double layoutY = 210 - height;
     stpAttendees.setLayoutY(layoutY);
   }
+
+  /**
+   * Creates a pane for displaying reactions/attending information.
+   - @param text The name/text to display.
+   - @param react The reaction image to dispaly
+   - @param empty If there are no reactions or attendees
+   - @return A custom created pane containing the information to display.
+   */
 
   private Pane infoPane(String text, String react, boolean empty) {
     Pane pnReaction = new Pane();
@@ -424,6 +546,12 @@ public class EventItem {
     pnReaction.getChildren().add(lblReactionText);
     return pnReaction;
   }
+
+  /**
+   * Creates an animation on the emojis and starts it.
+   - @param emoji the image to apply the animation on.
+   - @return a copy of the sequentialtransition/animation for toggling purposes.
+   */
 
   private SequentialTransition spinEmoji(ImageView emoji) {
     if (activeReaction != null) {
@@ -462,6 +590,10 @@ public class EventItem {
     return copyEmojiAnimation;
   }
 
+  /**
+   * Stop the if any ongoing reaction on the emoji requested.
+   - @param image the emoji which animation should be stopped.
+   */
   private void stopEmoji(ImageView image) {
     if (emojiAnimation != null && emojiAnimation != activeReaction) {
       // Stop the sequence of rotations
