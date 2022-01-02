@@ -108,7 +108,7 @@ public class UserMethods {
 
     return false;
   }
-// Write comment here
+  // Write comment here
   public int getIndex(int id, ArrayList<Integer> list) {
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) == id) {
@@ -117,7 +117,7 @@ public class UserMethods {
     }
     return -1;
   }
-// Method for getting user by his email
+  // Method for getting user by his email
   public User getUserByEmail(String email) {
     for (User user: users) {
       if (user.getEmail().equals(email)) {
