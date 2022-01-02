@@ -104,7 +104,7 @@ MasterController {
     eventCreateController.load();
   }
 
-  public void showProfileSettingsPage() {
+  public void showProfileSettingsPage() { // Button that shows the profile settings page
     closeWindow();
     FXMLLoader profileLoader = showWindow(Info.RESOURCE_ACCOUNT_SETTINGS);
     ProfileController profileController = profileLoader.getController();
@@ -144,35 +144,35 @@ MasterController {
   *********************
    */
 
-  public void setLoggedInUser(User user) {
+  public void setLoggedInUser(User user) { // Method for assigning a user to the "current logged-in user".
     userMethods.setLoggedInUser(user);
   }
 
-  public User getCurrentUser() {
+  public User getCurrentUser() { // Getter for getting the current "current logged-in user".
     return userMethods.getLoggedInUser();
   }
 
-  public User findUser(String email) {
+  public User findUser(String email) { // Takes a String email and returns the corresponding user
     return userMethods.getUserByEmail(email);
   }
 
-  public boolean validateLogin(String uEmail, String uPassword) {
+  public boolean validateLogin(String uEmail, String uPassword) { // Method for logging in, checks if the email exists, and that the email and password correspond each other.
     return userMethods.checkExistingEmail(uEmail) && userMethods.validatePassword(uPassword, uEmail);
   }
 
   public boolean checkPassword(String password) {
     return userMethods.checkPasswordComplexity(password);
-  }
+  } // Checks that the password has the correct complexity.
 
-  public void banUser(String email) {
+  public void banUser(String email) { // Method for banning a user
     userMethods.banUser(email);
   }
 
-  public void unbanUser(String email) {
+  public void unbanUser(String email) { // Method for un-banning a user
     userMethods.unbanUser(email);
   }
 
-  public void toggleAdminStatus(String email) {
+  public void toggleAdminStatus(String email) { // Toggles the administrator status in the student/admin class
     try {
       userMethods.toggleAdminStatus(email);
     } catch (Exception e) {
@@ -202,7 +202,7 @@ MasterController {
     }
   }
 
-  public void removeUser(String email) {
+  public void removeUser(String email) { // Method for removing a user from the system
     try {
       userMethods.removeUser(email);
     } catch (Exception e) {
@@ -267,7 +267,7 @@ MasterController {
     }
   }
 
-  public void saveUsers() {
+  public void saveUsers() { // Method for saving the current configuration of the users to the json file.
     ArrayList<User> users = userMethods.getAllUsers();
     if (!json.saveUsers(users)) {
       showError(Info.FAIL_SAVE_USERS);
