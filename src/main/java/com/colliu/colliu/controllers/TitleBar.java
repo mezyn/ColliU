@@ -8,17 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-import java.awt.*;
-
+/**
+ * This is the controller for TitleBar.fxml
+ * This replaces the default titlebar of the software with a styled one.
+ * Main purpose is to allow moving of the window and closing the window.
+ */
 public class TitleBar {
 
-  private double xOffset = 0.0;
-  private double yOffset = 0.0;
-
-  private MasterController master;
-
-  @FXML
-  private Button closeWindow;
+  private double offsetY = 0.0;
+  private double offsetX = 0.0;
 
   @FXML
   private HBox titleBar;
@@ -29,14 +27,16 @@ public class TitleBar {
   }
 
   @FXML
-  void mouseDragged(MouseEvent event) {
-    titleBar.getScene().getWindow().setY(event.getScreenY() - yOffset);
-    titleBar.getScene().getWindow().setX(event.getScreenX() - xOffset);
+  private void mouseDragged(MouseEvent event) {
+    // When dragging the stage update it's X and Y position using mouse's current location.
+    titleBar.getScene().getWindow().setY(event.getScreenY() - offsetY);
+    titleBar.getScene().getWindow().setX(event.getScreenX() - offsetX);
   }
 
   @FXML
-  void mousePressed(MouseEvent event) {
-    xOffset = event.getSceneX();
-    yOffset = event.getSceneY();
+  private void mousePressed(MouseEvent event) {
+    // When pressing down mouse button on the stage get current coordinates of mouse.
+    offsetX = event.getSceneX();
+    offsetY = event.getSceneY();
   }
 }

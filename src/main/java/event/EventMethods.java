@@ -8,7 +8,8 @@ import user.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/** This class handles the Event Object.
+/**
+ * This class handles the Event Object.
  * All methods for adding, getting and manipulating the info will be called from this class.
  */
 public class EventMethods {
@@ -61,16 +62,13 @@ public class EventMethods {
     return recommendedEvents.toArray(new Event[0]);
   }
 
+  /** Method that returns an array of all events that have not been seen. **/
   public Event[] getNotifications(String email, String program) { // Will return an array of all event-IDs that have not been seen
     Event[] recommendedEvents = getEvents(program, Info.UPCOMING_EVENTS);
-  /** Method that returns an array of all events that have not been seen. **/
-  public Event[] getNotifications(String email, String program) {
-    Event[] recommendedEvents = getEvents(program, UPCOMING_EVENTS);
     ArrayList<Event> notSeenEvents = new ArrayList<>();
     for (Event event : recommendedEvents) {
-      LocalDate eventCreated = event.getCreationDate();
       boolean isActive = event.isActive();
-      if (!event.getSeenBy().contains(email) && event.getDate().isAfter(LocalDate.now())) {
+      if (!event.getSeenBy().contains(email) && isActive) {
         notSeenEvents.add(event);
       }
     }

@@ -1,7 +1,7 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
-import java.io.IOException;
+
 import java.time.Year;
 
 import javafx.collections.FXCollections;
@@ -17,13 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import miscellaneous.Info;
 import miscellaneous.Style;
-import org.w3c.dom.Text;
-import user.Administrator;
-import user.Staff;
 import user.Student;
 import user.User;
-
-import javax.security.auth.callback.PasswordCallback;
 
 import static java.lang.Math.abs;
 
@@ -258,7 +253,7 @@ public class ProfileController {
 
   @FXML
   void closeSettings(ActionEvent event) {
-    master.showEventPage();
+    master.showHomepage();
   }
 
 
