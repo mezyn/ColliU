@@ -1,91 +1,53 @@
 package user;
 
 import com.colliu.colliu.MasterController;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+  // This class contains methods relevant to users - student, staff, administrator.
+  public class UserMethods {
+    private ArrayList<User> users;
+    MasterController master;
+    public User currentUser;
 
-/**
- *********************************
- * Methods related to the users. *
- *********************************
- **/
-public class UserMethods {
-  private ArrayList<User> users;
-  private MasterController master;
-  private User currentUser;
-
-  // private String loggedInUserEmail;
 
   public UserMethods(MasterController master) {
     this.master = master;
     users = master.loadUsers();
   }
 
-  //create user and sub-types, check for existing users (email?), add / not add into arraylist
-  // update name, update password, update graduationYear,
-  // limit user-permission & do exceptions (instanceOf etc.)
-  // check when user latest logged in(dunno how)? william wrote about it
-  //get a user by email?
-  //Using user input + calling constructors from the different user-classes?
-
-
-  // Method for finding a user by his Email.
+  // Method for finding a user with his/her registered email address.
   public int findUser(String searchEmail) {
-    if (users.size() == 0) {
+    if (users.size() == 0) { //If no user is registered in the system
       return -1;
     }
-    for (int i = 0; i < users.size(); i++) {
+    for (int i = 0; i < users.size(); i++) { //If a user matches to the provided email address
       if (users.get(i).getEmail().equals(searchEmail)) {
         return i;
       }
     }
     return -1;
-    /*
-    A cleaner way to do this is:
-    return activeUsers.indexOf(searchEmail);
-    this will return either the index of the arraylist or -1 if it doesn't exist
-    // William.
-     */
   }
 
-  public boolean testMethod(String email, String password) {
-    User userToTest = getUserByEmail(email); // Fetch user object if email exist else fetch null
-    if(userToTest != null && userToTest.validatePassword(password)) { // Test if object is a user(or null) and then test if password is correct
-      // Let user login!
-    } else {
-        // Wrong email or password
-    }
-    return true; // change this
-  }
-// Function for registering as student.
+  // Method for creating/registering as student.
   public String createStudent(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Function for registering as administrator.
+
+  // Method for creating/registering as administrator.
   public String createAdministrator(String email, String password, String firstName, String lastName, int graduationYear, String program) throws Exception {
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
     return "User registered successfully.";
   }
-// Write comment here
+
+  // Method for creating/registering as staff.
   public String createStaff(String email, String password, String firstName, String lastName) throws Exception {
     users.add(new Staff(email, password, firstName, lastName));
     return "User registered successfully.";
   }
-  /*
-    public boolean userLogin(String email, String password) {
-
-      if (checkExistingEmail(email) && validatePassword(password)) {
-        return true;
-      }
-      return false;
-    }
-   */
 
 
-// Checks if a user with an email as the input String exists.
+  // Checks if a user with a provided email exists.
   public boolean checkExistingEmail(String email) {
 
     for (User user : users) {
@@ -95,29 +57,21 @@ public class UserMethods {
     }
     return false;
   }
-//Method for validating password
-//I'm not sure if the validatePassword method is logically correct.
-//So if the password input exist in the system it validates it no matter which user does the password belongs to? -Mijin
-  public boolean validatePassword(String password, String email) {
 
+
+  // Method for validating password upon user login
+  // It checks if a specific user's provided email and password match to the one in JSON file
+  public boolean validatePassword(String password, String email) {
     for (User user : users) {
       if (user.getPassword().equals(password) && user.getEmail().equals(email)) {
         return true;
       }
     }
-
     return false;
   }
-  // Write comment here
-  public int getIndex(int id, ArrayList<Integer> list) {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i) == id) {
-        return i;
-      }
-    }
-    return -1;
-  }
-  // Method for getting user by his email
+
+
+  // Method for getting user by her/his email
   public User getUserByEmail(String email) {
     for (User user: users) {
       if (user.getEmail().equals(email)) {
@@ -127,30 +81,33 @@ public class UserMethods {
     return null;
   }
 
-  // Function for checking the strength of each user's password.
+  // Method for checking the strength of each user's password.
   public boolean checkPasswordComplexity(String password) {
-    if (password == null || password.isBlank()) {
+    if (password == null || password.isBlank()) { //No empty password field is allowed
       return false;
     }
-    if (password.length() < 11 || password.length() > 20) {
+    if (password.length() < 11 || password.length() > 20) { //Too long or too short password is not allowed
       return false;
     }
-    if (!password.matches("(.*[A-Z].*)")) {
+    if (!password.matches("(.*[A-Z].*)")) { //Password should contain at least one upper case letter
       return false;
     }
-    if (!password.matches("(.*[a-z].*)")) {
+    if (!password.matches("(.*[a-z].*)")) { //Password should contain at least one lower case letter
       return false;
     }
-    if (!password.matches("(.*[0-9].*)")) {
+    if (!password.matches("(.*[0-9].*)")) { //Password should contain at least one numerical digit
       return false;
     }
-    if (password.contains(" ")) {
+    if (password.contains(" ")) { //Password should not contain en empty space
       return false;
     } else {
       return true;
     }
   }
 
+  /*
+  Get/Set a logged-in user so that the system can work for the specific user
+  */
   public void setLoggedInUser(User user) {
     currentUser = user;
   }
@@ -160,6 +117,14 @@ public class UserMethods {
     return currentUser;
   }
 
+
+  /*
+  This method assigns a user to an administrator position and vice versa by using polymorphism.
+  The methods get and keep all the information that current User object has, and create a new administrator object
+  when the user with the provided email is not an ordinary, non-administrator user.
+  Likewise, the methods get and keep all the information that current User object has, and create a new student object
+  when the user with the provided email is an administrator user.
+  */
   public void toggleAdminStatus (String email) throws Exception {
     Student student = (Student) getUserByEmail(email);
     boolean isBanned = student.getAccountStatus();
@@ -176,37 +141,45 @@ public class UserMethods {
     }
     Student newStudent = (Student) getUserByEmail(email);
     newStudent.setAccountStatus(isBanned);
-   master.saveUsers();
+    master.saveUsers();
   }
 
+  //Promote student to administrator
   public void promoteStudent(String email) throws Exception {
     toggleAdminStatus(email);
   }
 
+  //Demote administrator to student
   public void demoteAdmin(String email) throws Exception {
     toggleAdminStatus(email);
   }
 
+
+  //Method for banning a user.
   public void banUser(String userToBan)  {
     getUserByEmail(userToBan).setAccountStatus(true);
     master.saveUsers();
   }
 
- // Function for unbanning a user.
+  //Method for banning a user.
   public void unbanUser(String userToUnban)  {
     getUserByEmail(userToUnban).setAccountStatus(false);
     master.saveUsers();
   }
 
+  // Get all users in an ArrayList
   public ArrayList<User> getAllUsers() {
     return users;
   }
 
+
+  // Remove a specific user from the system
   public void removeUser(String email) {
     users.remove(findUser(email));
     master.saveUsers();
   }
 
+  // Add a specific user to the system
   public void addUser(User user) {
     users.add(user);
   }

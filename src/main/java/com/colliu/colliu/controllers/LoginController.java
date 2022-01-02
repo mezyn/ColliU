@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import miscellaneous.Info;
 import user.User;
@@ -18,18 +19,18 @@ public class LoginController {
   private TextField guEmail;
 
   @FXML
-  private Button login;
-
-  @FXML
   private PasswordField password;
 
+  //In case there is an issue during login process, the application informs a user about the matter with this label.
   @FXML
   private Label warningLabel;
 
 
+
   /* Upon login button click, the system checks if the input email is already registered in the system as well as
-if the input password matches the email address. If both are correct, the user succeeds to log in and will be sent
-to the event page(homepage). Otherwise, the warning label shows which action the user shall take to successfully login. */
+  if the input password matches the email address.
+  If both are correct, the user succeeds to log in and will be sent to the event page(homepage).
+  Otherwise, the warning label shows which action the user shall take to successfully login. */
 
   @FXML
   void onLogInClick() {
@@ -58,16 +59,21 @@ to the event page(homepage). Otherwise, the warning label shows which action the
 
   }
 
+  // Upon clicking 'New Staff' button, a user is sent to the registration page for staff.
   @FXML
-  void registerStaff(ActionEvent event) {
+  void registerStaff() {
     master.showRegisterStaff();
   }
 
+  // Upon clicking 'New Student' button, a user is sent to the registration page for student.
   @FXML
-  void registerStudent(ActionEvent event) {
+  void registerStudent() {
     master.showRegisterStudent();
   }
 
+  /*
+  When a user hover on/off the login button, the button color changes.
+  */
   @FXML
   void hoverOn(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(0.8);
@@ -78,17 +84,12 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     ((Button) event.getSource()).setOpacity(1);
   }
 
-  @FXML
-  void underlineOn(MouseEvent event) {
-    String buttonStyle = ((Button) event.getSource()).getStyle();
-    ((Button) event.getSource()).setStyle(buttonStyle + "-fx-underline: true;");
-  }
 
+  /* To facilitate the demo of the software, we added the user profiles that exist in JSON file the login page
+  in a form of combo box. The codes below are written to achieve the purpose.
+   */
   @FXML
-  void underlineOff(MouseEvent event) {
-    String buttonStyle = ((Button) event.getSource()).getStyle();
-    ((Button) event.getSource()).setStyle(buttonStyle.substring(0, buttonStyle.length() - 20));
-  }
+  private ComboBox<String> cbLogin;
 
   public void setMaster(MasterController master) {
     this.master = master;
@@ -103,11 +104,9 @@ to the event page(homepage). Otherwise, the warning label shows which action the
     cbLogin.getSelectionModel().selectFirst();
   }
 
-  @FXML
-  private ComboBox<String> cbLogin;
 
   @FXML
-  void enterDetails(ActionEvent event) {
+  void enterDetails() {
     String email;
     String pass;
     switch(cbLogin.getValue()) {
