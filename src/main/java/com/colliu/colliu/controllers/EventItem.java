@@ -4,6 +4,8 @@ import com.colliu.colliu.MasterController;
 import event.Event;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import event.EventMethods;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -24,6 +26,7 @@ import javafx.util.Duration;
 import miscellaneous.Info;
 import miscellaneous.Style;
 import user.User;
+import user.UserMethods;
 
 
 /**
@@ -31,8 +34,8 @@ import user.User;
  * It lets the user manipulate information in the event object.
  */
 public class EventItem {
-  private double fullHeight;
-  private double detailsHeight;
+  private double fullHeight; // The full height when extra details are not hidden.
+  private double detailsHeight; // The height of the details that will be hidden on load.
   private boolean attending;
   private Event event;
   private SequentialTransition emojiAnimation;
@@ -41,6 +44,7 @@ public class EventItem {
   private ImageView imgUserReaction;
   private MasterController master;
   private User currentUser;
+  private UserMethods userMethods;
 
   @FXML
   private Label lblAttendees;
@@ -99,18 +103,24 @@ public class EventItem {
   @FXML
   private VBox vbAttendees;
 
+
   /**
    * Toggles setAttending method with opposite of current status.
    */
+
   @FXML
   void attendEvent() {
     setAttending(!attending);
+    master.saveEvents();
+    addAttendees();
   }
 
   /**
    * This method spins the reaction image when the user hovers over it.
-   - @Param event is to identify which emoji that triggered the event.
+   - @Para
+   m event is to identify which emoji that triggered the event.
    */
+
   @FXML
   void onEmojiMouseEntered(MouseEvent event) {
     // Gets the image that is hovered
@@ -255,6 +265,7 @@ public class EventItem {
   public void load(Event event) {
     // Sets a reference to the logged in user.
     currentUser = master.getCurrentUser();
+    userMethods = master.getUserReference();
     setEvent(event);
     setEventInfo();
     addReactions();
@@ -302,14 +313,14 @@ public class EventItem {
     imgReactionFour.setDisable(eventPassed);
 
     // Staff cant attend their own events.
-    boolean isStudent = master.getCurrentUser().getType() < 3;
+    boolean isStudent = currentUser.getType() < 3;
     btnAttend.setVisible(isStudent);
 
-    String userEmail = master.getCurrentUser().getEmail();
+    String userEmail = currentUser.getEmail();
     attending = event.getAttending().contains(userEmail);
 
     // Toggles the attend button if user is already attending the event.
-    setAttending(!attending);
+    setAttending(attending);
 
     // Hides the detailed info.
     pnEventDetails.setVisible(false);
@@ -340,7 +351,7 @@ public class EventItem {
 
   private void setAttending(boolean status) {
     this.attending = status;
-    String userEmail = master.getCurrentUser().getEmail();
+    String userEmail = currentUser.getEmail();
     if (attending) {
       event.addAttendee(userEmail);
       btnAttend.setStyle(Style.BUTTON_RED);
@@ -350,7 +361,6 @@ public class EventItem {
       btnAttend.setStyle(Style.BUTTON_GREEN);
       btnAttend.setText(Info.ATTEND);
     }
-    master.saveEvents();
   }
 
   /**
@@ -427,7 +437,7 @@ public class EventItem {
 
   private ArrayList<String[]> sortReactions(ArrayList<String[]> reactions) {
     ArrayList<String[]> sortedReactions = new ArrayList<>();
-    String userEmail = master.getCurrentUser().getEmail();
+    String userEmail = currentUser.getEmail();
     for (int i = 1; i < 5; i++) {
       for (String[] reaction : reactions) {
         switch (i) {
@@ -488,10 +498,7 @@ public class EventItem {
     int size = attendees.size();
     Node[] attendeeList = new Node[(size > 0 ? size : 1)];
     for (int i = 0; i < size; i++) {
-      String first = master.findUser(attendees.get(i)).getFirstName();
-      String last = master.findUser(attendees.get(i)).getLastName();
-      String name = first + " " + last;
-
+      String name = userMethods.getUserByEmail(attendees.get(i)).toString();
       attendeeList[i] = infoPane(name, Info.REACTION_BLANK, false);
     }
     if (size == 0) {

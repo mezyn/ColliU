@@ -6,12 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import miscellaneous.Style;
+import user.UserMethods;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
   private MasterController master;
+  private UserMethods userMethods;
 
   @FXML
   private Button btnRegister;
@@ -77,7 +79,7 @@ public class StudentController implements Initializable {
       lblWarning.setText("");
       tfStudentEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
-    if (master.findUser(tfStudentEmail.getText()) != null){
+    if (userMethods.getUserByEmail(tfStudentEmail.getText()) != null){
       lblWarning.setText("Email is already registered");
       throw new Exception("Email is already registered");
     } else {
@@ -167,6 +169,7 @@ public class StudentController implements Initializable {
 
   public void setMaster(MasterController master) {
     this.master = master;
+    this.userMethods = master.getUserReference();
   }
 
   //Initializes and gives options to the choice boxes

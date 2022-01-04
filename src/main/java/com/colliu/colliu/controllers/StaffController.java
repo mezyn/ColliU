@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import miscellaneous.Style;
+import user.UserMethods;
 
 public class StaffController {
   private MasterController master;
+  private UserMethods userMethods;
 
 
   @FXML
@@ -57,7 +59,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
-    if (master.findUser(tfStaffEmail.getText()) != null){
+    if (userMethods.getUserByEmail(tfStaffEmail.getText()) != null){
       lblWarning.setText("Email is already registered");
       throw new Exception("Email is already registered");
     } else {
@@ -152,6 +154,7 @@ public class StaffController {
 
   public void setMaster(MasterController master) {
     this.master = master;
+    userMethods = master.getUserReference();
   }
 
 }

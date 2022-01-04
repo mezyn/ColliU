@@ -27,7 +27,6 @@ public class MasterController {
   private final Data json;
   private final EventMethods eventMethods;
   private Stage latestStage;
-  public User user;
 
   /**
    * An object will be created only at the start of the program or when displaying the login-page.
@@ -38,6 +37,23 @@ public class MasterController {
     json = new Data();
     userMethods = new UserMethods(this);
     eventMethods = new EventMethods(this);
+  }
+
+  /**
+   * Returns a reference to different objects to allow functionality between classes.
+   * @return
+   */
+
+  public EventMethods getEventReference() {
+    return eventMethods;
+  }
+
+  public UserMethods getUserReference() {
+    return userMethods;
+  }
+
+  public User getCurrentUser() {
+    return userMethods.getLoggedInUser();
   }
 
   /**
@@ -183,14 +199,6 @@ public class MasterController {
 
   public void setLoggedInUser(User user) {
     userMethods.setLoggedInUser(user);
-  }
-
-  public User getCurrentUser() { // Getter for getting the current "current logged-in user".
-    return userMethods.getLoggedInUser();
-  }
-
-  public User findUser(String email) { // Takes a String email and returns the corresponding user
-    return userMethods.getUserByEmail(email);
   }
 
   /**
@@ -408,70 +416,9 @@ public class MasterController {
 
   /*
   *********************
-      USER HANDLING
+      EVENT HANDLING
   *********************
    */
-
-  /**
-   - @return A copy of our arraylist of event objects.
-   */
-
-  public ArrayList<Event> getAllEvents() {
-    return eventMethods.getAllEvents();
-  }
-
-  /**
-   - @param tags What we want to filter our event arraylist by.
-   - @return Return an array of filtered events
-   */
-
-  public Event[] filterEvents(String[] tags) {
-    // If object is a student/admin filter by program, else by Hosting.
-    String filterBy = (getCurrentUser() instanceof Student
-        ? ((Student) getCurrentUser()).getProgram() : Info.STAFF_FILTER);
-
-    return (tags.length > 0 ? eventMethods.filterEvents(filterBy, tags)
-        : eventMethods.getEvents(filterBy, Info.UPCOMING_EVENTS));
-  }
-
-  /**
-   - @return Return an array of only upcoming events.
-   */
-
-  public Event[] getUpcomingEvents() {
-    return getEvents(Info.UPCOMING_EVENTS);
-  }
-
-  /**
-   - @return Return an array of only previous events.
-   */
-
-  public Event[] getPastEvents() {
-    return getEvents(Info.PAST_EVENTS);
-  }
-
-  /**
-   - @return Return an array of only events the user is attending.
-   */
-
-  public Event[] getAttendingEvents() {
-    return getEvents(Info.ATTENDING_EVENTS);
-  }
-
-  /**
-   - @param type is what type of object is trying to access events,
-   -             1 = student, 2 = administrator(student) 3 = staff.
-   - @return An array of filtered events based on object type.
-   */
-
-  private Event[] getEvents(int type) {
-    if (getCurrentUser().getType() < Info.TYPE_STAFF) {
-      String program = ((Student) getCurrentUser()).getProgram();
-      return eventMethods.getEvents(program, type);
-    } else {
-      return eventMethods.getHostingEvents(getCurrentUser(), type);
-    }
-  }
 
   /**
    * Saves all events stored in our arraylist to a JSON document on the user's pc.
@@ -546,32 +493,5 @@ public class MasterController {
 
     json.saveEvents(standardEvents);
     return loadEvents();
-  }
-
-  /**
-   - @param title A way to quickly describe the event.
-   - @param date The date of when the event occurs.
-   - @param time The time of when the event occurs on that day.
-   - @param location The location where event is hosted.
-   - @param program Which group of users will be able to see the event.
-   - @param description A more detailed explanation/description for the event.
-   - @param category A way to let users filter the event by type.
-   - @param host The email of the user who created the event.
-   */
-
-  public void createEvent(String title, LocalDate date, String time, String location,
-                          String program, String description, String category, String host) {
-    eventMethods.addEvent(title, date, time, location, program, description, category, host);
-  }
-
-  /**
-   * Filter all events that the user has not already seen or that has not passed already.
-   - @return an array of filtered event objects.
-   */
-
-  public Event[] getNotifications() {
-    String userEmail = getCurrentUser().getEmail();
-    String userProgram = ((Student)getCurrentUser()).getProgram();
-    return eventMethods.getNotifications(userEmail, userProgram);
   }
 }

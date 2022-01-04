@@ -3,6 +3,7 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.Master;
 import com.colliu.colliu.MasterController;
 import event.Event;
+import event.EventMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +19,15 @@ import java.util.ArrayList;
 import miscellaneous.Info;
 import miscellaneous.Style;
 import org.controlsfx.control.ToggleSwitch;
+import user.User;
 
 /**
  * This is the controller of EventPage.fxml, it lets the user display and modify information in the ui.
  */
 public class EventController {
   private MasterController master;
+  private EventMethods eventMethods;
+  private User currentUser;
   private final ArrayList<String> tags = new ArrayList<>();
 
 
@@ -71,12 +75,13 @@ public class EventController {
 
 
   /**
-   * This method lets the user switch method upcoming, past and attending events.
+   * This method lets the user switch between upcoming, past and attending events.
    * Upcoming events are events that haven't occurred yet.
    * Past events are events that have already occurred.
    * Attending events are upcoming events that the user has accepted.
    - @param event which Button that was pressed, to identify the user's selection.
    */
+
   @FXML
   void eventView(ActionEvent event) {
     Button clicked = ((Button) event.getSource()); // cast to button
@@ -86,17 +91,17 @@ public class EventController {
       btnUpcoming.setUnderline(true);
       btnPast.setUnderline(false);
       btnAttending.setUnderline(false);
-      events = master.getUpcomingEvents();
+      events = eventMethods.getUpcomingEvents();
     } else if (clicked == btnPast) { // Past
       btnUpcoming.setUnderline(false);
       btnPast.setUnderline(true);
       btnAttending.setUnderline(false);
-      events = master.getPastEvents();
+      events = eventMethods.getPastEvents();
     } else { // Attending
       btnUpcoming.setUnderline(false);
       btnPast.setUnderline(false);
       btnAttending.setUnderline(true);
-      events = master.getAttendingEvents();
+      events = eventMethods.getAttendingEvents();
     }
     loadEvents(events);
   }
@@ -104,6 +109,7 @@ public class EventController {
   /**
    * Show or hide navigation bar beneath User's name in the upper right corner.
    */
+
   @FXML
   private void toggleDropDown() {
     boolean isClicked = !vbNameDropDown.isVisible(); // opposite
@@ -118,6 +124,7 @@ public class EventController {
   /**
    * This method redirects the user to their Profile Settings page if the button is clicked.
    * */
+
   @FXML
   private void openProfileSettings() {
     master.showProfileSettingsPage();
@@ -126,6 +133,7 @@ public class EventController {
   /**
    * Calls method in master-controller to show LoginPage.fxml.
    */
+
   @FXML
   private void logOutUser() {
     master.showLogin();
@@ -135,6 +143,7 @@ public class EventController {
    * This method creates a hovering effect when the user is hovering over the button.
    - @param event Helps identify which button that triggered the method.
    */
+
   @FXML
   private void hoverEffectOn(MouseEvent event) {
     ((Button) event.getSource()).setStyle(Style.BACKGROUND_LIGHTGRAY);
@@ -182,26 +191,22 @@ public class EventController {
     }
     System.out.println(category);
     String[] tagsToFilter = tags.toArray(new String[0]);
-    loadEvents(master.filterEvents(tagsToFilter));
+    loadEvents(eventMethods.filterEvents(tagsToFilter));
   }
 
   /**
    * This method redirects the user(Staff) to the Create Event page.
    */
   @FXML
-  void createNewEvent() throws IOException {
+  void createNewEvent()  {
     master.showEventCreationPage();
-  }
-
-  @FXML
-  public void onButtonPressOpenSettingsPage()  {
-    master.showProfileSettingsPage();
   }
 
   /**
    * Increases the speed when scrolling the ScrollPane wrapping all the events.
    - @param event is used to identify the scrollpane that called the method (for universal support).
    */
+
   @FXML
   void scrollSpeed(ScrollEvent event) {
     final double speed = 0.001;
@@ -215,22 +220,31 @@ public class EventController {
    */
 
   /**
+   - @param master Reference to the existing MasterController object.
+   */
+
+  public void setMaster(MasterController master) {
+    this.master = master;
+    this.eventMethods = master.getEventReference();
+  }
+
+  /**
    * Loads all required information when opening the Homepage.
    */
+
   public void load() {
-    Event[] allEvents = master.getUpcomingEvents(); // Default filter
+    Event[] allEvents = eventMethods.getUpcomingEvents(); // Default filter
+    currentUser = master.getCurrentUser();
     setLoggedInName();
     loadEvents(allEvents);
     // Load notifications and hide create event button if a student
-    if (master.getCurrentUser().getType() != Info.TYPE_STAFF) {
+    if (currentUser.getType() != Info.TYPE_STAFF) {
       vbNameDropDown.getChildren().remove(btnCreateEvent);
       loadNotifications();
     } else {
       loadStaff();
     }
-
-    setCategories();
-
+    setCategories(); // Adds the toggleswitches in the left menu.
   }
 
   /**
@@ -267,7 +281,7 @@ public class EventController {
    */
 
   private void loadNotifications() {
-    Event[] newEvents = master.getNotifications();
+    Event[] newEvents = eventMethods.getNotifications();
     int size = newEvents.length;
     // If no new events create 1 extra space.
     Node[] notifications = new Node[size == 0 ? 1 : size];
@@ -288,16 +302,9 @@ public class EventController {
     vbNotifications.getChildren().setAll(notifications);
   }
 
-  /**
-   - @param master Reference to the existing MasterController object.
-   */
-  public void setMaster(MasterController master) {
-    this.master = master;
-  }
-
   private void setLoggedInName() {
-    lblName.setText(master.getCurrentUser().getFirstName()
-        + " " + master.getCurrentUser().getLastName());
+    lblName.setText(currentUser.getFirstName()
+        + " " + currentUser.getLastName());
   }
 
   /**
@@ -348,7 +355,7 @@ public class EventController {
       markRead.setOnMouseExited(e -> pnNotification.setOpacity(1));
       markRead.setOnMouseClicked(event -> {
         // If clicked then add user's email to "seenBy" arraylist in event.java
-        master.getAllEvents().get(index).addSeenBy(master.getCurrentUser().getEmail());
+        eventMethods.getAllEvents().get(index).addSeenBy(currentUser.getEmail());
         master.saveEvents();
         loadNotifications();
       });

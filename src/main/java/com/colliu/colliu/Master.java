@@ -1,20 +1,12 @@
 package com.colliu.colliu;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.colliu.colliu.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import miscellaneous.Info;
-import user.Administrator;
-import user.Staff;
-import user.Student;
-import user.User;
 
 
 public class Master extends Application {

@@ -74,8 +74,9 @@ public class Data {
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       gson.toJson(data, jsFile);
       jsFile.close();
-    } catch(IOException fail) {
+    } catch (IOException fail) {
       fail.printStackTrace();
+      System.out.println(fail.getMessage());
       return false;
     }
     return true;

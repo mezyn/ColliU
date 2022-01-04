@@ -19,11 +19,13 @@ import miscellaneous.Info;
 import miscellaneous.Style;
 import user.Student;
 import user.User;
+import user.UserMethods;
 
 import static java.lang.Math.abs;
 
 public class ProfileController {
   private MasterController master;
+  private UserMethods userMethods;
   private User currentUser;
   private User oldUser;
   private boolean nameCheck = true;
@@ -56,7 +58,8 @@ public class ProfileController {
 
   @FXML
   void onButtonPressBanUser() {
-    boolean setBan = !(master.findUser(tfSearchUser.getText()) != null && master.findUser(tfSearchUser.getText()).getAccountStatus());
+    User userProfile = userMethods.getUserByEmail(tfSearchUser.getText());
+    boolean setBan = !(userProfile != null && userProfile.getAccountStatus());
     if (setBan) {
       master.banUser(tfSearchUser.getText());
     } else {
@@ -68,7 +71,7 @@ public class ProfileController {
   @FXML
   void onDeleteUser() {
     if (oldUser == null) {
-      oldUser = master.findUser(tfSearchUser.getText());
+      oldUser = userMethods.getUserByEmail(tfSearchUser.getText());
       master.removeUser(tfSearchUser.getText());
       load();
     } else {
@@ -246,13 +249,14 @@ public class ProfileController {
   }
 
   @FXML
-  void onComboBoxSelect(ActionEvent event) {
-    if (cbPrograms.getValue() != null && cbGraduationYear.getValue() != null)
+  void onComboBoxSelect() {
+    if (cbPrograms.getValue() != null && cbGraduationYear.getValue() != null) {
       checkSavePossible();
+    }
   }
 
   @FXML
-  void closeSettings(ActionEvent event) {
+  void closeSettings() {
     master.showHomepage();
   }
 
@@ -282,7 +286,8 @@ public class ProfileController {
   }
 
   private void toggleClose() {
-
+    btnCloseSettings.setText(Info.CLOSE);
+    btnCloseSettings.setStyle(Style.BUTTON_NORMAL);
   }
 
   @FXML
@@ -293,13 +298,14 @@ public class ProfileController {
   @FXML
   void onSearchUser(KeyEvent event) {
     String email = tfSearchUser.getText();
-    if (email.length() > 0 && master.findUser(email) == null) {
+    User userProfile = userMethods.getUserByEmail(email);
+    if (email.length() > 0 && userProfile == null) {
       load();
       tfSearchUser.setStyle(Style.TEXTFIELD_NORMAL);
       btnToggleBan.setDisable(true);
       btnPromoteAccount.setDisable(true);
       btnDeleteAccount.setDisable(true);
-    } else if (master.findUser(email) == null) {
+    } else if (userProfile == null) {
       load();
       tfSearchUser.setStyle(Style.TEXTFIELD_RED);
       btnToggleBan.setDisable(true);
@@ -308,8 +314,7 @@ public class ProfileController {
     } else {
       tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
       // get logged in user's name:
-      User user = master.findUser(email);
-      displayUser(user);
+      displayUser(userProfile);
       toggleSearchButtons();
     }
   }
@@ -320,10 +325,11 @@ public class ProfileController {
     String email = user.getEmail();
     String role;
     if (type < Info.TYPE_STAFF) {
+      User student = userMethods.getUserByEmail(email);
       // Get student's program:
-      String program = ((Student) master.findUser(email)).getProgram();
+      String program = ((Student) student).getProgram();
       // Get student's graduation year:
-      String graduation = String.valueOf(((Student) master.findUser(email)).getGraduationYear());
+      String graduation = String.valueOf(((Student) student).getGraduationYear());
       // Set role to student / admin depending on "type".
       role = type == 1 ? "Student" : "Administrator";
       // Set info on profile dashboard
@@ -367,6 +373,7 @@ public class ProfileController {
       lblIncorrectPassword.setText(Info.SAVE_SUCCESS);
       lblIncorrectPassword.setStyle(Style.LABEL_GREEN);
       lblIncorrectPassword.setVisible(true);
+      toggleClose();
     } else {
       lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? Info.INCORRECT_PASSWORD : Info.ENTER_PASSWORD);
       lblIncorrectPassword.setStyle(Style.LABEL_RED);
@@ -417,7 +424,7 @@ public class ProfileController {
         vbStudies.getChildren().add(1, flatStudies);
         asthetics.getChildren().add(vbStudies);
       }
-      asthetics.setLayoutY((599 - 504) / 2);
+      asthetics.setLayoutY(currentUser.getType() == 3 ? 47 : 27);
       apAccountSettings.getChildren().setAll(asthetics);
     }
   }
@@ -426,8 +433,8 @@ public class ProfileController {
     String email = tfSearchUser.getText();
     boolean accountExists = oldUser == null;
     if (accountExists) {
-      int role = master.findUser(tfSearchUser.getText()).getType();
-      if (master.findUser(email).getAccountStatus()) {
+      int role = userMethods.getUserByEmail(tfSearchUser.getText()).getType();
+      if (userMethods.getUserByEmail(email).getAccountStatus()) {
         btnToggleBan.setText("Unban");
         btnToggleBan.setStyle(miscellaneous.Style.BUTTON_GREEN);
       } else {
@@ -438,7 +445,8 @@ public class ProfileController {
         btnPromoteAccount.setDisable(true);
       } else {
         btnPromoteAccount.setText(role == 2 ? "Demote" : "Promote");
-        btnPromoteAccount.setStyle(role == 2 ? miscellaneous.Style.BUTTON_RED : miscellaneous.Style.BUTTON_GREEN);
+        btnPromoteAccount.setStyle(role == 2 ? miscellaneous.Style.BUTTON_RED
+            : miscellaneous.Style.BUTTON_GREEN);
       }
     } else {
       btnPromoteAccount.setDisable(true);

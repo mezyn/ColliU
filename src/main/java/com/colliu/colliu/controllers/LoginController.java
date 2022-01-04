@@ -10,10 +10,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import miscellaneous.Info;
 import user.User;
+import user.UserMethods;
 
 public class LoginController {
   private MasterController master;
   private String[][] loginDetails;
+  private UserMethods userMethods;
 
   @FXML
   private TextField guEmail;
@@ -44,7 +46,7 @@ public class LoginController {
     } else {
       boolean validLogin = master.validateLogin(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the user
       if (validLogin) {
-        User user = master.findUser(uEmail);
+        User user = userMethods.getUserByEmail(uEmail);
         master.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
         if (accountStatus) {
@@ -93,11 +95,12 @@ public class LoginController {
 
   public void setMaster(MasterController master) {
     this.master = master;
-    loginDetails = new String[master.getAllUsers().size()][2];
-    System.out.println(master.getAllUsers().size());
+    userMethods = master.getUserReference();
+    loginDetails = new String[userMethods.getAllUsers().size()][2];
+    System.out.println(userMethods.getAllUsers().size());
     for (int i = 0; i < master.getAllUsers().size(); i++) {
-      loginDetails[i][0] = master.getAllUsers().get(i).getEmail();
-      loginDetails[i][1] = master.getAllUsers().get(i).getPassword();
+      loginDetails[i][0] = userMethods.getAllUsers().get(i).getEmail();
+      loginDetails[i][1] = userMethods.getAllUsers().get(i).getPassword();
     }
     ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Student", "Student2", "Student3", "Student4");
     cbLogin.setItems(items);
