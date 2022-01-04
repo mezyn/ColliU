@@ -331,20 +331,28 @@ public class MasterController {
     }
     try {
       ArrayList<User> standardUsers = new ArrayList<>();
-      standardUsers.add(new Administrator("gusandan@student.gu.se", "a11Black$", "Anna", "Andersson", 2024, Info.SEM));
-      standardUsers.add(new Staff("benjamin.bengtsson@gu.se", "!Lov3MyPiano", "Benjamin", "Bengtsson"));
-      standardUsers.add(new Staff("christian.carlsson@cse.gu.se", "jellY22fi$h", "Christian", "Carlsson"));
-      standardUsers.add(new Staff("info@gota.gu.se", "P^45k9jw", "Göta", "Student Union"));
-      standardUsers.add(new Student("gusdavda@student.gu.se", "!ush3R", "Daniel", "Davidsson", 2022, Info.DVET));
-      standardUsers.add(new Student("guseriem@student.gu.se", "&ebAy.44", "Emil", "Eriksson", 2023, Info.SVET));
-      standardUsers.add(new Student("gusfrefe@student.gu.se", "H!Mnpintd2r!", "Felix", "Fredriksson", 2024, Info.KOG));
-      standardUsers.add(new Student("gushenha@student.gu.se", "5wtyIbm!h", "Hans", "Henriksson", 2026, Info.SEM));
-
+      standardUsers.add(new Administrator("gusandan@student.gu.se", "a11Black$",
+          "Anna", "Andersson", 2024, Info.SEM));
+      standardUsers.add(new Staff("benjamin.bengtsson@gu.se", "!Lov3MyPiano",
+          "Benjamin", "Bengtsson"));
+      standardUsers.add(new Staff("christian.carlsson@cse.gu.se", "jellY22fi$h",
+          "Christian", "Carlsson"));
+      standardUsers.add(new Staff("info@gota.gu.se", "P^45k9jw", "Göta",
+          "Student Union"));
+      standardUsers.add(new Student("gusdavda@student.gu.se", "!ush3R", "Daniel",
+          "Davidsson", 2022, Info.DVET));
+      standardUsers.add(new Student("guseriem@student.gu.se", "&ebAy.44", "Emil",
+          "Eriksson", 2023, Info.SVET));
+      standardUsers.add(new Student("gusfrefe@student.gu.se", "H!Mnpintd2r!", "Felix",
+          "Fredriksson", 2024, Info.KOG));
+      standardUsers.add(new Student("gushenha@student.gu.se", "5wtyIbm!h", "Hans",
+          "Henriksson", 2026, Info.SEM));
 
       json.saveUsers(standardUsers);
       return loadUsers();
     } catch (Exception e) {
       e.printStackTrace();
+      showError(e.getMessage());
       System.exit(1);
       return null;
     }

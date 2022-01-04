@@ -1,12 +1,9 @@
 package com.colliu.colliu.controllers;
 
 import com.colliu.colliu.MasterController;
-
 import java.time.Year;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -20,7 +17,6 @@ import miscellaneous.Style;
 import user.Student;
 import user.User;
 import user.UserMethods;
-
 import static java.lang.Math.abs;
 
 public class ProfileController {
@@ -34,6 +30,7 @@ public class ProfileController {
 
   public void setMaster(MasterController master) {
     this.master = master;
+    this.userMethods = master.getUserReference();
   }
 
   /**
@@ -194,32 +191,11 @@ public class ProfileController {
             : "Password requires minimum 11 characters, 1 uppercase, 1 lowercase and 1 number."
     );
 
-    pfPassword.setStyle(checkOne ? Style.TEXTFIELD_GREEN : passSize == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
-    pfPasswordConfirm.setStyle(checkTwo ? Style.TEXTFIELD_GREEN : passConfirmSize == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
-
-/*
-    if (passSize + passConfirmSize == 0) {
-      lblWarningPassword.setText("");
-      pfPassword.setStyle(Style.TEXTFIELD_NORMAL);
-      pfPasswordConfirm.setStyle(Style.TEXTFIELD_NORMAL);
-      passwordCheck = true;
-    } else if (!master.checkPassword(pfPassword.getText()) && !master.checkPassword(pfPasswordConfirm.getText())) {
-      lblWarningPassword.setWrapText(true);
-      lblWarningPassword.setText((pfPassword.getText().length() > 0 && !master.checkPassword(pfPassword.getText())) || (pfPasswordConfirm.getText().length() > 0 && !master.checkPassword(pfPasswordConfirm.getText())) ? "Password requires minimum 11 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol." : "");
-      passwordCheck = false;
-      pfPasswordConfirm.setStyle(pfPasswordConfirm.getText().length() > 0 ? (master.checkPassword(pfPasswordConfirm.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_RED) : Style.TEXTFIELD_NORMAL);
-      pfPassword.setStyle(pfPassword.getText().length() > 0 ? (master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_RED) : Style.TEXTFIELD_NORMAL);
-    } else if (!pfPassword.getText().equals(pfPasswordConfirm.getText())) {
-      lblWarningPassword.setText(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? "Passwords don't match." : "");
-      passwordCheck = false;
-      pfPasswordConfirm.setStyle(pfPassword.getText().length() > 0 && pfPasswordConfirm.getText().length() > 0 ? Style.TEXTFIELD_RED : (master.checkPassword(pfPasswordConfirm.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL));
-      pfPassword.setStyle(pfPassword.getText().length() > 0 && !master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_RED : (master.checkPassword(pfPassword.getText()) ? Style.TEXTFIELD_GREEN : Style.TEXTFIELD_NORMAL));
-    } else {
-      lblWarningPassword.setText("");
-      passwordCheck = true;
-      pfPasswordConfirm.setStyle(Style.TEXTFIELD_GREEN);
-      pfPassword.setStyle(Style.TEXTFIELD_GREEN);
-    }*/
+    pfPassword.setStyle(checkOne ? Style.TEXTFIELD_GREEN : passSize == 0
+        ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
+    pfPasswordConfirm.setStyle(checkTwo ? Style.TEXTFIELD_GREEN
+        : passConfirmSize == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
+    passwordCheck = (checkOne && checkTwo && checkThree) || passSize + passConfirmSize == 0;
   }
 
   private void textFieldValidation(TextField typedField) {
@@ -291,12 +267,12 @@ public class ProfileController {
   }
 
   @FXML
-  void onPasswordEntered(KeyEvent event) {
+  void onPasswordEntered() {
     lblIncorrectPassword.setVisible(false);
   }
 
   @FXML
-  void onSearchUser(KeyEvent event) {
+  void onSearchUser() {
     String email = tfSearchUser.getText();
     User userProfile = userMethods.getUserByEmail(email);
     if (email.length() > 0 && userProfile == null) {
@@ -351,12 +327,14 @@ public class ProfileController {
   }
 
   @FXML
-  void saveSettings(ActionEvent event) {
+  void saveSettings() {
     boolean correctPassword = currentUser.validatePassword(pfCurrentPassword.getText());
     if (correctPassword) {
       String name = (tfName.getText().length() > 0 ? tfName.getText() : currentUser.getFirstName());
-      String surname = (tfSurname.getText().length() > 0 ? tfSurname.getText() : currentUser.getLastName());
-      String password = (pfPassword.getText().length() > 0 ? pfPassword.getText() : currentUser.getPassword());
+      String surname = (tfSurname.getText().length() > 0
+          ? tfSurname.getText() : currentUser.getLastName());
+      String password = (pfPassword.getText().length() > 0
+          ? pfPassword.getText() : currentUser.getPassword());
       String program = cbPrograms.getValue();
       int graduationYear = cbGraduationYear.getValue();
 
@@ -375,7 +353,8 @@ public class ProfileController {
       lblIncorrectPassword.setVisible(true);
       toggleClose();
     } else {
-      lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0 ? Info.INCORRECT_PASSWORD : Info.ENTER_PASSWORD);
+      lblIncorrectPassword.setText(pfCurrentPassword.getText().length() > 0
+          ? Info.INCORRECT_PASSWORD : Info.ENTER_PASSWORD);
       lblIncorrectPassword.setStyle(Style.LABEL_RED);
       lblIncorrectPassword.setVisible(true);
     }
@@ -391,41 +370,46 @@ public class ProfileController {
     ((Button) event.getSource()).setOpacity(1);
   }
 
+  /**
+   * This method is called when showing hte profile settings window.
+   * It does the initial loading of
+   */
   public void load() {
     currentUser = master.getCurrentUser();
     displayUser(currentUser);
-    if (currentUser.getType() < 3) {
-      ObservableList<String> programs = FXCollections.observableArrayList(Info.DVET, Info.SVET, Info.KOG, Info.SEM);
+    if (currentUser.getType() < Info.TYPE_STAFF) {
+      ObservableList<String> programs = FXCollections.observableArrayList(
+          Info.DVET, Info.SVET, Info.KOG, Info.SEM);
       cbPrograms.setItems(programs);
       cbPrograms.setValue(((Student) currentUser).getProgram());
       int year = Year.now().getValue();
-      ObservableList<Integer> graduationYears = FXCollections.observableArrayList(year, (year + 1), (year + 2), (year + 3));
+      ObservableList<Integer> graduationYears = FXCollections.observableArrayList(
+          year, (year + 1), (year + 2), (year + 3));
       cbGraduationYear.setItems(graduationYears);
       cbGraduationYear.setValue(((Student) currentUser).getGraduationYear());
     } else {
       apAccountSettings.getChildren().remove(vbStudies);
     }
-    if (currentUser.getType() != 2) {
+    if (currentUser.getType() != Info.TYPE_ADMIN) {
       apAccountSettings.getChildren().remove(adminSettings);
-      VBox asthetics = new VBox();
-      asthetics.setPrefWidth(547);
-      asthetics.setLayoutX(67);
-      asthetics.setSpacing(45.5);
-      asthetics.getChildren().add(vbName);
-      asthetics.getChildren().add(vbSurname);
-      asthetics.getChildren().add(vbPassword);
+      VBox aesthetics = new VBox();
+      aesthetics.setPrefWidth(547);
+      aesthetics.setLayoutX(67);
+      aesthetics.setSpacing((currentUser.getType()) == Info.TYPE_STAFF ? 45.5 : 27);
+      aesthetics.getChildren().add(vbName);
+      aesthetics.getChildren().add(vbSurname);
+      aesthetics.getChildren().add(vbPassword);
       vbStudies.getChildren().remove(cbPrograms);
       vbStudies.getChildren().remove(cbGraduationYear);
-      if (currentUser.getType() != 3) {
+      if (currentUser.getType() != Info.TYPE_STAFF) {
         HBox flatStudies = new HBox();
         flatStudies.getChildren().add(cbPrograms);
         flatStudies.getChildren().add(cbGraduationYear);
         flatStudies.setSpacing(5);
         vbStudies.getChildren().add(1, flatStudies);
-        asthetics.getChildren().add(vbStudies);
+        aesthetics.getChildren().add(vbStudies);
       }
-      asthetics.setLayoutY(currentUser.getType() == 3 ? 47 : 27);
-      apAccountSettings.getChildren().setAll(asthetics);
+      apAccountSettings.getChildren().setAll(aesthetics);
     }
   }
 
