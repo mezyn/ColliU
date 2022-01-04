@@ -87,6 +87,7 @@ public class EventController {
     Button clicked = ((Button) event.getSource()); // cast to button
     Event[] events;
     // Change the style of UI and assign info to events array.
+    boolean disableCats;
     if (clicked == btnUpcoming) { // Upcoming
       btnUpcoming.setUnderline(true);
       btnPast.setUnderline(false);
@@ -104,6 +105,7 @@ public class EventController {
       events = eventMethods.getAttendingEvents();
     }
     loadEvents(events);
+    vbCategories.setDisable(clicked != btnUpcoming);
   }
 
   /**

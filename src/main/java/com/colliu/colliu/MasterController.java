@@ -495,7 +495,7 @@ public class MasterController {
         "17:00", "Discord", Info.SEM, "Great opportunity"
         + " to learn more about how GitLab works.", "Workshop", "benjamin.bengtsson@gu.se"));
     // event 10 Others - 2022-02-12 10:00 - On Johanneberg, for Software Engineering students.
-    standardEvents.add(new Event(9, "Weekend Flee Market", LocalDate.of(2022, 2, 12),
+    standardEvents.add(new Event(9, "Weekend Flee Market", LocalDate.of(2022, 1, 1),
         "10:00", "Chalmers Johanneberg", Info.SEM, "Get the stuff you don't need anymore or"
         + " come and find good stuff at a cheap price!", "Others", "benjamin.bengtsson@gu.se"));
 
