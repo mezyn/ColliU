@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -54,31 +53,26 @@
       </Pane>
       <AnchorPane fx:id="apMiddle" layoutX="225.0" layoutY="5.0" prefHeight="758.0" prefWidth="574.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
-            <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="199.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF; -fx-padding: 5; -fx-box-sizing: border-box;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="eventScroll" fitToWidth="true" layoutY="106.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF; -fx-padding: 5; -fx-box-sizing: border-box;" vbarPolicy="NEVER">
                <content>
                   <VBox fx:id="eventItems" alignment="CENTER" onScroll="#scrollSpeed" />
                </content></ScrollPane>
-            <Button fx:id="btnPast" alignment="CENTER" contentDisplay="CENTER" layoutX="418.0" layoutY="137.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
+            <Button fx:id="btnPast" alignment="CENTER" contentDisplay="CENTER" layoutX="418.0" layoutY="48.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Past" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="lblEventPageHeader" layoutX="14.0" layoutY="137.0" text="Available Events" textFill="#333333">
+            <Label fx:id="lblEventPageHeader" layoutX="14.0" layoutY="48.0" text="Available Events" textFill="#333333">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Button fx:id="btnUpcoming" layoutX="330.0" layoutY="137.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Upcoming" textFill="#5e81f4" underline="true">
+            <Button fx:id="btnUpcoming" layoutX="330.0" layoutY="48.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Upcoming" textFill="#5e81f4" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <TextField fx:id="txtSearch" layoutX="14.0" layoutY="39.0" prefHeight="34.0" prefWidth="294.0" promptText="Search" style="-fx-background-color: #FFF; -fx-border-radius: 10; -fx-background-radius: 10;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Button fx:id="btnAttending" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="137.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
+            <Button fx:id="btnAttending" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="48.0" mnemonicParsing="false" onAction="#eventView" style="-fx-background-color: none;" text="Attending" textFill="#5e81f4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
