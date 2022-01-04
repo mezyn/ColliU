@@ -3,14 +3,16 @@ package com.colliu.colliu.controllers;
 import com.colliu.colliu.MasterController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import miscellaneous.Info;
 import user.User;
 import user.UserMethods;
+
+/**
+ * All functions for the Login UI are hanlded in this class.
+ */
 
 public class LoginController {
   private MasterController master;

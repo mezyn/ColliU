@@ -41,7 +41,7 @@ public class MasterController {
 
   /**
    * Returns a reference to different objects to allow functionality between classes.
-   * @return
+   - @return reference the existing object to either EventMethods, UserMethods or logged in User
    */
 
   public EventMethods getEventReference() {
