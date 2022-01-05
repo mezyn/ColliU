@@ -1,0 +1,20 @@
+[
+  {
+    "graduationYear": 2024,
+    "program": "Software engineering and management",
+    "email": "gusandan@student.gu.se",
+    "password": "a11Black$",
+    "firstName": "Anna",
+    "lastName": "Andersson",
+    "accountBanned": false
+  },
+  {
+    "graduationYear": 2024,
+    "program": "Software engineering and management",
+    "email": "gushilwi@student.gu.se",
+    "password": "Hej123123!!",
+    "firstName": "William",
+    "lastName": "Hilmersson",
+    "accountBanned": false
+  }
+]

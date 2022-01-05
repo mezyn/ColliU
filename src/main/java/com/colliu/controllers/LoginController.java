@@ -37,7 +37,7 @@ public class LoginController {
   Otherwise, the warning label shows which action the com.colliu.colliu.user shall take to successfully login. */
 
   @FXML
-  void onLogInClick() {
+  private void onLogInClick() {
     String uEmail = guEmail.getText();
     String uPassword = password.getText();
 
@@ -65,13 +65,13 @@ public class LoginController {
 
   // Upon clicking 'New Staff' button, a com.colliu.colliu.user is sent to the registration page for staff.
   @FXML
-  void registerStaff() {
+  private void registerStaff() {
     master.showRegisterStaff();
   }
 
   // Upon clicking 'New Student' button, a com.colliu.colliu.user is sent to the registration page for student.
   @FXML
-  void registerStudent() {
+  private void registerStudent() {
     master.showRegisterStudent();
   }
 
@@ -79,12 +79,12 @@ public class LoginController {
   When a com.colliu.colliu.user hover on/off the login button, the button color changes.
   */
   @FXML
-  void hoverOn(MouseEvent event) {
+  private void hoverOn(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(0.8);
   }
 
   @FXML
-  void hoverOff(MouseEvent event) {
+  private void hoverOff(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(1);
   }
 

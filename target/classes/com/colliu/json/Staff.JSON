@@ -1,0 +1,23 @@
+[
+  {
+    "email": "benjamin.bengtsson@gu.se",
+    "password": "!Lov3MyPiano",
+    "firstName": "Benjamin",
+    "lastName": "Bengtsson",
+    "accountBanned": false
+  },
+  {
+    "email": "christian.carlsson@cse.gu.se",
+    "password": "jellY22fi$h",
+    "firstName": "Christian",
+    "lastName": "Carlsson",
+    "accountBanned": false
+  },
+  {
+    "email": "info@gota.gu.se",
+    "password": "P^45k9jw",
+    "firstName": "Göta",
+    "lastName": "Student Union",
+    "accountBanned": false
+  }
+]
