@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="768.0" maxWidth="1024.0" minHeight="786.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-style: solid; -fx-border-width: 1; -fx-border-color: rgb(245,245,251);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.controllers.StudentController">
+   <children>
+      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane layoutX="3.0" layoutY="127.0" prefHeight="585.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+         <children>
+            <VBox layoutX="361.0" layoutY="49.0" prefHeight="467.0" prefWidth="303.0">
+               <children>
+                  <Label alignment="CENTER" prefWidth="303.0" text="Register Student Account">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                     <children>
+                        <TextField fx:id="tfStudentEmail" layoutY="23.0" prefHeight="25.0" prefWidth="300.0" promptText="GU Email">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                        <Label alignment="TOP_CENTER" layoutY="6.0" text="GU Email:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label text="First name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfFirstName" layoutX="2.0" layoutY="22.0" prefWidth="300.0" promptText="First Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="6.0" text="Last name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="tfLastName" layoutX="2.0" layoutY="23.0" prefWidth="300.0" promptText="Last name">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="52.0" prefWidth="303.0">
+                     <children>
+                        <Label text="Graduation year:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <ChoiceBox fx:id="graduationYearChoice" layoutX="2.0" layoutY="26.0" prefHeight="25.0" prefWidth="239.0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="54.0" prefWidth="303.0">
+                     <children>
+                        <Label layoutX="2.0" layoutY="6.0" text="Program: ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <ChoiceBox fx:id="programChoice" layoutX="2.0" layoutY="28.0" prefHeight="25.0" prefWidth="239.0" />
+                     </children>
+                  </Pane>
+                  <Pane prefWidth="303.0">
+                     <children>
+                        <Label layoutX="2.0" layoutY="6.0" text="Password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <PasswordField fx:id="tfPassword" layoutX="2.0" layoutY="23.0" prefWidth="300.0" promptText="Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font></PasswordField>
+                     </children>
+                  </Pane>
+                  <Pane>
+                     <children>
+                        <Label layoutY="14.0" text="Confirm password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <PasswordField fx:id="tfConfirmPassword" layoutX="2.0" layoutY="40.0" prefWidth="300.0" promptText="Confirm Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font></PasswordField>
+                     </children>
+                  </Pane>
+                  <Label fx:id="lblWarning" prefHeight="17.0" textFill="#f6a8a6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Button fx:id="btnRegister" layoutX="527.0" layoutY="536.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account" />
+            <Button layoutX="369.0" layoutY="536.0" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #DDD;" text="Cancel" />
+         </children>
+      </Pane>
+      <Label layoutX="455.0" layoutY="63.0" text="ColliU" textFill="#5e81f4">
+         <font>
+            <Font name="System Bold" size="43.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
