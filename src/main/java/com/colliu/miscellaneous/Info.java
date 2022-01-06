@@ -38,10 +38,19 @@ public class Info {
   public static final String PROMOTE = "Promote";
   public static final String DEMOTE = "Demote";
 
+
+  /*
+      PROGRAMS
+   */
+
   public static final String SEM = "Software engineering and management";
   public static final String KOG = "Cognitive science";
   public static final String SVET = "Systems science";
   public static final String DVET = "Computer science";
+
+  /*
+    EVENT INFO
+   */
 
   public static final int UPCOMING_EVENTS = 1;
   public static final int PAST_EVENTS = 2;
