@@ -1,9 +1,6 @@
 package com.colliu.user;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /*
  This class is a parent class for the other com.colliu.colliu.user type classes; namely, student, staff and administrator.
  As this is an abstract class, a User object cannot be generated; a com.colliu.colliu.user shall be either student (administrator is also student) of staff.
@@ -35,7 +32,7 @@ public abstract class User {
    * special chars
    */
 
-  public User(String email, String password, String firstName, String lastName) throws Exception {
+  public User(String email, String password, String firstName, String lastName) {
 
     this.firstName = firstName;
     this.lastName = lastName;

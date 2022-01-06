@@ -26,7 +26,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="eventTitle" layoutY="30.0" prefHeight="37.0" prefWidth="384.0" promptText="Type com.colliu.colliu.event title freely" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                        <TextField fx:id="eventTitle" layoutY="30.0" prefHeight="37.0" prefWidth="384.0" promptText="Type event title freely" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
                      </children>
                   </Group>
                   <Group>
@@ -36,7 +36,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="eventLocation" layoutY="30.0" prefHeight="36.0" prefWidth="384.0" promptText="Type the com.colliu.colliu.event venue" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                        <TextField fx:id="eventLocation" layoutY="30.0" prefHeight="36.0" prefWidth="384.0" promptText="Type the event venue" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
                      </children>
                   </Group>
                   <Group>
@@ -95,7 +95,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="descriptionField" alignment="TOP_LEFT" layoutY="30.0" prefHeight="86.0" prefWidth="384.0" promptText="Describe the com.colliu.colliu.event here" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                        <TextField fx:id="descriptionField" alignment="TOP_LEFT" layoutY="30.0" prefHeight="86.0" prefWidth="384.0" promptText="Describe the event here" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
                      </children>
                   </Group>
                   <Label fx:id="warningLabel" alignment="CENTER" prefHeight="17.0" prefWidth="384.0">
@@ -105,7 +105,7 @@
                   </Label>
                   <HBox spacing="85.0">
                      <children>
-                        <Button fx:id="createEvent" mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: rgb(192,236,204);" text="Create com.colliu.colliu.event">
+                        <Button mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: rgb(192,236,204);" text="Create event">
                            <font>
                               <Font size="14.0" />
                            </font>

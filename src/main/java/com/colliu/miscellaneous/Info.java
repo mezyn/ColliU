@@ -3,7 +3,6 @@ package com.colliu.miscellaneous;
 import com.colliu.Main;
 
 import javax.swing.*;
-import java.net.URL;
 
 public class Info {
   public static final String INCORRECT_PASSWORD = "Invalid password.";

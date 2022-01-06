@@ -23,7 +23,7 @@ public class Main extends Application {
   }
 
   private void showWindow() throws Exception {
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/" + (Info.RESOURCE_LOGIN.endsWith(".fxml") ? Info.RESOURCE_LOGIN : Info.RESOURCE_LOGIN + ".fxml")));
+    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/" + Info.RESOURCE_LOGIN));
     Scene scene = new Scene(fxmlLoader.load());
     stage.setScene(scene);
     stage.initStyle(StageStyle.UNDECORATED);

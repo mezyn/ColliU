@@ -30,8 +30,8 @@ import com.colliu.user.User;
 
 
 /**
- * This is the controller for each com.colliu.colliu.event's UI.
- * It lets the com.colliu.colliu.user manipulate information in the com.colliu.colliu.event object.
+ * This is the controller for each event's UI.
+ * It lets the user manipulate information in the event object.
  */
 public class EventItem {
   private double fullHeight; // The full height when extra details are not hidden.
@@ -116,9 +116,8 @@ public class EventItem {
   }
 
   /**
-   * This method spins the reaction image when the com.colliu.colliu.user hovers over it.
-   - @Para
-   m com.colliu.colliu.event is to identify which emoji that triggered the com.colliu.colliu.event.
+   * This method spins the reaction image when the user hovers over it.
+   - @Param event is to identify which emoji that triggered the event.
    */
 
   @FXML
@@ -130,7 +129,7 @@ public class EventItem {
 
   /**
    * This method stops the reaction image to spin if it is not hovered over again.
-   -@param com.colliu.colliu.event identifies which emoji triggered the com.colliu.colliu.event.
+   -@param event identifies which emoji triggered the event.
    */
   @FXML
   private void onEmojiMouseExited(MouseEvent event) {
@@ -230,8 +229,8 @@ public class EventItem {
   }
 
   /**
-   * This method hides the popup of who is attending/has reactied to an com.colliu.colliu.event.
-   - @param com.colliu.colliu.event helps idenitfy which info to hide.
+   * This method hides the popup of who is attending/has reactied to an event.
+   - @param event helps identify which info to hide.
    */
   @FXML
   private void closeInfo(MouseEvent event) {
@@ -312,7 +311,7 @@ public class EventItem {
     imgReactionThree.setDisable(eventPassed);
     imgReactionFour.setDisable(eventPassed);
 
-    // Staff cant attend their own events.
+    // Staff cannot attend their own events.
     boolean isStudent = !(currentUser instanceof Staff);
     btnAttend.setVisible(isStudent);
 

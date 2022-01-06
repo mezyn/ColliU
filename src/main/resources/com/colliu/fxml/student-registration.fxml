@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="768.0" maxWidth="1024.0" minHeight="786.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-style: solid; -fx-border-width: 1; -fx-border-color: rgb(245,245,251);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.controllers.StudentController">
    <children>
-      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <fx:include source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane layoutX="3.0" layoutY="127.0" prefHeight="585.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
             <VBox layoutX="361.0" layoutY="49.0" prefHeight="467.0" prefWidth="303.0">

@@ -41,9 +41,10 @@ public class EventMethods {
   }
 
 
-  /**This method takes an Array of integers with the com.colliu.colliu.user's courses
+  /**
+   * This method takes an Array of integers with the user's courses
   It then loops through this array and compares it with events that haven't expired
-  Then it returns an array of the Id of all those events.
+  Then it returns an array of the  of all those events.
    */
 
   public Event[] getEvents(int type) {

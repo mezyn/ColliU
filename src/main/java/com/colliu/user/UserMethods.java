@@ -2,7 +2,6 @@ package com.colliu.user;
 
 import com.colliu.PageController;
 import com.colliu.miscellaneous.Info;
-
 import java.util.ArrayList;
 
 /**
@@ -22,12 +21,13 @@ public class UserMethods {
   }
 
   /**
-   - @param email The email adress of what new object to be created.
+   * CreateStudent, CreateAdministrator
+   - @param email The email address of what new object to be created.
    - @param pass The password used to access the new object.
    - @param name The firstname to identify the object.
    - @param surname The lastname to indeitfy the object.
-   - @param gradYear The expected graduation year of the com.colliu.colliu.user.
-   - @param prog The program to differentiate the information to display to this com.colliu.colliu.user.
+   - @param gradYear The expected graduation year of the user.
+   - @param program The program to differentiate the information to display to this user.
    */
 
   public void createStudent(String email, String password, String firstName,
@@ -35,17 +35,16 @@ public class UserMethods {
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
   }
 
-  // Method for creating/registering as administrator.
   public void createAdministrator(String email, String password, String firstName,
                           String lastName, int graduationYear, String program) throws Exception {
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
   }
 
   /**
-   - @param email The email adress of what new object to be created.
+   - @param email The email address of what new object to be created.
    - @param password The password used to access the new object.
    - @param name The firstname to identify the object.
-   - @param surname The lastname to indeitfy the object.
+   - @param surname The lastname to identify the object.
    */
 
   public void createStaff(String email, String password, String firstName,
@@ -96,7 +95,7 @@ public class UserMethods {
    */
 
   public boolean checkPasswordComplexity(String password) {
-    // not null, not blank, not between 11-20 letters does not contain uppercase, lowercase, numbers
+    // not null, not blank, not between 11-20 letters does not contain upper-, lowercase or numbers
     // no spaces in password.
     return !(password == null || password.isBlank() || (password.length() < 11
         || password.length() > 20) || password.matches("(.*[A-Z].*)")
@@ -126,7 +125,6 @@ public class UserMethods {
    * All information is copied from one object into the new object.
    * If they are a student, their info is copied to a new Administrator object, and vice versa.
    - @param email The email identifier of the object being copied.
-   - @throws Exception Won't happen since its already passed checking when first created.
    */
 
   public void toggleAdminStatus(String email) {

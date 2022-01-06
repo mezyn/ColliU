@@ -1,6 +1,5 @@
 package com.colliu.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -8,7 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Controller of ErrorPage.fxml
- * Displays an error message to the com.colliu.colliu.user, to inform that something went wrong.
+ * Displays an error message to the user, to inform that something went wrong.
  * Main purpose is to allow setting text and closing stage.
  */
 public class ErrorController {
@@ -26,7 +25,7 @@ public class ErrorController {
   }
 
   public void setErrorText(String error) {
-    // Will be called when loaded, sets the error message displayed to the com.colliu.colliu.user.
+    // Will be called when loaded, sets the error message displayed to the user.
     txaErrorMessage.setText(error);
   }
 

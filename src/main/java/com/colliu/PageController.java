@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +40,7 @@ public class PageController {
 
   /**
    * Returns a reference to different objects to allow functionality between classes.
-   - @return reference the existing object to either EventMethods, UserMethods or logged in User
+   - @return reference the existing object to either EventMethods, UserMethods or logged-in User
    */
 
   public EventMethods getEventReference() {

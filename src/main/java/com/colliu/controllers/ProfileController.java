@@ -410,9 +410,9 @@ public class ProfileController {
       // Set info on profile dashboard
       lblYourProgram.setText(program);
       lblYourExamYear.setText(graduation);
-    } else { // If staff:
+    } else { // when Staff:
       role = "Staff";
-      // Removes labels from profile dashboard:
+      // Remove the labels from profile dashboard:
       vbProfileDetails.getChildren().remove(lblYourProgram);
       vbProfileDetails.getChildren().remove(lblYourExamYear);
     }

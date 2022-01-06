@@ -1,6 +1,5 @@
 package com.colliu.miscellaneous;
 
-import com.colliu.Main;
 import com.colliu.user.Administrator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,11 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonStreamParser;
 import com.google.gson.reflect.TypeToken;
 import com.colliu.event.Event;
-
 import java.io.*;
-
 import org.apache.commons.io.*;
-
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
@@ -24,7 +20,8 @@ import com.colliu.user.User;
 
 public class DataReadingWriting {
   public DataReadingWriting() {
-    new File(Info.DOCUMENT_PATH).mkdirs(); // Create ColliU folder in Documents path if does not exist.
+    // Create ColliU folder in Documents path if does not exist.
+    new File(Info.DOCUMENT_PATH).mkdirs();
   }
 
   public ArrayList<User> loadUser() throws IOException {
@@ -107,7 +104,7 @@ public class DataReadingWriting {
     return true;
   }
 
-  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws FileNotFoundException, IOException {
+  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws IOException {
     InputStream is = new FileInputStream(fileName);
     Reader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
     Gson gson = new GsonBuilder().create();

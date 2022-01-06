@@ -1,7 +1,5 @@
 package com.colliu.user;
 
-import com.colliu.miscellaneous.Info;
-
 /*
 Student class is a child class of User class.
 In addition to the basic information that the system takes from all users, Student objects will have two more attributes;
@@ -35,7 +33,7 @@ public class Student extends User {
     this.program = program;
   }
 
-  public Student(int graduationYear, String program) throws Exception {
+  public Student(int graduationYear, String program) {
     /*
     Here the type is empty, which gives possibility to create diverse student types in the future development.
     For the current version it is only used to create an administrator object.

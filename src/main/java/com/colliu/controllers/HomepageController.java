@@ -367,7 +367,7 @@ public class HomepageController {
 
   /**
    * Creates the toggleswitches for filtering evengts by category.
-   * Was not possible to do this with scenebuilder since its an external library.
+   * I was unable to figure out how to do this with scenebuilder since it's an external library.
    */
   private void setCategories() {
     int size = Info.CATEGORIES.length;
