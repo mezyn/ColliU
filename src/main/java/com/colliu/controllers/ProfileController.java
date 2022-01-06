@@ -338,9 +338,9 @@ public class ProfileController {
 
     pfPassword.setStyle(checkOne ? Style.TEXTFIELD_GREEN : passSize == 0
         ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
-    pfPasswordConfirm.setStyle(checkTwo ? Style.TEXTFIELD_GREEN
+    pfPasswordConfirm.setStyle(checkTwo && checkThree ? Style.TEXTFIELD_GREEN
         : passConfirmSize == 0 ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
-    passwordCheck = (checkOne && checkTwo && checkThree) || passSize + passConfirmSize == 0;
+    passwordCheck = (checkOne && checkTwo && checkThree) || fieldEmpty;
   }
 
   private void checkTextfieldInput(TextField typedField) {
