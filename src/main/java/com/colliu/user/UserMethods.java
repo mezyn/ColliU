@@ -74,13 +74,8 @@ public class UserMethods {
    - @return True if password is valid, false if invalid or no users.
    */
 
-  public boolean validatePassword(String password, String email) {
-    for (User user : users) {
-      if (user.getPassword().equals(password) && user.getEmail().equals(email)) {
-        return true;
-      }
-    }
-    return false;
+  public boolean validatePassword(String email, String password) {
+    return getUserByEmail(email).getPassword().equals(password);
   }
 
 

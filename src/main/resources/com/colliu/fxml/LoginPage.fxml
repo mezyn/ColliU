@@ -17,14 +17,14 @@
       <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane layoutY="115.0" prefHeight="211.0" prefWidth="357.0">
          <children>
-            <Button fx:id="login" layoutX="256.0" layoutY="33.0" mnemonicParsing="false" onAction="#onLogInClick" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="57.0" prefWidth="65.0" style="-fx-background-color: rgb(192,236,204);" text="Log In">
+            <Button fx:id="login" layoutX="256.0" layoutY="33.0" mnemonicParsing="false" onAction="#onLogInClick" onMouseEntered="#btnOnMouseEntered" onMouseExited="#btnOnMouseExited" prefHeight="57.0" prefWidth="65.0" style="-fx-background-color: rgb(192,236,204);" text="Log In">
                <font>
                   <Font size="11.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btnNewStudent" layoutX="84.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStudent" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Student">
+            <Button fx:id="btnNewStudent" layoutX="84.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStudent" onMouseEntered="#btnOnMouseEntered" onMouseExited="#btnOnMouseExited" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Student">
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets>
@@ -54,7 +54,7 @@
                   <Font size="11.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btnNewStaff" layoutX="191.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStaff" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Teacher">
+            <Button fx:id="btnNewStaff" layoutX="191.0" layoutY="135.0" mnemonicParsing="false" onAction="#registerStaff" onMouseEntered="#btnOnMouseEntered" onMouseExited="#btnOnMouseExited" prefHeight="24.0" prefWidth="80.0" style="-fx-background-color: #DDD;" text="New Teacher">
                <opaqueInsets>
                   <Insets top="5.0" />
                </opaqueInsets>

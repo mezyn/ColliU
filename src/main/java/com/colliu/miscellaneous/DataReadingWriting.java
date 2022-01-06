@@ -42,6 +42,7 @@ public class DataReadingWriting {
     ArrayList<Student> students;
     try {
       students = (ArrayList<Student>) loadJsonFile(Info.RESOURCE_FILE_STUDENT, studentToken);
+      System.out.println(students.get(0).getEmail() + "" + students.get(0).getPassword());
     } catch(IOException e) {
       FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Student.json"), new File(Info.DOCUMENT_PATH));
       return loadUser();

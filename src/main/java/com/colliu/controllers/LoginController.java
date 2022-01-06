@@ -33,22 +33,23 @@ public class LoginController {
 
   /* Upon login button click, the system checks if the input email is already registered in the system as well as
   if the input password matches the email address.
-  If both are correct, the com.colliu.colliu.user succeeds to log in and will be sent to the com.colliu.colliu.event page(homepage).
-  Otherwise, the warning label shows which action the com.colliu.colliu.user shall take to successfully login. */
+  If both are correct, the user succeeds to log in and will be sent to the homepage.
+  Otherwise, the warning label shows which action the user shall take to successfully login. */
 
   @FXML
   private void onLogInClick() {
-    String uEmail = guEmail.getText();
-    String uPassword = password.getText();
+    String userEmail = guEmail.getText();
+    String userPassword = password.getText();
 
-    if (uEmail.isBlank()) {                              //checks if email field is empty
+    if (userEmail.isBlank()) {                              //checks if email field is empty
       warningLabel.setText(Info.EMPTY_EMAIL);
-    } else if (uPassword.isBlank()) {                      //check if password field is empty
+    } else if (userPassword.isBlank()) {                      //check if password field is empty
       warningLabel.setText(Info.EMPTY_PASSWORD);
     } else {
-      boolean validLogin = userMethods.validatePassword(uEmail, uPassword); //check if the specific email and password is valid to log in by finding the com.colliu.colliu.user
+      //check if the specific email and password is valid to log in by finding the user
+      boolean validLogin = userMethods.validatePassword(userEmail, userPassword);
       if (validLogin) {
-        User user = userMethods.getUserByEmail(uEmail);
+        User user = userMethods.getUserByEmail(userEmail);
         userMethods.setLoggedInUser(user);
         boolean accountStatus = user.getAccountStatus();
         if (accountStatus) {
@@ -63,28 +64,29 @@ public class LoginController {
 
   }
 
-  // Upon clicking 'New Staff' button, a com.colliu.colliu.user is sent to the registration page for staff.
+  // Upon clicking 'New Staff' button, a user is sent to the registration page for staff.
   @FXML
   private void registerStaff() {
     master.showRegisterStaff();
   }
 
-  // Upon clicking 'New Student' button, a com.colliu.colliu.user is sent to the registration page for student.
+  // Upon clicking 'New Student' button, a user is sent to the registration page for student.
   @FXML
   private void registerStudent() {
     master.showRegisterStudent();
   }
 
-  /*
-  When a com.colliu.colliu.user hover on/off the login button, the button color changes.
-  */
+  /**
+   * Hovering different Button(s) will create a nice opacity effect.
+   - @param event The source which fired the method.
+   */
   @FXML
-  private void hoverOn(MouseEvent event) {
+  private void btnOnMouseEntered(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(0.8);
   }
 
   @FXML
-  private void hoverOff(MouseEvent event) {
+  private void btnOnMouseExited(MouseEvent event) {
     ((Button) event.getSource()).setOpacity(1);
   }
 
