@@ -193,7 +193,8 @@ public class HomepageController {
     }
     System.out.println(category);
     String[] tagsToFilter = tags.toArray(new String[0]);
-    loadEvents(eventMethods.filterEvents(tagsToFilter));
+    loadEvents(tags.size() > 0 ? eventMethods.filterEvents(tagsToFilter)
+        : eventMethods.getUpcomingEvents());
   }
 
   /**

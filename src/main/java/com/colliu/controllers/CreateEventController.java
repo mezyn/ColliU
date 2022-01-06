@@ -21,25 +21,18 @@ public class CreateEventController {
 
   @FXML
   private ChoiceBox<String> cbCategories; //Event categories
-
   @FXML
   private DatePicker dpDate; //Event date
-
   @FXML
   private ChoiceBox<String> cbHours; //Event hour(time)
-
   @FXML
   private ChoiceBox<String> cbMinutes; //Event minute(time)
-
   @FXML
   private ChoiceBox<String> cbPrograms; //Study program related to event
-
   @FXML
   private TextField eventTitle;
-
   @FXML
   private TextField eventLocation;
-
   @FXML
   private TextField descriptionField;
 
@@ -50,8 +43,6 @@ public class CreateEventController {
 
   @FXML
   private Label warningLabel;
-
-
 
   /**
    *  Upon 'create event' button click, the application check if the input from user is valid.
@@ -99,15 +90,16 @@ public class CreateEventController {
     master.showHomepage();
   }
 
+  @FXML
+  private void setDate() {
+    eventDate = dpDate.getValue();
+  }
+
   public void setMaster(PageController master) {
     this.master = master;
     this.eventMethods = master.getEventReference();
   }
 
-  @FXML
-  private void setDate() {
-    eventDate = dpDate.getValue();
-  }
 
   /**
     This method contains components that shall be loaded in event creation page.
