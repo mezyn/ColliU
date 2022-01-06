@@ -95,6 +95,10 @@ public class LoginController {
     this.master = master;
     userMethods = master.getUserReference();
     loginDetails = new String[userMethods.getAllUsers().size()][2];  /*******DELETE ME BEFORE SUBMIT ***************/
+    for (int i = 0; i < userMethods.getAllUsers().size(); i++) {  /*******DELETE ME BEFORE SUBMIT ***************/
+      loginDetails[i][0] = userMethods.getAllUsers().get(i).getEmail();  /*******DELETE ME BEFORE SUBMIT ***************/
+      loginDetails[i][1] = userMethods.getAllUsers().get(i).getPassword(); /*******DELETE ME BEFORE SUBMIT ***************/
+    }
     /*******DELETE ME BEFORE SUBMIT ***************/
     ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Student", "Student2", "Student3", "Student4");
     cbLogin.setItems(items);  /*******DELETE ME BEFORE SUBMIT ***************/
@@ -141,9 +145,6 @@ public class LoginController {
     } /*******DELETE ME BEFORE SUBMIT ***************/
     guEmail.setText(email); /*******DELETE ME BEFORE SUBMIT ***************/
     password.setText(pass); /*******DELETE ME BEFORE SUBMIT ***************/
-    for(int i = 0; i < userMethods.getAllUsers().size(); i++) {
-      System.out.println(userMethods.getAllUsers().get(i).getEmail() + " " + userMethods.getAllUsers().get(i).getPassword());
-    }
   }
 
 }

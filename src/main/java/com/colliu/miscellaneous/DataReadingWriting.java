@@ -52,7 +52,6 @@ public class DataReadingWriting {
     try {
       staff = (ArrayList<Staff>) loadJsonFile(Info.RESOURCE_FILE_STAFF, staffToken);
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
       FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Staff.json"), new File(Info.DOCUMENT_PATH));
       return loadUser();
     }
@@ -107,7 +106,7 @@ public class DataReadingWriting {
     return true;
   }
 
-  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws IOException {
+  private ArrayList<?> loadJsonFile(String fileName, Type gsonToken) throws FileNotFoundException, IOException {
     InputStream is = new FileInputStream(fileName);
     Reader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
     Gson gson = new GsonBuilder().create();
