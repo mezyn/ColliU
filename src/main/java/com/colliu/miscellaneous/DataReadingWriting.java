@@ -31,7 +31,11 @@ public class DataReadingWriting {
     try {
       admins = (ArrayList<Administrator>) loadJsonFile(Info.RESOURCE_FILE_ADMIN, adminToken);
     } catch (IOException e) {
+      try {
         FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Admin.json"), new File(Info.DOCUMENT_PATH));
+      } catch (Exception d) {
+        FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Admin.json"), new File(Info.DOCUMENT_PATH));
+      }
       return loadUser();
     }
 
@@ -41,7 +45,11 @@ public class DataReadingWriting {
       students = (ArrayList<Student>) loadJsonFile(Info.RESOURCE_FILE_STUDENT, studentToken);
       System.out.println(students.get(0).getEmail() + "" + students.get(0).getPassword());
     } catch(IOException e) {
-      FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Student.json"), new File(Info.DOCUMENT_PATH));
+      try {
+        FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Student.json"), new File(Info.DOCUMENT_PATH));
+      } catch (Exception d) {
+        FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Student.json"), new File(Info.DOCUMENT_PATH));
+      }
       return loadUser();
     }
 
@@ -50,7 +58,11 @@ public class DataReadingWriting {
     try {
       staff = (ArrayList<Staff>) loadJsonFile(Info.RESOURCE_FILE_STAFF, staffToken);
     } catch (FileNotFoundException e) {
-      FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Staff.json"), new File(Info.DOCUMENT_PATH));
+      try {
+        FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Staff.json"), new File(Info.DOCUMENT_PATH));
+      } catch (Exception d) {
+        FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Staff.json"), new File(Info.DOCUMENT_PATH));
+      }
       return loadUser();
     }
     users.addAll(staff);
@@ -65,7 +77,11 @@ public class DataReadingWriting {
     try {
       return (ArrayList<Event>) loadJsonFile(Info.RESOURCE_FILE_EVENT, gsonToken);
     } catch (FileNotFoundException e) {
-      FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Event.json"), new File(Info.DOCUMENT_PATH));
+      try {
+        FileUtils.copyFileToDirectory(new File(Paths.get("colliu", "src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Event.json"), new File(Info.DOCUMENT_PATH));
+      } catch(Exception d) {
+        FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Event.json"), new File(Info.DOCUMENT_PATH));
+      }
       return loadEvent();
     }
   }
