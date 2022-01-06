@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.controllers.ProfileController">
    <children>
-      <fx:include fx:id="titleBar" source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <fx:include source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251); -fx-border-color: #5e81f4;">
          <children>
             <Label layoutX="281.0" layoutY="48.0" text="Account Settings" textFill="#5e81f4">
@@ -59,7 +59,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="tfNameConfirm" onAction="#onUserSettingsKeyTyped" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new first name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <TextField fx:id="tfNameConfirm" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new first name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -78,12 +78,12 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfSurname" onAction="#onUserSettingsKeyTyped" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Enter new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <TextField fx:id="tfSurname" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Enter new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="tfSurnameConfirm" onAction="#onUserSettingsKeyTyped" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <TextField fx:id="tfSurnameConfirm" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new last name" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -102,12 +102,12 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="pfPassword" onAction="#onUserSettingsKeyTyped" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="14.0" promptText="New password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <PasswordField fx:id="pfPassword" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="14.0" promptText="New password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField fx:id="pfPasswordConfirm" onAction="#onUserSettingsKeyTyped" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
+                              <PasswordField fx:id="pfPasswordConfirm" onKeyTyped="#onUserSettingsKeyTyped" prefHeight="25.0" promptText="Repeat new password" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-border-radius: 5; -fx-text-fill: #333;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
