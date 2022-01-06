@@ -1,6 +1,9 @@
 package com.colliu.miscellaneous;
 
+import com.colliu.Main;
+
 import javax.swing.*;
+import java.net.URL;
 
 public class Info {
   public static final String INCORRECT_PASSWORD = "Invalid password.";
@@ -76,4 +79,8 @@ public class Info {
   public static final String RESOURCE_FILE_ADMIN = DOCUMENT_PATH + "Admin.JSON";
   public static final String RESOURCE_FILE_STAFF = DOCUMENT_PATH + "Staff.JSON";
   public static final String RESOURCE_FILE_EVENT = DOCUMENT_PATH + "Event.JSON";
+  public static final String RESOURCE_FILE_ADMIN_BACKUP = "" + Main.class.getResource("json/Admin.JSON");
+  public static final String RESOURCE_FILE_STUDENT_BACKUP = "" + Main.class.getResource("json/Student.JSON");
+  public static final String RESOURCE_FILE_STAFF_BACKUP = "" + Main.class.getResource("json/Staff.JSON");
+
 }

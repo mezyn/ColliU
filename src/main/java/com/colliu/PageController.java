@@ -199,8 +199,8 @@ public class PageController {
 
   /**
    * Loads User objects from the JSON file if possible.
-   * If the load fails a new file will be created with custom hardcoded com.colliu.colliu.user objects.
-   - @return Arraylist of com.colliu.colliu.user references, or null if no new users could be created.
+   * If the load fails a new file will be created with preloaded user objects.
+   - @return Arraylist of user references, or null if no new users could be created.
    */
 
   public ArrayList<User> loadUsers() {

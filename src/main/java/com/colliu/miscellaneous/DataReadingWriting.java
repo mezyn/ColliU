@@ -1,6 +1,6 @@
 package com.colliu.miscellaneous;
 
-import com.colliu.PageController;
+import com.colliu.Main;
 import com.colliu.user.Administrator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,17 +9,13 @@ import com.google.gson.JsonStreamParser;
 import com.google.gson.reflect.TypeToken;
 import com.colliu.event.Event;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+
+import org.apache.commons.io.*;
+
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.colliu.user.Staff;
@@ -33,14 +29,13 @@ public class DataReadingWriting {
 
   public ArrayList<User> loadUser() throws IOException {
     ArrayList<User> users = new ArrayList<>();
-    String fail = String.valueOf(this.getClass().getClassLoader().getResource("/json/Admin.JSON"));
     Type adminToken = TypeToken.getParameterized(ArrayList.class, Administrator.class).getType();
     ArrayList<Administrator> admins;
     try {
       admins = (ArrayList<Administrator>) loadJsonFile(Info.RESOURCE_FILE_ADMIN, adminToken);
-    } catch(IOException e) {
-      admins = (ArrayList<Administrator>) loadJsonFile(fail, adminToken);
-      System.out.println("2" + admins);
+    } catch (IOException e) {
+        FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Admin.json"), new File(Info.DOCUMENT_PATH));
+      return loadUser();
     }
 
     Type studentToken = TypeToken.getParameterized(ArrayList.class, Student.class).getType();
@@ -48,17 +43,19 @@ public class DataReadingWriting {
     try {
       students = (ArrayList<Student>) loadJsonFile(Info.RESOURCE_FILE_STUDENT, studentToken);
     } catch(IOException e) {
-      students = (ArrayList<Student>) loadJsonFile(String.valueOf(getClass().getResource("json/Student.json")), studentToken);
+      FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Student.json"), new File(Info.DOCUMENT_PATH));
+      return loadUser();
     }
 
     Type staffToken = TypeToken.getParameterized(ArrayList.class, Staff.class).getType();
     ArrayList<Staff> staff;
     try {
       staff = (ArrayList<Staff>) loadJsonFile(Info.RESOURCE_FILE_STAFF, staffToken);
-    } catch (IOException e) {
-      staff = (ArrayList<Staff>) loadJsonFile(String.valueOf(getClass().getResource("json/Staff.json")), staffToken);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Staff.json"), new File(Info.DOCUMENT_PATH));
+      return loadUser();
     }
-
     users.addAll(staff);
     users.addAll(students);
     users.addAll(admins);
@@ -68,7 +65,12 @@ public class DataReadingWriting {
 
   public ArrayList<Event> loadEvent() throws IOException {
     Type gsonToken = TypeToken.getParameterized(ArrayList.class, Event.class).getType();
-    return (ArrayList<Event>) loadJsonFile(Info.RESOURCE_FILE_EVENT, gsonToken);
+    try {
+      return (ArrayList<Event>) loadJsonFile(Info.RESOURCE_FILE_EVENT, gsonToken);
+    } catch (IOException e) {
+      FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Event.json"), new File(Info.DOCUMENT_PATH));
+      return loadEvent();
+    }
   }
 
   public boolean saveUsers(ArrayList<?> userData) {

@@ -4,6 +4,7 @@ module com.colliu.colliu {
   requires com.google.gson;
   requires java.desktop;
     requires org.controlsfx.controls;
+  requires org.apache.commons.io;
 
   opens com.colliu.controllers to javafx.fxml;
 
