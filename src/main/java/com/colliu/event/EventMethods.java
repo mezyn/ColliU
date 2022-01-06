@@ -37,7 +37,7 @@ public class EventMethods {
   public void addEvent(String title, LocalDate date, String time, String location,
                           String description, String category, String program, String host) {
     events.add(new Event(events.size(), title, date, time, location,
-        description, category, program, host));
+        program, description, category, host));
   }
 
 

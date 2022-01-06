@@ -13,7 +13,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
 import com.colliu.user.Staff;
 import com.colliu.user.Student;
 import com.colliu.user.User;
