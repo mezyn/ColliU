@@ -67,7 +67,7 @@ public class DataReadingWriting {
     Type gsonToken = TypeToken.getParameterized(ArrayList.class, Event.class).getType();
     try {
       return (ArrayList<Event>) loadJsonFile(Info.RESOURCE_FILE_EVENT, gsonToken);
-    } catch (IOException e) {
+    } catch (FileNotFoundException e) {
       FileUtils.copyFileToDirectory(new File(Paths.get("src", "main", "resources", "com", "colliu", "json").toFile().getAbsolutePath() + "/Event.json"), new File(Info.DOCUMENT_PATH));
       return loadEvent();
     }
