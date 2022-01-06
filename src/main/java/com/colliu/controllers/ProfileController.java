@@ -1,12 +1,10 @@
 package com.colliu.controllers;
 
 import com.colliu.PageController;
-
-import java.time.Year;
-
 import com.colliu.miscellaneous.Info;
 import com.colliu.miscellaneous.Style;
 import com.colliu.user.*;
+import java.time.Year;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import static java.lang.Math.abs;
+/**
+ * This class is handling all actions within the Account Settings UI.
+ */
 
 public class ProfileController {
   private PageController master;
@@ -42,6 +42,64 @@ public class ProfileController {
   private Label lblYourExamYear;
   @FXML
   private Label lblYourUserClass;
+  @FXML
+  private ComboBox<String> cbPrograms;
+  @FXML
+  private ComboBox<Integer> cbGraduationYear;
+  @FXML
+  private Label lblUsername;
+  @FXML
+  private VBox vbProfileDetails;
+  @FXML
+  private TextField tfName;
+  @FXML
+  private TextField tfNameConfirm;
+  @FXML
+  private TextField tfSurname;
+  @FXML
+  private TextField tfSurnameConfirm;
+  @FXML
+  private PasswordField pfPassword;
+  @FXML
+  private PasswordField pfPasswordConfirm;
+  @FXML
+  private Button btnCloseSettings;
+  @FXML
+  private Button btnSaveSettings;
+  @FXML
+  private Label lblWarningName;
+  @FXML
+  private Label lblWarningSurname;
+  @FXML
+  private Label lblWarningPassword;
+  @FXML
+  private Label lblIncorrectPassword;
+  @FXML
+  private PasswordField pfCurrentPassword;
+  @FXML
+  private TextField tfSearchUser;
+  @FXML
+  private Button btnToggleBan;
+  @FXML
+  private Button btnDeleteAccount;
+  @FXML
+  private Button btnPromoteAccount;
+  @FXML
+  private Pane adminSettings;
+  @FXML
+  private AnchorPane apAccountSettings;
+  @FXML
+  private VBox vbName;
+  @FXML
+  private VBox vbSurname;
+  @FXML
+  private VBox vbPassword;
+  @FXML
+  private VBox vbStudies;
+
+  /*
+      Event listeners.
+   */
 
   /**
    - @param email The email of what com.colliu.colliu.user to Toggle admin status.
@@ -66,7 +124,7 @@ public class ProfileController {
   }
 
   @FXML
-  private void onDeleteUser() {
+  private void onButtonPressDelete() {
     if (oldUser == null) {
       oldUser = userMethods.getUserByEmail(tfSearchUser.getText());
       userMethods.removeUser(tfSearchUser.getText());
@@ -80,87 +138,6 @@ public class ProfileController {
     refreshAdminButtons();
     tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
   }
-
-  @FXML
-  private ComboBox<String> cbPrograms;
-
-  @FXML
-  private ComboBox<Integer> cbGraduationYear;
-
-  @FXML
-  private Label lblUsername;
-
-  @FXML
-  private VBox vbProfileDetails;
-
-  @FXML
-  private TextField tfName;
-
-  @FXML
-  private TextField tfNameConfirm;
-
-  @FXML
-  private TextField tfSurname;
-
-  @FXML
-  private TextField tfSurnameConfirm;
-
-  @FXML
-  private PasswordField pfPassword;
-
-  @FXML
-  private PasswordField pfPasswordConfirm;
-
-  @FXML
-  private Button btnCloseSettings;
-
-  @FXML
-  private Button btnSaveSettings;
-
-  @FXML
-  private Label lblWarningName;
-
-  @FXML
-  private Label lblWarningSurname;
-
-  @FXML
-  private Label lblWarningPassword;
-
-  @FXML
-  private Label lblIncorrectPassword;
-
-  @FXML
-  private PasswordField pfCurrentPassword;
-
-  @FXML
-  private TextField tfSearchUser;
-
-  @FXML
-  private Button btnToggleBan;
-
-  @FXML
-  private Button btnDeleteAccount;
-
-  @FXML
-  private Button btnPromoteAccount;
-
-  @FXML
-  private Pane adminSettings;
-
-  @FXML
-  private AnchorPane apAccountSettings;
-
-  @FXML
-  private VBox vbName;
-
-  @FXML
-  private VBox vbSurname;
-
-  @FXML
-  private VBox vbPassword;
-
-  @FXML
-  private VBox vbStudies;
 
   @FXML
   private void onUserSettingsKeyTyped(KeyEvent event) {
@@ -267,6 +244,10 @@ public class ProfileController {
     this.userMethods = master.getUserReference();
   }
 
+  /*
+    Functionality
+   */
+
   /**
    * This method is called when showing hte profile settings window.
    * It does the initial loading of
@@ -371,6 +352,7 @@ public class ProfileController {
 
   private void checkSavePossible() {
 
+    // check if user has edited any fields:
     boolean noChanges = (tfName.getText().length() + tfNameConfirm.getText().length()
             + tfSurname.getText().length() + tfSurnameConfirm.getText().length()
             + pfPassword.getText().length() + pfPasswordConfirm.getText().length()) == 0
@@ -386,17 +368,26 @@ public class ProfileController {
       btnSaveSettings.setDisable(false);
       btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(Style.BUTTON_RED);
-    } else {
+    } else { // When all checks are not true/valid
       btnSaveSettings.setDisable(true);
       btnCloseSettings.setText(Info.CANCEL);
       btnCloseSettings.setStyle(Style.BUTTON_RED);
     }
   }
 
+  /**
+   * Force the "close/cancel" button to Close mode.
+   */
+
   private void toggleClose() {
     btnCloseSettings.setText(Info.CLOSE);
     btnCloseSettings.setStyle(Style.BUTTON_NORMAL);
   }
+
+  /**
+   * Displays either the logged in user's profile details or the user an admin has searched for.
+   - @param user The object which information is to be displayed.
+   */
 
   private void displayUser(User user) {
     String name = user.getFirstName() + " " + user.getLastName();
@@ -430,7 +421,7 @@ public class ProfileController {
 
   /**
    * This will make sure that the admin panel always display the buttons correctly.
-   * This menas that it will show demote on an admin, and promote on non admin student.
+   * This means that it will show demote on an admin, and promote on non admin student.
    * Same goes for ban, unban and delete, undo delete.
    */
 
