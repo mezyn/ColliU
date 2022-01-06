@@ -3,11 +3,11 @@ package com.colliu.controllers;
 import com.colliu.PageController;
 import com.colliu.event.EventMethods;
 import com.colliu.miscellaneous.Info;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import java.time.LocalDate;
 
 
 /**
@@ -83,8 +83,11 @@ public class CreateEventController {
     } else if (descriptionField.getText().isBlank()) {
       warningLabel.setText("Write a description about the event.");
     } else { // When all required information has been registered by a user
-        String time = cbHours.getValue() + ":" + cbMinutes.getValue();
-      eventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(), descriptionField.getText(), cbCategories.getValue(), cbPrograms.getValue(), master.getCurrentUser().getEmail());
+      String time = cbHours.getValue() + ":" + cbMinutes.getValue();
+      eventMethods.addEvent(eventTitle.getText(), eventDate, time, eventLocation.getText(),
+          descriptionField.getText(), cbCategories.getValue(), cbPrograms.getValue(),
+          master.getCurrentUser().getEmail());
+
       master.saveEvents();
       master.showHomepage();
     }
@@ -111,20 +114,29 @@ public class CreateEventController {
   */
   public void load() {
 
-    // The page should show relevant alternatives to the choice boxes/dropdown boxes, among which a user can select information about events
+    // The page should show relevant alternatives to the choice boxes/dropdown boxes
+    // among which a user can select information about events
     cbCategories.setValue("Choose category");
     cbHours.setValue("HH");
     cbMinutes.setValue("MM");
     cbPrograms.setValue("Choose program");
 
     // Alternatives that a user can choose - this will keep consistency of the application
-    ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture", "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
+    ObservableList<String> categories = FXCollections.observableArrayList("Gaming", "Guest Lecture",
+        "Hackathon", "Lunch Lecture", "Mingle", "Sports", "Student Union", "Workshop", "Others");
     cbCategories.setItems(categories);
-    ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+
+    ObservableList<String> hours = FXCollections.observableArrayList("00", "01", "02", "03",
+        "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
+        "16", "17", "18", "19", "20", "21", "22", "23");
     cbHours.setItems(hours);
-    ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55");
+
+    ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15",
+        "20", "25", "30", "35", "40", "45", "50", "55");
     cbMinutes.setItems(minutes);
-    ObservableList<String> programs = FXCollections.observableArrayList(Info.DVET, Info.SVET, Info.KOG, Info.SEM);
+
+    ObservableList<String> programs
+        = FXCollections.observableArrayList(Info.DVET, Info.SVET, Info.KOG, Info.SEM);
     cbPrograms.setItems(programs);
   }
 }
