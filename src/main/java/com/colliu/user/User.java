@@ -1,10 +1,12 @@
 package com.colliu.user;
 
 
-/*
- This class is a parent class for the other com.colliu.colliu.user type classes; namely, student, staff and administrator.
- As this is an abstract class, a User object cannot be generated; a com.colliu.colliu.user shall be either student (administrator is also student) of staff.
- For every com.colliu.colliu.user, the application requires information regarding the attributes below.
+/**
+ This class is a parent class for the other user type classes;
+ namely, student, staff and administrator.
+ As this is an abstract class, a User object cannot be generated;
+ a user shall be either student (administrator is also student) of staff.
+ For every user, the application requires information regarding the attributes below.
  */
 public abstract class User {
 
@@ -12,8 +14,7 @@ public abstract class User {
   private String password;
   private String firstName;
   private String lastName;
-  //Date of last login - relevant to
-  private boolean accountBanned; //A com.colliu.colliu.user can be banned from the system. This attribute saves the information if a com.colliu.colliu.user is banned or not.
+  private boolean accountBanned; // True if a user is banned from accessing their account.
 
   public User() {
 
@@ -23,8 +24,8 @@ public abstract class User {
   /**
    * This is a constructor for the User class.
    * It prevents the following:
-   * Emails from being blank, having the wrong format, having special characters "@", and that they are not an official
-   * GU email.
+   * Emails from being blank, having the wrong format, having special characters "@",
+     and that they are not an official GU email.
    * Passwords from being empty, that they have to at least have one uppercase letter,
    * one lowercase letter, one number and that they are between 12 and 20 characters long.
    * First names from being blank.

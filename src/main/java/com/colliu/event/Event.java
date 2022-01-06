@@ -23,7 +23,6 @@ public class Event {
   private final String category;
   private final String program;
   private final String host;
-
   // The emails of users who will attend the event.
   private final ArrayList<String> attending;
   // The emails of users who have dismissed event notification.
@@ -45,7 +44,6 @@ public class Event {
    */
   public Event(int id, String title, LocalDate date, String time, String location,
                String program, String description, String category, String host) {
-
     this.id = id;
     this.title = title;
     this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -132,6 +130,7 @@ public class Event {
   /**Allows users to retract their interest in attending an event.
    - @param email The email address of whatever user is canceling their attendance.
    */
+
   public void delAttendee(String email) {
     int index = attending.indexOf(email);
     if (index != -1) { // if a User is present in the list then remove them.
@@ -144,6 +143,7 @@ public class Event {
    * that it does not display again.
    - @param email The email address to identify which user has seen the event.
    */
+
   public void addSeenBy(String email) {
     if (!seenBy.contains(email)) {
       seenBy.add(email);
@@ -159,6 +159,7 @@ public class Event {
   /**
    - @return Time of event.
    */
+
   public String getTime() {
     return time;
   }
@@ -166,6 +167,7 @@ public class Event {
   /**
    - @return Email of event creator.
    */
+
   public String getHost() {
     return host;
   }
@@ -206,7 +208,7 @@ public class Event {
   }
 
   /**
-   - @return A copy of all reactions.
+   - @return An array of all reactions.
    */
 
   public ArrayList<String[]> getReactions() {

@@ -151,9 +151,9 @@ public class EventItem {
   }
 
   /**
-   * When placing the mouse on top of a button triggers this com.colliu.colliu.event.
+   * Placing the mouse on top of a button triggers this event.
    * Then change the opacity of the button/togglebutton.
-   - @param com.colliu.colliu.event is helping identify which button was hovered.
+   - @param event is helping identify which button was hovered.
    */
   @FXML
   private void buttonOnMouseEnter(MouseEvent event) {
@@ -166,7 +166,7 @@ public class EventItem {
 
   /**
    * Resets the opacity of the Button that was hovered.
-   - @param com.colliu.colliu.event identifies which button is no longer hovered.
+   - @param event identifies which button is no longer hovered.
    */
 
   @FXML
@@ -179,9 +179,9 @@ public class EventItem {
   }
 
   /**
-   * When clicking an emoji add this emoji to the com.colliu.colliu.event's reactiona arraylist.
-   * Also starts an animation to help the com.colliu.colliu.user keep track of which reaction they pressed.
-   - @param com.colliu.colliu.event identifies which of the 4 emojis were clicked on.
+   * When clicking an emoji add this emoji to the event's reactiona arraylist.
+   * Also starts an animation to help the user keep track of which reaction they pressed.
+   - @param event identifies which of the 4 emojis were clicked on.
    */
 
   @FXML
@@ -205,17 +205,17 @@ public class EventItem {
       stopEmoji(activeReactionImage);
     }
 
-    // Add, remove or modify reaction to the com.colliu.colliu.event.
+    // Add, remove or modify reaction to the event.
     this.event.addReaction(userEmail, reaction, name);
     // Update the list of reactions.
     addReactions();
-    // Save com.colliu.colliu.event data.
+    // Save event data.
     master.saveEvents();
   }
 
   /**
-   * Display either who is attending the com.colliu.colliu.event or what reactions have been pressed.
-   - @param com.colliu.colliu.event helps idenitfy if the com.colliu.colliu.user wants to display reactions/attending list.
+   * Display either who is attending the event or what reactions have been pressed.
+   - @param event helps idenitfy if the user wants to display reactions/attending list.
    */
 
   @FXML
@@ -223,7 +223,7 @@ public class EventItem {
     // If hovering the reaction counter/reaction list
     if (event.getSource() == lblReactions || event.getSource() == stpReactions) {
       stpReactions.setVisible(true);
-    } else { // The com.colliu.colliu.user clicked attending label or hovered Attending list.
+    } else { // The user clicked attending label or hovered Attending list.
       stpAttendees.setVisible(true);
     }
   }
@@ -234,16 +234,16 @@ public class EventItem {
    */
   @FXML
   private void closeInfo(MouseEvent event) {
-    // If com.colliu.colliu.user is no longer hovering the reaction counter or list of reactions.
+    // If user is no longer hovering the reaction counter or list of reactions.
     if (event.getSource() == lblReactions || event.getSource() == stpReactions) {
       stpReactions.setVisible(false);
-    } else { // If the com.colliu.colliu.user clicked on attending label again.
+    } else { // If the user clicked on attending label again.
       stpAttendees.setVisible(false);
     }
   }
 
   /**
-   * When com.colliu.colliu.user clicks on the attendees button.
+   * When user clicks on the attendees button.
    */
   @FXML
   private void toggleAttend() {
@@ -257,12 +257,12 @@ public class EventItem {
    */
 
   /**
-   * Sets all required information for the com.colliu.colliu.event loaded.
-   - @param com.colliu.colliu.event Is a copy of the com.colliu.colliu.event object.
+   * Sets all required information for the event loaded.
+   - @param event Is a copy of the event object.
    */
 
   public void load(Event event) {
-    // Sets a reference to the logged in com.colliu.colliu.user.
+    // Sets a reference to the logged in user.
     currentUser = master.getCurrentUser();
     userMethods = master.getUserReference();
     setEvent(event);
@@ -272,7 +272,7 @@ public class EventItem {
   }
 
   /**
-   * All visuals from the com.colliu.colliu.event object displayed in the ui.
+   * All visuals from the event object displayed in the ui.
    */
   private void setEventInfo() {
     String title = event.getTitle();
@@ -295,15 +295,15 @@ public class EventItem {
     String details = event.getDescription();
     this.txtDescription.setText(details);
 
-    // Get full height of com.colliu.colliu.event and only detail's height.
+    // Get full height of event and only detail's height.
     fullHeight = spAllEvent.getPrefHeight();
     detailsHeight = pnEventDetails.getPrefHeight();
 
-    // Remove com.colliu.colliu.event detail's height from the com.colliu.colliu.event.
+    // Remove event detail's height from the event.
     double smallHeight = fullHeight - detailsHeight;
     spAllEvent.setMaxHeight(smallHeight);
 
-    // Controlling functionality of com.colliu.colliu.event buttons
+    // Controlling functionality of event buttons
     boolean eventPassed = event.getDate().isBefore(LocalDate.now());
     btnAttend.setDisable(eventPassed);
     imgReactionOne.setDisable(eventPassed);
@@ -318,7 +318,7 @@ public class EventItem {
     String userEmail = currentUser.getEmail();
     attending = event.getAttending().contains(userEmail);
 
-    // Toggles the attend button if com.colliu.colliu.user is already attending the com.colliu.colliu.event.
+    // Toggles the attend button if user is already attending the event.
     setAttending(attending);
 
     // Hides the detailed info.
@@ -335,8 +335,8 @@ public class EventItem {
   }
 
   /**
-   * Sets a reference to the com.colliu.colliu.event that is loaded into our controller.
-   - @param com.colliu.colliu.event The com.colliu.colliu.event that is displayed to the com.colliu.colliu.user.
+   * Sets a reference to the event that is loaded into our controller.
+   - @param event The event that is displayed to the user.
    */
 
   private void setEvent(Event event) {
@@ -344,7 +344,7 @@ public class EventItem {
   }
 
   /**
-   * Updates the attend button with styling depending on if com.colliu.colliu.user is attending or not.
+   * Updates the attend button with styling depending on if user is attending or not.
    - @param status is the new status of the button "attend"/"cancel".
    */
 
@@ -373,7 +373,7 @@ public class EventItem {
   }
 
   /**
-   * Loads all the reactions to this com.colliu.colliu.event.
+   * Loads all the reactions to this event.
    */
   private void loadReactionList() {
     // Retrieve all reactions in a sorted ArrayList.
@@ -388,7 +388,7 @@ public class EventItem {
       emojiAnimation.stop();
     }
 
-    // If com.colliu.colliu.user has reacted to the com.colliu.colliu.event imgUserReaction will be set method.
+    // If user has reacted to the event imgUserReaction will be set method.
     if (imgUserReaction != null && imgUserReaction != activeReactionImage) {
       // Stop the animation.
       stopEmoji(imgUserReaction);
@@ -409,7 +409,7 @@ public class EventItem {
       reactionList[i] = infoPane(name, img, false);
     }
 
-    // If there are no reactions we let the com.colliu.colliu.user know
+    // If there are no reactions we let the user know
     // If there's only one reaction we'll add an empty one to make colors look good.
     if (size == 0) {
       final boolean empty = true;
@@ -427,7 +427,7 @@ public class EventItem {
   /**
    * This method will first loop through 1-4 (The reactions available)
    * It will in each iteration loop through all the reactions
-   * It will then check if the reaction of the com.colliu.colliu.event is the same as the reaction we're
+   * It will then check if the reaction of the event is the same as the reaction we're
    * -checking(1 through 4).
    * If it is a match it will add that reaction to another arraylist and go to the next one.
    * Thus, we are sorting them based on reaction 1, 2, 3 and 4.
@@ -478,7 +478,7 @@ public class EventItem {
   }
 
   /**
-   * Display the size of users attending this com.colliu.colliu.event.
+   * Display the size of users attending this event.
    */
 
   private void addAttendees() {
@@ -488,11 +488,11 @@ public class EventItem {
   }
 
   /**
-   * Loads all names into a VBox of panes with the student's names who are attending the com.colliu.colliu.event.
+   * Loads all names into a VBox of panes with the student's names who are attending the event.
    */
 
   private void loadAttendeesList() {
-    // Retrieve all attendees for com.colliu.colliu.event
+    // Retrieve all attendees for event
     ArrayList<String> attendees = event.getAttending();
     int size = attendees.size();
     Node[] attendeeList = new Node[(size > 0 ? size : 1)];

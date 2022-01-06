@@ -6,6 +6,7 @@ package com.colliu.miscellaneous;
  * So we resorted to inline CSS for FXML and then this external class working as "classes"-
  * that we can add dynamically.
  */
+
 public class Style {
   public static final String BUTTON_GREEN = "-fx-background-color: rgb(192,236,204);";
   public static final String BUTTON_RED = "-fx-background-color:rgb(246, 168, 166);";

@@ -1,7 +1,6 @@
 package com.colliu.miscellaneous;
 
 import com.colliu.Main;
-
 import javax.swing.*;
 
 public class Info {
@@ -38,6 +37,7 @@ public class Info {
   public static final String UNDO = "Undo";
   public static final String PROMOTE = "Promote";
   public static final String DEMOTE = "Demote";
+
   public static final String SEM = "Software engineering and management";
   public static final String KOG = "Cognitive science";
   public static final String SVET = "Systems science";

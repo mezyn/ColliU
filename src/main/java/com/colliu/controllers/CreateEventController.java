@@ -2,6 +2,7 @@ package com.colliu.controllers;
 
 import com.colliu.PageController;
 import com.colliu.event.EventMethods;
+import com.colliu.miscellaneous.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -123,7 +124,7 @@ public class CreateEventController {
     cbHours.setItems(hours);
     ObservableList<String> minutes = FXCollections.observableArrayList("00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55");
     cbMinutes.setItems(minutes);
-    ObservableList<String> programs = FXCollections.observableArrayList("Datavetenskap", "Systemvetenskap", "Kognitionsvetenskap", "Software engineering and management");
+    ObservableList<String> programs = FXCollections.observableArrayList(Info.DVET, Info.SVET, Info.KOG, Info.SEM);
     cbPrograms.setItems(programs);
   }
 }

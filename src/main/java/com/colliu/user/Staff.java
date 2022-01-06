@@ -14,7 +14,7 @@ public class Staff extends User {
    *
    */
 
-  public Staff(String email, String password, String firstName, String lastName) throws Exception{
+  public Staff(String email, String password, String firstName, String lastName) {
     super(email, password, firstName, lastName);
   }
 }

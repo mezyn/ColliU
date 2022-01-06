@@ -1,22 +1,20 @@
 package com.colliu.controllers;
 
 import com.colliu.PageController;
+import com.colliu.miscellaneous.Info;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import com.colliu.miscellaneous.Style;
 import com.colliu.user.UserMethods;
-
 import java.net.URL;
+import java.time.Year;
 import java.util.ResourceBundle;
 
 public class StudentController implements Initializable {
   private PageController master;
   private UserMethods userMethods;
-
-  @FXML
-  private Button btnRegister;
 
   @FXML
   private Label lblWarning;
@@ -40,28 +38,28 @@ public class StudentController implements Initializable {
   private ChoiceBox<String> programChoice;
 
   //Creates an array of strings with the viable options for graduation year, they are used in a choice box
-  private final String[] graduationYear = {"2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
+  private final String[] graduationYear = {String.valueOf((Year.now().getValue())), String.valueOf(Year.now().getValue() + 1), String.valueOf(Year.now().getValue() + 2), String.valueOf(Year.now().getValue() + 3)};
 
   //Creates an array of strings with the viable options for program, they are used in a choice box
-  private final String[] program = {"Software engineering and management", "Systemvetenskap", "Kognitionsvetenskap", "Datavetenskap"};
+  private final String[] program = {Info.SEM, Info.SVET, Info.KOG, Info.DVET};
 
   //Returns value of an option alternative in a choice box
-  public int getGraduationYear(ActionEvent event){
+  public int getGraduationYear() {
     return Integer.parseInt(graduationYearChoice.getValue());
   }
 
   //Returns value of an option alternative in a choice box
-  public String getProgram(ActionEvent event){
+  public String getProgram() {
     return programChoice.getValue();
   }
 
   @FXML
   private TextField tfStudentEmail;
 
-  // Tells com.colliu.colliu.user what input is wrong if it is, otherwise it creates a student
+  // Tells .user what input is wrong if it is, otherwise it creates a student
   @FXML
-  void registerStudent(ActionEvent event) throws Exception {
-    // Checks if the Email that the com.colliu.colliu.user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the com.colliu.colliu.user if any of these are fulfilled.
+  void registerStudent() throws Exception {
+    // Checks if the Email that the .user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the .user if any of these are fulfilled.
     if (tfStudentEmail.getText().isBlank()) {
       lblWarning.setText("Email cannot be blank");
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
@@ -78,13 +76,13 @@ public class StudentController implements Initializable {
       lblWarning.setText("");
       tfStudentEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
-    if (userMethods.getUserByEmail(tfStudentEmail.getText()) != null){
+    if (userMethods.getUserByEmail(tfStudentEmail.getText()) != null) {
       lblWarning.setText("Email is already registered");
       throw new Exception("Email is already registered");
     } else {
       lblWarning.setText("");
     }
-    // Checks if the first name that the com.colliu.colliu.user entered is blank or contains any numbers. Informs the com.colliu.colliu.user if any of these are fulfilled.
+    // Checks if the first name that the .user entered is blank or contains any numbers. Informs the .user if any of these are fulfilled.
     if (tfFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
       tfFirstName.setStyle(Style.TEXTFIELD_RED);
@@ -144,14 +142,14 @@ public class StudentController implements Initializable {
       lblWarning.setText("");
       tfPassword.setStyle(Style.TEXTFIELD_GREEN);
     }
-    // Puts the com.colliu.colliu.user input into variables and then creates a staff com.colliu.colliu.user. This also saves the created com.colliu.colliu.user into a JSon file and then redirects you to the login page.
+    // Puts the .user input into variables and then creates a staff .user. This also saves the created .user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStudentEmail.getText();
       String password = tfPassword.getText();
       String name = tfFirstName.getText();
       String surname = tfLastName.getText();
-      int graduationYear = getGraduationYear(event);
-      String program = getProgram(event);
+      int graduationYear = getGraduationYear();
+      String program = getProgram();
       userMethods.createStudent(email, password, name, surname, graduationYear, program);
       master.saveUsers();
       master.showLogin();
@@ -175,8 +173,8 @@ public class StudentController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     graduationYearChoice.getItems().addAll(graduationYear);
-    graduationYearChoice.setOnAction(this::getGraduationYear);
+    graduationYearChoice.getSelectionModel().select(0);
     programChoice.getItems().addAll(program);
-    programChoice.setOnAction(this::getProgram);
+    programChoice.getSelectionModel().select(0);
   }
 }

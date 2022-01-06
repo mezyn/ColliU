@@ -8,9 +8,10 @@ import javafx.scene.layout.HBox;
 
 /**
  * This is the controller for TitleBar.fxml
- * This replaces the default titlebar of the software with a styled one.
+ * This replaces the default Titlebar of the software with a styled one that fits our design.
  * Main purpose is to allow moving of the window and closing the window.
  */
+
 public class TitleBar {
 
   private double offsetY = 0.0;
@@ -20,7 +21,7 @@ public class TitleBar {
   private HBox titleBar;
 
   @FXML
-  void closeProgram(ActionEvent event) {
+  private void closeProgram(ActionEvent event) {
     ((Node) (event.getSource())).getScene().getWindow().hide();
   }
 
