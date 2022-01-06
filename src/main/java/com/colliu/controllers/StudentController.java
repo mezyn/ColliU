@@ -38,7 +38,9 @@ public class StudentController implements Initializable {
   private ChoiceBox<String> programChoice;
 
   //Creates an array of strings with the viable options for graduation year, they are used in a choice box
-  private final String[] graduationYear = {String.valueOf((Year.now().getValue())), String.valueOf(Year.now().getValue() + 1), String.valueOf(Year.now().getValue() + 2), String.valueOf(Year.now().getValue() + 3)};
+  private final String[] graduationYear = {String.valueOf((Year.now().getValue())),
+      String.valueOf(Year.now().getValue() + 1), String.valueOf(Year.now().getValue() + 2),
+      String.valueOf(Year.now().getValue() + 3)};
 
   //Creates an array of strings with the viable options for program, they are used in a choice box
   private final String[] program = {Info.SEM, Info.SVET, Info.KOG, Info.DVET};
@@ -59,7 +61,7 @@ public class StudentController implements Initializable {
   // Tells .user what input is wrong if it is, otherwise it creates a student
   @FXML
   void registerStudent() throws Exception {
-    // Checks if the Email that the .user entered is blank, ends with student.gu.se, contains any blank spaces or if the email already exists in the system. Informs the .user if any of these are fulfilled.
+    // Checks if the Email that the user entered is blank,m ends with student.gu.se,contains any blank spaces or if the email already exists in the system. Informs the .user if any of these are fulfilled.
     if (tfStudentEmail.getText().isBlank()) {
       lblWarning.setText("Email cannot be blank");
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);

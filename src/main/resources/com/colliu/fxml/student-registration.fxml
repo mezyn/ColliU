@@ -107,7 +107,7 @@
                   </Label>
                </children>
             </VBox>
-            <Button fx:id="btnRegister" layoutX="527.0" layoutY="536.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account" />
+            <Button layoutX="527.0" layoutY="536.0" mnemonicParsing="false" onAction="#registerStudent" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: rgb(192,236,204);" text="Create account" />
             <Button layoutX="369.0" layoutY="536.0" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #DDD;" text="Cancel" />
          </children>
       </Pane>

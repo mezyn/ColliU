@@ -33,10 +33,10 @@ public class StaffController {
   @FXML
   private PasswordField tfStaffPassword;
 
-  // Tells com.colliu.colliu.user what input is wrong if it is, otherwise it creates a staff com.colliu.colliu.user
+  // Tells user what input is wrong if it is, otherwise it creates a staff user
   @FXML
   private void registerStaff() throws Exception {
-    // Checks if the Email that the com.colliu.colliu.user entered is adequate
+    // Checks if the Email that the user entered is adequate
     if (tfStaffEmail.getText().isBlank()) {
       lblWarning.setText("Email cannot be blank");
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
@@ -63,7 +63,7 @@ public class StaffController {
     } else {
       lblWarning.setText("");
     }
-    // Checks if the first name that the com.colliu.colliu.user entered is blank or contains any numbers. Informs the com.colliu.colliu.user if any of these are fulfilled.
+    // Checks if the first name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffFirstName.getText().isBlank()) {
       lblWarning.setText("First name cannot be blank");
       tfStaffFirstName.setStyle(Style.TEXTFIELD_RED);
@@ -76,7 +76,7 @@ public class StaffController {
       lblWarning.setText("");
       tfStaffFirstName.setStyle(Style.TEXTFIELD_GREEN);
     }
-    // Checks if the last name that the com.colliu.colliu.user entered is blank or contains any numbers. Informs the com.colliu.colliu.user if any of these are fulfilled.
+    // Checks if the last name that the user entered is blank or contains any numbers. Informs the user if any of these are fulfilled.
     if (tfStaffLastName.getText().isBlank()) {
       lblWarning.setText("Last name cannot be blank");
       tfStaffLastName.setStyle(Style.TEXTFIELD_RED);
@@ -119,7 +119,7 @@ public class StaffController {
       tfStaffPassword.setStyle(Style.TEXTFIELD_GREEN);
     }
 
-    // Puts the com.colliu.colliu.user input into variables and then creates a staff com.colliu.colliu.user. This also saves the created com.colliu.colliu.user into a JSon file and then redirects you to the login page.
+    // Puts the user input into variables and then creates a staff user. This also saves the created user into a JSon file and then redirects you to the login page.
     try {
       String email = tfStaffEmail.getText();
       String password = tfStaffPassword.getText();

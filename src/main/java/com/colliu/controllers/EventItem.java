@@ -4,7 +4,6 @@ import com.colliu.PageController;
 import com.colliu.event.Event;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import com.colliu.user.Staff;
 import com.colliu.user.UserMethods;
 import javafx.animation.Interpolator;

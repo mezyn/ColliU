@@ -30,7 +30,7 @@ public class PageController {
   /**
    * An object will be created only at the start of the program or when displaying the login-page.
    * In the constructor three new references are created, one for loading and saving to json.
-   * One for handling the com.colliu.colliu.event-objects, and one for handing the com.colliu.colliu.user-objects.
+   * One for handling the event-objects, and one for handing the user-objects.
   */
   public PageController() {
     json = new DataReadingWriting();
@@ -216,7 +216,7 @@ public class PageController {
   }
 
   /**
-   * Saves all com.colliu.colliu.user objects in our arraylist to JSON.
+   * Saves all user objects in our arraylist to JSON.
    */
 
   public void saveUsers() {
@@ -233,7 +233,7 @@ public class PageController {
    */
 
   /**
-   * Saves all events stored in our arraylist to a JSON document on the com.colliu.colliu.user's pc.
+   * Saves all events stored in our arraylist to a JSON document on the user's pc.
    */
 
   public void saveEvents() {
@@ -244,7 +244,7 @@ public class PageController {
   }
 
   /**
-   * Attempts loading events from a json document on the com.colliu.colliu.user's pc.
+   * Attempts loading events from a json document on the user's pc.
    * If loading fails will create 10 new hardcoded events and save to a new json file.
    - @return An arraylist of either loaded events or newly created events.
    */

@@ -23,7 +23,7 @@ import org.controlsfx.control.ToggleSwitch;
 import com.colliu.user.User;
 
 /**
- * This is the controller of EventPage.fxml, it lets the com.colliu.colliu.user display and modify information in the ui.
+ * This is the controller of EventPage.fxml, it lets the user display and modify information in the ui.
  */
 public class HomepageController {
   private PageController master;
@@ -76,11 +76,11 @@ public class HomepageController {
 
 
   /**
-   * This method lets the com.colliu.colliu.user switch between upcoming, past and attending events.
+   * This method lets the user switch between upcoming, past and attending events.
    * Upcoming events are events that haven't occurred yet.
    * Past events are events that have already occurred.
-   * Attending events are upcoming events that the com.colliu.colliu.user has accepted.
-   - @param com.colliu.colliu.event which Button that was pressed, to identify the com.colliu.colliu.user's selection.
+   * Attending events are upcoming events that the user has accepted.
+   - @param event which Button that was pressed, to identify the user's selection.
    */
 
   @FXML
@@ -124,7 +124,7 @@ public class HomepageController {
   }
 
   /**
-   * This method redirects the com.colliu.colliu.user to their Profile Settings page if the button is clicked.
+   * This method redirects the user to their Profile Settings page if the button is clicked.
    * */
 
   @FXML
@@ -142,8 +142,8 @@ public class HomepageController {
   }
 
   /**
-   * This method creates a hovering effect when the com.colliu.colliu.user is hovering over the button.
-   - @param com.colliu.colliu.event Helps identify which button that triggered the method.
+   * This method creates a hovering effect when the user is hovering over the button.
+   - @param event Helps identify which button that triggered the method.
    */
 
   @FXML
@@ -152,8 +152,8 @@ public class HomepageController {
   }
 
   /**
-   * This method removes the hovering effect when the com.colliu.colliu.user is not hovering over the button.
-   - @param com.colliu.colliu.event Helps identify which button that triggered the method.
+   * This method removes the hovering effect when the user is not hovering over the button.
+   - @param event Helps identify which button that triggered the method.
    */
   @FXML
   private void hoverEffectOff(MouseEvent event) {
@@ -161,7 +161,7 @@ public class HomepageController {
   }
 
   /**
-   * This method creates a hovering effect when the com.colliu.colliu.user is hovering-
+   * This method creates a hovering effect when the user is hovering-
    * over their name in their profile.
    */
   @FXML
@@ -170,7 +170,7 @@ public class HomepageController {
   }
 
   /**
-   * This method removes the hovering effect when the com.colliu.colliu.user is no longer-
+   * This method removes the hovering effect when the user is no longer-
    * hovering over their name in their profile.
    */
   @FXML
@@ -197,7 +197,7 @@ public class HomepageController {
   }
 
   /**
-   * This method redirects the com.colliu.colliu.user(Staff) to the Create Event page.
+   * This method redirects the user(Staff) to the Create Event page.
    */
   @FXML
   private void createNewEvent()  {
@@ -206,7 +206,7 @@ public class HomepageController {
 
   /**
    * Increases the speed when scrolling the ScrollPane wrapping all the events.
-   - @param com.colliu.colliu.event is used to identify the scrollpane that called the method (for universal support).
+   - @param event is used to identify the scrollpane that called the method (for universal support).
    */
 
   @FXML
@@ -239,7 +239,7 @@ public class HomepageController {
     currentUser = master.getCurrentUser();
     setLoggedInName();
     loadEvents(allEvents);
-    // Load notifications and hide create com.colliu.colliu.event button if a student
+    // Load notifications and hide create event button if a student
     if (!(currentUser instanceof Staff)) {
       vbNameDropDown.getChildren().remove(btnCreateEvent);
       loadNotifications();
@@ -250,7 +250,7 @@ public class HomepageController {
   }
 
   /**
-   * Loads all com.colliu.colliu.event data into the UI. An external FXML is used and loaded for each com.colliu.colliu.event.
+   * Loads all event data into the UI. An external FXML is used and loaded for each event.
    - @param events the arraydata of all events that is to be loaded.
    */
 
@@ -270,7 +270,7 @@ public class HomepageController {
         eventController.load(events[i]);
       } catch (IOException failedLoad) {
         failedLoad.printStackTrace(); // This should only happen if the FXML is missing.
-        // Might want to code in a manual com.colliu.colliu.event design as a backup.
+        // Might want to code in a manual event design as a backup.
       }
     }
     eventItems.setSpacing(5);
@@ -279,7 +279,7 @@ public class HomepageController {
   }
 
   /**
-   * Displays all the new events to com.colliu.colliu.user, can be dismissed permanently.
+   * Displays all the new events to user, can be dismissed permanently.
    */
 
   private void loadNotifications() {
@@ -310,7 +310,7 @@ public class HomepageController {
   }
 
   /**
-   * If the logged in com.colliu.colliu.user is a Staff.
+   * If the logged in user is a Staff.
    */
   private void loadStaff() {
     apMiddle.getChildren().remove(btnAttending);
@@ -321,9 +321,9 @@ public class HomepageController {
 
   /**
    * Creates a custom pane for displaying notifications.
-   - @param text - The title of the com.colliu.colliu.event
-   - @param index - Where in the arraylist of events the com.colliu.colliu.event is.
-   - @param empty - Whether to create a special pane without an "X" mark and com.colliu.colliu.event listener.
+   - @param text - The title of the event
+   - @param index - Where in the arraylist of events the event is.
+   - @param empty - Whether to create a special pane without an "X" mark and event listener.
    - @return - The custom created pane.
    */
   private Pane notificationPane(String text, int index, boolean empty) {
@@ -356,7 +356,7 @@ public class HomepageController {
       markRead.setOnMouseEntered(e -> pnNotification.setOpacity(0.4));
       markRead.setOnMouseExited(e -> pnNotification.setOpacity(1));
       markRead.setOnMouseClicked(event -> {
-        // If clicked then add com.colliu.colliu.user's email to "seenBy" arraylist in com.colliu.colliu.event.java
+        // If clicked then add user's email to "seenBy" arraylist in event.java
         eventMethods.getAllEvents().get(index).addSeenBy(currentUser.getEmail());
         master.saveEvents();
         loadNotifications();

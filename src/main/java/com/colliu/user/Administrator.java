@@ -12,7 +12,7 @@ public class Administrator extends Student { // ADMINS ARE STUDENTS.
 
   //Constructor for administrator
   public Administrator(String email, String password, String firstName, String lastName,
-                       int graduationYear, String program) throws Exception {
+                       int graduationYear, String program) {
     super(email, password, firstName, lastName, graduationYear, program);
   }
 

@@ -31,12 +31,12 @@ public class UserMethods {
    */
 
   public void createStudent(String email, String password, String firstName,
-                            String lastName, int graduationYear, String program) throws Exception {
+                            String lastName, int graduationYear, String program) {
     users.add(new Student(email, password, firstName, lastName, graduationYear, program));
   }
 
   public void createAdministrator(String email, String password, String firstName,
-                          String lastName, int graduationYear, String program) throws Exception {
+                          String lastName, int graduationYear, String program) {
     users.add(new Administrator(email, password, firstName, lastName, graduationYear, program));
   }
 
@@ -48,7 +48,7 @@ public class UserMethods {
    */
 
   public void createStaff(String email, String password, String firstName,
-                          String lastName) throws Exception {
+                          String lastName) {
     users.add(new Staff(email, password, firstName, lastName));
   }
 
