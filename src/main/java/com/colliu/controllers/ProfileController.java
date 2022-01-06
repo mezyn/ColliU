@@ -320,9 +320,9 @@ public class ProfileController {
     int passSize = pass.length();
     int passConfirmSize = passConfirm.length();
 
-    boolean checkOne = (userMethods.checkPasswordComplexity(pass));
+    boolean checkOne = userMethods.checkPasswordComplexity(pass);
     System.out.println("checkOne: " + checkOne);
-    boolean checkTwo = (userMethods.checkPasswordComplexity(passConfirm));
+    boolean checkTwo = userMethods.checkPasswordComplexity(passConfirm);
     System.out.println("checkTwo: " + checkTwo);
     boolean checkThree = pass.equals(passConfirm);
     boolean checkFour = passSize == 0 || passConfirmSize == 0;
@@ -331,7 +331,7 @@ public class ProfileController {
     // if password is valid or length is zero == password confirm is valid or length is zero
     // If both have 0 length or both have correct pass
     lblWarningPassword.setText(
-        ((fieldEmpty || checkOne || checkTwo) && (checkFour || checkThree)) ? ""
+        ((fieldEmpty || checkOne || checkTwo) && (checkThree || checkFour)) ? ""
             : (checkOne || checkTwo) ? "Passwords don't match."
             : "Password requires minimum 11 characters, 1 uppercase, 1 lowercase and 1 number."
     );

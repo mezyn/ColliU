@@ -98,9 +98,9 @@ public class UserMethods {
     // not null, not blank, not between 11-20 letters does not contain upper-, lowercase or numbers
     // no spaces in password.
     return !(password == null || password.isBlank() || (password.length() < 11
-        || password.length() > 20) || password.matches("(.*[A-Z].*)")
+        || password.length() > 20) || !(password.matches("(.*[A-Z].*)")
         || password.matches("(.*[a-z].*)") || password.matches("(.*[0-9].*)")
-        || !password.contains(" "));
+        || !password.contains(" ")));
 
   }
 
