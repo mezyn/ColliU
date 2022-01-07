@@ -1,0 +1,38 @@
+[
+  {
+    "graduationYear": 2022,
+    "program": "Computer science",
+    "email": "gusdavda@student.gu.se",
+    "password": "!ush3R",
+    "firstName": "Daniel",
+    "lastName": "Davidsson",
+    "accountBanned": false
+  },
+  {
+    "graduationYear": 2023,
+    "program": "Systems science",
+    "email": "guseriem@student.gu.se",
+    "password": "\u0026ebAy.44",
+    "firstName": "Emil",
+    "lastName": "Eriksson",
+    "accountBanned": false
+  },
+  {
+    "graduationYear": 2024,
+    "program": "Cognitive science",
+    "email": "gusfrefe@student.gu.se",
+    "password": "H!Mnpintd2r!",
+    "firstName": "Felix",
+    "lastName": "Fredriksson",
+    "accountBanned": false
+  },
+  {
+    "graduationYear": 2026,
+    "program": "Software engineering and management",
+    "email": "gushenha@student.gu.se",
+    "password": "5wtyIbm!h",
+    "firstName": "Hans",
+    "lastName": "Henriksson",
+    "accountBanned": false
+  }
+]

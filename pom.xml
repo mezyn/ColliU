@@ -49,6 +49,11 @@
             <artifactId>controlsfx</artifactId>
             <version>11.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -71,7 +76,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.colliu.colliu/com.colliu.colliu.Master</mainClass>
+                            <mainClass>com.colliu.colliu/com.colliu.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #5e81f4; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.colliu.controllers.CreateEventController">
+   <children>
+      <fx:include source="TitleBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="1024.0" style="-fx-background-color: rgb(245,245,251);">
+         <children>
+            <VBox layoutX="322.0" layoutY="4.0" spacing="10.0">
+               <children>
+                  <Group>
+                     <children>
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="384.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Event Title">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="eventTitle" layoutY="30.0" onKeyReleased="#textfieldCheckMaxLength" prefHeight="37.0" prefWidth="384.0" promptText="Type event title freely" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <Label prefWidth="384.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Location">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="eventLocation" layoutY="30.0" onKeyReleased="#textfieldCheckMaxLength" prefHeight="36.0" prefWidth="384.0" promptText="Type the event venue" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <HBox spacing="30.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="177.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Date">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefWidth="162.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Time">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox layoutY="30.0" spacing="15.0">
+                           <children>
+                              <DatePicker fx:id="dpDate" onAction="#setDate" prefHeight="35.0" prefWidth="177.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                              <ChoiceBox fx:id="cbHours" prefHeight="36.0" prefWidth="88.5" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                              <ChoiceBox fx:id="cbMinutes" prefHeight="36.0" prefWidth="88.5" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <Label prefWidth="384.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Category">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="cbCategories" layoutY="30.0" prefHeight="32.0" prefWidth="384.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <Label prefWidth="384.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Study program">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="cbPrograms" layoutY="30.0" prefHeight="32.0" prefWidth="384.0" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;">
+                           <effect>
+                              <Blend />
+                           </effect>
+                        </ChoiceBox>
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <Label alignment="TOP_LEFT" prefHeight="20.0" prefWidth="384.0" style="-fx-background-color: none; -fx-text-fill: #333;" text="Description">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="descriptionField" alignment="TOP_LEFT" layoutY="30.0" onKeyReleased="#textfieldCheckMaxLength" prefHeight="86.0" prefWidth="384.0" promptText="Describe the event here" style="-fx-background-color: #FFF; -fx-border-color: #DDD; -fx-text-fill: #333; -fx-border-radius: 5;" />
+                     </children>
+                  </Group>
+                  <Label fx:id="warningLabel" alignment="CENTER" prefHeight="17.0" prefWidth="384.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox spacing="85.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onCreateEventClicked" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: rgb(192,236,204);" text="Create event">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onCancelClick" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: rgb(246, 168, 166);" text="Cancel">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Label layoutX="438.0" layoutY="38.0" text="Create Event" textFill="#5e81f4">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
