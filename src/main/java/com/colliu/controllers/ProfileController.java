@@ -408,7 +408,7 @@ public class ProfileController {
     String email = tfSearchUser.getText();
     User user = userMethods.getUserByEmail(email);
     if (user != null) {
-      if (userMethods.getUserByEmail(email).getAccountStatus()) {
+      if (user.getAccountStatus()) {
         btnToggleBan.setText("Unban");
         btnToggleBan.setStyle(Style.BUTTON_GREEN);
       } else {
@@ -418,24 +418,24 @@ public class ProfileController {
       if (user instanceof Staff) {
         btnPromoteAccount.setDisable(true);
       } else {
-        btnPromoteAccount.setText(user instanceof Administrator ? "Demote" : "Promote");
+        btnPromoteAccount.setText(user instanceof Administrator ? Info.DEMOTE : Info.PROMOTE);
         btnPromoteAccount.setStyle(user instanceof Administrator ? Style.BUTTON_RED
             : Style.BUTTON_GREEN);
         btnPromoteAccount.setDisable(false);
       }
       tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
-      btnDeleteAccount.setText("Delete");
+      btnDeleteAccount.setText(Info.DELETE);
       btnDeleteAccount.setDisable(false);
       btnToggleBan.setDisable(false);
       displayUser(user);
     } else if (oldUser != null && oldUser.getEmail().equals(email)) {
       btnPromoteAccount.setDisable(true);
       btnToggleBan.setDisable(true);
-      btnDeleteAccount.setText("Undo");
+      btnDeleteAccount.setText(Info.UNDO);
       btnDeleteAccount.setDisable(false);
       displayUser(oldUser);
-    } else if (email.length() == 0) {
-      btnDeleteAccount.setText("Delete");
+    } else {
+      btnDeleteAccount.setText(Info.DELETE);
       btnPromoteAccount.setDisable(true);
       btnToggleBan.setDisable(true);
       btnDeleteAccount.setDisable(true);

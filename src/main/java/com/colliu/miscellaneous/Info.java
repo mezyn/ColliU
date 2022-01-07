@@ -2,6 +2,7 @@ package com.colliu.miscellaneous;
 
 import com.colliu.Main;
 import javax.swing.*;
+import java.nio.file.Paths;
 
 public class Info {
   public static final String INCORRECT_PASSWORD = "Invalid password.";
@@ -13,21 +14,22 @@ public class Info {
   public static final String EMPTY_EMAIL = "Email address cannot be empty.";
   public static final String EMPTY_REACTIONS = "No reactions yet.";
   public static final String EMPTY_ATTENDEES = "No attendees yet.";
-
+  public static final String PASSWORDS_NOT_MATCHING = "Passwords do not match.";
+  public static final String PASSWORD_REQUIREMENTS = "Password must be between 11 and 20 characters, contain 1 upper- and lowercase character and 1 number.";
   public static final String ACCOUNT_STATUS_BANNED = "Account is permanently banned.";
 
   public static final String FAIL_SAVE_USERS = "Could not save users to: Students.JSON and/or Staff.JSON.";
   public static final String FAIL_SAVE_EVENTS = "Could not save events to: Event.JSON.";
   public static final String NO_USER_FILE = "Missing file(s): Student.JSON or Staff.JSON in documents/ColliU/ directory.";
   public static final String USER_FILE_CORRUPT = "User file(s): Student.JSON or Staff.JSON are corrupt and can not be loaded.";
-  public static final String CANT_PROMOTE_STUDENT = "An error was caught when promoting com.colliu.colliu.user: ";
-  public static final String CANT_DEMOTE_ADMIN = "An error was caught when demoting com.colliu.colliu.user: ";
-  public static final String CANT_CHANGE_STATUS = "An error was caught when changing com.colliu.colliu.user's status: ";
+  public static final String CANT_PROMOTE_STUDENT = "An error was caught when promoting user: ";
+  public static final String CANT_DEMOTE_ADMIN = "An error was caught when demoting user: ";
+  public static final String CANT_CHANGE_STATUS = "An error was caught when changing user's status: ";
   public static final String CANT_CREATE_STAFF = "An error was caught when creating new staff: ";
   public static final String CANT_CREATE_STUDENT = "An error was caught when creating new student: ";
   public static final String NO_EVENT_FILE = "Missing file: Event.JSON in documents/ColliU/ directory." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
   public static final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
-  public static final String CANT_REMOVE_USER = "An error was caught when trying to remove a com.colliu.colliu.user: ";
+  public static final String CANT_REMOVE_USER = "An error was caught when trying to remove a user: ";
   public static final String ATTEND = "Attend";
   public static final String CONFIRM_DELETION = "Confirm";
   public static final String SAVE_SUCCESS = "Saved successfully!";
@@ -75,7 +77,7 @@ public class Info {
   public static final String RESOURCE_ERROR_PAGE = "ErrorPage.fxml";
   public static final String RESOURCE_ACCOUNT_SETTINGS = "newAccountSettings.fxml";
   public static final String RESOURCE_EVENT_CREATION = "EventCreationPage.fxml";
-  public static final String RESOURCE_HOMEPAGE = "HomePageHomePage.fxml";
+  public static final String RESOURCE_HOMEPAGE = "HomePage.fxml";
   public static final String RESOURCE_LOGIN = "LoginPage.fxml";
   public static final String RESOURCE_REGISTER_STAFF = "staff-registration.fxml";
   public static final String RESOURCE_REGISTER_STUDENT = "student-registration.fxml";
@@ -88,9 +90,4 @@ public class Info {
   public static final String RESOURCE_FILE_ADMIN = DOCUMENT_PATH + "Admin.JSON";
   public static final String RESOURCE_FILE_STAFF = DOCUMENT_PATH + "Staff.JSON";
   public static final String RESOURCE_FILE_EVENT = DOCUMENT_PATH + "Event.JSON";
-  public static final String RESOURCE_FILE_ADMIN_BACKUP = "" + Main.class.getResource("json/Admin.JSON");
-  public static final String RESOURCE_FILE_STUDENT_BACKUP = "" + Main.class.getResource("json/Student.JSON");
-  public static final String RESOURCE_FILE_STAFF_BACKUP = "" + Main.class.getResource("json/Staff.JSON");
-  public static final String PASSWORDS_NOT_MATCHING = "Passwords do not match.";
-  public static final String PASSWORD_REQUIREMENTS = "Password must be between 11 and 20 characters, contain 1 upper- and lowercase character and 1 number.";
 }
