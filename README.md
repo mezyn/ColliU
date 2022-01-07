@@ -67,6 +67,24 @@ SEM - gushenha@student.gu.se - 5wtyIbm!h
 Program - Email - Password
 
 ## Contributing
-No further changes will be done to the project, and the repository is in its final version.
+No further changes will be done to the project after 07/01/2022 at 5:00 PM.
+
+## Author
+README is written by William Hilmersson, for any further support on installation please contact:
+```
+gushilwi@student.gu.se
+```
+ColliU is a collaboration between 8 developers, their respective contact information can be found below:
+```
+mijin@student.chalmers.se
+niag@student.chalmers.se
+adamekw@student.chalmers.se
+ebbafred@student.chalmers.se
+harringe@student.chalmers.se
+jonbergd@student.chalmers.se
+koskunen@student.chalmers.se
+wilhil@student.chalmer.se
+
+```
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
