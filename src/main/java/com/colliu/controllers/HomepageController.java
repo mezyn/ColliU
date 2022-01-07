@@ -239,6 +239,7 @@ public class HomepageController {
     currentUser = master.getCurrentUser();
     setLoggedInName();
     loadEvents(allEvents);
+    System.out.println(allEvents.length);
     // Load notifications and hide create event button if a student
     if (!(currentUser instanceof Staff)) {
       vbNameDropDown.getChildren().remove(btnCreateEvent);

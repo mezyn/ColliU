@@ -95,6 +95,25 @@ public class CreateEventController {
     eventDate = dpDate.getValue();
   }
 
+  @FXML
+  private void textfieldCheckMaxLength() {
+    String title = eventTitle.getText();
+    String location = eventLocation.getText();
+    String description = descriptionField.getText();
+    if (title.length() > 35) {
+      eventTitle.setText(title.substring(0, 35));
+      eventTitle.end();
+    }
+    if (location.length() > 15) {
+      eventLocation.setText(location.substring(0, 15));
+      eventLocation.end();
+    }
+    if (description.length() > 500) {
+      descriptionField.setText(description.substring(0, 500));
+      descriptionField.end();
+    }
+  }
+
   public void setMaster(PageController master) {
     this.master = master;
     this.eventMethods = master.getEventReference();

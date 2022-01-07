@@ -158,7 +158,8 @@ public class EventMethods {
           hostingEvents.add(event);
         }
       } else {
-        if (event.getHost().equals(email) && event.getDate().isAfter(LocalDate.now())) {
+        if (event.getHost().equals(email) && (event.getDate().isAfter(LocalDate.now())
+            || event.getDate().isEqual(LocalDate.now()))) {
           hostingEvents.add(event);
         }
       }

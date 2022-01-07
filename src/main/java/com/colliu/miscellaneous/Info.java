@@ -90,5 +90,6 @@ public class Info {
   public static final String RESOURCE_FILE_ADMIN_BACKUP = "" + Main.class.getResource("json/Admin.JSON");
   public static final String RESOURCE_FILE_STUDENT_BACKUP = "" + Main.class.getResource("json/Student.JSON");
   public static final String RESOURCE_FILE_STAFF_BACKUP = "" + Main.class.getResource("json/Staff.JSON");
-
+  public static final String PASSWORDS_NOT_MATCHING = "Passwords do not match.";
+  public static final String PASSWORD_REQUIREMENTS = "Password must be between 11 and 20 characters, contain 1 upper- and lowercase character and 1 number.";
 }

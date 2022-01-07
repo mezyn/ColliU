@@ -42,7 +42,7 @@
       </Pane>
       <AnchorPane fx:id="apMiddle" layoutX="225.0" layoutY="5.0" prefHeight="758.0" prefWidth="574.0" style="-fx-background-color: rgb(245,245,251);">
          <children>
-            <ScrollPane fx:id="eventScroll" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutY="106.0" maxWidth="574.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF; -fx-padding: 5; -fx-box-sizing: border-box;" vmax="0.5" vvalue="0.5">
+            <ScrollPane fx:id="eventScroll" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutY="106.0" maxWidth="574.0" prefHeight="559.0" prefWidth="574.0" style="-fx-background-color: #FFF; -fx-padding: 5; -fx-box-sizing: border-box;">
                <content>
                   <VBox fx:id="eventItems" alignment="CENTER" onScroll="#scrollSpeed" />
                </content></ScrollPane>

@@ -247,7 +247,7 @@ public class ProfileController {
       cbPrograms.setValue(((Student) currentUser).getProgram());
       int year = Year.now().getValue();
       ObservableList<Integer> graduationYears = FXCollections.observableArrayList(
-          year, (year + 1), -(year + 2), (year + 3));
+          year, (year + 1), (year + 2), (year + 3));
       cbGraduationYear.setItems(graduationYears);
       cbGraduationYear.setValue(((Student) currentUser).getGraduationYear());
     } else {
@@ -295,8 +295,8 @@ public class ProfileController {
     // If both have 0 length or both have correct pass
     lblWarningPassword.setText(
         ((fieldEmpty || checkOne || checkTwo) && (checkThree || checkFour)) ? ""
-            : (checkOne || checkTwo) ? "Passwords don't match."
-            : "Password requires minimum 11 characters, 1 uppercase, 1 lowercase and 1 number."
+            : (checkOne || checkTwo) ? Info.PASSWORDS_NOT_MATCHING
+            : Info.PASSWORD_REQUIREMENTS
     );
 
     pfPassword.setStyle(checkOne ? Style.TEXTFIELD_GREEN : passSize == 0
