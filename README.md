@@ -1,4 +1,4 @@
-# ColliU2
+# ColliU
 
 ColliU is a desktop based social network designed to facilitate communication between university teachers and students. By combining events hosted by the university and by the student union this united platform ensures the user that they will not miss out on events.
 
@@ -35,7 +35,7 @@ Cloning the repository into Intelli
 	url that you copied from the repository and choose a destination folder of choice, then press
 	clone.
 
-The HTTPS url for ColliU directory can also be copied from here:
+The URL for cloning ColliU repository can also be copied from here:
 ```
 https://git.chalmers.se/wilhil/colliu.git
 ```
@@ -64,6 +64,7 @@ SVET - guseriem@student.gu.se - &ebAy.44
 KOG - gusfrefe@student.gu.se - H!Mnpintd2r!
 SEM - gushenha@student.gu.se - 5wtyIbm!h
 ```
+Program - Email - Password
 
 ## Contributing
 No further changes will be done to the project, and the repository is in its final version.
