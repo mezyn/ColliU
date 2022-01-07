@@ -16,9 +16,9 @@ Prerequisites
 
 Installing Software Executable
 - For Windows OS: Place the executable JAR file either on your Desktop or in another folder on your
-C:\user\PROFILE_NAME directory. <br>
-**AVOID** placing it directly in the C:\ directory.
-- For Mac-OS: place it either on the desktop, or in your Home directory.
+```C:\user\PROFILE_NAME``` directory. <br>
+**AVOID** placing it directly in the ```C:\``` directory.
+- For Mac-OS: place it either on the desktop, or in your ```Home``` directory.
 
 ### How to clone repository (IntelliJ)
 Prerequisites
