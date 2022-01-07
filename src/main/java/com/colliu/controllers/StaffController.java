@@ -42,10 +42,10 @@ public class StaffController {
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email cannot be blank");
     } else if (!tfStaffEmail.getText().endsWith("gu.se")) {
-      lblWarning.setText("Email must end with 'gu.se'");
+      lblWarning.setText("Email must be a GU provided address.");
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
-      throw new Exception("Email must end with 'gu.se'");
-    } else if (tfStaffEmail.getText().contains("student")) {
+      throw new Exception("Email must be a GU provided address.");
+    } else if (tfStaffEmail.getText().endsWith("@student.gu.se")) {
       lblWarning.setText("Students can't register as staff");
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Students can't register as staff");
@@ -53,7 +53,12 @@ public class StaffController {
       lblWarning.setText("Email cannot contain any blank spaces");
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email cannot contain any blank spaces");
-    } else {
+    } else if (tfStaffEmail.getText().chars().filter(num -> num == '@').count() > 1
+        || tfStaffEmail.getText().endsWith("@.gu.se")) {
+      lblWarning.setText("Email is invalid.");
+      tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
+      throw new Exception("Email is invalid.");
+    }  else {
       lblWarning.setText("");
       tfStaffEmail.setStyle(Style.TEXTFIELD_GREEN);
     }
