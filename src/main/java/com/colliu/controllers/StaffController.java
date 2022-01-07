@@ -54,7 +54,7 @@ public class StaffController {
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email cannot contain any blank spaces");
     } else if (tfStaffEmail.getText().chars().filter(num -> num == '@').count() > 1
-        || tfStaffEmail.getText().endsWith("@.gu.se")) {
+        || tfStaffEmail.getText().endsWith("@.gu.se") || tfStaffEmail.getText().startsWith("@")) {
       lblWarning.setText("Email is invalid.");
       tfStaffEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email is invalid.");

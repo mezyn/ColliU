@@ -67,17 +67,18 @@ public class StudentController implements Initializable {
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email name cannot be blank");
     } else if (!tfStudentEmail.getText().endsWith("@student.gu.se")) {
-      lblWarning.setText("Email must end with: 'student.gu.se'");
+      lblWarning.setText("Email must be a GU provided student address.");
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email must be a GU provided student address.");
     } else if (tfStudentEmail.getText().contains(" ")) {
       lblWarning.setText("Email cannot contain any blank spaces");
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
       throw new Exception("Email cannot contain any blank spaces");
-    } else if (tfStudentEmail.getText().chars().filter(num -> num == '@').count() > 1) {
-      lblWarning.setText("Email is invalid");
+    } else if (tfStudentEmail.getText().chars().filter(num -> num == '@').count() > 1
+        || tfStudentEmail.getText().startsWith("@")) {
+      lblWarning.setText("Email is invalid.");
       tfStudentEmail.setStyle(Style.TEXTFIELD_RED);
-      throw new Exception("Email cannot contain any blank spaces");
+      throw new Exception("Email is invalid.");
     } else {
       lblWarning.setText("");
       tfStudentEmail.setStyle(Style.TEXTFIELD_GREEN);
