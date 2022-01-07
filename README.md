@@ -43,7 +43,7 @@ https://git.chalmers.se/wilhil/colliu.git
 ## Usage
 ### Custom accounts were created and preloaded into the software for grading purposes.
 
-#### STAFF:
+STAFF:
 
 ```
 benjamin.bengtsson@gu.se - !Lov3MyPiano
@@ -51,13 +51,13 @@ christian.carlsson@cse.gu.se - jellY22fi$h
 info@gota.gu.se - P^45k9jw
 ```
 Email - Password
-#### STUDENT ADMINISTRATOR
+STUDENT ADMINISTRATOR
 ```
 SEM - gusandan@student.gu.se - a11Black$
 SEM - gushilwi@student.gu.se - Hej123123!!
 ```
 Program - Email - Password
-#### STUDENT
+STUDENT
 ```
 DVET - gusdavda@student.gu.se - !ush3R
 SVET - guseriem@student.gu.se - &ebAy.44
