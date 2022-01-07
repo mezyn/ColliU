@@ -34,6 +34,8 @@ public class StaffController {
   private PasswordField tfStaffPassword;
 
   // Tells user what input is wrong if it is, otherwise it creates a staff user
+  // I dont think we should throw exceptions since we do not catch them,
+  // and have a conditional checking already / William
   @FXML
   private void registerStaff() throws Exception {
     // Checks if the Email that the user entered is adequate

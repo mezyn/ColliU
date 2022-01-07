@@ -59,6 +59,8 @@ public class StudentController implements Initializable {
   private TextField tfStudentEmail;
 
   // Tells .user what input is wrong if it is, otherwise it creates a student
+  // I dont think we should throw exceptions since we do not catch them,
+  // and have a conditional checking already / William
   @FXML
   void registerStudent() throws Exception {
     // Checks if the Email that the user entered is blank,m ends with student.gu.se,contains any blank spaces or if the email already exists in the system. Informs the .user if any of these are fulfilled.
