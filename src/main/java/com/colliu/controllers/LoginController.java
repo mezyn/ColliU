@@ -90,63 +90,8 @@ public class LoginController {
     ((Button) event.getSource()).setOpacity(1);
   }
 
-  @FXML
-  private ComboBox<String> cbLogin; /*******DELETE ME BEFORE SUBMIT ***************/
-
   public void setMaster(PageController master) {
     this.master = master;
     userMethods = master.getUserReference();
-    loginDetails = new String[userMethods.getAllUsers().size()][2];  /*******DELETE ME BEFORE SUBMIT ***************/
-    for (int i = 0; i < userMethods.getAllUsers().size(); i++) {  /*******DELETE ME BEFORE SUBMIT ***************/
-      loginDetails[i][0] = userMethods.getAllUsers().get(i).getEmail();  /*******DELETE ME BEFORE SUBMIT ***************/
-      loginDetails[i][1] = userMethods.getAllUsers().get(i).getPassword(); /*******DELETE ME BEFORE SUBMIT ***************/
-    }
-    /*******DELETE ME BEFORE SUBMIT ***************/
-    ObservableList<String> items = FXCollections.observableArrayList("Admin", "Staff", "Staff2", "Staff3", "Student", "Student2", "Student3", "Student4");
-    cbLogin.setItems(items);  /*******DELETE ME BEFORE SUBMIT ***************/
-    cbLogin.getSelectionModel().selectFirst();  /*******DELETE ME BEFORE SUBMIT ***************/
   }
-
-  /*******DELETE ME BEFORE SUBMIT ***************/
-  @FXML
-  private void enterDetails() { /*******DELETE ME BEFORE SUBMIT ***************/
-    String email; /*******DELETE ME BEFORE SUBMIT ***************/
-    String pass; /*******DELETE ME BEFORE SUBMIT ***************/
-    switch(cbLogin.getValue()) { /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Admin": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[0][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[0][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Staff": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[1][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[1][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Staff2": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[2][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[2][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Staff3": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[3][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[3][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Student": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[4][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[4][1]; /*******DELETE ME BEFORE SUBMIT ***************/ /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Student2": /*******DELETE ME BEFORE SUBMIT ***************/
-        email = loginDetails[5][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[5][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break; /*******DELETE ME BEFORE SUBMIT ***************/
-      case "Student3":
-        email = loginDetails[6][0];
-        pass = loginDetails[6][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-        break;
-      default:
-        email = loginDetails[7][0]; /*******DELETE ME BEFORE SUBMIT ***************/
-        pass = loginDetails[7][1]; /*******DELETE ME BEFORE SUBMIT ***************/
-    } /*******DELETE ME BEFORE SUBMIT ***************/
-    guEmail.setText(email); /*******DELETE ME BEFORE SUBMIT ***************/
-    password.setText(pass); /*******DELETE ME BEFORE SUBMIT ***************/
-  }
-
 }

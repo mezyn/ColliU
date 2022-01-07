@@ -74,7 +74,7 @@ public class UserMethods {
    */
 
   public boolean validatePassword(String email, String password) {
-    return getUserByEmail(email).getPassword().equals(password);
+    return getUserByEmail(email) != null && getUserByEmail(email).getPassword().equals(password);
   }
 
 
