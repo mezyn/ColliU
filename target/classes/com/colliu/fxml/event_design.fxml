@@ -27,12 +27,12 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="133.0" text="Date:" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="131.5" text="Date:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="230.0" layoutY="132.0" text="Time:" textFill="WHITE">
+            <Label layoutX="230.0" layoutY="131.5" text="Time:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -106,7 +106,7 @@
                </children>
             </Pane>
             <Label fx:id="lblLocation" layoutX="449.0" layoutY="133.0" text="LOCATION" textFill="WHITE" />
-            <Label layoutX="378.0" layoutY="133.0" text="Location:" textFill="WHITE">
+            <Label layoutX="378.0" layoutY="131.5" text="Location:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
