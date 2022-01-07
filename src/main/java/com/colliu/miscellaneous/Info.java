@@ -29,6 +29,7 @@ public class Info {
   public static final String EVENT_FILE_CORRUPT = "Event file: Event.JSON are corrupt and can not be loaded." + System.lineSeparator() + "A blank Event file is loaded. All previous events are lost.";
   public static final String CANT_REMOVE_USER = "An error was caught when trying to remove a com.colliu.colliu.user: ";
   public static final String ATTEND = "Attend";
+  public static final String CONFIRM_DELETION = "Confirm";
   public static final String SAVE_SUCCESS = "Saved successfully!";
   public static final String ENTER_PASSWORD = "Enter your current password.";
   public static final String CANCEL = "Cancel";

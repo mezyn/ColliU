@@ -4,6 +4,8 @@ import com.colliu.PageController;
 import com.colliu.event.Event;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import com.colliu.event.EventMethods;
 import com.colliu.user.Staff;
 import com.colliu.user.UserMethods;
 import javafx.animation.Interpolator;
@@ -37,13 +39,17 @@ public class EventItem {
   private double detailsHeight; // The height of the details that will be hidden on load.
   private boolean attending;
   private Event event;
+  private int index;
   private SequentialTransition emojiAnimation;
   private SequentialTransition activeReaction;
   private ImageView activeReactionImage;
   private ImageView imgUserReaction;
   private PageController master;
+  private EventMethods eventMethods;
+  private HomepageController homepage;
   private User currentUser;
   private UserMethods userMethods;
+  private boolean deletePress;
 
   @FXML
   private Label lblAttendees;
@@ -108,10 +114,22 @@ public class EventItem {
    */
 
   @FXML
- private void attendEvent() {
-    setAttending(!attending);
-    master.saveEvents();
-    addAttendees();
+ private void buttonAttendDeletePressed() {
+    if (currentUser instanceof Staff) {
+      if (deletePress) {
+        eventMethods.delEvent(index);
+        master.saveEvents();
+        homepage.load();
+      } else {
+        deletePress = true;
+        btnAttend.setText(Info.CONFIRM_DELETION);
+        btnAttend.setStyle(Style.BUTTON_RED);
+      }
+    } else {
+      setAttending(!attending);
+      addAttendees();
+      master.saveEvents();
+    }
   }
 
   /**
@@ -264,6 +282,7 @@ public class EventItem {
     // Sets a reference to the logged in user.
     currentUser = master.getCurrentUser();
     userMethods = master.getUserReference();
+    deletePress = false;
     setEvent(event);
     setEventInfo();
     addReactions();
@@ -310,10 +329,6 @@ public class EventItem {
     imgReactionThree.setDisable(eventPassed);
     imgReactionFour.setDisable(eventPassed);
 
-    // Staff cannot attend their own events.
-    boolean isStudent = !(currentUser instanceof Staff);
-    btnAttend.setVisible(isStudent);
-
     String userEmail = currentUser.getEmail();
     attending = event.getAttending().contains(userEmail);
 
@@ -322,6 +337,8 @@ public class EventItem {
 
     // Hides the detailed info.
     pnEventDetails.setVisible(false);
+
+    this.index = eventMethods.getAllEvents().indexOf(event);
   }
 
   /**
@@ -329,8 +346,10 @@ public class EventItem {
    - @param master is the reference to our mastercontroller.
    */
 
-  public void setMaster(PageController master) {
+  public void setMaster(PageController master, HomepageController homepage) {
     this.master = master;
+    this.eventMethods = master.getEventReference();
+    this.homepage = homepage;
   }
 
   /**
@@ -339,7 +358,12 @@ public class EventItem {
    */
 
   private void setEvent(Event event) {
-    this.event = event;
+    if (event == null) {
+      eventMethods.delEvent(this.event.getId());
+      master.showHomepage();
+    } else {
+      this.event = event;
+    }
   }
 
   /**
@@ -348,16 +372,21 @@ public class EventItem {
    */
 
   private void setAttending(boolean status) {
-    this.attending = status;
-    String userEmail = currentUser.getEmail();
-    if (attending) {
-      event.addAttendee(userEmail);
-      btnAttend.setStyle(Style.BUTTON_RED);
-      btnAttend.setText(Info.CANCEL);
+    if (!(currentUser instanceof Staff)) {
+      this.attending = status;
+      String userEmail = currentUser.getEmail();
+      if (attending) {
+        event.addAttendee(userEmail);
+        btnAttend.setStyle(Style.BUTTON_RED);
+        btnAttend.setText(Info.CANCEL);
+      } else {
+        event.delAttendee(userEmail);
+        btnAttend.setStyle(Style.BUTTON_GREEN);
+        btnAttend.setText(Info.ATTEND);
+      }
     } else {
-      event.delAttendee(userEmail);
-      btnAttend.setStyle(Style.BUTTON_GREEN);
-      btnAttend.setText(Info.ATTEND);
+      btnAttend.setStyle(Style.BUTTON_NORMAL);
+      btnAttend.setText(Info.DELETE);
     }
   }
 

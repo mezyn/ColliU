@@ -12,9 +12,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.colliu.miscellaneous.Info;
@@ -267,12 +272,20 @@ public class HomepageController {
         eventItems.getChildren().add(eventList[i]);
         eventItems.getChildren().get(0).setLayoutX(0);
         EventItem eventController = eventLoader.getController();
-        eventController.setMaster(master);
+        eventController.setMaster(master, this);
         eventController.load(events[i]);
       } catch (IOException failedLoad) {
         failedLoad.printStackTrace(); // This should only happen if the FXML is missing.
         // Might want to code in a manual event design as a backup.
       }
+    }
+    Label noEvents;
+    if (events.length == 0) {
+      noEvents = new Label("There are no events, check back later!");
+      noEvents.setMinSize(500, 30);
+      noEvents.setAlignment(Pos.CENTER);
+      noEvents.setStyle("font-size:30px");
+      eventItems.getChildren().add(noEvents);
     }
     eventItems.setSpacing(5);
     eventScroll.setContent(eventItems);

@@ -40,6 +40,10 @@ public class EventMethods {
         program, description, category, host));
   }
 
+  public void delEvent(int id) {
+    events.remove(id);
+  }
+
 
   /**
    * This method takes an Array of integers with the user's courses

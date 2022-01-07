@@ -41,7 +41,7 @@
             <Label fx:id="lblTime" layoutX="275.0" layoutY="133.0" text="00:00" textFill="WHITE" />
             <Pane fx:id="pnEventDetails" layoutX="5.0" layoutY="151.0" prefHeight="124.0" prefWidth="545.0" style="-fx-background-color: inherit;">
                <children>
-                  <ToggleButton fx:id="btnAttend" layoutX="478.0" layoutY="91.0" mnemonicParsing="false" onAction="#attendEvent" onMouseEntered="#buttonOnMouseEnter" onMouseExited="#buttonOnMouseExited" style="-fx-background-color: rgb(192,236,204);" text="Attend">
+                  <ToggleButton fx:id="btnAttend" layoutX="478.0" layoutY="91.0" mnemonicParsing="false" onAction="#buttonAttendDeletePressed" onMouseEntered="#buttonOnMouseEnter" onMouseExited="#buttonOnMouseExited" style="-fx-background-color: rgb(192,236,204);" text="Attend">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ToggleButton>
