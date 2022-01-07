@@ -75,7 +75,7 @@ public class Info {
   public static final String RESOURCE_ERROR_PAGE = "ErrorPage.fxml";
   public static final String RESOURCE_ACCOUNT_SETTINGS = "newAccountSettings.fxml";
   public static final String RESOURCE_EVENT_CREATION = "EventCreationPage.fxml";
-  public static final String RESOURCE_HOMEPAGE = "HomePage.fxml";
+  public static final String RESOURCE_HOMEPAGE = "HomePageHomePage.fxml";
   public static final String RESOURCE_LOGIN = "LoginPage.fxml";
   public static final String RESOURCE_REGISTER_STAFF = "staff-registration.fxml";
   public static final String RESOURCE_REGISTER_STUDENT = "student-registration.fxml";

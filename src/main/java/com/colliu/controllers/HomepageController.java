@@ -28,7 +28,7 @@ import org.controlsfx.control.ToggleSwitch;
 import com.colliu.user.User;
 
 /**
- * This is the controller of EventPage.fxml, it lets the user display and modify information in the ui.
+ * This is the controller of HomePage.fxml, it lets the user display and modify information in the ui.
  */
 public class HomepageController {
   private PageController master;
