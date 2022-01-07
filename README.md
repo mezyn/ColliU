@@ -6,6 +6,14 @@ We strive to ensure that our platform is easy to use and accessible for people o
 
 If you are experiencing any troubles with our platform make sure to contact us or any of our administrators. Our information can be found on page INSERT CORRECT PAGE HERE
 
+## Who is this for?
+This software is intended for students and staff at Gothenburg University of the IT Faculty.
+
+To create an account you must have an email adress provided by the university of Gothenburg, and be part of one of the IT focused programs:
+
+```Software Engineering and Management, Cognition Science, Systems Science or Computer Science.```
+
+Our goal is to further develop ColliU to be available to all Students attending either Chalmers universitry or the University of Gothenburg.
 
 ## Installation
 ### Installing software executable (JAR)
