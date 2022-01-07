@@ -101,16 +101,19 @@ public class ProfileController {
       Event listeners.
    */
 
-  /**
-   - @param email The email of what com.colliu.colliu.user to Toggle admin status.
-   */
 
+  /** ADMIN
+   * When pressing demote/promote button.
+   */
   @FXML
   private void onButtonPressPromoteUserToAdmin() {
     userMethods.toggleAdminStatus(tfSearchUser.getText());
     refreshAdminButtons();
   }
 
+  /** ADMIN
+   * When pressing ban/unban button.
+   */
   @FXML
   private void onButtonPressBanUser() {
     User userProfile = userMethods.getUserByEmail(tfSearchUser.getText());
@@ -123,20 +126,20 @@ public class ProfileController {
     refreshAdminButtons();
   }
 
+  /** ADMIN
+   * When pressing delete/undo button.
+   * Checks if there's an account that's just been deleted.
+   */
   @FXML
   private void onButtonPressDelete() {
-    if (oldUser == null) {
+    if (oldUser == null || !oldUser.getEmail().equals(tfSearchUser.getText())) {
       oldUser = userMethods.getUserByEmail(tfSearchUser.getText());
       userMethods.removeUser(tfSearchUser.getText());
-      load();
-    } else {
+    } else if (oldUser.getEmail().equals(tfSearchUser.getText())) {
       userMethods.addUser(oldUser);
-      tfSearchUser.setText(oldUser.getEmail());
-      displayUser(oldUser);
       oldUser = null;
     }
     refreshAdminButtons();
-    tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
   }
 
   @FXML
@@ -178,26 +181,7 @@ public class ProfileController {
 
   @FXML
   private void onSearchUserKeyTyped() {
-    String email = tfSearchUser.getText();
-    User userProfile = userMethods.getUserByEmail(email);
-    if (email.length() == 0) {
-      load();
-      tfSearchUser.setStyle(Style.TEXTFIELD_NORMAL);
-      btnToggleBan.setDisable(true);
-      btnPromoteAccount.setDisable(true);
-      btnDeleteAccount.setDisable(true);
-    } else if (userProfile == null) {
-      load();
-      tfSearchUser.setStyle(Style.TEXTFIELD_RED);
-      btnToggleBan.setDisable(true);
-      btnPromoteAccount.setDisable(true);
-      btnDeleteAccount.setDisable(true);
-    } else if (userProfile != currentUser) {
-      tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
-      // get logged in user's name:
-      displayUser(userProfile);
-      refreshAdminButtons();
-    }
+    refreshAdminButtons();
   }
 
   @FXML
@@ -302,9 +286,7 @@ public class ProfileController {
     int passConfirmSize = passConfirm.length();
 
     boolean checkOne = userMethods.checkPasswordComplexity(pass);
-    System.out.println("checkOne: " + checkOne);
     boolean checkTwo = userMethods.checkPasswordComplexity(passConfirm);
-    System.out.println("checkTwo: " + checkTwo);
     boolean checkThree = pass.equals(passConfirm);
     boolean checkFour = passSize == 0 || passConfirmSize == 0;
     boolean fieldEmpty = passSize + passConfirmSize == 0;
@@ -414,9 +396,6 @@ public class ProfileController {
     lblUsername.setText(name);
     lblYourEmail.setText(email);
     lblYourUserClass.setText(role);
-    btnToggleBan.setDisable(false);
-    btnPromoteAccount.setDisable(false);
-    btnDeleteAccount.setDisable(false);
   }
 
   /**
@@ -427,8 +406,8 @@ public class ProfileController {
 
   private void refreshAdminButtons() {
     String email = tfSearchUser.getText();
-    User user = userMethods.getUserByEmail(tfSearchUser.getText());
-    if (user != null && user != currentUser) {
+    User user = userMethods.getUserByEmail(email);
+    if (user != null) {
       if (userMethods.getUserByEmail(email).getAccountStatus()) {
         btnToggleBan.setText("Unban");
         btnToggleBan.setStyle(Style.BUTTON_GREEN);
@@ -442,12 +421,27 @@ public class ProfileController {
         btnPromoteAccount.setText(user instanceof Administrator ? "Demote" : "Promote");
         btnPromoteAccount.setStyle(user instanceof Administrator ? Style.BUTTON_RED
             : Style.BUTTON_GREEN);
+        btnPromoteAccount.setDisable(false);
       }
-    } else {
+      tfSearchUser.setStyle(Style.TEXTFIELD_GREEN);
+      btnDeleteAccount.setText("Delete");
+      btnDeleteAccount.setDisable(false);
+      btnToggleBan.setDisable(false);
+      displayUser(user);
+    } else if (oldUser != null && oldUser.getEmail().equals(email)) {
+      btnPromoteAccount.setDisable(true);
+      btnToggleBan.setDisable(true);
+      btnDeleteAccount.setText("Undo");
+      btnDeleteAccount.setDisable(false);
+      displayUser(oldUser);
+    } else if (email.length() == 0) {
+      btnDeleteAccount.setText("Delete");
       btnPromoteAccount.setDisable(true);
       btnToggleBan.setDisable(true);
       btnDeleteAccount.setDisable(true);
+      tfSearchUser.setStyle(tfSearchUser.getText().length() == 0
+          ? Style.TEXTFIELD_NORMAL : Style.TEXTFIELD_RED);
+      displayUser(currentUser);
     }
-    btnDeleteAccount.setText(oldUser == null ? "Delete" : "Undo");
   }
 }

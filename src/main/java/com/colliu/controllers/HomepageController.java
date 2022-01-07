@@ -191,7 +191,6 @@ public class HomepageController {
     } else {
       tags.add(category);
     }
-    System.out.println(category);
     String[] tagsToFilter = tags.toArray(new String[0]);
     loadEvents(tags.size() > 0 ? eventMethods.filterEvents(tagsToFilter)
         : eventMethods.getUpcomingEvents());

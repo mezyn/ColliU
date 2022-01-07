@@ -24,14 +24,14 @@ public class EventMethods {
   }
 
   /**
-   - @param title A way to quickly describe the com.colliu.colliu.event.
-   - @param date The date of when the com.colliu.colliu.event occurs.
-   - @param time The time of when the com.colliu.colliu.event occurs on that day.
-   - @param location The location where com.colliu.colliu.event is hosted.
-   - @param description A more detailed explanation/description for the com.colliu.colliu.event.
-   - @param category A way to let users filter the com.colliu.colliu.event by type.
-   - @param program Which group of users will be able to see the com.colliu.colliu.event.
-   - @param host The email of the com.colliu.colliu.user who created the com.colliu.colliu.event.
+   - @param title A way to quickly describe the event.
+   - @param date The date of when the event occurs.
+   - @param time The time of when the event occurs on that day.
+   - @param location The location where event is hosted.
+   - @param description A more detailed explanation/description for the event.
+   - @param category A way to let users filter the event by type.
+   - @param program Which group of users will be able to see the event.
+   - @param host The email of the user who created the event.
    */
 
   public void addEvent(String title, LocalDate date, String time, String location,
@@ -128,10 +128,10 @@ public class EventMethods {
     for (Event programEvent : programEvents) {
       // Then loops through all the tags/filters
       for (String tag : tags) {
-        // Checks if the category in the com.colliu.colliu.event is the same as one of our tags-
+        // Checks if the category in the event is the same as one of our tags-
         // Also checks if it's already added in our list. to avoid duplicates
         if (programEvent.getCategory().equals(tag)) {
-          // Adds the com.colliu.colliu.event to our new arraylist of events we want to show
+          // Adds the event to our new arraylist of events we want to show
           filteredEvents.add(programEvent);
         }
       }
